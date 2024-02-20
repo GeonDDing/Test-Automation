@@ -1,0 +1,4061 @@
+[
+    {
+        "sourceurl": "udp://239.0.166.1:5500/vpid/1193/apid1/3189/apid2/-1/apid3/-1/apid4/-1/apid5/-1/apid6/-1/apid7/-1/apid8/-1/apid9/-1/apid10/-1/apid11/-1/apid12/-1/apid13/-1/apid14/-1/apid15/-1/apid16/-1/apid17/-1/apid18/-1/apid19/-1/apid20/-1/apid21/-1/apid22/-1/apid23/-1/apid24/-1/apid25/-1/apid26/-1/apid27/-1/apid28/-1/apid29/-1/apid30/-1/apid31/-1/apid32/-1",
+        "enableIdleStart": 1,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": -1,
+        "srtAdvancedParameters": "",
+        "id": 1941,
+        "name": "Animal Planet HD",
+        "outputs": [
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 1835
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 6,
+                "outputurl1": "http://10.1.0.130/jj/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": {
+                    "duration": "3,84",
+                    "alang1": "Auto",
+                    "alang2": "Auto",
+                    "alang3": "Auto",
+                    "alang4": "Auto",
+                    "servertype": 3,
+                    "timescale": 0,
+                    "hevccodectag": "",
+                    "sendmfraatstop": 1,
+                    "namingMethod": 1,
+                    "enableScte35": 0,
+                    "enableScte35Options": "Disabled",
+                    "outputMode": 0
+                },
+                "dash": [],
+                "cmaf": [],
+                "id": 2540,
+                "updated_time": "2023-11-09 11:09:04"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 1836
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 6,
+                "outputurl1": "http://10.1.0.130/jj/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": {
+                    "duration": "3,84",
+                    "alang1": "Auto",
+                    "alang2": "Auto",
+                    "alang3": "Auto",
+                    "alang4": "Auto",
+                    "servertype": 3,
+                    "timescale": 0,
+                    "hevccodectag": "",
+                    "sendmfraatstop": 1,
+                    "namingMethod": 1,
+                    "enableScte35": 0,
+                    "enableScte35Options": "Disabled",
+                    "outputMode": 0
+                },
+                "dash": [],
+                "cmaf": [],
+                "id": 2541,
+                "updated_time": "2023-11-05 09:42:43"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 1837
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 6,
+                "outputurl1": "http://10.1.0.130/jj/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": {
+                    "duration": "3,84",
+                    "alang1": "Auto",
+                    "alang2": "Auto",
+                    "alang3": "Auto",
+                    "alang4": "Auto",
+                    "servertype": 3,
+                    "timescale": 0,
+                    "hevccodectag": "",
+                    "sendmfraatstop": 1,
+                    "namingMethod": 1,
+                    "enableScte35": 0,
+                    "enableScte35Options": "Disabled",
+                    "outputMode": 0
+                },
+                "dash": [],
+                "cmaf": [],
+                "id": 2542,
+                "updated_time": "2023-11-05 09:42:43"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 1838
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 6,
+                "outputurl1": "http://10.1.0.130/jj/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": {
+                    "duration": "3,84",
+                    "alang1": "Auto",
+                    "alang2": "Auto",
+                    "alang3": "Auto",
+                    "alang4": "Auto",
+                    "servertype": 3,
+                    "timescale": 0,
+                    "hevccodectag": "",
+                    "sendmfraatstop": 1,
+                    "namingMethod": 1,
+                    "enableScte35": 0,
+                    "enableScte35Options": "Disabled",
+                    "outputMode": 0
+                },
+                "dash": [],
+                "cmaf": [],
+                "id": 2543,
+                "updated_time": "2023-11-05 09:42:43"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 1839
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 2184
+                    }
+                ],
+                "outputtype": 6,
+                "outputurl1": "http://10.1.0.130/jj/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": {
+                    "duration": "3,84",
+                    "alang1": "eng",
+                    "alang2": "Auto",
+                    "alang3": "Auto",
+                    "alang4": "Auto",
+                    "servertype": 3,
+                    "timescale": 0,
+                    "hevccodectag": "",
+                    "sendmfraatstop": 1,
+                    "namingMethod": 1,
+                    "enableScte35": 0,
+                    "enableScte35Options": "Disabled",
+                    "outputMode": 0
+                },
+                "dash": [],
+                "cmaf": [],
+                "id": 2544,
+                "updated_time": "2023-11-05 09:42:43"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 1840
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 6,
+                "outputurl1": "http://10.1.0.130/jj/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": {
+                    "duration": "3,84",
+                    "alang1": "Auto",
+                    "alang2": "Auto",
+                    "alang3": "Auto",
+                    "alang4": "Auto",
+                    "servertype": 3,
+                    "timescale": 0,
+                    "hevccodectag": "",
+                    "sendmfraatstop": 1,
+                    "namingMethod": 1,
+                    "enableScte35": 0,
+                    "enableScte35Options": "Disabled",
+                    "outputMode": 0
+                },
+                "dash": [],
+                "cmaf": [],
+                "id": 2545,
+                "updated_time": "2023-11-05 09:42:43"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 1841
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 6,
+                "outputurl1": "http://10.1.0.130/jj/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": {
+                    "duration": "3,84",
+                    "alang1": "Auto",
+                    "alang2": "Auto",
+                    "alang3": "Auto",
+                    "alang4": "Auto",
+                    "servertype": 3,
+                    "timescale": 0,
+                    "hevccodectag": "",
+                    "sendmfraatstop": 1,
+                    "namingMethod": 1,
+                    "enableScte35": 0,
+                    "enableScte35Options": "Disabled",
+                    "outputMode": 0
+                },
+                "dash": [],
+                "cmaf": [],
+                "id": 2546,
+                "updated_time": "2023-11-05 09:42:43"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 13
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/ch@@CHIDX@@/",
+                    "masterplaylistname": "m.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "0"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2547,
+                "updated_time": "2023-11-05 09:43:08"
+            }
+        ],
+        "updated_time": "2023-11-05 09:42:54",
+        "deinterlace": 9,
+        "deblocking": 0,
+        "denoise": 0,
+        "decodedbuffertime": 4000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "playlist://bbb",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": 0,
+        "srtAdvancedParameters": "",
+        "id": 28,
+        "name": "Channel_001",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 18
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.0.220:16008",
+                "outputurl2": "udp://10.1.0.40:22001",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 96,
+                "updated_time": "2024-02-19 14:03:24"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 20
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 2
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.1.53:9252",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 122,
+                "updated_time": "2024-02-19 14:03:23"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 20
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "videos/cmaf_test/",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "2",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 0,
+                    "dashmanifest": "dash.mpd",
+                    "dashsegmenttemplatemode": 0,
+                    "hlsmanifest": "m.m3u8"
+                },
+                "id": 421,
+                "updated_time": "2024-02-19 14:03:23"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 14,
+                "outputurl1": "videos/cmaf_test/",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "2",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 0,
+                    "dashmanifest": "dash.mpd",
+                    "dashsegmenttemplatemode": 0,
+                    "hlsmanifest": "m.m3u8"
+                },
+                "id": 422,
+                "updated_time": "2024-02-19 14:03:23"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 2
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 3,
+                "outputurl1": "rtmp://10.1.0.220:1935/live/stream",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 1446,
+                "updated_time": "2024-02-19 14:03:23"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 38
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 3,
+                "outputurl1": "rtmp://10.1.1.89:1935/live/jacob",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 1821,
+                "updated_time": "2024-02-19 14:03:24"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 2439
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 397
+                    }
+                ],
+                "outputtype": 9,
+                "outputurl1": "uncompressed://",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2861,
+                "updated_time": "2024-02-19 14:03:23"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 2415
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 6,
+                "outputurl1": "http://10.1.0.130/jj/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": {
+                    "duration": "2",
+                    "alang1": "Auto",
+                    "alang2": "Auto",
+                    "alang3": "Auto",
+                    "alang4": "Auto",
+                    "servertype": 3,
+                    "timescale": 0,
+                    "hevccodectag": "",
+                    "sendmfraatstop": 0,
+                    "namingMethod": 0,
+                    "enableScte35": 0,
+                    "enableScte35Options": "Disabled",
+                    "outputMode": 0
+                },
+                "dash": [],
+                "cmaf": [],
+                "id": 2907,
+                "updated_time": "2024-02-19 14:03:23"
+            }
+        ],
+        "updated_time": "2024-02-19 14:03:56",
+        "deinterlace": 9,
+        "deblocking": 0,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "sdi://Auto/apid1/0,1/apid2/-1/apid3/-1/apid4/-1/apid5/-1/apid6/-1/apid7/-1/apid8/-1/apid9/-1/apid10/-1/apid11/-1/apid12/-1/apid13/-1/apid14/-1/apid15/-1/apid16/-1/apid17/-1/apid18/-1/apid19/-1/apid20/-1/apid21/-1/apid22/-1/apid23/-1/apid24/-1/apid25/-1/apid26/-1/apid27/-1/apid28/-1/apid29/-1/apid30/-1/apid31/-1/apid32/-1/alang1/spa/alang2//alang3//alang4//alang5//alang6//alang7//alang8//alang9//alang10//alang11//alang12//alang13//alang14//alang15//alang16//alang17//alang18//alang19//alang20//alang21//alang22//alang23//alang24//alang25//alang26//alang27//alang28//alang29//alang30//alang31//alang32/",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": 0,
+        "srtAdvancedParameters": "",
+        "id": 2550,
+        "name": "Channel_21_backup",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_a/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2814,
+                "updated_time": "2023-11-24 10:52:26"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2407
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_a/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2815,
+                "updated_time": "2023-11-24 10:52:26"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2408
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_a/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2816,
+                "updated_time": "2023-11-24 10:52:26"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2409
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_a/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2817,
+                "updated_time": "2023-11-24 10:52:27"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2410
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_a/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2818,
+                "updated_time": "2023-11-24 10:52:27"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2411
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_a/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2819,
+                "updated_time": "2023-11-24 10:52:27"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_b/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2820,
+                "updated_time": "2023-11-24 10:52:27"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2407
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_b/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2821,
+                "updated_time": "2023-11-24 10:52:27"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2408
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_b/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2822,
+                "updated_time": "2023-11-24 10:52:28"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2409
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_b/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2823,
+                "updated_time": "2023-11-24 10:52:28"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2410
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_b/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2824,
+                "updated_time": "2023-11-24 10:52:28"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2411
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_b/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2825,
+                "updated_time": "2023-11-24 10:52:28"
+            }
+        ],
+        "updated_time": "2023-11-24 14:02:24",
+        "deinterlace": 9,
+        "deblocking": 0,
+        "denoise": 0,
+        "decodedbuffertime": 1000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "sdi://Auto/apid1/0,1/apid2/-1/apid3/-1/apid4/-1/apid5/-1/apid6/-1/apid7/-1/apid8/-1/apid9/-1/apid10/-1/apid11/-1/apid12/-1/apid13/-1/apid14/-1/apid15/-1/apid16/-1/apid17/-1/apid18/-1/apid19/-1/apid20/-1/apid21/-1/apid22/-1/apid23/-1/apid24/-1/apid25/-1/apid26/-1/apid27/-1/apid28/-1/apid29/-1/apid30/-1/apid31/-1/apid32/-1/alang1/spa/alang2//alang3//alang4//alang5//alang6//alang7//alang8//alang9//alang10//alang11//alang12//alang13//alang14//alang15//alang16//alang17//alang18//alang19//alang20//alang21//alang22//alang23//alang24//alang25//alang26//alang27//alang28//alang29//alang30//alang31//alang32/",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": 0,
+        "srtAdvancedParameters": "",
+        "id": 2549,
+        "name": "Channel_21_main",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_a/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2790,
+                "updated_time": "2023-11-24 10:25:09"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2407
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_a/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2791,
+                "updated_time": "2023-11-24 10:25:09"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2408
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_a/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2792,
+                "updated_time": "2023-11-24 10:25:09"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2409
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_a/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2793,
+                "updated_time": "2023-11-24 10:25:09"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2410
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_a/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2794,
+                "updated_time": "2023-11-24 10:25:10"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2411
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_a/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2795,
+                "updated_time": "2023-11-24 10:25:10"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_b/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2796,
+                "updated_time": "2023-11-24 10:25:54"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2407
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_b/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2797,
+                "updated_time": "2023-11-24 10:25:54"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2408
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_b/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2798,
+                "updated_time": "2023-11-24 10:25:54"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2409
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_b/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2799,
+                "updated_time": "2023-11-24 10:25:54"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2410
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_b/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2800,
+                "updated_time": "2023-11-24 10:25:54"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2411
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/mediaset_b/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "1.92",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": ""
+                },
+                "id": 2801,
+                "updated_time": "2023-11-24 10:25:54"
+            }
+        ],
+        "updated_time": "2023-11-24 14:00:37",
+        "deinterlace": 9,
+        "deblocking": 0,
+        "denoise": 0,
+        "decodedbuffertime": 1000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "udp://239.0.166.1:5500/vpid/0/apid1/0/apid2/-1/apid3/-1/apid4/-1/apid5/-1/apid6/-1/apid7/-1/apid8/-1/apid9/-1/apid10/-1/apid11/-1/apid12/-1/apid13/-1/apid14/-1/apid15/-1/apid16/-1/apid17/-1/apid18/-1/apid19/-1/apid20/-1/apid21/-1/apid22/-1/apid23/-1/apid24/-1/apid25/-1/apid26/-1/apid27/-1/apid28/-1/apid29/-1/apid30/-1/apid31/-1/apid32/-1",
+        "enableIdleStart": 1,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": -1,
+        "srtAdvancedParameters": "",
+        "id": 2645,
+        "name": "H2 HD (TnN)_test_burn",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2484
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 1
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/ch@@CHIDX@@/",
+                    "masterplaylistname": "m.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": ""
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2898,
+                "updated_time": "2023-12-04 22:30:13"
+            }
+        ],
+        "updated_time": "2023-12-03 15:44:34",
+        "deinterlace": 9,
+        "deblocking": 0,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "udp://239.0.166.1:5500/vpid/0/apid1/0/apid2/-1/apid3/-1/apid4/-1/apid5/-1/apid6/-1/apid7/-1/apid8/-1/apid9/-1/apid10/-1/apid11/-1/apid12/-1/apid13/-1/apid14/-1/apid15/-1/apid16/-1/apid17/-1/apid18/-1/apid19/-1/apid20/-1/apid21/-1/apid22/-1/apid23/-1/apid24/-1/apid25/-1/apid26/-1/apid27/-1/apid28/-1/apid29/-1/apid30/-1/apid31/-1/apid32/-1",
+        "enableIdleStart": 1,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": -1,
+        "srtAdvancedParameters": "",
+        "id": 2646,
+        "name": "H2 HD (TnN)_test_burn_no",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2484
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 1
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/ch@@CHIDX@@/",
+                    "masterplaylistname": "m.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": ""
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2900,
+                "updated_time": "2023-12-04 22:30:14"
+            }
+        ],
+        "updated_time": "2023-12-03 15:45:09",
+        "deinterlace": 9,
+        "deblocking": 0,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "udp://233.18.145.194:55216/vpid/1001/apid1/1002/apid2/-1/apid3/-1/apid4/-1/apid5/-1/apid6/-1/apid7/-1/apid8/-1/apid9/-1/apid10/-1/apid11/-1/apid12/-1/apid13/-1/apid14/-1/apid15/-1/apid16/-1/apid17/-1/apid18/-1/apid19/-1/apid20/-1/apid21/-1/apid22/-1/apid23/-1/apid24/-1/apid25/-1/apid26/-1/apid27/-1/apid28/-1/apid29/-1/apid30/-1/apid31/-1/apid32/-1",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": -1,
+        "srtAdvancedParameters": "",
+        "id": 1060,
+        "name": "MBC_B",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 1054
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 1407
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.0.220:3000",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth5",
+                    "pmtpid": "1000",
+                    "vpid": "1001",
+                    "apid": [
+                        "1002"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "2250",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 1678,
+                "updated_time": "2023-10-15 15:18:47"
+            }
+        ],
+        "updated_time": "2023-11-03 16:23:18",
+        "deinterlace": 9,
+        "deblocking": 0,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": "aXA9MTAuMS4wLjQw"
+    },
+    {
+        "sourceurl": "playlist://kbs_joy",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": 0,
+        "srtAdvancedParameters": "",
+        "id": 2703,
+        "name": "MC264 Test Channel",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 38
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.0.40:16001",
+                "outputurl2": "udp://10.1.0.220:17001",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2945,
+                "updated_time": "2024-01-30 17:38:39"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 16
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.0.40:16002",
+                "outputurl2": "udp://10.1.0.220:17002",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2946,
+                "updated_time": "2024-01-30 17:38:39"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 40
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.0.40:16003",
+                "outputurl2": "udp://10.1.0.220:17003",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2947,
+                "updated_time": "2024-01-30 17:38:39"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 41
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.0.40:16004",
+                "outputurl2": "udp://10.1.0.220:17004",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2948,
+                "updated_time": "2024-01-30 17:38:39"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 42
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.0.40:16005",
+                "outputurl2": "udp://10.1.0.220:17005",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2949,
+                "updated_time": "2024-01-30 17:38:39"
+            }
+        ],
+        "updated_time": "2024-01-30 16:38:57",
+        "deinterlace": 9,
+        "deblocking": 1,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "file://dummy",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": 0,
+        "srtAdvancedParameters": "",
+        "id": 2684,
+        "name": "MXF_MPEG2",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2645
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 2202
+                    }
+                ],
+                "outputtype": 2,
+                "outputurl1": "",
+                "outputurl2": "",
+                "fileoutput": {
+                    "filetype": 10,
+                    "filenaming": 0,
+                    "filenamesuffix": "",
+                    "filesize": "0",
+                    "filesizeunit": 0,
+                    "dvrwindowlength": "0",
+                    "enablezerobasedtc": 1,
+                    "filesavecontrol": 0
+                },
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2924,
+                "updated_time": "2024-01-26 17:02:39"
+            }
+        ],
+        "updated_time": "2024-01-30 10:44:36",
+        "deinterlace": 0,
+        "deblocking": 0,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "rtmp://10.1.0.162:1935/live/1080",
+        "enableIdleStart": 1,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": 0,
+        "srtAdvancedParameters": "",
+        "id": 2708,
+        "name": "Memory Checking Channel",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 38
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "videos/ch@@CHIDX@@",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "2",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 0,
+                    "dashmanifest": "dash.mpd",
+                    "dashsegmenttemplatemode": 0,
+                    "hlsmanifest": "m.m3u8"
+                },
+                "id": 2953,
+                "updated_time": "2024-01-31 12:58:20"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 39
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "videos/ch@@CHIDX@@",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "2",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 0,
+                    "dashmanifest": "dash.mpd",
+                    "dashsegmenttemplatemode": 0,
+                    "hlsmanifest": "m.m3u8"
+                },
+                "id": 2954,
+                "updated_time": "2024-01-31 12:58:20"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 40
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "videos/ch@@CHIDX@@",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "2",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 0,
+                    "dashmanifest": "dash.mpd",
+                    "dashsegmenttemplatemode": 0,
+                    "hlsmanifest": "m.m3u8"
+                },
+                "id": 2955,
+                "updated_time": "2024-01-31 12:58:20"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 14,
+                "outputurl1": "videos/ch@@CHIDX@@",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "2",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 0,
+                    "dashmanifest": "dash.mpd",
+                    "dashsegmenttemplatemode": 0,
+                    "hlsmanifest": "m.m3u8"
+                },
+                "id": 2956,
+                "updated_time": "2024-01-31 12:58:20"
+            }
+        ],
+        "updated_time": "2024-02-05 16:39:31",
+        "deinterlace": 0,
+        "deblocking": 1,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "playlist://kt_tvn",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": 0,
+        "srtAdvancedParameters": "",
+        "id": 2753,
+        "name": "Playlist Testing Channel",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2654
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "5",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/ch@@CHIDX@@/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "0"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2974,
+                "updated_time": "2024-02-19 12:49:42"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 2211
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "5",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/ch@@CHIDX@@/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "0"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2975,
+                "updated_time": "2024-02-19 12:49:42"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 2211
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "5",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/ch@@CHIDX@@/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "0"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2976,
+                "updated_time": "2024-02-19 12:49:42"
+            }
+        ],
+        "updated_time": "2024-02-19 12:50:02",
+        "deinterlace": 0,
+        "deblocking": 1,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "udp://224.30.30.10:15008/vpid/0/apid1/0/apid2/-1/apid3/-1/apid4/-1/apid5/-1/apid6/-1/apid7/-1/apid8/-1/apid9/-1/apid10/-1/apid11/-1/apid12/-1/apid13/-1/apid14/-1/apid15/-1/apid16/-1/apid17/-1/apid18/-1/apid19/-1/apid20/-1/apid21/-1/apid22/-1/apid23/-1/apid24/-1/apid25/-1/apid26/-1/apid27/-1/apid28/-1/apid29/-1/apid30/-1/apid31/-1/apid32/-1",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": -1,
+        "srtAdvancedParameters": "",
+        "id": 2558,
+        "name": "SCTE35_CH A_rev01",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2414
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 9
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/hls_test/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "3M",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "0"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2834,
+                "updated_time": "2023-11-28 15:41:30"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 39
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 9
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/hls_test/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "2m",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "0"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2835,
+                "updated_time": "2023-11-28 15:41:30"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 40
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/hls_test/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "1m",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "0"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2836,
+                "updated_time": "2023-11-28 15:41:30"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2415
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 8
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/hls_test/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "0.6m",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "0"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2837,
+                "updated_time": "2023-11-28 15:41:30"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2416
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 8
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/hls_test/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "0.3m",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "0"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2838,
+                "updated_time": "2023-11-28 15:41:30"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2417
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 9
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/hls_test/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "audio_only",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "0"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2839,
+                "updated_time": "2023-11-28 15:41:30"
+            }
+        ],
+        "updated_time": "2023-11-28 13:56:07",
+        "deinterlace": 9,
+        "deblocking": 1,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "sdi://Auto/apid1/0,1/apid2/-1/apid3/-1/apid4/-1/apid5/-1/apid6/-1/apid7/-1/apid8/-1/apid9/-1/apid10/-1/apid11/-1/apid12/-1/apid13/-1/apid14/-1/apid15/-1/apid16/-1/apid17/-1/apid18/-1/apid19/-1/apid20/-1/apid21/-1/apid22/-1/apid23/-1/apid24/-1/apid25/-1/apid26/-1/apid27/-1/apid28/-1/apid29/-1/apid30/-1/apid31/-1/apid32/-1/alang1//alang2//alang3//alang4//alang5//alang6//alang7//alang8//alang9//alang10//alang11//alang12//alang13//alang14//alang15//alang16//alang17//alang18//alang19//alang20//alang21//alang22//alang23//alang24//alang25//alang26//alang27//alang28//alang29//alang30//alang31//alang32/",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": 0,
+        "srtAdvancedParameters": "",
+        "id": 3,
+        "name": "SDI",
+        "outputs": [
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 2
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.0.220:22003",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 12,
+                "updated_time": "2024-01-30 07:15:43"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 16
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/jacob/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "30",
+                    "segmentduration": "2",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "dash.mpd",
+                    "dashsegmenttemplatemode": 0,
+                    "hlsmanifest": "m.m3u8"
+                },
+                "id": 15,
+                "updated_time": "2024-01-29 23:24:16"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/jacob/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "30",
+                    "segmentduration": "2",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 1,
+                    "dashmanifest": "dash.mpd",
+                    "dashsegmenttemplatemode": 0,
+                    "hlsmanifest": "m.m3u8"
+                },
+                "id": 16,
+                "updated_time": "2024-01-29 23:24:16"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 2
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "videos/cmaf2/",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "30",
+                    "segmentduration": "2",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 0,
+                    "dashmanifest": "dash.mpd",
+                    "dashsegmenttemplatemode": 0,
+                    "hlsmanifest": "m.m3u8"
+                },
+                "id": 17,
+                "updated_time": "2024-01-29 23:24:16"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 14,
+                "outputurl1": "videos/cmaf2/",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "30",
+                    "segmentduration": "2",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 0,
+                    "dashmanifest": "dash.mpd",
+                    "dashsegmenttemplatemode": 0,
+                    "hlsmanifest": "m.m3u8"
+                },
+                "id": 18,
+                "updated_time": "2024-01-29 23:24:16"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 22
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 6,
+                "outputurl1": "http://10.1.0.39/jacob.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": {
+                    "duration": "2",
+                    "alang1": "Auto",
+                    "alang2": "Auto",
+                    "alang3": "Auto",
+                    "alang4": "Auto",
+                    "servertype": 2,
+                    "timescale": 0,
+                    "hevccodectag": "hvc1",
+                    "sendmfraatstop": 0,
+                    "namingMethod": 0,
+                    "enableScte35": 0,
+                    "enableScte35Options": "Disabled",
+                    "outputMode": 0
+                },
+                "dash": [],
+                "cmaf": [],
+                "id": 123,
+                "updated_time": "2024-01-29 23:24:16"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 38
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/ch@@CHIDX@@/",
+                    "masterplaylistname": "m.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "0"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2187,
+                "updated_time": "2024-01-29 23:24:16"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/ch@@CHIDX@@/",
+                    "masterplaylistname": "m.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "0"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2188,
+                "updated_time": "2024-01-29 23:24:16"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2415
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 17,
+                "outputurl1": "rtsp://10.1.0.145:8554/WP-ITV-Channel",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2189,
+                "updated_time": "2024-01-29 23:35:00"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 38
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 3,
+                "outputurl1": "rtmp://10.1.0.151:1935/live/stream",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2190,
+                "updated_time": "2024-01-29 23:24:16"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 38
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 7,
+                "outputurl1": "videos/dash_segment_naming/",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": {
+                    "mpdname": "dash.mpd",
+                    "mpdupdateinterval": "0",
+                    "baseurl": "",
+                    "secondarybaseurl": "",
+                    "namingmethod": 3,
+                    "count": "10",
+                    "duration": "2",
+                    "minbuffertime": "",
+                    "segmenttemplatemode": 0,
+                    "hevccodectag": "hvc1"
+                },
+                "cmaf": [],
+                "id": 2191,
+                "updated_time": "2024-01-29 23:24:16"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 7,
+                "outputurl1": "videos/dash_segment_naming/",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": {
+                    "mpdname": "dash.mpd",
+                    "mpdupdateinterval": "0",
+                    "baseurl": "",
+                    "secondarybaseurl": "",
+                    "namingmethod": 3,
+                    "count": "10",
+                    "duration": "2",
+                    "minbuffertime": "",
+                    "segmenttemplatemode": 0,
+                    "hevccodectag": "hvc1"
+                },
+                "cmaf": [],
+                "id": 2192,
+                "updated_time": "2024-01-29 23:24:16"
+            }
+        ],
+        "updated_time": "2024-01-29 23:33:49",
+        "deinterlace": 0,
+        "deblocking": 1,
+        "denoise": 0,
+        "decodedbuffertime": 500,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "id": 2706,
+        "name": "ST2022_6 CH",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2648
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 1
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.1.87:20000",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2941,
+                "updated_time": "2024-01-29 22:44:42"
+            }
+        ],
+        "updated_time": "2024-01-29 22:44:51",
+        "deinterlace": 0,
+        "deblocking": 1,
+        "denoise": 0,
+        "decodedbuffertime": 300,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "id": 2705,
+        "name": "ST2110 CH",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2648
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 1
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.1.87:2",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2937,
+                "updated_time": "2024-01-29 22:38:48"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2648
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 2206
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.0.40:17005",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2938,
+                "updated_time": "2024-01-29 22:38:48"
+            }
+        ],
+        "updated_time": "2024-01-29 22:38:56",
+        "deinterlace": 0,
+        "deblocking": 1,
+        "denoise": 0,
+        "decodedbuffertime": 300,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "file://dummy",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 0,
+        "srtPassphrase": 0,
+        "srtPbkeylen": 0,
+        "srtAdvancedParameters": 0,
+        "id": 1,
+        "name": "Standby",
+        "outputs": [],
+        "updated_time": null,
+        "deinterlace": 0,
+        "deblocking": 0,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "playlist://kbs_joy",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": 0,
+        "srtAdvancedParameters": "",
+        "id": 4,
+        "name": "Test CH 001",
+        "outputs": [
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 38
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 2,
+                "outputurl1": "videos/fd_0.mp4",
+                "outputurl2": "",
+                "fileoutput": {
+                    "filetype": 0,
+                    "filenaming": 1,
+                    "filenamesuffix": "",
+                    "filesize": "0",
+                    "filesizeunit": 1,
+                    "dvrwindowlength": "0",
+                    "fragmentduration": "0",
+                    "filesavecontrol": 1
+                },
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 57,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 5
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 2,
+                "outputurl1": "videos/fd_0.mp4",
+                "outputurl2": "",
+                "fileoutput": {
+                    "filetype": 0,
+                    "filenaming": 1,
+                    "filenamesuffix": "",
+                    "filesize": "0",
+                    "filesizeunit": 1,
+                    "dvrwindowlength": "0",
+                    "fragmentduration": "0",
+                    "filesavecontrol": 1
+                },
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 58,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 38
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 2,
+                "outputurl1": "videos/fd_1.mp4",
+                "outputurl2": "",
+                "fileoutput": {
+                    "filetype": 0,
+                    "filenaming": 0,
+                    "filenamesuffix": "",
+                    "filesize": "0",
+                    "filesizeunit": 0,
+                    "dvrwindowlength": "0",
+                    "fragmentduration": "1",
+                    "filesavecontrol": 1
+                },
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 59,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 18
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.0.220:22008",
+                "outputurl2": "udp://10.1.0.40:15001",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 78,
+                "updated_time": "2024-02-17 01:18:05"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.0.220:22000",
+                "outputurl2": "udp://10.1.0.40:12001",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 94,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 5
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.0.220:22",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 79,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 2
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/hls_test/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "1"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 114,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 12
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/hls_test/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "1"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 115,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 5
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/hls_test/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "1"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 116,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://:0",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 1,
+                    "duration": "2",
+                    "count": "10",
+                    "useidr": 1,
+                    "masterplaylist1": "videos/hls_test/",
+                    "masterplaylistname": "master.m3u8",
+                    "masterplaylist2": "",
+                    "variantplaylistname": "",
+                    "playbackurl": "",
+                    "secondaryplaybackurl": "",
+                    "prefix": "",
+                    "programid": "1",
+                    "bandwidthalloc": "0",
+                    "tagtimestamponvariantplaylistname": "",
+                    "createiframeplaylist": "1"
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 117,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 2
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/jacob/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "2",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 0,
+                    "dashmanifest": "dash.mpd",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": "m.m3u8"
+                },
+                "id": 118,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 14,
+                "outputurl1": "http://10.1.0.130/jacob/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": {
+                    "servertype": "Generic",
+                    "count": "",
+                    "segmentduration": "2",
+                    "fragmentduration": "",
+                    "useutcbasedectime": 0,
+                    "dashmanifest": "dash.mpd",
+                    "dashsegmenttemplatemode": 1,
+                    "hlsmanifest": "m.m3u8"
+                },
+                "id": 119,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 2
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 3,
+                "outputurl1": "rtmp://10.1.0.220:1935/live/stream",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 120,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 20
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "udp://10.1.1.53:9251",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 121,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 16
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 1
+                    }
+                ],
+                "outputtype": 1,
+                "outputurl1": "rtp://10.1.1.87:17540",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": {
+                    "interface1": "eth0",
+                    "interface2": "eth0",
+                    "pmtpid": "",
+                    "vpid": "",
+                    "apid": [
+                        "0"
+                    ],
+                    "alang": [
+                        "Auto"
+                    ],
+                    "muxrate": "0",
+                    "enableid3": 0
+                },
+                "hlsts": {
+                    "enable": 0
+                },
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 600,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 38
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 7,
+                "outputurl1": "videos/test_dash/",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": {
+                    "mpdname": "dash.mpd",
+                    "mpdupdateinterval": "0",
+                    "baseurl": "",
+                    "secondarybaseurl": "",
+                    "namingmethod": 3,
+                    "count": "",
+                    "duration": "2",
+                    "minbuffertime": "",
+                    "segmenttemplatemode": 0,
+                    "hevccodectag": "hvc1"
+                },
+                "cmaf": [],
+                "id": 700,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 44
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 397
+                    }
+                ],
+                "outputtype": 2,
+                "outputurl1": "videos/mxf/test.mxf",
+                "outputurl2": "",
+                "fileoutput": {
+                    "filetype": 10,
+                    "filenaming": 0,
+                    "filenamesuffix": "",
+                    "filesize": "0",
+                    "filesizeunit": 0,
+                    "dvrwindowlength": "0",
+                    "enablezerobasedtc": 0,
+                    "filesavecontrol": 0
+                },
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 701,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 38
+                    }
+                ],
+                "audiopresets": [],
+                "outputtype": 7,
+                "outputurl1": "videos/dash_@@CHIDX@@/",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": {
+                    "mpdname": "dash.mpd",
+                    "mpdupdateinterval": "0",
+                    "baseurl": "",
+                    "secondarybaseurl": "",
+                    "namingmethod": 3,
+                    "count": "",
+                    "duration": "2",
+                    "minbuffertime": "",
+                    "segmenttemplatemode": 0,
+                    "hevccodectag": "hvc1"
+                },
+                "cmaf": [],
+                "id": 1025,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 7,
+                "outputurl1": "videos/dash_@@CHIDX@@/",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": {
+                    "mpdname": "dash.mpd",
+                    "mpdupdateinterval": "0",
+                    "baseurl": "",
+                    "secondarybaseurl": "",
+                    "namingmethod": 3,
+                    "count": "",
+                    "duration": "2",
+                    "minbuffertime": "",
+                    "segmenttemplatemode": 0,
+                    "hevccodectag": "hvc1"
+                },
+                "cmaf": [],
+                "id": 1026,
+                "updated_time": "2024-02-16 17:45:10"
+            },
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 44
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 2,
+                "outputurl1": "test_mxf",
+                "outputurl2": "",
+                "fileoutput": {
+                    "filetype": 10,
+                    "filenaming": 0,
+                    "filenamesuffix": "",
+                    "filesize": "0",
+                    "filesizeunit": 0,
+                    "dvrwindowlength": "0",
+                    "enablezerobasedtc": 0,
+                    "filesavecontrol": 0
+                },
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2904,
+                "updated_time": "2024-02-16 17:45:10"
+            }
+        ],
+        "updated_time": "2024-02-19 13:14:52",
+        "deinterlace": 9,
+        "deblocking": 0,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "udp://239.0.166.1:5500/vpid/0/apid1/0/apid2/-1/apid3/-1/apid4/-1/apid5/-1/apid6/-1/apid7/-1/apid8/-1/apid9/-1/apid10/-1/apid11/-1/apid12/-1/apid13/-1/apid14/-1/apid15/-1/apid16/-1/apid17/-1/apid18/-1/apid19/-1/apid20/-1/apid21/-1/apid22/-1/apid23/-1/apid24/-1/apid25/-1/apid26/-1/apid27/-1/apid28/-1/apid29/-1/apid30/-1/apid31/-1/apid32/-1",
+        "enableIdleStart": 1,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": -1,
+        "srtAdvancedParameters": "",
+        "id": 2732,
+        "name": "V Film Action HD (TnS)",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2532
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 2184
+                    },
+                    {
+                        "track": 0,
+                        "id": 2209
+                    }
+                ],
+                "outputtype": 6,
+                "outputurl1": "http://10.1.0.130/jacob/live.isml",
+                "outputurl2": "",
+                "fileoutput": [],
+                "mpegts": [],
+                "hlsts": [],
+                "mss": {
+                    "duration": "3,84",
+                    "alang1": "Auto",
+                    "alang2": "Auto",
+                    "alang3": "Auto",
+                    "alang4": "Auto",
+                    "servertype": 3,
+                    "timescale": 0,
+                    "hevccodectag": "",
+                    "sendmfraatstop": 1,
+                    "namingMethod": 1,
+                    "enableScte35": 0,
+                    "enableScte35Options": "Disabled",
+                    "outputMode": 0
+                },
+                "dash": [],
+                "cmaf": [],
+                "id": 2969,
+                "updated_time": "2024-02-14 11:23:33"
+            }
+        ],
+        "updated_time": "2024-02-14 12:14:34",
+        "deinterlace": 9,
+        "deblocking": 0,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "file://dummy",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": 0,
+        "srtAdvancedParameters": "",
+        "id": 2005,
+        "name": "VOD",
+        "outputs": [
+            {
+                "disabled": 1,
+                "videopresets": [
+                    {
+                        "id": 2
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 7
+                    }
+                ],
+                "outputtype": 2,
+                "outputurl1": "",
+                "outputurl2": "",
+                "fileoutput": {
+                    "filetype": 2,
+                    "filenaming": 0,
+                    "filenamesuffix": "",
+                    "filesize": "0",
+                    "filesizeunit": 0,
+                    "dvrwindowlength": "0",
+                    "filesavecontrol": 0
+                },
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2620,
+                "updated_time": "2024-01-26 09:26:26"
+            },
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 19
+                    }
+                ],
+                "outputtype": 2,
+                "outputurl1": "",
+                "outputurl2": "",
+                "fileoutput": {
+                    "filetype": 0,
+                    "filenaming": 0,
+                    "filenamesuffix": "",
+                    "filesize": "0",
+                    "filesizeunit": 0,
+                    "dvrwindowlength": "0",
+                    "fragmentduration": "0",
+                    "filesavecontrol": 0
+                },
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2922,
+                "updated_time": "2024-01-25 15:21:31"
+            }
+        ],
+        "updated_time": "2024-01-25 15:21:20",
+        "deinterlace": 9,
+        "deblocking": 1,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    },
+    {
+        "sourceurl": "file://dummy",
+        "enableIdleStart": 0,
+        "ssmipin": "",
+        "enableSrt": 0,
+        "srtLatency": 120,
+        "srtPassphrase": "",
+        "srtPbkeylen": 0,
+        "srtAdvancedParameters": "",
+        "id": 2685,
+        "name": "VOD MP4",
+        "outputs": [
+            {
+                "disabled": 0,
+                "videopresets": [
+                    {
+                        "id": 2650
+                    }
+                ],
+                "audiopresets": [
+                    {
+                        "track": 0,
+                        "id": 2207
+                    }
+                ],
+                "outputtype": 2,
+                "outputurl1": "",
+                "outputurl2": "",
+                "fileoutput": {
+                    "filetype": 0,
+                    "filenaming": 0,
+                    "filenamesuffix": "",
+                    "filesize": "0",
+                    "filesizeunit": 0,
+                    "dvrwindowlength": "0",
+                    "fragmentduration": "0",
+                    "filesavecontrol": 0
+                },
+                "mpegts": [],
+                "hlsts": [],
+                "mss": [],
+                "dash": [],
+                "cmaf": [],
+                "id": 2925,
+                "updated_time": "2024-01-30 11:39:21"
+            }
+        ],
+        "updated_time": "2024-01-30 15:28:37",
+        "deinterlace": 0,
+        "deblocking": 0,
+        "denoise": 0,
+        "decodedbuffertime": 2000,
+        "ssmip": "",
+        "ssmipout": "",
+        "template": ""
+    }
+]

@@ -1,0 +1,74 @@
+{
+	"http_method": "post",
+	"data": {
+		"name": "API POST MChannel",
+		"sourceurl": "hls://10.1.0.145/hera/hls_stream/master.m3u8",
+		"enableIdleStart": 1,
+		"ssmipin": "",
+		"enableSrt": 0,
+		"srtLatency": 120,
+		"srtPassphrase": "",
+		"srtPbkeylen": 0,
+		"srtAdvancedParameters": "",
+		"outputs": [
+			{
+				"disabled": 1,
+				"videopresets": [
+					{
+						"id": 38
+					}
+				],
+				"audiopresets": [
+					{
+						"id": 19
+					}
+				],
+				"outputtype": 1,
+				"outputurl1": "udp://:0",
+				"outputurl2": "",
+				"fileoutput": [],
+				"mpegts": {
+					"interface1": "eth0",
+					"interface2": "eth0",
+					"pmtpid": "",
+					"vpid": "",
+					"apid": [
+						"0"
+					],
+					"alang": [
+						"Auto"
+					],
+					"muxrate": "0",
+					"enableid3": 0
+				},
+				"hlsts": {
+					"enable": 1,
+					"duration": "2",
+					"count": "10",
+					"useidr": 1,
+					"masterplaylist1": "videos/ch@@CHIDX@@/",
+					"masterplaylistname": "m.m3u8",
+					"masterplaylist2": "",
+					"variantplaylistname": "",
+					"playbackurl": "",
+					"secondaryplaybackurl": "",
+					"prefix": "",
+					"programid": "1",
+					"bandwidthalloc": "0",
+					"tagtimestamponvariantplaylistname": "",
+					"createiframeplaylist": "0"
+				},
+				"mss": [],
+				"dash": [],
+				"cmaf": []
+			}
+		],
+		"deinterlace": 0,
+		"deblocking": 0,
+		"denoise": 42,
+		"decodedbuffertime": 2000,
+		"ssmip": "",
+		"ssmipout": "",
+		"template": ""
+	}
+}

@@ -1,0 +1,42 @@
+{
+	"http_method": "put",
+	"data": {
+		"channelid": 4,
+		"disabled": 0,
+		"videopresets": [
+			{
+				"id": 16
+			}
+		],
+		"audiopresets": [
+			{
+				"track": 0,
+				"id": 19
+			}
+		],
+		"outputtype": 1,
+		"outputurl1": "udp://10.1.0.220:22000",
+		"outputurl2": "",
+		"fileoutput": [],
+		"mpegts": {
+			"interface1": "eth0",
+			"interface2": "eth0",
+			"pmtpid": "",
+			"vpid": "",
+			"apid": [
+				"0"
+			],
+			"alang": [
+				"Auto"
+			],
+			"muxrate": "0",
+			"enableid3": 0
+		},
+		"hlsts": {
+			"enable": 0
+		},
+		"mss": [],
+		"dash": [],
+		"cmaf": []
+	}
+}

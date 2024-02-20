@@ -1,0 +1,10 @@
+
+{
+	"http_method": "put",
+	"data": {
+		"ip": "10.2.1.191",
+		"groupid": 1,
+		"roleid": 1,
+		"name": "Robot API PUT Device"
+	}
+}

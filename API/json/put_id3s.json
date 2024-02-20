@@ -1,0 +1,18 @@
+{
+	"http_method": "put",
+	"data": {
+        "key": "key0",
+        "start": 0,
+        "duration": 60,
+        "interval": 1,
+        "frames": [
+            {
+                "id": "mexl",
+                "owner": "www.mexltest.meta.code",
+                "information": "put id3 trigger"
+            }
+        ],
+        "devid": 1,
+        "chindex": 1
+	}
+}

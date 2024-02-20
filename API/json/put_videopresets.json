@@ -1,0 +1,15 @@
+{
+	"http_method": "put",
+	"data": {
+		"name": "1920x1080 | H.264 | 29.97f | 8M | PUT API",
+		"codec": 1,
+		"width": 1920,
+		"height": 1080,
+		"fps": 29.97,
+		"bitrate": 8000,
+		"gop": 60,
+		"aspectratio": 0,
+		"bframes": 0,
+		"startalignment": 0
+	}
+}

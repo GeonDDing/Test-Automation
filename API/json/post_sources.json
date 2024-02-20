@@ -1,0 +1,50 @@
+[
+    {
+        "http_method": "post",
+        "data": {
+            "devid": 1,
+            "chindex": 1,
+            "layer": 1,
+            "repeat": 30,
+            "replace_mode": 1,
+            "start_time": "immediate",
+            "url": "rtp://225.26.1.22:11000"
+        }
+    },
+    {
+        "http_method": "post",
+        "data": {
+            "devid": 1,
+            "chindex": 1,
+            "layer": 1,
+            "repeat": 30,
+            "replace_mode": 1,
+            "start_time": "immediate",
+            "url": "playlist://bbb"
+        }
+    },
+    {
+        "http_method": "post",
+        "data": {
+            "devid": 1,
+            "chindex": 1,
+            "layer": 1,
+            "repeat": 30,
+            "replace_mode": 1,
+            "start_time": "immediate",
+            "url": "udp://224.30.30.10:15008"
+        }
+    },
+    {
+        "http_method": "post",
+        "data": {
+            "devid": 1,
+            "chindex": 1,
+            "layer": 1,
+            "repeat": 30,
+            "replace_mode": 2,
+            "start_time": "immediate",
+            "url": "udp://224.30.30.10:15008"
+        }
+    }
+]

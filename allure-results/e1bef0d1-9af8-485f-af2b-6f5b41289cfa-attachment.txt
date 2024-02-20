@@ -1,0 +1,9 @@
+[
+    {
+        "id": 1,
+        "ip": "10.1.0.145",
+        "roleid": 1,
+        "groupid": 1,
+        "name": "Local Device"
+    }
+]

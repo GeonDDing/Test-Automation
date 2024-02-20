@@ -1,0 +1,10 @@
+{
+	"http_method": "post",
+	"data": {
+		"name": "Robot API POST Role",
+		"channels": [
+			4,
+			28
+		]
+	}
+}

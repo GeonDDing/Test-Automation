@@ -1,0 +1,4 @@
+{
+    "status": "Failed",
+    "msg": "A record modification failed. Device is already used or running."
+}

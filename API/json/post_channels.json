@@ -1,0 +1,12 @@
+{
+	"http_method": "put",
+	"data": {
+		"name": "RF API POST Channel",
+        "sourceurl": "playlist://Nielsen",
+        "deinterlace": 9,
+        "deblocking": 1,
+        "denoise": 0,
+        "template": "aXA9MTAuMS4wLjIyMA==",
+        "enableSrt": 0
+	}
+}

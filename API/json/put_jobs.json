@@ -1,0 +1,15 @@
+{
+	"http_method": "put",
+	"data": {
+        "channelid": 2005,
+        "groupid": 2,
+        "watchfolderid": -1,
+        "priority": 1,
+        "inuserid": "mek",
+        "inpasswd": "mekpass",
+        "infilepath": "smb://10.1.0.10/mnek/Streams/tmp_jaob/api_test/in",
+        "outfilepath": "smb://10.1.0.10/mnek/Streams/tmp_jaob/api_test/out",
+        "donefilepath": "smb://10.1.0.10/mnek/Streams/tmp_jaob/api_test/done",
+        "delinfile": 0
+    }
+}

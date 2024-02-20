@@ -1,0 +1,3 @@
+### Pytest Command ###
+pytest --alluredir=allure-results --allure-no-capture --clean-alluredir
+allure serve allure-results
