@@ -6,7 +6,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-# from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_init import WebDriverInit 
 import time
 
