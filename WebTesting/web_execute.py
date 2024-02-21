@@ -101,11 +101,11 @@ if __name__ == "__main__":
     # channel_instance.configure_channel(
     #     'UDP Testing Channel', 'UDP/IP', 'TS UDP/IP', None, input_udp_options, output_udp_options, None)
 
-    # channel_instance.configure_channel(
-    #     'test_channel', 'SDI', input_sdi_options, output_udp_options)
-
     channel_instance.configure_channel(
-        'Playlist Testing Channel', 'Playlist', 'HLS', None, input_playlist_options, output_hls_options, None, profile_name)
+        'test_channel', 'SDI', input_sdi_options, output_udp_options)
+
+    # channel_instance.configure_channel(
+    #     'Playlist Testing Channel', 'Playlist', 'HLS', None, input_playlist_options, output_hls_options, None, profile_name)
 
     # role_instance.configure_role('test role', 'UDP Testing Channel')
     # group_instance.configure_group('test group', 'live')
