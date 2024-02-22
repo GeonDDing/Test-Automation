@@ -1,7 +1,6 @@
 # webdriver_init.py
 import os
 import configparser
-from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 
