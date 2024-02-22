@@ -135,6 +135,7 @@ class Configurechannel(WebDriverMethod):
                     time.sleep(1)
                     return True  # channel found and clicked
             return False  # channel not found
+        
         except NoSuchElementException as e:
             print(f"Element not found: {e}")
             # Handle the error as needed, for example, return False or raise the exception again

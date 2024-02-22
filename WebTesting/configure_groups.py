@@ -71,6 +71,7 @@ class ConfigureGroup(WebDriverMethod):
                     tr.find_elements(By.TAG_NAME, 'td')[1].click()
                     return True  # Group found and clicked
             return False  # Group not found
+        
         except NoSuchElementException as e:
             print(f"Element not found: {e}")
             # Handle the error as needed, for example, return False or raise the exception again

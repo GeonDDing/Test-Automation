@@ -37,8 +37,7 @@ class ConfigureOutput(WebDriverMethod):
             output_table = self.find_web_element(
                 By.XPATH, self.output_elements.output_table)
             for tr in output_table.find_elements(By.XPATH, ".//tbody/tr"):
-                column_value = tr.find_elements(By.TAG_NAME, 'td')[
-                    3].get_attribute('innerText')
+                column_value = tr.find_elements(By.TAG_NAME, 'td')[3].get_attribute('innerText')
                 if f"{output_type}:" in column_value:
                     tr.find_elements(By.TAG_NAME, 'td')[3].click()
                     print(f"  ㆍ{column_value}")

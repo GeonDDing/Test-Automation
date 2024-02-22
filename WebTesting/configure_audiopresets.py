@@ -79,6 +79,7 @@ class ConfigureAudiopreset(WebDriverMethod):
                     tr.find_elements(By.TAG_NAME, 'td')[0].click()
                     return True  # audiopreset found and clicked
             return False  # audiopreset not found
+        
         except NoSuchElementException as e:
             print(f"Element not found: {e}")
             # Handle the error as needed, for example, return False or raise the exception again

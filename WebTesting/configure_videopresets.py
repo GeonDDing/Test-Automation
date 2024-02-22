@@ -77,6 +77,7 @@ class ConfigureVideopreset(WebDriverMethod):
                     tr.find_elements(By.TAG_NAME, 'td')[0].click()
                     return True  # Videopreset found and clicked
             return False  # Videopreset not found
+        
         except NoSuchElementException as e:
             print(f"Element not found: {e}")
             # Handle the error as needed, for example, return False or raise the exception again

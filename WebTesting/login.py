@@ -1,10 +1,9 @@
 # login.py
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, TimeoutException
-from webdriver_init import WebDriverInit
 from webdriver_method import WebDriverMethod
-from web_elements import LoginElements, MainMenuElements
-from time import sleep
+from web_elements import LoginElements
+import time
 
 
 class Login(WebDriverMethod):
