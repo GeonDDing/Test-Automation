@@ -1,9 +1,12 @@
 # login.py
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, TimeoutException
+from selenium.common.exceptions import (
+    NoSuchElementException,
+    ElementNotVisibleException,
+    TimeoutException,
+)
 from webdriver_method import WebDriverMethod
 from web_elements import LoginElements
-import time
 
 
 class Login(WebDriverMethod):
@@ -18,7 +21,11 @@ class Login(WebDriverMethod):
             # Click login button
             self.click_element(By.CSS_SELECTOR, LoginElements.login_button)
 
-        except (NoSuchElementException, ElementNotVisibleException, TimeoutException) as e:
+        except (
+            NoSuchElementException,
+            ElementNotVisibleException,
+            TimeoutException,
+        ) as e:
             print(f"Error: {e}")
 
 
@@ -27,6 +34,6 @@ class Logout(WebDriverMethod):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test = Login()
-    test.login('admin', 'admin')
+    test.login("admin", "admin")

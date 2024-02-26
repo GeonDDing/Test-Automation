@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from webdriver_init import WebDriverInit 
+from webdriver_init import WebDriverInit
 import time
 
 
@@ -27,7 +27,7 @@ class WebDriverMethod(WebDriverInit):
         element = self.find_web_element(by, locator)
         element.click()
         time.sleep(0.3)
-        element.send_keys(Keys.CONTROL + 'a')
+        element.send_keys(Keys.CONTROL + "a")
         time.sleep(0.3)
         element.send_keys(Keys.DELETE)
         time.sleep(0.3)
@@ -48,7 +48,8 @@ class WebDriverMethod(WebDriverInit):
     def wait_element(self, by, locator):
         try:
             WebDriverWait(self.driver, 3).until(
-                EC.presence_of_element_located((by, locator)))
+                EC.presence_of_element_located((by, locator))
+            )
 
         except TimeoutException:
             print("Element does not appear.")

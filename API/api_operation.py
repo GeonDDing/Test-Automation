@@ -19,9 +19,9 @@ class ApiOperation(ApiConfig):
                     # ex) args = ("color", "blue", "size", "large")
                     #     my_dict = my_function(*args)
                     #     print(my_dict) → {'color': 'blue', 'size': 'large'}
-                    api_url += "&" + \
-                        "&".join([f"{key}={value}" for key,
-                                value in args_dict.items()])
+                    api_url += "&" + "&".join(
+                        [f"{key}={value}" for key, value in args_dict.items()]
+                    )
                 else:
                     api_url += f"?{args[0]}={args[1]}"
                     for key, value in args_dict.items():
@@ -29,15 +29,17 @@ class ApiOperation(ApiConfig):
                             continue
                         api_url += f"&{key}={value}"
             print(api_url)
-            if method == 'get':
+            if method == "get":
                 response = requests.get(api_url, headers=self.headers)
-            elif method == 'post':
+            elif method == "post":
                 response = requests.post(
-                    api_url, headers=self.headers, data=json.dumps(data))
-            elif method == 'put':
+                    api_url, headers=self.headers, data=json.dumps(data)
+                )
+            elif method == "put":
                 response = requests.put(
-                    api_url, headers=self.headers, data=json.dumps(data))
-            elif method == 'delete':
+                    api_url, headers=self.headers, data=json.dumps(data)
+                )
+            elif method == "delete":
                 response = requests.delete(api_url, headers=self.headers)
             else:
                 raise ValueError(f"Invalid HTTP method: {method}")
@@ -55,33 +57,32 @@ class ApiOperation(ApiConfig):
         return response.status_code, response.json()
 
     def get_api_operation(self, id_value=None, *args):
-        return self.send_request('get', id_value, *args)
+        return self.send_request("get", id_value, *args)
 
     def post_api_operation(self, *args):
         request = list()
-        post_data_list = self.convert_json(self.api_resource, 'post')
+        post_data_list = self.convert_json(self.api_resource, "post")
         for i, post_data in enumerate(post_data_list):
-            request.append(self.send_request('post', *args, data=post_data))
+            request.append(self.send_request("post", *args, data=post_data))
             if len(post_data_list) > 1:
                 sleep(20)
         return request
 
     def put_api_operation(self, id_value=None, *args):
         request = list()
-        put_data_list = self.convert_json(self.api_resource, 'put')
+        put_data_list = self.convert_json(self.api_resource, "put")
         for i, put_data in enumerate(put_data_list):
-            request.append(self.send_request(
-                'put', id_value, *args, data=put_data))
+            request.append(self.send_request("put", id_value, *args, data=put_data))
             if len(put_data_list) > 1:
                 sleep(20)
         return request
 
     def delete_api_operation(self, id_value=None, *args):
-        return self.send_request('delete', id_value, *args)
+        return self.send_request("delete", id_value, *args)
 
 
-if __name__ == '__main__':
-    test = ApiOperation('source_controls')
+if __name__ == "__main__":
+    test = ApiOperation("source_controls")
     # test.get_api_operation(2206)
     # test.delete_api_operation({'id': '2495'})
     # test.put_api_operation('1', 'chidx', '1')
