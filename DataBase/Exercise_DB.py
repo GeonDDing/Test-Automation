@@ -18,7 +18,6 @@ cursor.execute("SELECT * FROM _videoprofile")
 result = cursor.fetchall()
 
 # 결과 출력
-# sorted_result = sorted(result, key=lambda x: x[0])  # 두 번째 열을 기준으로 정렬
 for row  in result:
     if row[0] =='SDI':
         print(row[1])
