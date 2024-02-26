@@ -68,9 +68,3 @@ class StatsSender():
                     if output_info is not None:
                         queue.put((chidx, source_layer, source_stat, output_info))
                     time.sleep(2)
-
-
-if __name__ == '__main__':
-    test = StatsSender()
-    test.stats_sender()
-    time.sleep(2)
