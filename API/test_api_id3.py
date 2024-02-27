@@ -1,6 +1,7 @@
 from time import sleep
 import requests
 import allure
+import pytest
 import json
 import sys
 
@@ -26,12 +27,16 @@ def attach_response_step(step_name, response, status_name, result_name):
                 name=result_name,
                 attachment_type=allure.attachment_type.TEXT,
             )
+            assert (
+                status_code == "200"
+            ), f"Expected status code 200 but received {status_code}"
         else:
             allure.attach(
                 f"Invalid response format: {response}",
                 name=status_name,
                 attachment_type=allure.attachment_type.TEXT,
             )
+            pytest.fail("Invalid response format")
 
 
 def perform_api_operations(api_operation, operation_name):

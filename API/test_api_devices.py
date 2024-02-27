@@ -25,12 +25,16 @@ def attach_response_step(step_name, response, status_name, result_name):
                 name=result_name,
                 attachment_type=allure.attachment_type.TEXT,
             )
+            assert (
+                status_code == "200"
+            ), f"Expected status code 200 but received {status_code}"
         else:
             allure.attach(
                 f"Invalid response format: {response}",
                 name=status_name,
                 attachment_type=allure.attachment_type.TEXT,
             )
+            pytest.fail("Invalid response format")
 
 
 def perform_api_operations(api_operation, operation_name, generated_id=None):
@@ -76,7 +80,7 @@ def perform_api_operations(api_operation, operation_name, generated_id=None):
     )
 
 
-@pytest.mark.skip(reason="이 테스트는 스킵됩니다.")
+# @pytest.mark.skip(reason="이 테스트는 스킵됩니다.")
 @allure.title("Device API")
 def test_devices():
     api_operation = ApiOperation("devices")

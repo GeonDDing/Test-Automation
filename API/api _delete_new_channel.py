@@ -1,5 +1,5 @@
 from api_operation import ApiOperation
-import requests, json
+import requests
 
 
 class DeleteNewChannels(ApiOperation):
@@ -20,7 +20,6 @@ class DeleteNewChannels(ApiOperation):
                     new_channel_flag = False
         if not new_channel_flag:
             print('Not exist New Channel')
-        # print(response)
 
 
 if __name__ == "__main__":
