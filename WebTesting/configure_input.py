@@ -15,6 +15,13 @@ class ConfigureInput(WebDriverMethod):
     def __init__(self, input_type):
         self.input_elements = ConfigureInputElements()
         try:
+            if "UDP" in input_type:
+                input_type = "UDP/IP"
+            elif "RTP" in input_type or "RTSP" in input_type:
+                input_type = "RTP/RTSP"
+            elif "HTTP" in input_type or "HLS" in input_type:
+                input_type == "HTTP/HLS"
+
             self.select_element(
                 By.CSS_SELECTOR, self.input_elements.input_type, "text", input_type
             )

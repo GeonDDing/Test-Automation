@@ -1,4 +1,0 @@
-{
-    "status": "Failed",
-    "msg": "device/channel control failed"
-}

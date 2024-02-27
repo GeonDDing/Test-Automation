@@ -7,6 +7,7 @@ from selenium.common.exceptions import (
 )
 from webdriver_method import WebDriverMethod
 from web_elements import ConfigureChannelElements, MainMenuElements
+from configure_roles import ConfigureRole
 from configure_input import ConfigureInput
 from configure_backup_source import ConfigureBackupSource
 from configure_output import ConfigureOutput
@@ -14,7 +15,7 @@ from web_elements import ConfigureInputElements
 import time
 
 
-class Configurechannel(WebDriverMethod):
+class Configurechannel(ConfigureRole):
     def __init__(self):
         self.input_elements = ConfigureInputElements()
         self.channel_elements = ConfigureChannelElements()
@@ -54,10 +55,8 @@ class Configurechannel(WebDriverMethod):
                     By.CSS_SELECTOR, self.channel_elements.channel_add_button
                 )
                 # Wait for the time to move to the channel creation page.
-                time.sleep(1)
             else:
                 print("A channel with the same name exists.")
-                time.sleep(1)
 
             configure_output = ConfigureOutput(
                 output_type,
@@ -74,7 +73,8 @@ class Configurechannel(WebDriverMethod):
 
             if output_type in output_functions:
                 output_functions[output_type](output_options)
-                time.sleep(1)
+
+            time.sleep(1)
 
             self.input_text(
                 By.CSS_SELECTOR, self.channel_elements.channel_name, channel_name
@@ -167,7 +167,7 @@ class Configurechannel(WebDriverMethod):
                 )
                 if column_value == channel_name:
                     tr.find_elements(By.TAG_NAME, "td")[0].click()
-                    time.sleep(1)
+                    time.sleep(0.5)
                     return True  # channel found and clicked
             return False  # channel not found
 

@@ -13,7 +13,6 @@ import sys
 
 sys.path.append("D:/Testing/WebTesting")
 
-
 profile_name = {
     "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
     "Audiopreset Name": "AAC | 128K | 48kHz | Testing",
@@ -50,7 +49,7 @@ input_udp_options = {
     "Audio ID": "1025",
 }
 
-input_sdi_options = {"signal_type": "SDI", "teletext_page": "692", "vbi_lines": "1"}
+input_sdi_options = {"Signal type": "SDI", "Teletext page": "692", "VBI lines": "1"}
 
 input_playlist_options = {"Type": "Local Static Playlist", "Playlists name": "kt_tvn"}
 
@@ -96,7 +95,14 @@ if __name__ == "__main__":
     #     'UDP Testing Channel', 'UDP/IP', 'TS UDP/IP', None, input_udp_options, output_udp_options, None)
 
     channel_instance.configure_channel(
-        "test_channel", "SDI", input_sdi_options, output_udp_options
+        "test_channel",
+        "SDI",
+        "UDP/IP",
+        None,
+        input_sdi_options,
+        output_udp_options,
+        None,
+        profile_name,
     )
 
     # channel_instance.configure_channel(

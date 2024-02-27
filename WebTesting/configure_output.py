@@ -1,5 +1,7 @@
 # configure_output.py
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import (
     NoSuchElementException,
     ElementNotVisibleException,
@@ -23,6 +25,9 @@ class ConfigureOutput(WebDriverMethod):
                 # Wait for the time to move to the group creation page.
                 time.sleep(1)
                 # Since there is no existing Group with the same name, a Group is created with that name.
+                if "UDP" in output_type:
+                    output_type = "TS UDP/IP"
+
                 self.select_element(
                     By.CSS_SELECTOR,
                     self.output_elements.output_type,
@@ -46,11 +51,21 @@ class ConfigureOutput(WebDriverMethod):
 
     def find_exist_output(self, output_type):
         try:
-            if output_type == "TS UDP/IP":
+            if "UDP" in output_type:
                 output_type = "TS"
-            output_table = self.find_web_element(
-                By.XPATH, self.output_elements.output_table
-            )
+            try:
+                WebDriverWait(self.driver, 3).until(
+                    EC.presence_of_element_located(
+                        (By.XPATH, self.output_elements.output_table)
+                    )
+                )
+                output_table = self.find_web_element(
+                    By.XPATH, self.output_elements.output_table
+                )
+            except TimeoutException:
+                print("No output is the same.")
+                return False
+
             for tr in output_table.find_elements(By.XPATH, ".//tbody/tr"):
                 column_value = tr.find_elements(By.TAG_NAME, "td")[3].get_attribute(
                     "innerText"
@@ -68,7 +83,11 @@ class ConfigureOutput(WebDriverMethod):
 
     def select_stream_profile(self, videopreset_name, audiopreset_name):
         try:
-            self.wait_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
+            WebDriverWait(self.driver, 3).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, self.output_elements.output_edit_stream)
+                )
+            )
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
             self.select_element(
                 By.CSS_SELECTOR,
@@ -79,11 +98,12 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(
                 By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button
             )
-            time.sleep(1)
-
-            if self.find_web_element(
-                By.CSS_SELECTOR, self.output_elements.output_add_stream_button
-            ):
+            try:
+                WebDriverWait(self.driver, 3).until(
+                    EC.presence_of_element_located(
+                        (By.CSS_SELECTOR, self.output_elements.output_add_stream_button)
+                    )
+                )
                 self.click_element(
                     By.CSS_SELECTOR, self.output_elements.output_add_stream_button
                 )
@@ -96,7 +116,7 @@ class ConfigureOutput(WebDriverMethod):
                     "text",
                     audiopreset_name,
                 )
-            else:
+            except:
                 self.click_element(
                     By.CSS_SELECTOR, self.output_elements.output_edit_stream
                 )
@@ -109,6 +129,7 @@ class ConfigureOutput(WebDriverMethod):
                     "text",
                     audiopreset_name,
                 )
+
             self.click_element(
                 By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button
             )

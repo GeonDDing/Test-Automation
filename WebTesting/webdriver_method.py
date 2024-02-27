@@ -3,11 +3,12 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support.select import Select
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import TimeoutException
 from webdriver_init import WebDriverInit
 import time
+import platform
 
 
 class WebDriverMethod(WebDriverInit):
@@ -24,15 +25,20 @@ class WebDriverMethod(WebDriverInit):
         time.sleep(1)
 
     def input_text(self, by, locator, contents):
-        element = self.find_web_element(by, locator)
-        element.click()
-        time.sleep(0.3)
-        element.send_keys(Keys.CONTROL + "a")
-        time.sleep(0.3)
-        element.send_keys(Keys.DELETE)
-        time.sleep(0.3)
-        element.send_keys(contents)
-        time.sleep(0.5)
+        if platform.system() == "Darwin":
+            element = self.find_web_element(by, locator)
+            element.send_keys(Keys.COMMAND + "a")
+            time.sleep(0.5)
+            element.send_keys(Keys.DELETE)
+            time.sleep(0.3)
+            element.send_keys(contents)
+        else:
+            element = self.find_web_element(by, locator)
+            element.send_keys(Keys.CONTROL + "a")
+            time.sleep(0.5)
+            element.send_keys(Keys.DELETE)
+            time.sleep(0.5)
+            element.send_keys(contents)
 
     def select_element(self, by, locator, select_type, select_value):
         select_box = Select(self.driver.find_element(by, locator))

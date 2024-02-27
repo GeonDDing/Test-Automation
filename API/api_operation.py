@@ -82,10 +82,10 @@ class ApiOperation(ApiConfig):
 
 
 if __name__ == "__main__":
-    test = ApiOperation("source_controls")
-    # test.get_api_operation(2206)
+    test = ApiOperation("videopresets")
+    test.get_api_operation()
     # test.delete_api_operation({'id': '2495'})
     # test.put_api_operation('1', 'chidx', '1')
-    test.put_api_operation(2656)
+    # test.put_api_operation(2656)
     # test.post_api_operation()
     # test.delete_api_operation(2558)

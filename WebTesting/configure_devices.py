@@ -6,11 +6,12 @@ from selenium.common.exceptions import (
     TimeoutException,
 )
 from webdriver_method import WebDriverMethod
+from configure_groups import ConfigureGroup
 from web_elements import ConfigureDeviceElements, MainMenuElements
 import time
 
 
-class ConfigureDevice(WebDriverMethod):
+class ConfigureDevice(ConfigureGroup):
     def __init__(self):
         self.device_elements = ConfigureDeviceElements()
 

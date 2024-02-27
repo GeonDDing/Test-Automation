@@ -4,7 +4,7 @@ import allure
 import json
 import sys
 
-sys.path.append("D:/Testing/API")
+sys.path.append("./API")
 from api_operation import ApiOperation
 
 
