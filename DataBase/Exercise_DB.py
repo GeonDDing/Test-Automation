@@ -1,4 +1,5 @@
 import mysql.connector
+import json
 
 # MariaDB 또는 MySQL 서버에 연결
 connection = mysql.connector.connect(
@@ -15,10 +16,23 @@ cursor.execute("SELECT * FROM _videoprofile")
 result = cursor.fetchall()
 
 # 결과 출력
+db_dict = {}
 for row in result:
-    if row[0] == "SDI":
-        print(row[1])
+    if row[0] == 'SDI':        
+        db_result = row[1].split('\n')
+        for item in db_result:
+            if '<!' not in item and '<' in item:
+                value = item.split('>')[1].split('</')[0]
+                key = item.split('/')[-1].split('>')[0]
+                if value and key:
+                    db_dict[key] = value
+
+# JSON 형태로 정렬해서 출력
+print(json.dumps(db_dict, indent=4))
 
 # 연결 및 커서 닫기
 cursor.close()
 connection.close()
+
+
+
