@@ -1,0 +1,12 @@
+{
+	"http_method": "put",
+	"data": {
+		"name": "API PUT Channel",
+        "sourceurl": "playlist://bbb",
+        "deinterlace": 9,
+        "deblocking": 1,
+        "denoise": 0,
+        "template": "aXA9MTAuMS4wLjIyMA==",
+        "enableSrt": 0
+	}
+}

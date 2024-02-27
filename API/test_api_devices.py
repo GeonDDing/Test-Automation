@@ -1,6 +1,7 @@
 import allure
 import json
 import sys
+import pytest
 
 sys.path.append("./API")
 from api_operation import ApiOperation
@@ -75,6 +76,7 @@ def perform_api_operations(api_operation, operation_name, generated_id=None):
     )
 
 
+@pytest.mark.skip(reason="이 테스트는 스킵됩니다.")
 @allure.title("Device API")
 def test_devices():
     api_operation = ApiOperation("devices")

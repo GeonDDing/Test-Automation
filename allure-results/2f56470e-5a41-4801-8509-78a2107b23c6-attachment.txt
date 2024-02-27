@@ -1,0 +1,42 @@
+[
+    {
+        "inFolderPassword": "mediaExcel5",
+        "enabled": 1,
+        "ID": 3,
+        "outFolderUserName": "mek",
+        "doneFolder": "",
+        "outFolder": "//10.1.0.10/mek/Streams/tmp/out145",
+        "doneFolderPassword": "",
+        "outFolderPassword": "mediaExcel5",
+        "inFolder": "//10.1.0.10/mek/Streams/tmp/in145",
+        "Name": "Test Watch Folder",
+        "inFolderUserName": "mek",
+        "doneFolderUserName": "",
+        "priority": 1,
+        "groupId": 2,
+        "channelId": 2685,
+        "delinfile": 0,
+        "outfileprefix": "",
+        "updated_time": "2024-01-30 11:36:32"
+    },
+    {
+        "inFolderPassword": "mediaexcel",
+        "enabled": 0,
+        "ID": 2,
+        "outFolderUserName": "hera",
+        "doneFolder": "",
+        "outFolder": "//10.1.1.213/admin/storage/out",
+        "doneFolderPassword": "",
+        "outFolderPassword": "mediaexcel",
+        "inFolder": "//10.1.1.213/admin/storage/in",
+        "Name": "213 Watch Folder",
+        "inFolderUserName": "hera",
+        "doneFolderUserName": "",
+        "priority": 1,
+        "groupId": 2,
+        "channelId": 26,
+        "delinfile": 0,
+        "outfileprefix": "",
+        "updated_time": "2023-05-30 11:02:31"
+    }
+]

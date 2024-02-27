@@ -1,7 +1,7 @@
 {
 	"http_method": "put",
 	"data": {
-		"name": "Robot API PUT Role",
+		"name": "API PUT Role",
 		"channels": [
 			4,
 			28

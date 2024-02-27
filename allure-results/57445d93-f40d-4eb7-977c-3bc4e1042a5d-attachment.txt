@@ -1,0 +1,20 @@
+[
+    {
+        "inFilePath": "smb://mek:mediaExcel5@10.1.0.10/mek/Streams/tmp/in145/KBS_joy_HD_1080i.ts",
+        "watchfolderId": 3,
+        "endTime": "2024-01-30 12:24:54",
+        "ID": 83,
+        "queTime": "2024-01-30 12:24:30",
+        "doneFolder": "",
+        "outFolder": "smb://mek:mediaExcel5@10.1.0.10/mek/Streams/tmp/out145/",
+        "deviceId": 1,
+        "priority": 1,
+        "startTime": "2024-01-30 12:24:36",
+        "stateId": 4,
+        "groupId": 2,
+        "channelId": 2685,
+        "channelindex": -1,
+        "delinfile": 0,
+        "progress": "2.520000"
+    }
+]

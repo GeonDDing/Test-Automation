@@ -46,7 +46,7 @@ def perform_api_operations(api_operation, operation_name):
         )
 
     # GET after POST request
-    response_get = api_operation.get_api_operation(None, "devid", "1", "chindex", "1")
+    response_get = api_operation.get_api_operation(None, "devid", "2", "chindex", "0")
     attach_response_step(
         f"GET {operation_name}",
         response_get,
@@ -65,7 +65,7 @@ def perform_api_operations(api_operation, operation_name):
         )
 
     # GET after PUT request
-    response_get = api_operation.get_api_operation(None, "devid", "1", "chindex", "1")
+    response_get = api_operation.get_api_operation(None, "devid", "2", "chindex", "0")
     attach_response_step(
         f"GET {operation_name}",
         response_get,
@@ -75,7 +75,7 @@ def perform_api_operations(api_operation, operation_name):
 
     # DELETE
     response_delete = api_operation.delete_api_operation(
-        None, "devid", "1", "chindex", "1", "key", "key0"
+        None, "devid", "2", "chindex", "0", "key", "key0"
     )
     attach_response_step(
         f"DELETE {operation_name}",
@@ -91,7 +91,7 @@ def test_id3s():
     channel_start = {"operation": "transcode", "action": "start"}
     channel_stop = {"operation": "transcode", "action": "stop"}
     control_response = requests.put(
-        f"{ApiOperation('controls').api_url}?id=1&chidx=1",
+        f"{ApiOperation('controls').api_url}?id=2&chidx=0",
         headers=ApiOperation("controls").headers,
         data=json.dumps(channel_start),
     )
@@ -101,7 +101,11 @@ def test_id3s():
     api_operation = ApiOperation("id3s")
     perform_api_operations(api_operation, "id3")
     requests.put(
-        f"{ApiOperation('controls').api_url}?id=1&chidx=1",
+        f"{ApiOperation('controls').api_url}?id=2&chidx=0",
         headers=ApiOperation("controls").headers,
         data=json.dumps(channel_stop),
     )
+
+
+if __name__ == "__main__":
+    test_id3s()

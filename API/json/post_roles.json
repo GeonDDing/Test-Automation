@@ -1,7 +1,7 @@
 {
 	"http_method": "post",
 	"data": {
-		"name": "Robot API POST Role",
+		"name": "API POST Role",
 		"channels": [
 			4,
 			28

@@ -1,8 +1,8 @@
 {
-	"http_method": "put",
+	"http_method": "post",
 	"data": {
-		"name": "RF API POST Channel",
-        "sourceurl": "playlist://Nielsen",
+		"name": "API POST Channel",
+        "sourceurl": "playlist://Avatar",
         "deinterlace": 9,
         "deblocking": 1,
         "denoise": 0,

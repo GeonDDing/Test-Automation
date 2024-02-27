@@ -1,7 +1,7 @@
 {
 	"http_method": "post",
 	"data": {
-		"name": "Robot API POST Watch Folder ",
+		"name": "API POST Watch Folder ",
 		"groupid": 2,
 		"channelid": 2005,
 		"enable": 1,

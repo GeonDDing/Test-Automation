@@ -47,12 +47,12 @@ def perform_api_operations(api_operation, operation_name):
 
 
 @allure.title("Source API")
-def test_sources():
+def test_sources(devid=2, chidx=0):
     # Source API 호출 전 채널 시작
     channel_start = {"operation": "transcode", "action": "start"}
     channel_stop = {"operation": "transcode", "action": "stop"}
     control_response = requests.put(
-        f"{ApiOperation('controls').api_url}?id=1&chidx=1",
+        f"{ApiOperation('controls').api_url}?id={devid}&chidx={chidx}",
         headers=ApiOperation("controls").headers,
         data=json.dumps(channel_start),
     )
@@ -62,7 +62,7 @@ def test_sources():
         api_operation = ApiOperation("sources")
         perform_api_operations(api_operation, "Sources")
         requests.put(
-            f"{ApiOperation('controls').api_url}?id=1&chidx=1",
+            f"{ApiOperation('controls').api_url}?id={devid}&chidx={chidx}",
             headers=ApiOperation("controls").headers,
             data=json.dumps(channel_stop),
         )

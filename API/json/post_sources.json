@@ -2,8 +2,8 @@
     {
         "http_method": "post",
         "data": {
-            "devid": 1,
-            "chindex": 1,
+            "devid": 2,
+            "chindex": 0,
             "layer": 1,
             "repeat": 30,
             "replace_mode": 1,
@@ -14,8 +14,8 @@
     {
         "http_method": "post",
         "data": {
-            "devid": 1,
-            "chindex": 1,
+            "devid": 2,
+            "chindex": 0,
             "layer": 1,
             "repeat": 30,
             "replace_mode": 1,
@@ -26,8 +26,8 @@
     {
         "http_method": "post",
         "data": {
-            "devid": 1,
-            "chindex": 1,
+            "devid": 2,
+            "chindex": 0,
             "layer": 1,
             "repeat": 30,
             "replace_mode": 1,
@@ -38,8 +38,8 @@
     {
         "http_method": "post",
         "data": {
-            "devid": 1,
-            "chindex": 1,
+            "devid": 2,
+            "chindex": 0,
             "layer": 1,
             "repeat": 30,
             "replace_mode": 2,

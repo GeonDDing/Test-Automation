@@ -28,7 +28,7 @@ class ApiOperation(ApiConfig):
                         if key == args[0]:
                             continue
                         api_url += f"&{key}={value}"
-            print(api_url)
+            print(f"API URL : {api_url}")
             if method == "get":
                 response = requests.get(api_url, headers=self.headers)
             elif method == "post":

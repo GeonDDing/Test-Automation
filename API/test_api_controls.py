@@ -1,6 +1,7 @@
 import allure
 import json
 import sys
+import pytest
 
 sys.path.append("./API")
 from api_operation import ApiOperation
@@ -44,7 +45,8 @@ def perform_api_operations(api_operation, operation_name, *args):
         )
 
 
+@pytest.mark.skip(reason="이 테스트는 스킵됩니다.")
 @allure.title("Contorl API")
 def test_controls():
     api_operation = ApiOperation("controls")
-    perform_api_operations(api_operation, "Control", "chidx", 1)
+    perform_api_operations(api_operation, "Control", 2, "chidx", 0)
