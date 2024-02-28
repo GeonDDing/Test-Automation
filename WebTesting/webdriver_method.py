@@ -13,6 +13,7 @@ import platform
 
 class WebDriverMethod(WebDriverInit):
     driver = webdriver.Chrome(options=WebDriverInit().options)
+    driver.set_window_size(1280, 1920)
 
     def find_web_element(self, by, locator):
         try:
