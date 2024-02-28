@@ -1,4 +1,8 @@
-API/__pycache__/
+Backend/__pycache__/
+Backend/TestCase/__pycache__/
 DataBase/__pycache__/
-WebTesting/__pycache__/
+WebUI/__pycache__/
+WebUI/TestCase/__pycache__/
 Common/__pycache__/
+.pytest_cache/
+allure-results/

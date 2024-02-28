@@ -1,5 +1,8 @@
-### Pytest Command ###
-pytest --tb=no --alluredir=allure-results --allure-no-capture --clean-alluredir
-allure serve --host 127.0.0.1 --port 8080 ./allure-results
+### 전체 테스트케이스 실행 ###
+pytest --alluredir=allure-results --allure-no-capture --clean-alluredir
 
-pytest -qq ./API/test_api_devices.py --alluredir=allure-results --allure-no-capture --clean-alluredir
+### WebUI 테스트케이스만 실행 ###
+pytest ./WebUI/TestCase --tb=no --alluredir=allure-results --clean-alluredir
+
+### Allure 레포트 생성 ###
+allure serve --host 127.0.0.1 --port 8080 ./allure-results
