@@ -19,7 +19,7 @@ class DeleteNewChannels(ApiOperation):
                 else:
                     new_channel_flag = False
         if not new_channel_flag:
-            print('Not exist New Channel')
+            print('There are no more new channels left.')
 
 
 if __name__ == "__main__":
