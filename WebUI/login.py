@@ -26,7 +26,7 @@ class Login(WebDriverMethod):
                 print("로그인 정보")
                 print(f"  ㆍID : {username}")
                 print(f"  ㆍPW : {password}")
-                return True, None
+                return True
             else:
                 logging.error("Login 실패")
                 print("로그인 실패")
@@ -39,7 +39,7 @@ class Login(WebDriverMethod):
         ) as e:
             print(f"Error: {e}")
             logging.error((f"Error: {e}"))
-            return False, e
+            return False
 
 
 class Logout(WebDriverMethod):

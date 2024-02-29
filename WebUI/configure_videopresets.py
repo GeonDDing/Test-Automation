@@ -89,7 +89,7 @@ class ConfigureVideopreset(WebDriverMethod):
             print("Video Preset 설정 완료 ")
             time.sleep(1)
 
-            return True, None
+            return True
 
         except (
             NoSuchElementException,
@@ -97,7 +97,7 @@ class ConfigureVideopreset(WebDriverMethod):
             TimeoutException,
         ) as e:
             print(f"Error: {e}")
-            return False, e
+            return False
 
     def find_exist_videopreset(self, videopreset_name):
         try:
@@ -118,4 +118,4 @@ class ConfigureVideopreset(WebDriverMethod):
             print(f"Element not found: {e}")
             logging.error(f"Element not found: {e}")
             # Handle the error as needed, for example, return False or raise the exception again
-            return False, e
+            return False

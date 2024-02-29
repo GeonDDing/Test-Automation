@@ -97,7 +97,7 @@ class ConfigureAudiopreset(WebDriverMethod):
             TimeoutException,
         ) as e:
             print(f"Error: {e}")
-            return False, e
+            return False
 
     def find_exist_audiopreset(self, audiopreset_name):
         try:
@@ -117,4 +117,4 @@ class ConfigureAudiopreset(WebDriverMethod):
         except NoSuchElementException as e:
             print(f"Element not found: {e}")
             # Handle the error as needed, for example, return False or raise the exception again
-            return False, e
+            return False

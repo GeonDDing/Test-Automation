@@ -5,6 +5,7 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+
 from configure_roles import ConfigureRole
 from configure_devices import ConfigureDevice
 from configure_groups import ConfigureGroup
@@ -51,64 +52,6 @@ audiopreset = {
     "Bitrate": "128",
 }
 
-
-# @allure.step("로그인")
-# def login_step(id, pwd):
-#     with allure.step("Login"):
-#         login_status = bool()
-#         test_result = str()
-#         login_instance = Login()
-#         login_status = login_instance.login(id, pwd)
-#         if login_status[0]:
-#             allure.attach(
-#                 "Login 성공",
-#                 name="Login",
-#                 attachment_type=None,
-#             )
-#             test_result = "TEST PASS"
-#         else:
-#             allure.attach(
-#                 "Login 실패",
-#                 name="Login",
-#                 attachment_type=None,
-#             )
-#             test_result = "TEST FAIL"
-#         assert login_status[0], test_result
-
-
-# @allure.step("Video Profile 생성")
-# def videoprest_setp(profile_name, videopreset_options):
-#     with allure.step("Create Video Profile"):
-#         videopreset_status = bool()
-#         test_result = str()
-#         videopreset_instance = ConfigureVideopreset()
-#         videopreset_status = videopreset_instance.configure_videopreset(
-#             profile_name, videopreset_options
-#         )
-#         if videopreset_status[0]:
-#             allure.attach(
-#                 "Video Profile 생성 완료",
-#                 name="Video Profile 생성",
-#                 attachment_type=None,
-#             )
-#             test_result = "TEST PASS"
-#         else:
-#             allure.attach(
-#                 "Video Profile 생성 실패",
-#                 name="Video Profile 생성",
-#                 attachment_type=None,
-#             )
-#             test_result = "TEST FAIL"
-#         assert videopreset_status[0], test_result
-
-
-# # @pytest.mark.parametrize("id,pwd", [("admin", "admin"), ("admin1", "admin")])
-# @allure.title("UDP/IP Multicast Input")
-# def test_udp_input():
-#     login_step("admin", "admin1")
-#     videoprest_setp(profile_name["Videopreset Name"], videopreset)
-
-
 @allure.step("로그인")
 def login_step(id, pwd):
     with allure.step("Login"):
@@ -129,20 +72,42 @@ def videopreset_step(profile_name, videopreset_options):
         videopreset_status = videopreset_instance.configure_videopreset(
             profile_name, videopreset_options
         )
-        if videopreset_status[0]:
+        if videopreset_status:
             allure.attach(
                 "Video Preset 생성 성공",
                 name="Video Preset 생성",
                 attachment_type=None,
             )
-            assert videopreset_status[0], "TEST PASS"
+            assert videopreset_status, "TEST PASS"
         else:
             allure.attach(
                 "Video Preset 생성 실패",
                 name="Video Preset 생성",
                 attachment_type=None,
             )
-            assert videopreset_status[0], "TEST FAIL"
+            assert videopreset_status, "TEST FAIL"
+    
+@allure.step("Audio Preset 생성")
+def audioreset_step(profile_name, audiopreset_options):
+    with allure.step("Audio Preset"):
+        audiopreset_instance = ConfigureAudiopreset()
+        audiopreset_status = audiopreset_instance.configure_audiopreset(
+            profile_name, audiopreset_options
+        )
+        if audiopreset_status:
+            allure.attach(
+                "Video Preset 생성 성공",
+                name="Video Preset 생성",
+                attachment_type=None,
+            )
+            assert audiopreset_status, "TEST PASS"
+        else:
+            allure.attach(
+                "Video Preset 생성 실패",
+                name="Video Preset 생성",
+                attachment_type=None,
+            )
+            assert audiopreset_status, "TEST FAIL"
 
 
 @allure.title("UDP/IP Multicast Input")
