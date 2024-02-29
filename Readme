@@ -5,7 +5,7 @@ pytest --alluredir=allure-results --allure-no-capture --clean-alluredir
 pytest ./WebUI/TestCase --tb=no --alluredir=allure-results --clean-alluredir
 
 ### Allure 레포트 생성 ###
-allure serve --host 127.0.0.1 --port 8080 ./allure-results
+allure serve --host 127.0.0.1 --port 8081 ./allure-results
 
 
 pytest ./Backend/TestCase/test_api_audiopresets.py --tb=no --alluredir=allure-results --clean-alluredir

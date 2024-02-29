@@ -13,26 +13,21 @@ from api_operation import ApiOperation
 def attach_response_step(step_name, response, status_name, result_name):
     with allure.step(step_name):
         if str(response[0]) == "200":
-            status_code = (
-                str(response[0])
-                if isinstance(response[0], (int, float))
-                else response[0]
-            )
             allure.attach(
-                f"Response Status Code: {status_code}, 테스트 성공",
+                f"Response Status Code: {response[0]}, 테스트 성공",
                 name=status_name,
-                attachment_type=allure.attachment_type.TEXT,
+                attachment_type=None,
             )
             allure.attach(
                 f"{json.dumps(response[1], indent=4)}",
                 name=result_name,
-                attachment_type=allure.attachment_type.TEXT,
+                attachment_type=None,
             )
         else:
             allure.attach(
-                f"Response Status Code: {response}",
+                f"Response Status Code: {response[0]} 테스트 실패",
                 name=status_name,
-                attachment_type=allure.attachment_type.TEXT,
+                attachment_type=None,
             )
             assert str(response[0]) == "200", "테스트 실패"
 

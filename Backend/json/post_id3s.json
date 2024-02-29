@@ -2,7 +2,7 @@
 	"http_method": "post",
 	"data": {
         "devid": 2,
-		"chindex": 0,		
+		"chindex": 0,
         "key": "key0",
         "start": 0,
         "duration": 60,
