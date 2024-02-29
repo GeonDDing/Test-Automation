@@ -60,13 +60,16 @@ class StatsSender:
                         )
                         video_width = stats.find("videoWidth").text
                         video_height = stats.find("videoHeight").text
-                        video_rate = float(stats.find("videoRate").text) / 1000000
+                        video_rate = float(stats.find(
+                            "videoRate").text) / 1000000
                         frame_count = stats.find("muxedFrameCount").text
                         frame_rate = stats.find("frameRate").text
                         if not video_rate == 0.0:
-                            mux_rate = float(stats.find("muxRate").text) / 1000000
+                            mux_rate = float(stats.find(
+                                "muxRate").text) / 1000000
                             output_info = f"{video_codec_type} {video_width}x{video_height} {video_rate:.3f} Mbps {frame_rate} fps | Mux Rate: {mux_rate:.3f} Mbps | Frames : {frame_count}"
 
                     if output_info is not None:
-                        queue.put((chidx, source_layer, source_stat, output_info))
+                        queue.put(
+                            (chidx, source_layer, source_stat, output_info))
                     time.sleep(2)

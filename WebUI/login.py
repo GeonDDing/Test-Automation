@@ -21,16 +21,15 @@ class Login(WebDriverMethod):
             self.input_text(By.CSS_SELECTOR, LoginElements.password, password)
             # Click login button
             self.click_element(By.CSS_SELECTOR, LoginElements.login_button)
+
             if self.driver.current_url == "http://10.1.0.145/hms/index.php":
-                logging.info("Login 성공")
                 print("로그인 정보")
                 print(f"  ㆍID : {username}")
                 print(f"  ㆍPW : {password}")
                 return True
             else:
-                logging.error("Login 실패")
                 print("로그인 실패")
-                return False, "Login Failed"
+                return False
 
         except (
             NoSuchElementException,
@@ -38,7 +37,6 @@ class Login(WebDriverMethod):
             TimeoutException,
         ) as e:
             print(f"Error: {e}")
-            logging.error((f"Error: {e}"))
             return False
 
 
