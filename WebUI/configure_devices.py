@@ -79,7 +79,7 @@ class ConfigureDevice(WebDriverMethod):
             TimeoutException,
         ) as e:
             print(f"Error: {e}")
-            return False,e 
+            return False, e
 
     def find_exist_device(self, device_name):
         try:

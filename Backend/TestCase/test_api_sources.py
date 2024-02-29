@@ -19,7 +19,7 @@ def attach_response_step(step_name, response, status_name, result_name):
                 else response[0]
             )
             allure.attach(
-                f"Response Status Code: {status_code}",
+                f"Response Status Code: {status_code}, 테스트 성공",
                 name=status_name,
                 attachment_type=allure.attachment_type.TEXT,
             )
@@ -34,6 +34,7 @@ def attach_response_step(step_name, response, status_name, result_name):
                 name=status_name,
                 attachment_type=allure.attachment_type.TEXT,
             )
+            assert str(response[0]) == "200", "테스트 실패"
 
 
 def perform_api_operations(api_operation, operation_name):
