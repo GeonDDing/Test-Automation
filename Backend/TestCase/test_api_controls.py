@@ -32,7 +32,7 @@ class TestControlAPI:
     @pytest.mark.parametrize(
         "devid_value, uri_resource, chidx_value", [("2", "chidx", "0")]
     )
-    @allure.title("Contorl API")
+    @allure.title("API: Contorl")
     def test_controls(self, devid_value, uri_resource, chidx_value):
         api_operation = ApiOperation("controls")
 
@@ -40,7 +40,7 @@ class TestControlAPI:
         response_put = api_operation.put_api_operation(
             devid_value, uri_resource, chidx_value
         )
-        for i, response in enumerate(response_put[0]):
+        for i, response in enumerate(response_put):
             with allure.step(f"PUT Control"):
                 self.attach_response_result(
                     response,

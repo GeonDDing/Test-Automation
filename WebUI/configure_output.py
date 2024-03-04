@@ -17,7 +17,6 @@ class ConfigureOutput(WebDriverMethod):
         self.output_elements = ConfigureOutputElements()
         # Click output add button
         try:
-            print("Output Settings")
             if not self.find_exist_output(output_type):
                 self.click_element(
                     By.CSS_SELECTOR, self.output_elements.output_add_output_button
@@ -37,10 +36,8 @@ class ConfigureOutput(WebDriverMethod):
                 self.click_element(
                     By.CSS_SELECTOR, self.output_elements.output_create_button
                 )
-            else:
-                print("A output with the same name exists.")
 
-            self.select_stream_profile(videopreset_name, audiopreset_name)
+            self.select_stream_preset(videopreset_name, audiopreset_name)
 
         except (
             NoSuchElementException,
@@ -64,7 +61,6 @@ class ConfigureOutput(WebDriverMethod):
                     By.XPATH, self.output_elements.output_table
                 )
             except TimeoutException:
-                print("No output is the same.")
                 return False
 
             for tr in output_table.find_elements(By.XPATH, ".//tbody/tr"):
@@ -73,17 +69,18 @@ class ConfigureOutput(WebDriverMethod):
                 )
                 if f"{output_type}:" in column_value:
                     tr.find_elements(By.TAG_NAME, "td")[3].click()
-                    print(f"  ㆍ{column_value}")
-                    return True  # Role found and clicked
-            return False  # Role not found
+                    # print(f"  ㆍ{column_value}")
+                    return True  # Output found and clicked
+            return False  # Output not found
 
         except NoSuchElementException as e:
             print(f"Element not found: {e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False
 
-    def select_stream_profile(self, videopreset_name, audiopreset_name):
+    def select_stream_preset(self, videopreset_name, audiopreset_name):
         try:
+            print("  - Video, Audio Profile 선택")
             WebDriverWait(self.driver, 3).until(
                 EC.presence_of_element_located(
                     (By.CSS_SELECTOR, self.output_elements.output_edit_stream)
@@ -96,6 +93,7 @@ class ConfigureOutput(WebDriverMethod):
                 "text",
                 videopreset_name,
             )
+            print(f"    ㆍVideopreset : {videopreset_name}")
             self.click_element(
                 By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button
             )
@@ -108,35 +106,35 @@ class ConfigureOutput(WebDriverMethod):
                 self.click_element(
                     By.CSS_SELECTOR, self.output_elements.output_add_stream_button
                 )
-                self.wait_element(
+                if self.wait_element(
                     By.CSS_SELECTOR, self.output_elements.output_audio_profile
-                )
-                self.select_element(
-                    By.CSS_SELECTOR,
-                    self.output_elements.output_audio_profile,
-                    "text",
-                    audiopreset_name,
-                )
+                ):
+                    self.select_element(
+                        By.CSS_SELECTOR,
+                        self.output_elements.output_audio_profile,
+                        "text",
+                        audiopreset_name,
+                    )
+                    print(f"    ㆍAudiopreset : {audiopreset_name}")
             except:
                 self.click_element(
                     By.CSS_SELECTOR, self.output_elements.output_edit_stream
                 )
-                self.wait_element(
+                if self.wait_element(
                     By.CSS_SELECTOR, self.output_elements.output_audio_profile
-                )
-                self.select_element(
-                    By.CSS_SELECTOR,
-                    self.output_elements.output_audio_profile,
-                    "text",
-                    audiopreset_name,
-                )
+                ):
+                    self.select_element(
+                        By.CSS_SELECTOR,
+                        self.output_elements.output_audio_profile,
+                        "text",
+                        audiopreset_name,
+                    )
+                    print(f"    ㆍAudiopreset : {audiopreset_name}")
 
             self.click_element(
                 By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button
             )
             self.wait_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
-
-            print("Video, Audiopreset select complete")
             time.sleep(1)
             return True
 
@@ -155,10 +153,10 @@ class ConfigureOutput(WebDriverMethod):
             "NULL packet padding",
         ]
         try:
-            print("UDP Output")
+            print("  - UDP/IP Output 생성")
             # Output option setting
             for key, value in output_options.items():
-                print(f"  ㆍ{key} : {value}")
+                print(f"    ㆍ{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -181,7 +179,6 @@ class ConfigureOutput(WebDriverMethod):
                     if element_selector:
                         self.input_text(By.XPATH, element_selector, value)
 
-            print("UDP Output setting complete")
             time.sleep(1)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
@@ -206,10 +203,10 @@ class ConfigureOutput(WebDriverMethod):
             'Append "ENDLIST" at Stop',
         ]
         try:
-            print("HLS Output")
+            print("  - HLS Output 생성")
             # Output option setting
             for key, value in output_options.items():
-                print(f"  ㆍ{key} : {value}")
+                print(f"    ㆍ{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -235,7 +232,6 @@ class ConfigureOutput(WebDriverMethod):
                 else:
                     self.input_text(By.XPATH, element_selector, value)
 
-            print("HLS Output setting complete")
             time.sleep(1)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
@@ -251,9 +247,9 @@ class ConfigureOutput(WebDriverMethod):
 
     def output_rtsp(self, output_options):
         try:
-            print("RTSP Output settings")
+            print("  - RTSP Output 생성")
             for key, value in output_options.items():
-                print(f"  ㆍ{key} : {value}")
+                print(f"    ㆍ{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -265,7 +261,6 @@ class ConfigureOutput(WebDriverMethod):
                 )
                 self.input_text(By.XPATH, element_selector, value)
 
-            print("RTSP Output setting complete")
             time.sleep(1)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
@@ -282,9 +277,9 @@ class ConfigureOutput(WebDriverMethod):
     def output_rtmp(self, output_options):
         relevant_keys = ["Subtitle Language", "CDN Authentication"]
         try:
-            print("RTMP Output")
+            print("  - RTMP Output 생성")
             for key, value in output_options.items():
-                print(f"  ㆍ{key} : {value}")
+                print(f"    ㆍ{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -299,7 +294,6 @@ class ConfigureOutput(WebDriverMethod):
                 else:
                     self.input_text(By.XPATH, element_selector, value)
 
-            print("RTMP Output setting complete")
             time.sleep(1)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
@@ -327,9 +321,9 @@ class ConfigureOutput(WebDriverMethod):
             'Send "mfra" at Stop',
         ]
         try:
-            print("Live Smooth Streaming Output")
+            print("  - Live Smooth Streaming Output 생성")
             for key, value in output_options.items():
-                print(f"  ㆍ{key} : {value}")
+                print(f"    ㆍ{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -346,7 +340,6 @@ class ConfigureOutput(WebDriverMethod):
                 else:
                     self.select_element(By.XPATH, element_selector, "text", value)
 
-            print("Live Smooth Streaming Output setting complete")
             time.sleep(1)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
@@ -370,9 +363,9 @@ class ConfigureOutput(WebDriverMethod):
             "DRM Type",
         ]
         try:
-            print("DASH Output")
+            print("  - DASH Output 생성")
             for key, value in output_options.items():
-                print(f"  ㆍ{key} : {value}")
+                print(f"    ㆍ{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -389,7 +382,6 @@ class ConfigureOutput(WebDriverMethod):
                 else:
                     self.select_element(By.XPATH, element_selector, "text", value)
 
-            print("DASH Output setting complete")
             time.sleep(1)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
@@ -424,9 +416,9 @@ class ConfigureOutput(WebDriverMethod):
             'Append "ENDLIST" at Stop',
         ]
         try:
-            print("CMAF Output")
+            print("  - CMAF Output 생성")
             for key, value in output_options.items():
-                print(f"  ㆍ{key} : {value}")
+                print(f"    ㆍ{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -443,7 +435,6 @@ class ConfigureOutput(WebDriverMethod):
                 else:
                     self.select_element(By.XPATH, element_selector, "text", value)
 
-            print("CAMF Output setting complete")
             time.sleep(1)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)

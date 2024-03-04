@@ -7,7 +7,6 @@ from selenium.common.exceptions import (
 )
 from webdriver_method import WebDriverMethod
 from web_elements import LoginElements
-import logging
 
 
 class Login(WebDriverMethod):
@@ -15,20 +14,19 @@ class Login(WebDriverMethod):
         # Open Page
         self.driver.get(self.url)
         try:
+            print("\n- 로그인")
             # Input username
+            print(f"  ㆍID : {username}")
             self.input_text(By.CSS_SELECTOR, LoginElements.login, username)
             # Input password
+            print(f"  ㆍPW : {password}")
             self.input_text(By.CSS_SELECTOR, LoginElements.password, password)
             # Click login button
             self.click_element(By.CSS_SELECTOR, LoginElements.login_button)
 
             if self.driver.current_url == "http://10.1.0.145/hms/index.php":
-                print("로그인 정보")
-                print(f"  ㆍID : {username}")
-                print(f"  ㆍPW : {password}")
                 return True
             else:
-                print("로그인 실패")
                 return False
 
         except (

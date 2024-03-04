@@ -28,7 +28,7 @@ class TestMChannelAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @allure.title("MChannel API")
+    @allure.title("API: MChannel")
     def test_mchannels(self):
         api_operation = ApiOperation("mchannels")
         generated_id = None

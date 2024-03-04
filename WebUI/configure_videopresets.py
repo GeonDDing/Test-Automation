@@ -8,7 +8,6 @@ from selenium.common.exceptions import (
 from webdriver_method import WebDriverMethod
 from web_elements import ConfigureVideopresetElements, MainMenuElements
 import time
-import logging
 
 
 class ConfigureVideopreset(WebDriverMethod):
@@ -31,13 +30,13 @@ class ConfigureVideopreset(WebDriverMethod):
             print(f"Error: {e}")
             return False
 
-    def configure_videopreset(self, profile_name, videopreset_options=None):
+    def configure_videopreset(self, preset_name, videopreset_options=None):
         try:
             self.navigate_to_configure_videopresets()
 
             # Click the button to add a new videopreset or find an existing one
-            if not self.find_exist_videopreset(profile_name):
-                print("Video Preset 설정 시작")
+            if not self.find_exist_videopreset(preset_name):
+                print("- Video Preset 생성")
                 self.click_element(
                     By.CSS_SELECTOR, self.videopreset_elements.videopreset_add_button
                 )
@@ -47,22 +46,21 @@ class ConfigureVideopreset(WebDriverMethod):
                 self.input_text(
                     By.CSS_SELECTOR,
                     self.videopreset_elements.videopreset_name,
-                    profile_name,
+                    preset_name,
                 )
             else:
-                print("Video Preset 설정 시작 (동일한 프리셋이 있어 옵션 수정)")
+                print("- Video Preset 수정")
             # Codec
             # H.264/AVC | H.265/HEVC
             select_relevant_keys = ["Codec", "Encoding engine", "Resolution"]
             input_relevant_keys = [
                 "Bitrate",
                 "Frame Rate",
-                "I-Frame Interval",
                 "Buffering Time",
+                "I-Frame Interval",
             ]
 
             for key, value in videopreset_options.items():
-                print(f"  ㆍ{key} : {value}")
                 element_selector = getattr(
                     self.videopreset_elements,
                     (
@@ -72,6 +70,7 @@ class ConfigureVideopreset(WebDriverMethod):
                     ),
                     None,
                 )
+                print(f"  ㆍ{key} : {value}")
                 if any(keyword in key for keyword in select_relevant_keys):
                     self.select_element(
                         By.CSS_SELECTOR, element_selector, "text", value
@@ -86,7 +85,6 @@ class ConfigureVideopreset(WebDriverMethod):
                 By.CSS_SELECTOR, self.videopreset_elements.videopreset_save_button
             )
             # Wait for a moment before continuing
-            print("Video Preset 설정 완료 ")
             time.sleep(1)
 
             return True
@@ -116,6 +114,5 @@ class ConfigureVideopreset(WebDriverMethod):
 
         except NoSuchElementException as e:
             print(f"Element not found: {e}")
-            logging.error(f"Element not found: {e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False

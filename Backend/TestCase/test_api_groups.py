@@ -27,7 +27,7 @@ class TestGroupAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @allure.title("Group API")
+    @allure.title("API: Group")
     def test_groups(self):
         api_operation = ApiOperation("groups")
         generated_id = None

@@ -34,7 +34,7 @@ class TestSourceAPI:
         "devid_vlaue, chidx_value",
         [("2", "0")],
     )
-    @allure.title("Source API")
+    @allure.title("API: Source")
     def test_sources(self, devid_vlaue, chidx_value):
         # Source API 호출 전 채널 시작
         channel_start = {"operation": "transcode", "action": "start"}

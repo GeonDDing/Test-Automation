@@ -27,7 +27,7 @@ class TestAudiopresetAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @allure.title("Audiopreset API")
+    @allure.title("API: Audiopreset")
     def test_audiopresets(self):
         api_operation = ApiOperation("audiopresets")
         generated_id = None

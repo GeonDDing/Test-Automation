@@ -29,7 +29,7 @@ class TestJobAPI:
         assert status_code == 200, "테스트 실패"
 
     @pytest.mark.parametrize("uri_resource, groupid_value", [("groupid", "2")])
-    @allure.title("Jobs API")
+    @allure.title("API: Job")
     def test_filesystem(self, uri_resource, groupid_value):
         api_operation = ApiOperation("jobs")
         generated_id = None

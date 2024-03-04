@@ -2,7 +2,7 @@
 from configure_roles import ConfigureRole
 from configure_devices import ConfigureDevice
 from configure_groups import ConfigureGroup
-from configure_channels import Configurechannel
+from configure_channels import ConfigureChannel
 from configure_audiopresets import ConfigureAudiopreset
 from configure_videopresets import ConfigureVideopreset
 from configure_tasks import ConfigureTask
@@ -12,7 +12,7 @@ from datetime import datetime
 import sys
 
 
-profile_name = {
+preset_name = {
     "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
     "Audiopreset Name": "AAC | 128K | 48kHz | Testing",
 }
@@ -81,21 +81,28 @@ if __name__ == "__main__":
     device_instance = ConfigureDevice()
     group_instance = ConfigureGroup()
     role_instance = ConfigureRole()
-    channel_instance = Configurechannel()
+    channel_instance = ConfigureChannel()
     audiopreset_instance = ConfigureAudiopreset()
     videopreset_instance = ConfigureVideopreset()
     task_instance = ConfigureTask()
 
     login_instance.login("admin", "admin")
     # audiopreset_instance.configure_audiopreset(
-    #     profile_name["Audiopreset Name"], audiopreset_options
+    #     preset_name["Audiopreset Name"], audiopreset_options
     # )
     videopreset_instance.configure_videopreset(
-        profile_name["Videopreset Name"], videopreset_options
+        preset_name["Videopreset Name"], videopreset_options
     )
 
-    # channel_instance.configure_channel(
-    #     'UDP Testing Channel', 'UDP/IP', 'TS UDP/IP', None, input_udp_options, output_udp_options, None)
+    channel_instance.configure_channel(
+        "UDP Testing Channel",
+        "UDP/IP",
+        "TS UDP/IP",
+        None,
+        input_udp_options,
+        output_udp_options,
+        None,
+    )
 
     # channel_instance.configure_channel(
     #     "test_channel",
@@ -105,11 +112,11 @@ if __name__ == "__main__":
     #     input_sdi_options,
     #     output_udp_options,
     #     None,
-    #     profile_name,
+    #     preset_name,
     # )
 
     # channel_instance.configure_channel(
-    #     'Playlist Testing Channel', 'Playlist', 'HLS', None, input_playlist_options, output_hls_options, None, profile_name)
+    #     'Playlist Testing Channel', 'Playlist', 'HLS', None, input_playlist_options, output_hls_options, None, preset_name)
 
     # role_instance.configure_role('test role', 'UDP Testing Channel')
     # group_instance.configure_group('test group', 'live')

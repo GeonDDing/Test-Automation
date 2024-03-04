@@ -27,7 +27,7 @@ class TestVideopresetAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @allure.title("Videopreset API")
+    @allure.title("API: Videopreset")
     def test_videopresets(self):
         api_operation = ApiOperation("videopresets")
         generated_id = None

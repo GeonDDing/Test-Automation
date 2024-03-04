@@ -44,9 +44,9 @@ class ConfigureInput(WebDriverMethod):
         ]
         select_relevant_keys = ["Interface", "Enable HA Mode", "Program Selection Mode"]
         try:
-            print("UDP/IP Input settings")
+            print("  - UDP/IP Input 생성")
             for key, value in input_options.items():
-                print(f"  ㆍ{key} : {value}")
+                print(f"    ㆍ{key} : {value}")
                 element_selector = getattr(
                     self.input_elements,
                     (
@@ -95,7 +95,6 @@ class ConfigureInput(WebDriverMethod):
                     else:
                         self.click_element(By.CSS_SELECTOR, element_selector)
 
-            print("UDP/IP Input setting complete")
             time.sleep(1)
             return True
 
@@ -109,13 +108,12 @@ class ConfigureInput(WebDriverMethod):
 
     def input_rtsp(self, input_options):
         try:
-            print("RTSP Input settings")
+            print("  - RTSP Input 생성")
             self.input_text(
                 By.CSS_SELECTOR,
                 self.input_elements.input_udp_network_url,
                 input_options.get("SDP File"),
             )
-            print("RTSP Input setting complete")
             time.sleep(1)
             return True
 
@@ -129,13 +127,12 @@ class ConfigureInput(WebDriverMethod):
 
     def input_rtmp(self, input_options):
         try:
-            print("RTMP Input settings")
+            print("  - RTMP Input 생성")
             self.input_text(
                 By.CSS_SELECTOR,
                 self.input_elements.input_udp_network_url,
                 input_options.get("URL"),
             )
-            print("RTMP Input setting complete")
             time.sleep(1)
             return True
 
@@ -149,13 +146,12 @@ class ConfigureInput(WebDriverMethod):
 
     def input_hls(self, input_options):
         try:
-            print("HLS Input settings")
+            print("  - HLS Input 생성")
             self.input_text(
                 By.CSS_SELECTOR,
                 self.input_elements.input_udp_network_url,
                 input_options.get("URL"),
             )
-            print("HLS Input setting complete")
             time.sleep(1)
             return True
 
@@ -170,9 +166,9 @@ class ConfigureInput(WebDriverMethod):
     def input_sdi(self, input_options):
         input_relevant_keys = ["Teletext page", "VBI lines"]
         try:
-            print("SDI Input settings")
+            print("  - SDI Input 생성")
             for key, value in input_options.items():
-                print(f"  ㆍ{key} : {value}")
+                print(f"    ㆍ{key} : {value}")
                 element_selector = getattr(
                     self.input_elements,
                     (
@@ -189,7 +185,6 @@ class ConfigureInput(WebDriverMethod):
                         By.CSS_SELECTOR, element_selector, "text", value
                     )
 
-            print("SDI Input setting complete")
             time.sleep(1)
             return True
 
@@ -204,13 +199,13 @@ class ConfigureInput(WebDriverMethod):
     def input_playlist(self, input_options):
         input_relevant_keys = ["URI", "Recurring the last N files"]
         try:
-            print("Playlist Input settings")
+            print("  - Playlist Input 생성")
             # playlist_type = input_options.get('Type')
             # self.select_element(
             #     By.CSS_SELECTOR, self.input_elements.input_playlist_type, 'text', playlist_type)
 
             for key, value in input_options.items():
-                print(f"  ㆍ{key} : {value}")
+                print(f"    ㆍ{key} : {value}")
                 element_selector = getattr(
                     self.input_elements,
                     (
@@ -229,7 +224,6 @@ class ConfigureInput(WebDriverMethod):
                     if "Type" == key:
                         time.sleep(1)
 
-            print("Playlist Input setting complete")
             time.sleep(1)
             return True
 
@@ -249,9 +243,9 @@ class ConfigureInput(WebDriverMethod):
             "Teletext page",
         ]
         try:
-            print("SMPTE ST 2110 Input settings")
+            print("  - SMPTE ST 2110 Input 생성")
             for key, value in input_options.items():
-                print(f"  ㆍ{key} : {value}")
+                print(f"    ㆍ{key} : {value}")
                 element_selector = getattr(
                     self.input_elements,
                     (
@@ -268,7 +262,6 @@ class ConfigureInput(WebDriverMethod):
                         By.CSS_SELECTOR, element_selector, "text", value
                     )
 
-            print("SMTPE ST 2110 Input setting complete")
             time.sleep(1)
             return True
 
@@ -282,7 +275,7 @@ class ConfigureInput(WebDriverMethod):
 
     def input_ndi(self, input_options):
         try:
-            print("NDI Input settings")
+            print("  - NDI Input 생성")
             for key, value in input_options.items():
                 print(f"{key} : {value}")
                 element_selector = getattr(
@@ -296,7 +289,6 @@ class ConfigureInput(WebDriverMethod):
                 )
                 self.input_text(By.CSS_SELECTOR, element_selector, value)
 
-            print("NDI Input setting complete")
             time.sleep(1)
             return True
 

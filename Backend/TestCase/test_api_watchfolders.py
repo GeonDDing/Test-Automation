@@ -27,7 +27,7 @@ class TestWatchFolderAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @allure.title("Watch Folders API")
+    @allure.title("API: Watch Folder")
     def test_watchfolders(self):
         api_operation = ApiOperation("watchfolders")
         generated_id = None

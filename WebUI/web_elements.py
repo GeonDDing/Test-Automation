@@ -749,9 +749,7 @@ class ConfigureVideopresetElements:
     videopreset_iframe_interval = (
         'input[type="text"][id="/video/gopSize"][name="/video/gopSize"]'
     )
-    videopreset_buffering_time = (
-        'input[type="text"][id="/video/lookaheaddepth"][name="/video/lookaheaddepth"]'
-    )
+    videopreset_buffering_time = 'input.inputbox[type="text"][id="/video/lookaheaddepth"][name="/video/lookaheaddepth"]'
     videopreset_add_button = 'input.black-button[type="button"][value="Add"]'
     videopreset_save_button = (
         'input.black-button[type="submit"][name="action"][value="Save"]'

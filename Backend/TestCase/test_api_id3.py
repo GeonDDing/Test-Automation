@@ -34,6 +34,7 @@ class TestID3API:
         "first_uri_resource, second_uri_resoure, devid_value, chindex_value",
         [("devid", "chindex", "2", "0")],
     )
+    @allure.title("API: ID3")
     def test_id3s(
         self, first_uri_resource, second_uri_resoure, devid_value, chindex_value
     ):
@@ -50,10 +51,6 @@ class TestID3API:
             time.sleep(10)
             api_operation = ApiOperation("id3s")
             generated_id = None
-            # first_uri_resource = 'devid'
-            # second_uri_resoure = 'chindex'
-            # devid = '2'
-            # chindex = 0
 
             # POST
             with allure.step("POST ID3"):

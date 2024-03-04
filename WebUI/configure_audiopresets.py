@@ -29,13 +29,13 @@ class ConfigureAudiopreset(WebDriverMethod):
         ) as e:
             print(f"Error: {e}")
 
-    def configure_audiopreset(self, profile_name, audiopreset_options=None):
+    def configure_audiopreset(self, preset_name, audiopreset_options=None):
         try:
-            print("Audio Profile settings")
             self.navigate_to_configure_audiopresets()
 
             # Click the button to add a new audiopreset or find an existing one
-            if not self.find_exist_audiopreset(profile_name):
+            if not self.find_exist_audiopreset(preset_name):
+                print("- Audio Preset 생성")
                 self.click_element(
                     By.CSS_SELECTOR, self.audiopreset_elements.audiopreset_add_button
                 )
@@ -45,10 +45,10 @@ class ConfigureAudiopreset(WebDriverMethod):
                 self.input_text(
                     By.CSS_SELECTOR,
                     self.audiopreset_elements.audiopreset_name,
-                    profile_name,
+                    preset_name,
                 )
             else:
-                print("A audiopreset with the same name exists.")
+                print("- Aidio Preset 수정")
 
             # Codec
             # H.264/AVC | H.265/HEVC
@@ -87,7 +87,6 @@ class ConfigureAudiopreset(WebDriverMethod):
                 By.CSS_SELECTOR, self.audiopreset_elements.audiopreset_save_button
             )
             # Wait for a moment before continuing
-            print("Audiopreset setting complete")
             time.sleep(1)
             return True
 

@@ -27,7 +27,7 @@ class TestRoleAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @allure.title("Role API")
+    @allure.title("API: Role")
     def test_roles(self):
         api_operation = ApiOperation("roles")
         generated_id = None

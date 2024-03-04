@@ -23,21 +23,20 @@ class WebDriverMethod(WebDriverInit):
 
     def click_element(self, by, locator):
         self.find_web_element(by, locator).click()
-        time.sleep(1)
+        time.sleep(0.5)
 
     def input_text(self, by, locator, contents):
         if platform.system() == "Darwin":
             element = self.find_web_element(by, locator)
-            time.sleep(0.5)
             element.send_keys(Keys.COMMAND + "a")
-            time.sleep(0.5)
+            time.sleep(1)
             element.send_keys(Keys.DELETE)
             time.sleep(0.5)
             element.send_keys(contents)
         else:
             element = self.find_web_element(by, locator)
             element.send_keys(Keys.CONTROL + "a")
-            time.sleep(0.5)
+            time.sleep(1)
             element.send_keys(Keys.DELETE)
             time.sleep(0.5)
             element.send_keys(contents)
@@ -48,7 +47,7 @@ class WebDriverMethod(WebDriverInit):
             select_box.select_by_value(select_value)
         elif select_type == "text":
             select_box.select_by_visible_text(select_value)
-        time.sleep(1)
+        time.sleep(0.5)
 
     def is_checked(self, by, locator):
         return self.find_web_element(by, locator).is_selected()
@@ -58,12 +57,14 @@ class WebDriverMethod(WebDriverInit):
             WebDriverWait(self.driver, 3).until(
                 EC.presence_of_element_located((by, locator))
             )
+            return True
 
         except TimeoutException:
             print("Element does not appear.")
+            return False
 
     def accept_alert(self):
-        WebDriverWait(self.driver, 10).until(EC.alert_is_present())
+        WebDriverWait(self.driver, 5).until(EC.alert_is_present())
         alert = Alert(self.driver)
         alert.accept()
 

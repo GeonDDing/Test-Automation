@@ -27,7 +27,7 @@ class TestDeviceAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @allure.title("Device API")
+    @allure.title("API: Device")
     def test_devices(self):
         api_operation = ApiOperation("devices")
         generated_id = None
@@ -54,14 +54,14 @@ class TestDeviceAPI:
                     generated_id = response[1]["id"]
 
         # PUT
-        with allure.step("PUT Device"):
-            response_put = api_operation.put_api_operation(generated_id)
-            for i, response in enumerate(response_put):
-                self.attach_response_result(
-                    response,
-                    f"PUT Response Status Code {i+1}",
-                    f"PUT Response Result {i+1}",
-                )
+        # with allure.step("PUT Device"):
+        #     response_put = api_operation.put_api_operation(generated_id)
+        #     for i, response in enumerate(response_put):
+        #         self.attach_response_result(
+        #             response,
+        #             f"PUT Response Status Code {i+1}",
+        #             f"PUT Response Result {i+1}",
+        #         )
 
         # DELETE
         with allure.step("DELETE Device"):

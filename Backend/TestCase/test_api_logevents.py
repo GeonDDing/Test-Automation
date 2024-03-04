@@ -29,7 +29,7 @@ class TestLogEventAPI:
         assert status_code == 200, "테스트 실패"
 
     @pytest.mark.parametrize("uri_resource, severity_value", [("severity", "3")])
-    @allure.title("Log Evnet API")
+    @allure.title("API: Log Evnet")
     def test_logevents(self, uri_resource, severity_value):
         api_operation = ApiOperation("logevents")
         generated_id = None

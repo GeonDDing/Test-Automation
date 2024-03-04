@@ -29,7 +29,7 @@ class TestFileSystemAPI:
         assert status_code == 200, "테스트 실패"
 
     @pytest.mark.parametrize("uri_resource, ip_address", [("ip", "10.1.0.145")])
-    @allure.title("File System API")
+    @allure.title("API:  File System")
     def test_devices(self, uri_resource, ip_address):
         api_operation = ApiOperation("filesystems")
         generated_id = None
