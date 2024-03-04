@@ -79,10 +79,7 @@ class ApiOperation(ApiConfig):
             request.append(self.send_request("put", id_value, *args, data=put_data))
             if len(put_data_list) > 1:
                 sleep(20)
-        if self.api_resource == "controls":
-            return request, f"{put_data_list[0]['operation']}"
-        else:
-            return request
+        return request
 
     def delete_api_operation(self, id_value=None, *args):
         print("DELETE API Request")

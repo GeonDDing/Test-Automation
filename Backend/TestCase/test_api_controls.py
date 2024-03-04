@@ -41,7 +41,7 @@ class TestControlAPI:
             devid_value, uri_resource, chidx_value
         )
         for i, response in enumerate(response_put[0]):
-            with allure.step(f"PUT Control ({response_put[1]})"):
+            with allure.step(f"PUT Control"):
                 self.attach_response_result(
                     response,
                     f"PUT Response Status Code {i+1}",
