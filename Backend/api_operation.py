@@ -62,7 +62,7 @@ class ApiOperation(ApiConfig):
         return self.send_request("get", id_value, *args)
 
     def post_api_operation(self, *args):
-        print('POST API Request')
+        print("POST API Request")
         request = list()
         post_data_list = self.convert_json(self.api_resource, "post")
         for i, post_data in enumerate(post_data_list):
@@ -72,15 +72,18 @@ class ApiOperation(ApiConfig):
         return request
 
     def put_api_operation(self, id_value=None, *args):
-        print('PUT API Request')
+        print("PUT API Request")
         request = list()
         put_data_list = self.convert_json(self.api_resource, "put")
         for i, put_data in enumerate(put_data_list):
             request.append(self.send_request("put", id_value, *args, data=put_data))
             if len(put_data_list) > 1:
                 sleep(20)
-        return request
+        if self.api_resource == "controls":
+            return request, f"{put_data_list[0]['operation']}"
+        else:
+            return request
 
     def delete_api_operation(self, id_value=None, *args):
-        print('DELETE API Request')
+        print("DELETE API Request")
         return self.send_request("delete", id_value, *args)

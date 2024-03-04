@@ -8,52 +8,48 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from api_operation import ApiOperation
 
 
-def attach_response_step(step_name, response, status_name, result_name):
-    with allure.step(step_name):
-        if str(response[0]) == "200":
-            allure.attach(
-                f"Response Status Code: {response[0]}, 테스트 성공",
-                name=status_name,
-                attachment_type=None,
+@allure.parent_suite("Backend Test Automation")
+@allure.suite("API")
+@allure.sub_suite("Job")
+class TestJobAPI:
+    @staticmethod
+    def attach_response_result(response, status_name, result_name):
+        status_code = response[0]
+        status_message = "테스트 성공" if status_code == 200 else "테스트 실패"
+        allure.attach(
+            f"Response Status Code: {status_code}, {status_message}",
+            name=status_name,
+            attachment_type=None,
+        )
+        allure.attach(
+            json.dumps(response[1], indent=4),
+            name=result_name,
+            attachment_type=None,
+        )
+        assert status_code == 200, "테스트 실패"
+
+    @pytest.mark.parametrize("uri_resource, groupid_value", [("groupid", "2")])
+    @allure.title("Jobs API")
+    def test_filesystem(self, uri_resource, groupid_value):
+        api_operation = ApiOperation("jobs")
+        generated_id = None
+
+        # GET
+        with allure.step("GET Job"):
+            response_get = api_operation.get_api_operation(
+                generated_id, uri_resource, groupid_value
             )
-            allure.attach(
-                f"{json.dumps(response[1], indent=4)}",
-                name=result_name,
-                attachment_type=None,
+            self.attach_response_result(
+                response_get,
+                "GET Response Status Code",
+                "GET Response Result",
             )
-        else:
-            allure.attach(
-                f"Response Status Code: {response[0]}, 테스트 실패",
-                name=status_name,
-                attachment_type=None,
-            )
-            assert str(response[0]) == "200", "테스트 실패"
 
-
-def perform_api_operations(api_operation, operation_name, *args):
-    # GET
-    response_get = api_operation.get_api_operation(None, "groupid", "2")
-    attach_response_step(
-        f"GET {operation_name}",
-        response_get,
-        "GET Response Status Code",
-        "GET Response Result",
-    )
-
-    # DELETE
-    # response_delete = api_operation.delete_api_operation()
-    # attach_response_step(f'DELETE {operation_name}', response_delete,
-    #                      "DELETE Response Status Code", "DELETE Response Result")
-
-
-@allure.title("Jobs API")
-def test_filesystem():
-    api_operation = ApiOperation("jobs")
-    perform_api_operations(
-        api_operation,
-        "Job",
-    )
-
-
-if __name__ == "__main__":
-    test_filesystem()
+        # DELETE
+        # with allure.step("DELETE Channel"):
+        #     response_delete = api_operation.delete_api_operation()
+        #     self.attach_response_result(
+        #         response_delete,
+        #         "DELETE Response Status Code",
+        #         "DELETE Response Result",
+        #     )

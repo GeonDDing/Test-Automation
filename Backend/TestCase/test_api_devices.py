@@ -1,80 +1,73 @@
 import allure
 import json
 import sys
-import pytest
 import os
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from api_operation import ApiOperation
 
 
-def attach_response_step(step_name, response, status_name, result_name):
-    with allure.step(step_name):
-        if str(response[0]) == "200":
-            allure.attach(
-                f"Response Status Code: {response[0]}, 테스트 성공",
-                name=status_name,
-                attachment_type=None,
-            )
-            allure.attach(
-                f"{json.dumps(response[1], indent=4)}",
-                name=result_name,
-                attachment_type=None,
-            )
-        else:
-            allure.attach(
-                f"Response Status Code: {response[0]}, 테스트 실패",
-                name=status_name,
-                attachment_type=None,
-            )
-            assert str(response[0]) == "200", "테스트 실패"
-
-
-def perform_api_operations(api_operation, operation_name, generated_id=None):
-    # GET
-    response_get = api_operation.get_api_operation()
-    attach_response_step(
-        f"GET {operation_name}",
-        response_get,
-        "GET Response Status Code",
-        "GET Response Result",
-    )
-
-    # POST
-    response_post = api_operation.post_api_operation()
-    for i, response in enumerate(response_post):
-        attach_response_step(
-            f"POST {operation_name}",
-            response,
-            f"POST Response Status Code {i+1}",
-            f"POST Response Result {i+1}",
+@allure.parent_suite("Backend Test Automation")
+@allure.suite("API")
+@allure.sub_suite("Device")
+class TestDeviceAPI:
+    @staticmethod
+    def attach_response_result(response, status_name, result_name):
+        status_code = response[0]
+        status_message = "테스트 성공" if status_code == 200 else "테스트 실패"
+        allure.attach(
+            f"Response Status Code: {status_code}, {status_message}",
+            name=status_name,
+            attachment_type=None,
         )
-
-        if generated_id == None and "id" in response[1]:
-            generated_id = response[1]["id"]
-
-    # PUT
-    response_put = api_operation.put_api_operation(generated_id)
-    for i, response in enumerate(response_put):
-        attach_response_step(
-            f"PUT {operation_name}",
-            response,
-            f"PUT Response Status Code {i+1}",
-            f"PUT Response Result {i+1}",
+        allure.attach(
+            json.dumps(response[1], indent=4),
+            name=result_name,
+            attachment_type=None,
         )
+        assert status_code == 200, "테스트 실패"
 
-    # DELETE
-    response_delete = api_operation.delete_api_operation(generated_id)
-    attach_response_step(
-        f"DELETE {operation_name}",
-        response_delete,
-        "DELETE Response Status Code",
-        "DELETE Response Result",
-    )
+    @allure.title("Device API")
+    def test_devices(self):
+        api_operation = ApiOperation("devices")
+        generated_id = None
 
+        # GET
+        with allure.step("GET Device"):
+            response_get = api_operation.get_api_operation()
+            self.attach_response_result(
+                response_get,
+                "GET Response Status Code",
+                "GET Response Result",
+            )
 
-# @pytest.mark.skip(reason="이 테스트는 스킵됩니다.")
-@allure.title("Device API")
-def test_devices():
-    api_operation = ApiOperation("devices")
-    perform_api_operations(api_operation, "Device")
+        # POST
+        with allure.step("POST Device"):
+            response_post = api_operation.post_api_operation()
+            for i, response in enumerate(response_post):
+                self.attach_response_result(
+                    response,
+                    f"POST Response Status Code {i+1}",
+                    f"POST Response Result {i+1}",
+                )
+                if generated_id == None and "id" in response[1]:
+                    generated_id = response[1]["id"]
+
+        # PUT
+        with allure.step("PUT Device"):
+            response_put = api_operation.put_api_operation(generated_id)
+            for i, response in enumerate(response_put):
+                self.attach_response_result(
+                    response,
+                    f"PUT Response Status Code {i+1}",
+                    f"PUT Response Result {i+1}",
+                )
+
+        # DELETE
+        with allure.step("DELETE Device"):
+            response_delete = api_operation.delete_api_operation(generated_id)
+            self.attach_response_result(
+                response_delete,
+                "DELETE Response Status Code",
+                "DELETE Response Result",
+            )

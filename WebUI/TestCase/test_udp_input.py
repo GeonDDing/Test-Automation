@@ -42,7 +42,7 @@ class TestUDPMulticastInput:
     }
 
     @staticmethod
-    def step_with_attachment(step_name, success_message, failure_message):
+    def attach_response_result(step_name, success_message, failure_message):
         def step_decorator(func):
             def step_wrapper(*args, **kwargs):
                 with allure.step(step_name):
@@ -55,13 +55,13 @@ class TestUDPMulticastInput:
 
         return step_decorator
 
-    @step_with_attachment("로그인", "Login 성공", "Login 실패")
+    @attach_response_result("로그인", "Login 성공", "Login 실패")
     def login_step(self, id, pwd):
         with allure.step("Login"):
             login_instance = Login()
             return login_instance.login(id, pwd)
 
-    @step_with_attachment(
+    @attach_response_result(
         "Video Preset 생성", "Video Preset 생성 성공", "Video Preset 생성 실패"
     )
     def videopreset_step(self, preset_name, preset_options):
@@ -71,7 +71,7 @@ class TestUDPMulticastInput:
                 preset_name, preset_options
             )
 
-    @step_with_attachment(
+    @attach_response_result(
         "Audio Preset 생성", "Audio Preset 생성 성공", "Audio Preset 생성 실패"
     )
     def audiopreset_step(self, preset_name, preset_options):
