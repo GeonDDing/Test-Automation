@@ -81,6 +81,7 @@ class ConfigureAudiopreset(WebDriverMethod):
                     self.click_element(By.CSS_SELECTOR, element_selector)
                 else:
                     self.input_text(By.CSS_SELECTOR, element_selector, value)
+                time.sleep(0.5)
 
             # Save audiopreset settings
             self.click_element(

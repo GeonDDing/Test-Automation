@@ -820,3 +820,49 @@ class ConfigureTaskElements:
         'input[type="checkbox"][id="recurringWeeklySu"][name="Su"]'
     )
     task_state = 'select.inputbox[name="taskState"]'
+
+
+class MonitorDeviceElements:
+    chindex = 0
+    ### XPATH ###
+    monitor_table = '//*[@id="dev_info0"]/div[2]/table'
+    monitor_device_edit_device = '//*[@id="configform"]/div[1]/span[2]/a'
+    monitor_device_edit_group = '//*[@id="configform"]/div[1]/span[4]/a'
+    monitor_device_edit_role = '//*[@id="configform"]/div[1]/span[6]/a'
+
+    ### CSS Selector ###
+    monitor_device_admin = (
+        'a[class="no-decoration black"][title="Edit privileged device configuration"]'
+    )
+    monitor_device_event_log = (
+        'a[class="no-decoration black"][title="Event Log for this device"]'
+    )
+    monitor_device_output = (
+        'a[class="no-decoration black"][title="Click to access output file(s)"]'
+    )
+    monitor_device_sacn_asi_sdi = (
+        'a[id="scanAsiSdi"][name="scanAsiSdi"][title="Click to view ASI/SDI stats"]'
+    )
+    monitor_device_multicast_traffic = (
+        'a[id="checkInput"][name="checkInput"][title="Click to view multicast traffic"]'
+    )
+    monitor_device_start_all = (
+        'button[type="submit"][id="btnstart"][name="startall"][value="Start All"]'
+    )
+    monitor_device_stop_all = (
+        'button[type="submit"][id="btnstop"][name="stopall"][value="Stop All"]'
+    )
+    monitor_device_preview_all = (
+        'input[type="button"][id="previewAll"][name="previewAll"][value=" Preview All"]'
+    )
+
+    ### In Channel Box ###
+    channel_start = f"div#ChannelBoxStopped{chindex} > input.start"
+    channel_stop = f"div#ChannelBoxStopped{chindex} > input.stop"
+    monitor_device_channel_start = f'input[type="button"][id="StartChannel{chindex}"][title="Click to start this channel"][value="Start"]'
+    monitor_device_channel_stop = f'input[type="button"][id="StopChannel{chindex}"][title="Click to stop this channel"][value="Stop"]'
+    monitor_device_switch_source = f'input[type="button"][id="SwitchSourceBtn{chindex}"][title="Click to toggle switch between primary and backup source"][value="Switch"]'
+    moniotr_device_replace_source = (
+        'a[id="open-source-replacement-menu"][title="Show replace input source menu"]'
+    )
+    monitor_device_page = "#dev_info0 > div.devline-1-body > table > tbody > tr > td:nth-child(1) > div.devline-1-channel"

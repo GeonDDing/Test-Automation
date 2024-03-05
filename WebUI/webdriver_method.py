@@ -29,14 +29,14 @@ class WebDriverMethod(WebDriverInit):
         if platform.system() == "Darwin":
             element = self.find_web_element(by, locator)
             element.send_keys(Keys.COMMAND + "a")
-            time.sleep(1)
+            time.sleep(0.5)
             element.send_keys(Keys.DELETE)
             time.sleep(0.5)
             element.send_keys(contents)
         else:
             element = self.find_web_element(by, locator)
             element.send_keys(Keys.CONTROL + "a")
-            time.sleep(1)
+            time.sleep(0.5)
             element.send_keys(Keys.DELETE)
             time.sleep(0.5)
             element.send_keys(contents)

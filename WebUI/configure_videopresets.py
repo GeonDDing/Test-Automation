@@ -77,6 +77,7 @@ class ConfigureVideopreset(WebDriverMethod):
                     )
                 elif any(keyword in key for keyword in input_relevant_keys):
                     self.input_text(By.CSS_SELECTOR, element_selector, value)
+                time.sleep(0.5)
 
             self.input_text(
                 By.CSS_SELECTOR, self.videopreset_elements.videopreset_bframe, "2"

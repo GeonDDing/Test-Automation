@@ -9,13 +9,14 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from configure_audiopresets import ConfigureAudiopreset
 from configure_videopresets import ConfigureVideopreset
 from configure_channels import ConfigureChannel
+from monitor_device import MonitorDevice
 from login import Login
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
 
 
 @allure.parent_suite("WebUI Test Automation")
-@allure.sub_suite("UDP/IP Multicast Input")
+@allure.suite("UDP/IP Input")
 class TestUDPMulticastInput:
     preset_name = {
         "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
@@ -89,7 +90,7 @@ class TestUDPMulticastInput:
         "Video Preset 생성", "Video Preset 생성 성공", "Video Preset 생성 실패"
     )
     def create_videopreset_step(self, preset_name, preset_options):
-        with allure.step("Create Video Preset"):
+        with allure.step("Create video preset"):
             videopreset_instance = ConfigureVideopreset()
             return videopreset_instance.configure_videopreset(
                 preset_name, preset_options
@@ -99,7 +100,7 @@ class TestUDPMulticastInput:
         "Audio Preset 생성", "Audio Preset 생성 성공", "Audio Preset 생성 실패"
     )
     def create_audiopreset_step(self, preset_name, preset_options):
-        with allure.step("Create Audio Preset"):
+        with allure.step("Create audio preset"):
             audiopreset_instance = ConfigureAudiopreset()
             return audiopreset_instance.configure_audiopreset(
                 preset_name, preset_options
@@ -111,14 +112,19 @@ class TestUDPMulticastInput:
         # with allure.step("Create UDP/IP Input Channel"):
         channel_instance.pre_channel_configuration()
         time.sleep(1)
-        with allure.step("Create Output"):
+        with allure.step("Create output"):
             channel_instance.setup_output()
-            time.sleep(3)
-        with allure.step("Create Input"):
+            time.sleep(1)
+        with allure.step("Create input"):
             channel_instance.setup_input()
         return channel_instance.post_channel_configuration()
 
-    @allure.suite("UDP/IP Input")
+    @attach_response_result("Channel 시작", "Channel 시작 성공", "Channel 시작 실패")
+    def channel_start_step(self):
+        monitor_device_instance = MonitorDevice()
+        return monitor_device_instance.channel_start()
+
+    @allure.sub_suite("UDP/IP Multicast Input")
     @allure.title("UDP/IP Multicast Input")
     def test_udp_input(self):
         self.login_step("admin", "admin")
@@ -128,6 +134,11 @@ class TestUDPMulticastInput:
         self.create_audiopreset_step(
             self.preset_name["Audiopreset Name"], self.audiopreset_options
         )
+        """ 
+        The 'create_channel_step' function parameter definitions are as follows.
+        Channel Name, Input Type, Output Type, Backup Source Type,
+        Input Option, Output Option, Backup Source Option, Preset Name
+        """
         self.create_channel_step(
             "UDP Testing Channel",
             "UDP/IP",
@@ -138,3 +149,4 @@ class TestUDPMulticastInput:
             None,
             self.preset_name,
         )
+        self.channel_start_step()
