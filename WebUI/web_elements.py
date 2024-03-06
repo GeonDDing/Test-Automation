@@ -823,7 +823,7 @@ class ConfigureTaskElements:
 
 
 class MonitorDeviceElements:
-    chindex = 0
+    chindex = int()
     ### XPATH ###
     monitor_table = '//*[@id="dev_info0"]/div[2]/table'
     monitor_device_edit_device = '//*[@id="configform"]/div[1]/span[2]/a'
@@ -857,11 +857,11 @@ class MonitorDeviceElements:
     )
 
     ### In Channel Box ###
-    channel_start = f"div#ChannelBoxStopped{chindex} > input.start"
-    channel_stop = f"div#ChannelBoxStopped{chindex} > input.stop"
-    monitor_device_channel_start = f'input[type="button"][id="StartChannel{chindex}"][title="Click to start this channel"][value="Start"]'
-    monitor_device_channel_stop = f'input[type="button"][id="StopChannel{chindex}"][title="Click to stop this channel"][value="Stop"]'
-    monitor_device_switch_source = f'input[type="button"][id="SwitchSourceBtn{chindex}"][title="Click to toggle switch between primary and backup source"][value="Switch"]'
+    channel_start = "div#ChannelBoxStopped{} > input.start"
+    channel_stop = "div#ChannelBoxStopped{} > input.stop"
+    monitor_device_channel_start = 'input[type="button"][id="StartChannel{}"][title="Click to start this channel"][value="Start"]'
+    monitor_device_channel_stop = 'input[type="button"][id="StopChannel{}"][title="Click to stop this channel"][value="Stop"]'
+    monitor_device_switch_source = 'input[type="button"][id="SwitchSourceBtn{}"][title="Click to toggle switch between primary and backup source"][value="Switch"]'
     moniotr_device_replace_source = (
         'a[id="open-source-replacement-menu"][title="Show replace input source menu"]'
     )

@@ -128,25 +128,30 @@ class TestUDPMulticastInput:
     @allure.title("UDP/IP Multicast Input")
     def test_udp_input(self):
         self.login_step("admin", "admin")
-        self.create_videopreset_step(
-            self.preset_name["Videopreset Name"], self.videopreset_options
-        )
-        self.create_audiopreset_step(
-            self.preset_name["Audiopreset Name"], self.audiopreset_options
-        )
+        # self.create_videopreset_step(
+        #     self.preset_name["Videopreset Name"], self.videopreset_options
+        # )
+        # self.create_audiopreset_step(
+        #     self.preset_name["Audiopreset Name"], self.audiopreset_options
+        # )
         """ 
         The 'create_channel_step' function parameter definitions are as follows.
         Channel Name, Input Type, Output Type, Backup Source Type,
         Input Option, Output Option, Backup Source Option, Preset Name
         """
-        self.create_channel_step(
-            "UDP Testing Channel",
-            "UDP/IP",
-            "UDP/IP",
-            None,
-            self.input_udp_options,
-            self.output_udp_options,
-            None,
-            self.preset_name,
-        )
+        # self.create_channel_step(
+        #     "UDP Testing Channel",
+        #     "UDP/IP",
+        #     "UDP/IP",
+        #     None,
+        #     self.input_udp_options,
+        #     self.output_udp_options,
+        #     None,
+        #     self.preset_name,
+        # )
         self.channel_start_step()
+
+
+if __name__ == "__,main__":
+    instance = TestUDPMulticastInput()
+    instance.test_udp_input()

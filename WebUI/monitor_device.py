@@ -25,7 +25,6 @@ class MonitorDevice(WebDriverMethod):
                 monitor_table = self.find_web_element(
                     By.XPATH, self.monitor_device_elements.monitor_table
                 )
-                print("found table")
             for tr in monitor_table.find_elements(By.XPATH, ".//tbody/tr"):
                 column_value = tr.find_elements(By.TAG_NAME, "td")[3].get_attribute(
                     "innerText"
@@ -42,7 +41,6 @@ class MonitorDevice(WebDriverMethod):
             return False
 
     def channel_start(self):
-        print(self.chindex)
         # Add channel index in channel start and stop button
         channel_start_element = (
             self.monitor_device_elements.monitor_device_channel_start.format(
@@ -65,7 +63,14 @@ class MonitorDevice(WebDriverMethod):
             )
             print("Channel 시작")
             self.click_element(By.CSS_SELECTOR, channel_start_element)
-            return True
+            try:
+                WebDriverWait(self.driver, 30).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, channel_stop_element))
+                )
+                return True
+
+            except:
+                return False
 
         except TimeoutException:
             print("Channel 재시작")
@@ -75,12 +80,21 @@ class MonitorDevice(WebDriverMethod):
             # Wait for channel termination
             try:
                 # Wait until the button is clickable
-                WebDriverWait(self.driver, 5).until(
+                WebDriverWait(self.driver, 30).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, channel_start_element))
                 )
                 # Restart the channel when it terminatie.
                 self.click_element(By.CSS_SELECTOR, channel_start_element)
-                return True
+                try:
+                    WebDriverWait(self.driver, 30).until(
+                        EC.element_to_be_clickable(
+                            (By.CSS_SELECTOR, channel_stop_element)
+                        )
+                    )
+                    return True
+
+                except:
+                    return False
             except TimeoutException:
                 print("Channel 시작 실패")
                 return False
@@ -90,5 +104,5 @@ if __name__ == "__main__":
     test = MonitorDevice()
     login = Login()
     login.login("admin", "admin")
-    test.find_channel_index("Test CH 001")
+    test.find_channel_index("UDP Testing Channel")
     test.channel_start()
