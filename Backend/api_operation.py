@@ -20,9 +20,7 @@ class ApiOperation(ApiConfig):
                     # ex) args = ("color", "blue", "size", "large")
                     #     my_dict = my_function(*args)
                     #     print(my_dict) → {'color': 'blue', 'size': 'large'}
-                    api_url += "&" + "&".join(
-                        [f"{key}={value}" for key, value in args_dict.items()]
-                    )
+                    api_url += "&" + "&".join([f"{key}={value}" for key, value in args_dict.items()])
                 else:
                     api_url += f"?{args[0]}={args[1]}"
                     for key, value in args_dict.items():
@@ -33,13 +31,9 @@ class ApiOperation(ApiConfig):
             if method == "get":
                 response = requests.get(api_url, headers=self.headers)
             elif method == "post":
-                response = requests.post(
-                    api_url, headers=self.headers, data=json.dumps(data)
-                )
+                response = requests.post(api_url, headers=self.headers, data=json.dumps(data))
             elif method == "put":
-                response = requests.put(
-                    api_url, headers=self.headers, data=json.dumps(data)
-                )
+                response = requests.put(api_url, headers=self.headers, data=json.dumps(data))
             elif method == "delete":
                 response = requests.delete(api_url, headers=self.headers)
             else:

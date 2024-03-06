@@ -42,9 +42,7 @@ class ApiAuthorization:
             "client_secret": client_secret,
         }
 
-        response = requests.post(
-            oauth2_url, data=json.dumps(data), headers=headers, verify=False
-        )
+        response = requests.post(oauth2_url, data=json.dumps(data), headers=headers, verify=False)
 
         if response.status_code == 200:
             print("Token request successful!")

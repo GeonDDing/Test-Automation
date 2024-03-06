@@ -1,10 +1,6 @@
 # configure_group.py
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import (
-    NoSuchElementException,
-    ElementNotVisibleException,
-    TimeoutException,
-)
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
 from configure_devices import ConfigureDevice
 from web_elements import ConfigureGroupElements, MainMenuElements
 import time
@@ -21,11 +17,7 @@ class ConfigureGroup(ConfigureDevice):
             self.click_element(By.XPATH, MainMenuElements().configure_groups)
             time.sleep(1)  # Wait for the 'CONFIGURE - Group' page to load
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -36,15 +28,11 @@ class ConfigureGroup(ConfigureDevice):
 
             # Click the button to add a new group or find an existing one
             if not self.find_exist_group(group_name):
-                self.click_element(
-                    By.CSS_SELECTOR, self.group_elements.group_add_button
-                )
+                self.click_element(By.CSS_SELECTOR, self.group_elements.group_add_button)
                 # Wait for the time to move to the group creation page.
                 time.sleep(1)
                 # Since there is no existing Group with the same name, a Group is created with that name.
-                self.input_text(
-                    By.CSS_SELECTOR, self.group_elements.group_name, group_name
-                )
+                self.input_text(By.CSS_SELECTOR, self.group_elements.group_name, group_name)
             else:
                 print("A group with the same name exists.")
 
@@ -70,24 +58,16 @@ class ConfigureGroup(ConfigureDevice):
             time.sleep(1)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
     def find_exist_group(self, group_name):
         try:
-            group_table = self.find_web_element(
-                By.XPATH, self.group_elements.group_table
-            )
+            group_table = self.find_web_element(By.XPATH, self.group_elements.group_table)
 
             for tr in group_table.find_elements(By.XPATH, ".//tbody/tr"):
-                column_value = tr.find_elements(By.TAG_NAME, "td")[1].get_attribute(
-                    "innerText"
-                )
+                column_value = tr.find_elements(By.TAG_NAME, "td")[1].get_attribute("innerText")
                 if column_value == group_name:
                     tr.find_elements(By.TAG_NAME, "td")[1].click()
                     return True  # Group found and clicked

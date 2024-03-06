@@ -36,9 +36,7 @@ class TestLogEventAPI:
 
         # GET
         with allure.step("GET Log Event"):
-            response_get = api_operation.get_api_operation(
-                generated_id, uri_resource, severity_value
-            )
+            response_get = api_operation.get_api_operation(generated_id, uri_resource, severity_value)
             self.attach_response_result(
                 response_get,
                 "GET Response Status Code",

@@ -36,9 +36,7 @@ class TestJobAPI:
 
         # GET
         with allure.step("GET Job"):
-            response_get = api_operation.get_api_operation(
-                generated_id, uri_resource, groupid_value
-            )
+            response_get = api_operation.get_api_operation(generated_id, uri_resource, groupid_value)
             self.attach_response_result(
                 response_get,
                 "GET Response Status Code",

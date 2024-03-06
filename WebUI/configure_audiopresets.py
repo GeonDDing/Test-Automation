@@ -1,10 +1,6 @@
 # configure_audiopresets.py
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import (
-    NoSuchElementException,
-    ElementNotVisibleException,
-    TimeoutException,
-)
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
 from webdriver_method import WebDriverMethod
 from web_elements import ConfigureAudiopresetElements, MainMenuElements
 import time
@@ -22,23 +18,16 @@ class ConfigureAudiopreset(WebDriverMethod):
             # Wait for the 'CONFIGURE - Audiopreset' page to load
             time.sleep(1)
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
 
     def configure_audiopreset(self, preset_name, audiopreset_options=None):
         try:
             self.navigate_to_configure_audiopresets()
-
             # Click the button to add a new audiopreset or find an existing one
             if not self.find_exist_audiopreset(preset_name):
                 print("- Audio Preset 생성")
-                self.click_element(
-                    By.CSS_SELECTOR, self.audiopreset_elements.audiopreset_add_button
-                )
+                self.click_element(By.CSS_SELECTOR, self.audiopreset_elements.audiopreset_add_button)
                 # Wait for the time to move to the audiopreset creation page.
                 time.sleep(1)
                 # Since there is no existing audiopreset with the same name, a audiopreset is created with that name.
@@ -74,9 +63,7 @@ class ConfigureAudiopreset(WebDriverMethod):
                 )
 
                 if any(keyword in key for keyword in select_relevant_keys):
-                    self.select_element(
-                        By.CSS_SELECTOR, element_selector, "text", value
-                    )
+                    self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                 elif "Evolution Framework" == key:
                     self.click_element(By.CSS_SELECTOR, element_selector)
                 else:
@@ -84,31 +71,21 @@ class ConfigureAudiopreset(WebDriverMethod):
                 time.sleep(0.5)
 
             # Save audiopreset settings
-            self.click_element(
-                By.CSS_SELECTOR, self.audiopreset_elements.audiopreset_save_button
-            )
+            self.click_element(By.CSS_SELECTOR, self.audiopreset_elements.audiopreset_save_button)
             # Wait for a moment before continuing
             time.sleep(1)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
     def find_exist_audiopreset(self, audiopreset_name):
         try:
-            audiopreset_table = self.find_web_element(
-                By.XPATH, ConfigureAudiopresetElements().audiopreset_table
-            )
+            audiopreset_table = self.find_web_element(By.XPATH, ConfigureAudiopresetElements().audiopreset_table)
 
             for tr in audiopreset_table.find_elements(By.XPATH, ".//tbody/tr"):
-                column_value = tr.find_elements(By.TAG_NAME, "td")[0].get_attribute(
-                    "innerText"
-                )
+                column_value = tr.find_elements(By.TAG_NAME, "td")[0].get_attribute("innerText")
                 if column_value == audiopreset_name:
                     tr.find_elements(By.TAG_NAME, "td")[0].click()
                     return True  # audiopreset found and clicked

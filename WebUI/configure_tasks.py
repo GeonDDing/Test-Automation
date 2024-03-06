@@ -1,10 +1,6 @@
 # configure_device.py
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import (
-    NoSuchElementException,
-    ElementNotVisibleException,
-    TimeoutException,
-)
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
 from webdriver_method import WebDriverMethod
 from web_elements import ConfigureTaskElements, MainMenuElements
 import time
@@ -21,11 +17,7 @@ class ConfigureTask(WebDriverMethod):
             self.click_element(By.XPATH, MainMenuElements().configure_tasks)
             time.sleep(1)  # Wait for the 'CONFIGURE - Tasks' page to load
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -40,9 +32,7 @@ class ConfigureTask(WebDriverMethod):
                 # Wait for the time to move to the task creation page.
                 time.sleep(1)
                 # Since there is no existing Task with the same name, a Task is created with that name.
-                self.input_text(
-                    By.CSS_SELECTOR, self.task_elements.task_name, task_name
-                )
+                self.input_text(By.CSS_SELECTOR, self.task_elements.task_name, task_name)
             else:
                 print("A task with the same name exists.")
             select_relevant_keys = {
@@ -66,9 +56,7 @@ class ConfigureTask(WebDriverMethod):
                     None,
                 )
                 if any(keyword in key for keyword in select_relevant_keys):
-                    self.select_element(
-                        By.CSS_SELECTOR, element_selector, "text", value
-                    )
+                    self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                 elif "Recurring weekly" == key:
                     self.click_element(By.CSS_SELECTOR, element_selector)
                 else:
@@ -82,11 +70,7 @@ class ConfigureTask(WebDriverMethod):
 
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -95,9 +79,7 @@ class ConfigureTask(WebDriverMethod):
             task_table = self.find_web_element(By.XPATH, self.task_elements.task_table)
 
             for tr in task_table.find_elements(By.XPATH, ".//tbody/tr"):
-                column_value = tr.find_elements(By.TAG_NAME, "td")[1].get_attribute(
-                    "innerText"
-                )
+                column_value = tr.find_elements(By.TAG_NAME, "td")[1].get_attribute("innerText")
                 if column_value == task_name:
                     tr.find_elements(By.TAG_NAME, "td")[0].click()
                     return True  # Task found and clicked

@@ -1,10 +1,6 @@
 # configure_channels.py
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import (
-    NoSuchElementException,
-    ElementNotVisibleException,
-    TimeoutException,
-)
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
 from webdriver_method import WebDriverMethod
 from web_elements import ConfigureBackupSourceElements, ConfigureInputElements
 import time
@@ -22,11 +18,7 @@ class ConfigureBackupSource(WebDriverMethod):
                 backup_source_type,
             )
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
 
     def backup_source_udp(self, backup_source_options):
@@ -53,9 +45,7 @@ class ConfigureBackupSource(WebDriverMethod):
                 )
                 if any(keyword in key for keyword in select_relevant_keys):
                     if "Program Selection Mode" in key:
-                        mode = self.select_element(
-                            By.CSS_SELECTOR, element_selector, "text", value
-                        )
+                        mode = self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                         try:
                             self.accept_alert()
                             self.input_text(
@@ -79,9 +69,7 @@ class ConfigureBackupSource(WebDriverMethod):
                             }
                             self.input_text(By.CSS_SELECTOR, *mapping.get(mode))
                     else:
-                        self.select_element(
-                            By.CSS_SELECTOR, element_selector, "text", value
-                        )
+                        self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                 elif any(keyword in key for keyword in input_relevant_keys):
                     self.input_text(By.CSS_SELECTOR, element_selector, value)
                 else:
@@ -92,11 +80,7 @@ class ConfigureBackupSource(WebDriverMethod):
             time.sleep(1)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -105,15 +89,11 @@ class ConfigureBackupSource(WebDriverMethod):
             print("RTP Backup Source settings")
             self.input_text(
                 By.CSS_SELECTOR,
-                self.channel_elements.backup_source_udp_network_url,
+                self.backup_source_elements.backup_source_udp_network_url,
                 backup_source_options.get("sdf_file"),
             )
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
 
     def backup_source_rtmp(self, backup_source_options):
@@ -121,15 +101,11 @@ class ConfigureBackupSource(WebDriverMethod):
             print("RTMP Backup Source settings")
             self.input_text(
                 By.CSS_SELECTOR,
-                self.channel_elements.backup_source_udp_network_url,
+                self.backup_source_elements.backup_source_udp_network_url,
                 backup_source_options.get("url"),
             )
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
 
     def backup_source_hls(self, backup_source_options):
@@ -137,15 +113,11 @@ class ConfigureBackupSource(WebDriverMethod):
             print("HLS Backup Source settings")
             self.input_text(
                 By.CSS_SELECTOR,
-                self.channel_elements.backup_source_udp_network_url,
+                self.backup_source_elements.backup_source_hls_url,
                 backup_source_options.get("url"),
             )
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
 
     def backup_source_sdi(self, backup_source_options):
@@ -153,23 +125,15 @@ class ConfigureBackupSource(WebDriverMethod):
             print("SDI Backup Source settings")
             for key, value in backup_source_options.items():
                 print(f"  ㆍ{key} : {value}")
-                element_selector = getattr(
-                    self.channel_elements, f"input_sdi_{key}", None
-                )
+                element_selector = getattr(self.backup_source_elements, f"input_sdi_{key}", None)
                 if element_selector:
                     if key in ["teletext_page", "vbi_lines"]:
                         self.input_text(By.CSS_SELECTOR, element_selector, value)
                 else:
-                    self.select_element(
-                        By.CSS_SELECTOR, element_selector, "text", value
-                    )
+                    self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                 time.sleep(1)
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
 
     def backup_source_playlist(self, backup_source_options):
@@ -179,43 +143,36 @@ class ConfigureBackupSource(WebDriverMethod):
             if playlist_type:
                 self.select_element(
                     By.CSS_SELECTOR,
-                    self.channel_elements.input_playlist_type,
+                    self.backup_source_elements.backup_source_playlist_type,
                     "text",
                     playlist_type,
                 )
                 if playlist_type == "Local Static Playlist":
                     self.select_element(
                         By.CSS_SELECTOR,
-                        self.channel_elements.input_playlist_playlists_name,
+                        self.backup_source_elements.backup_source_playlist_playlists_name,
                     )
-                elif (
-                    playlist_type == "Clipcasting XML"
-                    or playlist_type == "Remote Media Asset Directory"
-                ):
+                elif playlist_type == "Clipcasting XML" or playlist_type == "Remote Media Asset Directory":
                     self.input_text(
                         By.CSS_SELECTOR,
-                        self.channel_elements.input_playlist_clipcasting_uri,
+                        self.backup_source_elements.backup_source_playlist_clipcasting_uri,
                         backup_source_options.get("uri"),
                     )
                     if playlist_type == "Remote Media Asset Directory":
                         self.input_text(
                             By.CSS_SELECTOR,
-                            self.channel_elements.input_playlist_clipcasting_uri,
+                            self.backup_source_elements.backup_source_playlist_remote_media_asset_uri,
                             backup_source_options.get("recurring"),
                         )
                         self.select_element(
                             By.CSS_SELECTOR,
-                            self.channel_elements.input_playlist_type,
+                            self.backup_source_elements.backup_soruce_playlist_sort_by,
                             "text",
                             backup_source_options.get("sort_by"),
                         )
             time.sleep(1)
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
 
     def backup_source_smpte_st_2110(self, backup_source_options):
@@ -223,9 +180,7 @@ class ConfigureBackupSource(WebDriverMethod):
             print("SMPTE ST 2110 Backup Source settings")
             for key, value in backup_source_options.items():
                 print(f"  ㆍ{key} : {value}")
-                element_selector = getattr(
-                    self.channel_elements, f"input_smpte_st_2110_{key}", None
-                )
+                element_selector = getattr(self.backup_source_elements, f"input_smpte_st_2110_{key}", None)
                 if element_selector:
                     if key in [
                         "video_sdp_url",
@@ -235,16 +190,10 @@ class ConfigureBackupSource(WebDriverMethod):
                     ]:
                         self.input_text(By.CSS_SELECTOR, element_selector, value)
                 else:
-                    self.select_element(
-                        By.CSS_SELECTOR, element_selector, "text", value
-                    )
+                    self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                 time.sleep(1)
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
 
     def backup_source_ndi(self, backup_source_options):
@@ -252,15 +201,9 @@ class ConfigureBackupSource(WebDriverMethod):
             print("NDI Backup Source settings")
             for key, value in backup_source_options.items():
                 print(f"  ㆍ{key} : {value}")
-                element_selector = getattr(
-                    self.channel_elements, f"input_ndi_{key}", None
-                )
+                element_selector = getattr(self.backup_source_elements, f"input_ndi_{key}", None)
                 self.input_text(By.CSS_SELECTOR, element_selector, value)
                 time.sleep(1)
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")

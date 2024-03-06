@@ -20,9 +20,7 @@ class GaGaStreamManager(WebDriverMethod):
 
     def find_exist_stream(self, stream_name):
         try:
-            active_stream_table = self.find_web_element(
-                By.XPATH, self.gaga_elements.gaga_active_stream_table
-            )
+            active_stream_table = self.find_web_element(By.XPATH, self.gaga_elements.gaga_active_stream_table)
             for tr in active_stream_table.find_elements(By.XPATH, ".//tbody/tr"):
                 tds = tr.find_elements(By.TAG_NAME, "td")
                 if tds:
@@ -31,11 +29,7 @@ class GaGaStreamManager(WebDriverMethod):
                         print(f"   {active_stream} is a stream that is already active.")
                         return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
@@ -52,13 +46,9 @@ class GaGaStreamManager(WebDriverMethod):
             # Find stream table
             try:
                 if self.wait_element(By.XPATH, self.gaga_elements.gaga_stream_in_table):
-                    stream_in_table = self.find_web_element(
-                        By.XPATH, self.gaga_elements.gaga_stream_in_table
-                    )
+                    stream_in_table = self.find_web_element(By.XPATH, self.gaga_elements.gaga_stream_in_table)
             except TimeoutException:
-                stream_in_table = self.find_web_element(
-                    By.XPATH, "/html/body/div/table[2]"
-                )
+                stream_in_table = self.find_web_element(By.XPATH, "/html/body/div/table[2]")
 
             for tr in stream_in_table.find_elements(By.XPATH, ".//tbody/tr"):
                 tds = tr.find_elements(By.TAG_NAME, "td")
@@ -66,9 +56,7 @@ class GaGaStreamManager(WebDriverMethod):
                     file_element = tds[0].get_attribute("innerText").strip()
                     if element_list[1] == file_element:
                         if not self.find_exist_stream(element_list[1]):
-                            print(
-                                f"   Upload Stream : {file_element} / {element_list[2]}"
-                            )
+                            print(f"   Upload Stream : {file_element} / {element_list[2]}")
                             tds[0].click()
                             time.sleep(0.5)
                             self.input_text(
@@ -82,11 +70,7 @@ class GaGaStreamManager(WebDriverMethod):
                             )
                             break
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
 
 
@@ -106,9 +90,5 @@ if __name__ == "__main__":
     ]
 
     for i in range(0, len(stream_list)):
-        print(
-            "{0}. Stream : {1} / Address : {2}".format(
-                i + 1, stream_list[i][1], stream_list[i][2]
-            )
-        )
+        print("{0}. Stream : {1} / Address : {2}".format(i + 1, stream_list[i][1], stream_list[i][2]))
         gaga_upload.gaga_stream_upload(stream_list[i])

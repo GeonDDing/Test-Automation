@@ -5,7 +5,7 @@ from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, ElementNotVisibleException
 from webdriver_init import WebDriverInit
 import time
 import platform
@@ -18,27 +18,28 @@ class WebDriverMethod(WebDriverInit):
     def find_web_element(self, by, locator):
         try:
             return self.driver.find_element(by, locator)
-        except TimeoutException:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
+            print(f"Error: {e}")
             return None
 
     def click_element(self, by, locator):
         self.find_web_element(by, locator).click()
-        time.sleep(0.5)
+        time.sleep(0.3)
 
     def input_text(self, by, locator, contents):
         if platform.system() == "Darwin":
             element = self.find_web_element(by, locator)
-            element.send_keys(Keys.COMMAND + "a")
-            time.sleep(0.5)
+            element.send_keys(Keys.COMMAND + "A") if 
+            time.sleep(0.3)
             element.send_keys(Keys.DELETE)
-            time.sleep(0.5)
+            time.sleep(0.3)
             element.send_keys(contents)
         else:
             element = self.find_web_element(by, locator)
-            element.send_keys(Keys.CONTROL + "a")
-            time.sleep(0.5)
+            element.send_keys(Keys.CONTROL + "A")
+            time.sleep(0.3)
             element.send_keys(Keys.DELETE)
-            time.sleep(0.5)
+            time.sleep(0.3)
             element.send_keys(contents)
 
     def select_element(self, by, locator, select_type, select_value):
@@ -47,18 +48,15 @@ class WebDriverMethod(WebDriverInit):
             select_box.select_by_value(select_value)
         elif select_type == "text":
             select_box.select_by_visible_text(select_value)
-        time.sleep(0.5)
+        time.sleep(0.3)
 
     def is_checked(self, by, locator):
         return self.find_web_element(by, locator).is_selected()
 
     def wait_element(self, by, locator):
         try:
-            WebDriverWait(self.driver, 3).until(
-                EC.presence_of_element_located((by, locator))
-            )
+            WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((by, locator)))
             return True
-
         except TimeoutException:
             print("Element does not appear.")
             return False

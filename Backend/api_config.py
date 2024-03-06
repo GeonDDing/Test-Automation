@@ -31,9 +31,9 @@ class ApiConfig:
                 if json_file in ["videopresets", "audiopresets"]:
                     for data in data_list:
                         if "name" in data:
-                            data[
-                                "name"
-                            ] = f"{data.get('name', '')}_{ConvertDate().convert_date()[0]}"
+                            data["name"] = (
+                                f"{data.get('name', '')}_{ConvertDate().convert_date()[0]}"
+                            )
 
         except FileNotFoundError:
             print(f"Error: File '{json_file}' not found.")

@@ -8,12 +8,8 @@ import os
 class StatsSender:
     def __init__(self):
         try:
-            script_directory = os.path.dirname(
-                os.path.realpath(__file__)
-            )  # 현재 경로만 추출
-            config_path = os.path.join(
-                script_directory, "config.ini"
-            )  # 현재 경로에서 config.ini 찾음
+            script_directory = os.path.dirname(os.path.realpath(__file__))  # 현재 경로만 추출
+            config_path = os.path.join(script_directory, "config.ini")  # 현재 경로에서 config.ini 찾음
             config = configparser.ConfigParser()
             config.read(config_path)
             self.url = config.get("Webpage", "url")
@@ -55,9 +51,7 @@ class StatsSender:
 
                     for stats in root.findall("stream"):
                         codec_type_mapping = {"0": "H.264/AVC", "8": "HEVC"}
-                        video_codec_type = codec_type_mapping.get(
-                            stats.find("videoCodecType").text, "Unknown"
-                        )
+                        video_codec_type = codec_type_mapping.get(stats.find("videoCodecType").text, "Unknown")
                         video_width = stats.find("videoWidth").text
                         video_height = stats.find("videoHeight").text
                         video_rate = float(stats.find("videoRate").text) / 1000000

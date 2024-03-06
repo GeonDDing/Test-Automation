@@ -18,9 +18,7 @@ class ConfigureOutput(WebDriverMethod):
         # Click output add button
         try:
             if not self.find_exist_output(output_type):
-                self.click_element(
-                    By.CSS_SELECTOR, self.output_elements.output_add_output_button
-                )
+                self.click_element(By.CSS_SELECTOR, self.output_elements.output_add_output_button)
                 # Wait for the time to move to the group creation page.
                 time.sleep(1)
                 # Since there is no existing Group with the same name, a Group is created with that name.
@@ -33,17 +31,11 @@ class ConfigureOutput(WebDriverMethod):
                     "text",
                     output_type,
                 )
-                self.click_element(
-                    By.CSS_SELECTOR, self.output_elements.output_create_button
-                )
+                self.click_element(By.CSS_SELECTOR, self.output_elements.output_create_button)
 
             self.select_stream_preset(videopreset_name, audiopreset_name)
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -53,20 +45,14 @@ class ConfigureOutput(WebDriverMethod):
                 output_type = "TS"
             try:
                 WebDriverWait(self.driver, 3).until(
-                    EC.presence_of_element_located(
-                        (By.XPATH, self.output_elements.output_table)
-                    )
+                    EC.presence_of_element_located((By.XPATH, self.output_elements.output_table))
                 )
-                output_table = self.find_web_element(
-                    By.XPATH, self.output_elements.output_table
-                )
+                output_table = self.find_web_element(By.XPATH, self.output_elements.output_table)
             except TimeoutException:
                 return False
 
             for tr in output_table.find_elements(By.XPATH, ".//tbody/tr"):
-                column_value = tr.find_elements(By.TAG_NAME, "td")[3].get_attribute(
-                    "innerText"
-                )
+                column_value = tr.find_elements(By.TAG_NAME, "td")[3].get_attribute("innerText")
                 if f"{output_type}:" in column_value:
                     tr.find_elements(By.TAG_NAME, "td")[3].click()
                     # print(f"  ㆍ{column_value}")
@@ -82,9 +68,7 @@ class ConfigureOutput(WebDriverMethod):
         try:
             print("  - Video, Audio Profile 선택")
             WebDriverWait(self.driver, 3).until(
-                EC.presence_of_element_located(
-                    (By.CSS_SELECTOR, self.output_elements.output_edit_stream)
-                )
+                EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_edit_stream))
             )
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
             self.select_element(
@@ -94,21 +78,13 @@ class ConfigureOutput(WebDriverMethod):
                 videopreset_name,
             )
             print(f"    ㆍVideopreset : {videopreset_name}")
-            self.click_element(
-                By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button
-            )
+            self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
             try:
                 WebDriverWait(self.driver, 3).until(
-                    EC.presence_of_element_located(
-                        (By.CSS_SELECTOR, self.output_elements.output_add_stream_button)
-                    )
+                    EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_add_stream_button))
                 )
-                self.click_element(
-                    By.CSS_SELECTOR, self.output_elements.output_add_stream_button
-                )
-                if self.wait_element(
-                    By.CSS_SELECTOR, self.output_elements.output_audio_profile
-                ):
+                self.click_element(By.CSS_SELECTOR, self.output_elements.output_add_stream_button)
+                if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_audio_profile):
                     self.select_element(
                         By.CSS_SELECTOR,
                         self.output_elements.output_audio_profile,
@@ -117,12 +93,8 @@ class ConfigureOutput(WebDriverMethod):
                     )
                     print(f"    ㆍAudiopreset : {audiopreset_name}")
             except:
-                self.click_element(
-                    By.CSS_SELECTOR, self.output_elements.output_edit_stream
-                )
-                if self.wait_element(
-                    By.CSS_SELECTOR, self.output_elements.output_audio_profile
-                ):
+                self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
+                if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_audio_profile):
                     self.select_element(
                         By.CSS_SELECTOR,
                         self.output_elements.output_audio_profile,
@@ -131,13 +103,10 @@ class ConfigureOutput(WebDriverMethod):
                     )
                     print(f"    ㆍAudiopreset : {audiopreset_name}")
 
-            self.click_element(
-                By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button
-            )
+            self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
             self.wait_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
             time.sleep(1)
             return True
-
         except (
             NoSuchElementException,
             ElementNotVisibleException,
@@ -184,11 +153,7 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -237,11 +202,7 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -266,11 +227,7 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -299,11 +256,7 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -345,11 +298,7 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -387,11 +336,7 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -440,10 +385,6 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False

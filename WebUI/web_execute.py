@@ -90,9 +90,7 @@ if __name__ == "__main__":
     # audiopreset_instance.configure_audiopreset(
     #     preset_name["Audiopreset Name"], audiopreset_options
     # )
-    videopreset_instance.configure_videopreset(
-        preset_name["Videopreset Name"], videopreset_options
-    )
+    videopreset_instance.configure_videopreset(preset_name["Videopreset Name"], videopreset_options)
 
     channel_instance.configure_channel(
         "UDP Testing Channel",

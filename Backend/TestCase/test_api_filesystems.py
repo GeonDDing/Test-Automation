@@ -38,9 +38,7 @@ class TestFileSystemAPI:
 
         # GET
         with allure.step("GET File System"):
-            response_get = api_operation.get_api_operation(
-                generated_id, uri_resource, ip_address
-            )
+            response_get = api_operation.get_api_operation(generated_id, uri_resource, ip_address)
             self.attach_response_result(
                 response_get,
                 "GET Response Status Code",

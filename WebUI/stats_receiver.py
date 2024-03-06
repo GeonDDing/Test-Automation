@@ -23,9 +23,7 @@ class StatsReceiver:
                             else f"#{chidx} Source changed (source:#1)"
                         )
                     elif prev_source_layer == "1":
-                        print(
-                            f"#{chidx} Restored to the {'Primary' if source_layer == '0' else 'Backup'} source"
-                        )
+                        print(f"#{chidx} Restored to the {'Primary' if source_layer == '0' else 'Backup'} source")
                     elif prev_source_layer == "2":
                         print(
                             f"#{chidx} User replaced source, Input Changed"
@@ -55,12 +53,8 @@ if __name__ == "__main__":
     test = StatsReceiver()
     test2 = StatsSender()
 
-    sender_process = multiprocessing.Process(
-        target=test2.stats_sender, args=(stats_queue,)
-    )
-    receiver_process = multiprocessing.Process(
-        target=test.stats_receiver, args=(stats_queue,)
-    )
+    sender_process = multiprocessing.Process(target=test2.stats_sender, args=(stats_queue,))
+    receiver_process = multiprocessing.Process(target=test.stats_receiver, args=(stats_queue,))
 
     sender_process.start()
     receiver_process.start()

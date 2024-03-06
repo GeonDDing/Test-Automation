@@ -1,11 +1,6 @@
 # configure_channels.py
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import (
-    NoSuchElementException,
-    ElementNotVisibleException,
-    TimeoutException,
-    ElementNotVisibleException,
-)
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, ElementNotVisibleException
 from webdriver_method import WebDriverMethod
 from web_elements import ConfigureInputElements
 import time
@@ -21,16 +16,9 @@ class ConfigureInput(WebDriverMethod):
                 input_type = "RTP/RTSP"
             elif "HTTP" in input_type or "HLS" in input_type:
                 input_type == "HTTP/HLS"
+            self.select_element(By.CSS_SELECTOR, self.input_elements.input_type, "text", input_type)
 
-            self.select_element(
-                By.CSS_SELECTOR, self.input_elements.input_type, "text", input_type
-            )
-
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -58,9 +46,7 @@ class ConfigureInput(WebDriverMethod):
                 )
                 if any(keyword in key for keyword in select_relevant_keys):
                     if "Program Selection Mode" in key:
-                        mode = self.select_element(
-                            By.CSS_SELECTOR, element_selector, "text", value
-                        )
+                        mode = self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                         try:
                             self.accept_alert()
                             self.input_text(
@@ -84,25 +70,15 @@ class ConfigureInput(WebDriverMethod):
                             }
                             self.input_text(By.CSS_SELECTOR, *mapping.get(mode))
                     else:
-                        self.select_element(
-                            By.CSS_SELECTOR, element_selector, "text", value
-                        )
+                        self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                 elif any(keyword in key for keyword in input_relevant_keys):
                     self.input_text(By.CSS_SELECTOR, element_selector, value)
                 else:
                     if isinstance(value, bool) and value:
                         self.click_element(By.CSS_SELECTOR, element_selector)
-                    else:
-                        self.click_element(By.CSS_SELECTOR, element_selector)
-
             time.sleep(1)
             return True
-
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -117,11 +93,7 @@ class ConfigureInput(WebDriverMethod):
             time.sleep(1)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -136,11 +108,7 @@ class ConfigureInput(WebDriverMethod):
             time.sleep(1)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -149,17 +117,13 @@ class ConfigureInput(WebDriverMethod):
             print("  - HLS Input 생성")
             self.input_text(
                 By.CSS_SELECTOR,
-                self.input_elements.input_udp_network_url,
+                self.input_elements.input_hls_url,
                 input_options.get("URL"),
             )
             time.sleep(1)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -181,18 +145,12 @@ class ConfigureInput(WebDriverMethod):
                 if any(keyword in key for keyword in input_relevant_keys):
                     self.input_text(By.CSS_SELECTOR, element_selector, value)
                 else:
-                    self.select_element(
-                        By.CSS_SELECTOR, element_selector, "text", value
-                    )
+                    self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
 
             time.sleep(1)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -218,20 +176,14 @@ class ConfigureInput(WebDriverMethod):
                 if any(keyword in key for keyword in input_relevant_keys):
                     self.input_text(By.CSS_SELECTOR, element_selector, value)
                 else:
-                    self.select_element(
-                        By.CSS_SELECTOR, element_selector, "text", value
-                    )
+                    self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                     if "Type" == key:
                         time.sleep(1)
 
             time.sleep(1)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -258,18 +210,12 @@ class ConfigureInput(WebDriverMethod):
                 if any(keyword in key for keyword in input_relevant_keys):
                     self.input_text(By.CSS_SELECTOR, element_selector, value)
                 else:
-                    self.select_element(
-                        By.CSS_SELECTOR, element_selector, "text", value
-                    )
+                    self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
 
             time.sleep(1)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 
@@ -292,10 +238,6 @@ class ConfigureInput(WebDriverMethod):
             time.sleep(1)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False

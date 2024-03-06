@@ -1,10 +1,6 @@
 # login.py
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import (
-    NoSuchElementException,
-    ElementNotVisibleException,
-    TimeoutException,
-)
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
 from webdriver_method import WebDriverMethod
 from web_elements import LoginElements
 
@@ -29,11 +25,7 @@ class Login(WebDriverMethod):
             else:
                 return False
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
             return False
 

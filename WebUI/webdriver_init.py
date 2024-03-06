@@ -7,12 +7,8 @@ from selenium.webdriver.chrome.options import Options
 class WebDriverInit:
     def __init__(self):
         try:
-            script_directory = os.path.dirname(
-                os.path.realpath(__file__)
-            )  # 현재 경로만 추출
-            config_path = os.path.join(
-                script_directory, "config.ini"
-            )  # 현재 경로에서 config.ini 찾음
+            script_directory = os.path.dirname(os.path.realpath(__file__))  # 현재 경로만 추출
+            config_path = os.path.join(script_directory, "config.ini")  # 현재 경로에서 config.ini 찾음
             self.config = configparser.ConfigParser()  # config.ini 파싱
             self.config.read(config_path)  # config.ini 파싱 후 일기
         except Exception as e:

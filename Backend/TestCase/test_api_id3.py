@@ -35,9 +35,7 @@ class TestID3API:
         [("devid", "chindex", "2", "0")],
     )
     @allure.title("API: ID3")
-    def test_id3s(
-        self, first_uri_resource, second_uri_resoure, devid_value, chindex_value
-    ):
+    def test_id3s(self, first_uri_resource, second_uri_resoure, devid_value, chindex_value):
         # id3 API 호출 전 채널 시작
         channel_start = {"operation": "transcode", "action": "start"}
         channel_stop = {"operation": "transcode", "action": "stop"}

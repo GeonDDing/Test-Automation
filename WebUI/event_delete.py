@@ -1,10 +1,6 @@
 # configure_device.py
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import (
-    NoSuchElementException,
-    ElementNotVisibleException,
-    TimeoutException,
-)
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
 from webdriver_method import WebDriverMethod
 from web_elements import MainMenuElements
 import time
@@ -19,11 +15,7 @@ class ConfigureDevice(WebDriverMethod):
             self.click_element(By.XPATH, MainMenuElements().events)
             time.sleep(1)  # Wait for the 'EVENTS' page to load
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
 
     def event_delete_all(self):
@@ -35,9 +27,5 @@ class ConfigureDevice(WebDriverMethod):
             print("Delete event complete")
             time.sleep(1)
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")
