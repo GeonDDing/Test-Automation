@@ -10,7 +10,7 @@ class Login(WebDriverMethod):
         # Open Page
         self.driver.get(self.url)
         try:
-            print("\n- 로그인")
+            print("\n- Management Web 로그인")
             # Input username
             print(f"  ㆍID : {username}")
             self.input_text(By.CSS_SELECTOR, LoginElements.login, username)

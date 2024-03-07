@@ -634,7 +634,8 @@ class MonitorDeviceElements:
     )
     monitor_device_switch_source = 'input[type="button"][id="SwitchSourceBtn{}"][title="Click to toggle switch between primary and backup source"][value="Switch"]'
     moniotr_device_replace_source = 'a[id="open-source-replacement-menu"][title="Show replace input source menu"]'
+    ### XAPTH ###
     monitor_device_page = (
         # "#dev_info0 > div.devline-1-body > table > tbody > tr > td:nth-child(1) > div.devline-1-channel"
-        'document.querySelector("#dev_info0 > div.devline-1-body")'
+        '//*[@id="dev_info0"]/div[2]/table/tbody/tr/td[1]/div[2]/table'
     )

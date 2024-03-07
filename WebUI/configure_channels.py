@@ -11,28 +11,9 @@ import time
 
 
 class ConfigureChannel(ConfigureRole):
-    def __init__(
-        self,
-        **kwagrs,
-        # channel_name,
-        # input_type,
-        # output_type,
-        # backup_source_type,
-        # input_options,
-        # output_options,
-        # backup_source_options,
-        # preset_name,
-    ):
+    def __init__(self, **kwagrs):
         self.input_elements = ConfigureInputElements()
         self.channel_elements = ConfigureChannelElements()
-        # channel_configure_data[channel_name] = channel_name
-        # channel_configure_data[input_type] = input_type
-        # channel_configure_data['input_options'] = input_options
-        # channel_configure_data['backup_source_type'] = backup_source_type
-        # channel_configure_data['backup_source_options'] = backup_source_options
-        # channel_configure_data['output_type'] = output_type
-        # channel_configure_data['output_options'] = output_options
-        # channel_configure_data['preset_name'] = preset_name
         self.channel_configure_data = kwagrs
 
     def navigate_to_configure_channels(self):
@@ -53,8 +34,10 @@ class ConfigureChannel(ConfigureRole):
                 self.click_element(By.CSS_SELECTOR, self.channel_elements.channel_add_button)
                 # Wait for the time to move to the channel creation page.
                 print("- Channel(Input, Backup Source, Output) 생성")
+                print(f"  - Channel : {self.channel_configure_data['channel_name']}")
             else:
                 print("- Channel(Input, Backup Source, Output) 수정")
+                print(f"  - Channel : {self.channel_configure_data['channel_name']}")
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"Error: {e}")

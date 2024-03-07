@@ -29,7 +29,7 @@ class WebDriverMethod(WebDriverInit):
     def input_text(self, by, locator, contents):
         if platform.system() == "Darwin":
             element = self.find_web_element(by, locator)
-            element.send_keys(Keys.COMMAND + "A") if 
+            element.send_keys(Keys.COMMAND + "A")
             time.sleep(0.3)
             element.send_keys(Keys.DELETE)
             time.sleep(0.3)

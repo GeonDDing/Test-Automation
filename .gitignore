@@ -6,3 +6,4 @@ WebUI/TestCase/__pycache__/
 Common/__pycache__/
 .pytest_cache/
 allure-results/
+.DS_Store

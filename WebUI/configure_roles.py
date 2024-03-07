@@ -39,12 +39,14 @@ class ConfigureRole(ConfigureDevice):
                             "text",
                             channel_value,
                         )
+                        print(f"    ㆍ{channel_name[index]} 등록")
             else:
                 print("- Role 수정")
                 if channel_name:
                     for index, channel_value in enumerate(channel_name):
                         selected_channel_list = f"//*[@id='channel{index}']"
                         self.select_element(By.XPATH, selected_channel_list, "text", channel_value)
+                        print(f"  ㆍ{channel_name[index]} 등록")
             self.click_element(By.CSS_SELECTOR, self.role_elements.role_save_button)
             time.sleep(1)
             return True

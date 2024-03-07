@@ -110,7 +110,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementNotInteractableException
 from webdriver_method import WebDriverMethod
-from web_elements import MonitorDeviceElements
+from web_elements import MonitorDeviceElements, MainMenuElements
 from login import Login
 
 
@@ -118,6 +118,7 @@ class MonitorDevice(WebDriverMethod):
     def __init__(self, chindex=0):
         super().__init__()
         self.monitor_device_elements = MonitorDeviceElements()
+        self.click_element(By.XPATH, MainMenuElements().monitor)
         self.chindex = chindex
 
     def find_channel_index(self, channel_name):
@@ -137,22 +138,21 @@ class MonitorDevice(WebDriverMethod):
         channel_stop_element = self.monitor_device_elements.monitor_device_channel_stop.format(self.chindex)
         # Move to monitor device page
         try:
-            self.click_element(By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_page)
+            self.click_element(By.XPATH, self.monitor_device_elements.monitor_device_page)
+            WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, channel_start_element)))
             self.click_element(By.CSS_SELECTOR, channel_start_element)
-            print("Channel 시작")
-            WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, channel_stop_element)))
+            print("- Channel 시작")
             return True
         except TimeoutException:
             try:
-                print("Channel 정지")
+                print("- Channel 중지 및 재시작")
                 self.click_element(By.CSS_SELECTOR, channel_stop_element)
                 self.accept_alert()
                 try:
-                    print("Channel 제시작")
-                    self.click_element(By.CSS_SELECTOR, channel_start_element)
                     WebDriverWait(self.driver, 30).until(
-                        EC.element_to_be_clickable((By.CSS_SELECTOR, channel_stop_element))
+                        EC.element_to_be_clickable((By.CSS_SELECTOR, channel_start_element))
                     )
+                    self.click_element(By.CSS_SELECTOR, channel_start_element)
                     return True
                 except TimeoutException:
                     return False

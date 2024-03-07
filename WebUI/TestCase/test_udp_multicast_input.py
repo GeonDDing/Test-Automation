@@ -121,15 +121,17 @@ class TestUDPMulticastInput:
             channel_instance.setup_input()
         return channel_instance.post_channel_configuration()
 
-    @attach_result("Role에 Channel 등록", "Role에 Channel 추가 성공", "Role에 Channel 추가 실패")
+    @attach_result("Role 설정", "Channel 추가 성공", "Channel 추가 실패")
     def add_channel_to_role(self, **kwargs):
-        role_instance = ConfigureRole()
-        return role_instance.configure_role(kwargs["role_name"], kwargs["channel_name"])
+        with allure.step("Roel Configuration"):
+            role_instance = ConfigureRole()
+            return role_instance.configure_role(kwargs["role_name"], kwargs["channel_name"])
 
     @attach_result("Channel 시작", "Channel 시작 성공", "Channel 시작 실패")
     def channel_start(self, **kwargs):
-        monitor_device_instance = MonitorDevice()
-        return monitor_device_instance.channel_start(kwargs["channel_name"])
+        with allure.step("Channrl Start"):
+            monitor_device_instance = MonitorDevice()
+            return monitor_device_instance.channel_start(kwargs["channel_name"])
 
     """ 
     The 'create_channel' function parameter definitions are as follows.
@@ -146,6 +148,7 @@ class TestUDPMulticastInput:
         self.create_channel(**self.test_data)
         self.add_channel_to_role(**self.test_data)
         self.channel_start(**self.test_data)
+        time.sleep(20)
 
 
 if __name__ == "__main__":
