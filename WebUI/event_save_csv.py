@@ -16,10 +16,10 @@ class ConfigureDevice(WebDriverMethod):
         # Navigate to the 'Configure devices' page
         self.navigate_to_event()
         try:
-            print("Delete event")
+            self.web_log("Delete event")
 
-            print("Delete event complete")
+            self.web_log("Delete event complete")
             time.sleep(1)
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            self.web_log(f"[ERROR] {e}")

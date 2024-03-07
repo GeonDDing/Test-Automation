@@ -30,7 +30,7 @@ class GaGaStreamManager(WebDriverMethod):
                         return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            print(f"[ERROR] {e}")
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
 
@@ -71,7 +71,7 @@ class GaGaStreamManager(WebDriverMethod):
                             break
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            print(f"[ERROR] {e}")
 
 
 if __name__ == "__main__":

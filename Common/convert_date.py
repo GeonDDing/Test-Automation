@@ -3,6 +3,7 @@ from datetime import datetime
 
 
 class ConvertDate:
+    @classmethod
     def convert_date(self):
         time = datetime.now()
 

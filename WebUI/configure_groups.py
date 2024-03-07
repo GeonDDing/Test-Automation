@@ -18,48 +18,46 @@ class ConfigureGroup(ConfigureDevice):
             time.sleep(1)  # Wait for the 'CONFIGURE - Group' page to load
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            self.web_log(f"[ERROR] {e}")
             return False
 
     def configure_group(self, group_name, domain):
         try:
-            print("Group setting")
             self.navigate_to_configure_groups()
-
             # Click the button to add a new group or find an existing one
             if not self.find_exist_group(group_name):
+                self.web_log("[STEP] Group 설정")
                 self.click_element(By.CSS_SELECTOR, self.group_elements.group_add_button)
                 # Wait for the time to move to the group creation page.
                 time.sleep(1)
                 # Since there is no existing Group with the same name, a Group is created with that name.
                 self.input_text(By.CSS_SELECTOR, self.group_elements.group_name, group_name)
             else:
-                print("A group with the same name exists.")
+                self.web_log("[STEP] Group 수정")
 
             # Set group domain
             group_domain_selector = (
                 f"{self.group_elements.group_domain}[value='1']"
-                if domain == "live"
+                if domain == "Live"
                 else f"{self.group_elements.group_domain}[value='2']"
             )
             self.click_element(By.CSS_SELECTOR, group_domain_selector)
 
             # Set group live trigger
-            if domain == "live":
+            if domain == "Live":
                 # If necessary, set by adding parameter to configure_group function.
                 # Default : Evergreen 1
                 trigger_css_selector = self.group_elements.group_live_trigger_evergreen1
                 self.click_element(By.CSS_SELECTOR, trigger_css_selector)
-
+                self.web_log(f"    [OPTION] Domain : {domain}")
             # Save group settings
             self.click_element(By.CSS_SELECTOR, self.group_elements.group_save_button)
             # Wait for a moment before continuing
-            print("Group setting complete")
             time.sleep(1)
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            self.web_log(f"[ERROR] {e}")
             return False
 
     def find_exist_group(self, group_name):
@@ -74,6 +72,6 @@ class ConfigureGroup(ConfigureDevice):
             return False  # Group not found
 
         except NoSuchElementException as e:
-            print(f"Element not found: {e}")
+            self.web_log(f"Element not found: {e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False

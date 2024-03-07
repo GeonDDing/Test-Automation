@@ -15,15 +15,15 @@ class ConfigureTask(WebDriverMethod):
             # Navigate to the 'Configure devices' page
             self.click_element(By.XPATH, MainMenuElements().configure)
             self.click_element(By.XPATH, MainMenuElements().configure_tasks)
-            time.sleep(1)  # Wait for the 'CONFIGURE - Tasks' page to load
+            time.sleep(1)  # Wait for the 'CONFIGURE Tasks' page to load
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            self.web_log(f"[ERROR] {e}")
             return False
 
     def configure_task(self, task_name, taks_options=None):
         try:
-            print("Task setting")
+            self.web_log("Task setting")
             self.navigate_to_configure_tasks()
 
             # Click the button to add a new task or find an existing one
@@ -34,7 +34,7 @@ class ConfigureTask(WebDriverMethod):
                 # Since there is no existing Task with the same name, a Task is created with that name.
                 self.input_text(By.CSS_SELECTOR, self.task_elements.task_name, task_name)
             else:
-                print("A task with the same name exists.")
+                self.web_log("A task with the same name exists.")
             select_relevant_keys = {
                 "Group",
                 "Channel",
@@ -45,7 +45,7 @@ class ConfigureTask(WebDriverMethod):
                 "State",
             }
             for key, value in taks_options.items():
-                print(f"  ㆍ{key} : {value}")
+                self.web_log(f"    [OPTION] {key} : {value}")
                 element_selector = getattr(
                     self.task_elements,
                     (
@@ -65,13 +65,13 @@ class ConfigureTask(WebDriverMethod):
             # Save task settings
             self.click_element(By.CSS_SELECTOR, self.task_elements.task_save_button)
             # Wait for a moment before continuing
-            print("Task setting complete")
+            self.web_log("Task setting complete")
             time.sleep(1)
 
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            self.web_log(f"[ERROR] {e}")
             return False
 
     def find_exist_task(self, task_name):
@@ -86,6 +86,6 @@ class ConfigureTask(WebDriverMethod):
             return False  # Task not found
 
         except NoSuchElementException as e:
-            print(f"Element not found: {e}")
+            self.web_log(f"Element not found: {e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False

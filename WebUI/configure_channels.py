@@ -23,7 +23,7 @@ class ConfigureChannel(ConfigureRole):
             self.click_element(By.XPATH, MainMenuElements().configure_channels)
             time.sleep(1)  # Wait for the 'CONFIGURE - Channel' page to load
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            self.web_log(f"[ERROR] {e}")
             return False
 
     def pre_channel_configuration(self):
@@ -33,20 +33,20 @@ class ConfigureChannel(ConfigureRole):
             if not self.find_exist_channel():
                 self.click_element(By.CSS_SELECTOR, self.channel_elements.channel_add_button)
                 # Wait for the time to move to the channel creation page.
-                print("- Channel(Input, Backup Source, Output) 생성")
-                print(f"  - Channel : {self.channel_configure_data['channel_name']}")
+                self.web_log("[STEP] Channel(Input, Backup Source, Output) 생성")
+                self.web_log(f"  [INFO] Channel : {self.channel_configure_data['Channel Name']}")
             else:
-                print("- Channel(Input, Backup Source, Output) 수정")
-                print(f"  - Channel : {self.channel_configure_data['channel_name']}")
+                self.web_log("[STEP] Channel(Input, Backup Source, Output) 수정")
+                self.web_log(f"  [INFO] Channel : {self.channel_configure_data['Channel Name']}")
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            self.web_log(f"[ERROR] {e}")
             return False
 
     def post_channel_configuration(self):
         try:
             self.input_text(
-                By.CSS_SELECTOR, self.channel_elements.channel_name, self.channel_configure_data["channel_name"]
+                By.CSS_SELECTOR, self.channel_elements.channel_name, self.channel_configure_data["Channel Name"]
             )
             time.sleep(1)
             self.click_element(By.CSS_SELECTOR, self.channel_elements.channel_save_button)
@@ -54,18 +54,18 @@ class ConfigureChannel(ConfigureRole):
                 By.CSS_SELECTOR, self.input_elements.input_common_error_message
             ).get_attribute("innerText")
             if error_message == "최소 하나의 Output이 필요합니다. 채널을 생성하지 못하여 테스트를 종료합니다.":
-                print(error_message)
+                self.web_log(error_message)
                 self.quit_driver()
                 return False
             else:
                 return True
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            self.web_log(f"[ERROR] {e}")
             return False
 
     def setup_input(self):
         try:
-            configure_input = ConfigureInput(self.channel_configure_data["input_type"])
+            configure_input = ConfigureInput(self.channel_configure_data["Input Type"])
             input_functions = {
                 "UDP": configure_input.input_udp,
                 "RTP/RTSP": configure_input.input_rtsp,
@@ -76,9 +76,9 @@ class ConfigureChannel(ConfigureRole):
                 "SMPTE ST 2110": configure_input.input_smpte_st_2110,
                 "NDI": configure_input.input_ndi,
             }
-            if self.channel_configure_data["input_type"] in input_functions:
-                return input_functions[self.channel_configure_data["input_type"]](
-                    self.channel_configure_data["input_options"]
+            if self.channel_configure_data["Input Type"] in input_functions:
+                return input_functions[self.channel_configure_data["Input Type"]](
+                    self.channel_configure_data["Input Options"]
                 )
         except Exception as e:
             return False
@@ -86,8 +86,8 @@ class ConfigureChannel(ConfigureRole):
     def setup_backups_source(self):
         try:
             set_backupsource_result = bool()
-            if not self.channel_configure_data["backup_source_type"] == None:
-                configure_backup_source = ConfigureBackupSource(self.channel_configure_data["backup_source_type"])
+            if not self.channel_configure_data["Backup Source Type"] == None:
+                configure_backup_source = ConfigureBackupSource(self.channel_configure_data["Backup Source Type"])
                 self.navigate_to_configure_channels()
                 time.sleep(1)
                 self.find_exist_channel()
@@ -103,10 +103,10 @@ class ConfigureChannel(ConfigureRole):
                     "NDI": configure_backup_source.backup_source_ndi,
                 }
 
-                if self.channel_configure_data["backup_source_type"] in backup_source_functions:
+                if self.channel_configure_data["Backup Source Type"] in backup_source_functions:
                     set_backupsource_result = backup_source_functions[
-                        self.channel_configure_data["backup_source_type"]
-                    ](self.channel_configure_data["backup_source_options"])
+                        self.channel_configure_data["Backup Source Type"]
+                    ](self.channel_configure_data["Backup Source Options"])
                     time.sleep(1)
                 # Save backup source options.
                 self.click_element(By.CSS_SELECTOR, self.channel_elements.channel_save_button)
@@ -118,9 +118,9 @@ class ConfigureChannel(ConfigureRole):
     def setup_output(self):
         try:
             configure_output = ConfigureOutput(
-                self.channel_configure_data["output_type"],
-                self.channel_configure_data["preset_name"]["Videopreset Name"],
-                self.channel_configure_data["preset_name"]["Audiopreset Name"],
+                self.channel_configure_data["Output Type"],
+                self.channel_configure_data["Preset Name"]["Videopreset Name"],
+                self.channel_configure_data["Preset Name"]["Audiopreset Name"],
             )
             output_functions = {
                 "UDP": configure_output.output_udp,
@@ -128,9 +128,9 @@ class ConfigureChannel(ConfigureRole):
                 "RTMP": configure_output.output_rtmp,
                 "HLS": configure_output.output_hls,
             }
-            if self.channel_configure_data["output_type"] in output_functions:
-                return output_functions[self.channel_configure_data["output_type"]](
-                    self.channel_configure_data["output_options"]
+            if self.channel_configure_data["Output Type"] in output_functions:
+                return output_functions[self.channel_configure_data["Output Type"]](
+                    self.channel_configure_data["Output Options"]
                 )
         except Exception as e:
             return False
@@ -141,12 +141,12 @@ class ConfigureChannel(ConfigureRole):
 
             for tr in channel_table.find_elements(By.XPATH, ".//tbody/tr"):
                 column_value = tr.find_elements(By.TAG_NAME, "td")[0].get_attribute("innerText")
-                if column_value == self.channel_configure_data["channel_name"]:
+                if column_value == self.channel_configure_data["Channel Name"]:
                     tr.find_elements(By.TAG_NAME, "td")[0].click()
                     time.sleep(0.5)
                     return True  # channel found and clicked
             return False  # channel not found
         except NoSuchElementException as e:
-            print(f"Element not found: {e}")
+            self.web_log(f"Element not found: {e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False

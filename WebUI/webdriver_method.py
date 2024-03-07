@@ -7,11 +7,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, ElementNotVisibleException
 from webdriver_init import WebDriverInit
+from web_log import WebLog
 import time
 import platform
 
 
-class WebDriverMethod(WebDriverInit):
+class WebDriverMethod(WebDriverInit, WebLog):
     driver = webdriver.Chrome(options=WebDriverInit().options)
     driver.set_window_size(1280, 1920)
 
@@ -19,12 +20,12 @@ class WebDriverMethod(WebDriverInit):
         try:
             return self.driver.find_element(by, locator)
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            self.web_log(f"[ERROR] {e}")
             return None
 
     def click_element(self, by, locator):
         self.find_web_element(by, locator).click()
-        time.sleep(0.3)
+        time.sleep(1)
 
     def input_text(self, by, locator, contents):
         if platform.system() == "Darwin":
@@ -58,7 +59,7 @@ class WebDriverMethod(WebDriverInit):
             WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((by, locator)))
             return True
         except TimeoutException:
-            print("Element does not appear.")
+            self.web_log("Element does not appear.")
             return False
 
     def accept_alert(self):

@@ -12,7 +12,7 @@ class WebDriverInit:
             self.config = configparser.ConfigParser()  # config.ini 파싱
             self.config.read(config_path)  # config.ini 파싱 후 일기
         except Exception as e:
-            print(e)
+            self.web_log(e)
 
         webdriver_options = self.config.items("WebDriverOptions")
 

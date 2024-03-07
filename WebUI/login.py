@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
 from webdriver_method import WebDriverMethod
 from web_elements import LoginElements
+from web_log import WebLog
 
 
 class Login(WebDriverMethod):
@@ -10,12 +11,13 @@ class Login(WebDriverMethod):
         # Open Page
         self.driver.get(self.url)
         try:
-            print("\n- Management Web 로그인")
+            print("\n")
+            self.web_log("[STEP] 페이지 로그인")
             # Input username
-            print(f"  ㆍID : {username}")
+            self.web_log(f"    [OPTION] ID : {username}")
             self.input_text(By.CSS_SELECTOR, LoginElements.login, username)
             # Input password
-            print(f"  ㆍPW : {password}")
+            self.web_log(f"    [OPTION] PW : {password}")
             self.input_text(By.CSS_SELECTOR, LoginElements.password, password)
             # Click login button
             self.click_element(By.CSS_SELECTOR, LoginElements.login_button)
@@ -26,7 +28,7 @@ class Login(WebDriverMethod):
                 return False
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            self.web_log(f"[ERROR] {e}")
             return False
 
 

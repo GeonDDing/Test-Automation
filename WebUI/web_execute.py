@@ -118,8 +118,7 @@ if __name__ == "__main__":
 
     # role_instance.configure_role('test role', 'UDP Testing Channel')
     # group_instance.configure_group('test group', 'live')
-    # device_instance.configure_device(
-    #     "Local Device", '10.1.0.145', 'test group', 'test role')
+    device_instance.configure_device("Local Device", "10.1.0.145", "test group", "test role")
     # task_instance.configure_task('New task testing', task_options)
 
     WebDriverMethod().quit_driver()

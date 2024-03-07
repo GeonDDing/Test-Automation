@@ -3,6 +3,7 @@ import configparser
 import requests
 import time
 import os
+from web_log import WebLog
 
 
 class StatsSender:
@@ -15,7 +16,7 @@ class StatsSender:
             self.url = config.get("Webpage", "url")
 
         except Exception as e:
-            print("An error occurred:", e)
+            WebLog.web_log("An error occurred:", e)
 
     def stats_sender(self, queue):
         output_info = None
@@ -26,9 +27,9 @@ class StatsSender:
                 stat_response = requests.get(f"{self.url}:900{chidx}/stats")
             except requests.exceptions.ConnectionError as e:
                 max_retries -= 1
-                print(f"Retrying in 5 seconds...")
+                WebLog.web_log(f"Retrying in 5 seconds...")
                 if max_retries == 0:
-                    print("A connection error occurred and terminated.")
+                    WebLog.web_log("A connection error occurred and terminated.")
                     queue.put("quit")
                     break
                 time.sleep(5)
@@ -37,9 +38,9 @@ class StatsSender:
                     root = elementTree.fromstring(stat_response.text)
                 except elementTree.ParseError as e:
                     max_retries -= 1
-                    print(f"Retrying in 5 seconds...")
+                    WebLog.web_log(f"Retrying in 5 seconds...")
                     if max_retries == 0:
-                        print("Terminated because xml could not be parsed.")
+                        WebLog.web_log("Terminated because xml could not be parsed.")
                         queue.put("quit")
                         break
                     time.sleep(5)

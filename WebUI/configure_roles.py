@@ -15,9 +15,9 @@ class ConfigureRole(ConfigureDevice):
             # Navigate to the 'Configure Roles' page
             self.click_element(By.XPATH, MainMenuElements().configure)
             self.click_element(By.XPATH, MainMenuElements().configure_roles)
-            time.sleep(1)  # Wait for the 'CONFIGURE - Role' page to load
+            time.sleep(1)  # Wait for the 'CONFIGURE Role' page to load
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            self.web_log(f"[ERROR] {e}")
             return False
 
     def configure_role(self, role_name, *channel_name):
@@ -25,7 +25,7 @@ class ConfigureRole(ConfigureDevice):
             self.navigate_to_configure_roles()
             # Click the button to add a new role or find an existing one
             if not self.find_exist_role(role_name):
-                print("- Role 생성")
+                self.web_log("[STEP] Role 생성")
                 self.click_element(By.CSS_SELECTOR, self.role_elements.role_add_button)
                 # Wait for the time to move to the group creation page.
                 time.sleep(1)
@@ -39,19 +39,19 @@ class ConfigureRole(ConfigureDevice):
                             "text",
                             channel_value,
                         )
-                        print(f"    ㆍ{channel_name[index]} 등록")
+                        self.web_log(f"    [OPTION] Channel : {channel_name[index]}")
             else:
-                print("- Role 수정")
+                self.web_log("[STEP] Role 수정")
                 if channel_name:
                     for index, channel_value in enumerate(channel_name):
                         selected_channel_list = f"//*[@id='channel{index}']"
                         self.select_element(By.XPATH, selected_channel_list, "text", channel_value)
-                        print(f"  ㆍ{channel_name[index]} 등록")
+                        self.web_log(f"    [OPTION] Channel : {channel_name[index]} ")
             self.click_element(By.CSS_SELECTOR, self.role_elements.role_save_button)
             time.sleep(1)
             return True
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"Error: {e}")
+            self.web_log(f"[ERROR] {e}")
             return False
 
     def find_exist_role(self, role_name):
@@ -64,6 +64,6 @@ class ConfigureRole(ConfigureDevice):
                     return True  # Role found and clicked
             return False  # Role not found
         except NoSuchElementException as e:
-            print(f"Element not found: {e}")
+            self.web_log(f"Element not found: {e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False
