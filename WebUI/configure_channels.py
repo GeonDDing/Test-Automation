@@ -23,7 +23,7 @@ class ConfigureChannel(ConfigureRole):
             self.click_element(By.XPATH, MainMenuElements().configure_channels)
             time.sleep(1)  # Wait for the 'CONFIGURE - Channel' page to load
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def pre_channel_configuration(self):
@@ -33,14 +33,14 @@ class ConfigureChannel(ConfigureRole):
             if not self.find_exist_channel():
                 self.click_element(By.CSS_SELECTOR, self.channel_elements.channel_add_button)
                 # Wait for the time to move to the channel creation page.
-                self.web_log("[STEP] Channel(Input, Backup Source, Output) 생성")
-                self.web_log(f"  [INFO] Channel : {self.channel_configure_data['Channel Name']}")
+                self.step_log(f"Channel(Input, Backup Source, Output) 생성")
+                self.info_log(f"Channel : {self.channel_configure_data['Channel Name']}")
             else:
-                self.web_log("[STEP] Channel(Input, Backup Source, Output) 수정")
-                self.web_log(f"  [INFO] Channel : {self.channel_configure_data['Channel Name']}")
+                self.step_log(f"Channel(Input, Backup Source, Output) 수정")
+                self.info_log(f"Channel : {self.channel_configure_data['Channel Name']}")
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def post_channel_configuration(self):
@@ -54,13 +54,13 @@ class ConfigureChannel(ConfigureRole):
                 By.CSS_SELECTOR, self.input_elements.input_common_error_message
             ).get_attribute("innerText")
             if error_message == "최소 하나의 Output이 필요합니다. 채널을 생성하지 못하여 테스트를 종료합니다.":
-                self.web_log(error_message)
+                self.error_log(error_message)
                 self.quit_driver()
                 return False
             else:
                 return True
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def setup_input(self):
@@ -147,6 +147,6 @@ class ConfigureChannel(ConfigureRole):
                     return True  # channel found and clicked
             return False  # channel not found
         except NoSuchElementException as e:
-            self.web_log(f"Element not found: {e}")
+            self.error_log(f"{e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False

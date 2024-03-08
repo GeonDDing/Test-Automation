@@ -19,14 +19,14 @@ class ConfigureAudiopreset(WebDriverMethod):
             time.sleep(1)
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
 
     def configure_audiopreset(self, preset_name, audiopreset_options=None):
         try:
             self.navigate_to_configure_audiopresets()
             # Click the button to add a new audiopreset or find an existing one
             if not self.find_exist_audiopreset(preset_name):
-                self.web_log("[STEP] Audio Preset 생성")
+                self.step_log(f"Audio Preset 생성")
                 self.click_element(By.CSS_SELECTOR, self.audiopreset_elements.audiopreset_add_button)
                 # Wait for the time to move to the audiopreset creation page.
                 time.sleep(1)
@@ -37,7 +37,7 @@ class ConfigureAudiopreset(WebDriverMethod):
                     preset_name,
                 )
             else:
-                self.web_log("[STEP] Aidio Preset 수정")
+                self.step_log(f"Aidio Preset 수정")
 
             # Codec
             # H.264/AVC | H.265/HEVC
@@ -51,7 +51,7 @@ class ConfigureAudiopreset(WebDriverMethod):
             ]
 
             for key, value in audiopreset_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.audiopreset_elements,
                     (
@@ -77,7 +77,7 @@ class ConfigureAudiopreset(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def find_exist_audiopreset(self, audiopreset_name):
@@ -92,6 +92,6 @@ class ConfigureAudiopreset(WebDriverMethod):
             return False  # audiopreset not found
 
         except NoSuchElementException as e:
-            self.web_log(f"Element not found: {e}")
+            self.error_log(f"{e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False

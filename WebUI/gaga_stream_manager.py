@@ -28,7 +28,6 @@ class GaGaStreamManager(WebDriverMethod):
                     if stream_name == active_stream:
                         print(f"   {active_stream} is a stream that is already active.")
                         return True
-
         except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"[ERROR] {e}")
         except Exception as e:
@@ -69,7 +68,6 @@ class GaGaStreamManager(WebDriverMethod):
                                 self.gaga_elements.gaga_start_streaming_button,
                             )
                             break
-
         except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"[ERROR] {e}")
 

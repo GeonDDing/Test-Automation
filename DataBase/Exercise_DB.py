@@ -26,7 +26,7 @@ for row in result:
                     db_dict[key] = value
 
 # JSON 형태로 정렬해서 출력
-self.web_log(json.dumps(db_dict, indent=4))
+print(json.dumps(db_dict, indent=4))
 
 # 연결 및 커서 닫기
 cursor.close()

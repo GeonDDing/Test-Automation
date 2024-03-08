@@ -20,7 +20,7 @@ class WebDriverMethod(WebDriverInit, WebLog):
         try:
             return self.driver.find_element(by, locator)
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return None
 
     def click_element(self, by, locator):
@@ -59,7 +59,7 @@ class WebDriverMethod(WebDriverInit, WebLog):
             WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((by, locator)))
             return True
         except TimeoutException:
-            self.web_log("Element does not appear.")
+            self.error_log("Element does not appear.")
             return False
 
     def accept_alert(self):

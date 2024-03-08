@@ -36,7 +36,7 @@ class ConfigureOutput(WebDriverMethod):
             self.select_stream_preset(videopreset_name, audiopreset_name)
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def find_exist_output(self, output_type):
@@ -55,18 +55,18 @@ class ConfigureOutput(WebDriverMethod):
                 column_value = tr.find_elements(By.TAG_NAME, "td")[3].get_attribute("innerText")
                 if f"{output_type}:" in column_value:
                     tr.find_elements(By.TAG_NAME, "td")[3].click()
-                    # self.web_log(f"    [OPTION] {column_value}")
+                    # self.option_log(f"{column_value}")
                     return True  # Output found and clicked
             return False  # Output not found
 
         except NoSuchElementException as e:
-            self.web_log(f"Element not found: {e}")
+            self.error_log(f"{e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False
 
     def select_stream_preset(self, videopreset_name, audiopreset_name):
         try:
-            self.web_log("  [SUB STEP] Video, Audio Profile 선택")
+            self.sub_step_log(f"Video, Audio Profile 선택")
             WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_edit_stream))
             )
@@ -77,7 +77,7 @@ class ConfigureOutput(WebDriverMethod):
                 "text",
                 videopreset_name,
             )
-            self.web_log(f"    [OPTION] Videopreset : {videopreset_name}")
+            self.option_log(f"Videopreset : {videopreset_name}")
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
             try:
                 WebDriverWait(self.driver, 5).until(
@@ -91,7 +91,7 @@ class ConfigureOutput(WebDriverMethod):
                         "text",
                         audiopreset_name,
                     )
-                    self.web_log(f"    [OPTION] Audiopreset : {audiopreset_name}")
+                    self.option_log(f"Audiopreset : {audiopreset_name}")
             except:
                 self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
                 if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_audio_profile):
@@ -101,7 +101,7 @@ class ConfigureOutput(WebDriverMethod):
                         "text",
                         audiopreset_name,
                     )
-                    self.web_log(f"    [OPTION] Audiopreset : {audiopreset_name}")
+                    self.option_log(f"Audiopreset : {audiopreset_name}")
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
             self.wait_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
@@ -112,7 +112,7 @@ class ConfigureOutput(WebDriverMethod):
             ElementNotVisibleException,
             TimeoutException,
         ) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def output_udp(self, output_options):
@@ -122,10 +122,10 @@ class ConfigureOutput(WebDriverMethod):
             "NULL packet padding",
         ]
         try:
-            self.web_log("  [SUB STEP] UDP/IP Output 생성")
+            self.sub_step_log(f"UDP/IP Output 생성")
             # Output option setting
             for key, value in output_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -154,7 +154,7 @@ class ConfigureOutput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def output_hls(self, output_options):
@@ -168,10 +168,10 @@ class ConfigureOutput(WebDriverMethod):
             'Append "ENDLIST" at Stop',
         ]
         try:
-            self.web_log("  [SUB STEP] HLS Output 생성")
+            self.sub_step_log(f"HLS Output 생성")
             # Output option setting
             for key, value in output_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -203,14 +203,14 @@ class ConfigureOutput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def output_rtsp(self, output_options):
         try:
-            self.web_log("  [SUB STEP] RTSP Output 생성")
+            self.sub_step_log(f"RTSP Output 생성")
             for key, value in output_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -228,15 +228,15 @@ class ConfigureOutput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def output_rtmp(self, output_options):
         relevant_keys = ["Subtitle Language", "CDN Authentication"]
         try:
-            self.web_log("  RTMP Output 생성")
+            self.info_log(" RTMP Output 생성")
             for key, value in output_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -257,7 +257,7 @@ class ConfigureOutput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def output_live_smooth_streaming(self, output_options):
@@ -274,9 +274,9 @@ class ConfigureOutput(WebDriverMethod):
             'Send "mfra" at Stop',
         ]
         try:
-            self.web_log("  [SUB STEP] Live Smooth Streaming Output 생성")
+            self.sub_step_log(f"Live Smooth Streaming Output 생성")
             for key, value in output_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -299,7 +299,7 @@ class ConfigureOutput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def output_dash(self, output_options):
@@ -312,9 +312,9 @@ class ConfigureOutput(WebDriverMethod):
             "DRM Type",
         ]
         try:
-            self.web_log("  [SUB STEP] DASH Output 생성")
+            self.sub_step_log(f"DASH Output 생성")
             for key, value in output_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -337,7 +337,7 @@ class ConfigureOutput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def output_cmaf(self, output_options):
@@ -361,9 +361,9 @@ class ConfigureOutput(WebDriverMethod):
             'Append "ENDLIST" at Stop',
         ]
         try:
-            self.web_log("  [SUB STEP] CMAF Output 생성")
+            self.sub_step_log(f"CMAF Output 생성")
             for key, value in output_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.output_elements,
                     (
@@ -386,5 +386,5 @@ class ConfigureOutput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False

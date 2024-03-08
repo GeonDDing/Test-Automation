@@ -17,7 +17,7 @@ class ConfigureDevice(WebDriverMethod):
             self.click_element(By.XPATH, MainMenuElements().configure_devices)
             time.sleep(1)  # Wait for the 'CONFIGURE - Device' page to load
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def configure_device(self, device_name, ip_address, group_name, role_name):
@@ -25,14 +25,14 @@ class ConfigureDevice(WebDriverMethod):
             self.navigate_to_configure_devices()
             # Click the button to add a new device or find an existing one
             if not self.find_exist_device(device_name):
-                self.web_log("[STEP] Device 설정")
+                self.step_log(f"Device 설정")
                 self.click_element(By.CSS_SELECTOR, self.device_elements.device_add_button)
                 # Wait for the time to move to the device creation page.
                 time.sleep(1)
                 # Since there is no existing device with the same name, a device is created with that name.
                 self.input_text(By.CSS_SELECTOR, self.device_elements.device_name, device_name)
             else:
-                self.web_log("[STEP] Device 수정")
+                self.step_log(f"Device 수정")
 
             # IP Address
             self.input_text(By.CSS_SELECTOR, self.device_elements.device_ip_address, ip_address)
@@ -50,15 +50,15 @@ class ConfigureDevice(WebDriverMethod):
                 "text",
                 role_name,
             )
-            self.web_log(f"    [OPTION] Role : {role_name}")
-            self.web_log(f"    [OPTION] Group : {group_name}")
+            self.option_log(f"Role : {role_name}")
+            self.option_log(f"Group : {group_name}")
             # Save Device settings
             self.click_element(By.CSS_SELECTOR, self.device_elements.device_save_button)
             # Wait for a moment before continuing\
             time.sleep(1)
             return True
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False, e
 
     def find_exist_device(self, device_name):
@@ -71,6 +71,6 @@ class ConfigureDevice(WebDriverMethod):
                     return True  # Device found and clicked
             return False  # Device not found
         except NoSuchElementException as e:
-            self.web_log(f"Element not found: {e}")
+            self.error_log(f"{e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False

@@ -22,7 +22,7 @@ class MonitorDevice(WebDriverMethod):
                     self.chindex = idx
                     break
         except NoSuchElementException as e:
-            self.web_log(f"Element not found: {e}")
+            self.error_log(f"{e}")
             return False
 
     def channel_start(self, channel_name):
@@ -34,11 +34,11 @@ class MonitorDevice(WebDriverMethod):
             self.click_element(By.XPATH, self.monitor_device_elements.monitor_device_page)
             WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, channel_start_element)))
             self.click_element(By.CSS_SELECTOR, channel_start_element)
-            self.web_log(f"[STEP] #00{int(self.chindex)+1} {channel_name} 시작")
+            self.step_log(f"#00{int(self.chindex)+1} {channel_name} 시작")
             return True
         except TimeoutException:
             try:
-                self.web_log(f"[STEP] #00{int(self.chindex)+1} {channel_name} 재시작")
+                self.step_log(f"#00{int(self.chindex)+1} {channel_name} 재시작")
                 self.click_element(By.CSS_SELECTOR, channel_stop_element)
                 self.accept_alert()
                 try:
@@ -50,7 +50,7 @@ class MonitorDevice(WebDriverMethod):
                 except TimeoutException:
                     return False
             except (NoSuchElementException, ElementNotInteractableException) as e:
-                self.web_log(f"[ERROR] {e}")
+                self.error_log(f"{e}")
                 return False
 
 

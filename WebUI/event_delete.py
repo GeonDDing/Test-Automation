@@ -14,18 +14,14 @@ class ConfigureDevice(WebDriverMethod):
             # Navigate to the 'EVENTS' page
             self.click_element(By.XPATH, MainMenuElements().events)
             time.sleep(1)  # Wait for the 'EVENTS' page to load
-
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
 
     def event_delete_all(self):
         # Navigate to the 'EVENTS' page
         self.navigate_to_event()
         try:
-            self.web_log("Delete event")
-
-            self.web_log("Delete event complete")
+            self.info_log("Delete event")
             time.sleep(1)
-
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")

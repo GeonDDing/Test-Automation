@@ -19,7 +19,7 @@ class ConfigureInput(WebDriverMethod):
             self.select_element(By.CSS_SELECTOR, self.input_elements.input_type, "text", input_type)
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def input_udp(self, input_options):
@@ -32,9 +32,9 @@ class ConfigureInput(WebDriverMethod):
         ]
         select_relevant_keys = ["Interface", "Enable HA Mode", "Program Selection Mode"]
         try:
-            self.web_log("  [SUB STEP] UDP/IP Input 생성")
+            self.step_log(f" UDP/IP Input 생성")
             for key, value in input_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.input_elements,
                     (
@@ -79,12 +79,12 @@ class ConfigureInput(WebDriverMethod):
             time.sleep(1)
             return True
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def input_rtsp(self, input_options):
         try:
-            self.web_log("  [SUB STEP] RTSP Input 생성")
+            self.sub_step_log(f"RTSP Input 생성")
             self.input_text(
                 By.CSS_SELECTOR,
                 self.input_elements.input_udp_network_url,
@@ -94,12 +94,12 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def input_rtmp(self, input_options):
         try:
-            self.web_log("  [SUB STEP] RTMP Input 생성")
+            self.sub_step_log(f"RTMP Input 생성")
             self.input_text(
                 By.CSS_SELECTOR,
                 self.input_elements.input_udp_network_url,
@@ -109,12 +109,12 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def input_hls(self, input_options):
         try:
-            self.web_log("  HLS Input 생성")
+            self.info_log(" HLS Input 생성")
             self.input_text(
                 By.CSS_SELECTOR,
                 self.input_elements.input_hls_url,
@@ -124,15 +124,15 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def input_sdi(self, input_options):
         input_relevant_keys = ["Teletext page", "VBI lines"]
         try:
-            self.web_log("  [SUB STEP] SDI Input 생성")
+            self.sub_step_log(f"SDI Input 생성")
             for key, value in input_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.input_elements,
                     (
@@ -151,19 +151,19 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def input_playlist(self, input_options):
         input_relevant_keys = ["URI", "Recurring the last N files"]
         try:
-            self.web_log("  Playlist Input 생성")
+            self.info_log(" Playlist Input 생성")
             # playlist_type = input_options.get('Type')
             # self.select_element(
             #     By.CSS_SELECTOR, self.input_elements.input_playlist_type, 'text', playlist_type)
 
             for key, value in input_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.input_elements,
                     (
@@ -184,7 +184,7 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def input_smpte_st_2110(self, input_options):
@@ -195,9 +195,9 @@ class ConfigureInput(WebDriverMethod):
             "Teletext page",
         ]
         try:
-            self.web_log("  [SUB STEP] SMPTE ST 2110 Input 생성")
+            self.sub_step_log(f"SMPTE ST 2110 Input 생성")
             for key, value in input_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.input_elements,
                     (
@@ -216,14 +216,14 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def input_ndi(self, input_options):
         try:
-            self.web_log("  [SUB STEP] NDI Input 생성")
+            self.sub_step_log(f"NDI Input 생성")
             for key, value in input_options.items():
-                self.web_log(f"{key} : {value}")
+                self.info_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.input_elements,
                     (
@@ -239,5 +239,5 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False

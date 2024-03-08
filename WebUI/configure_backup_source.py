@@ -19,7 +19,7 @@ class ConfigureBackupSource(WebDriverMethod):
             )
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
 
     def backup_source_udp(self, backup_source_options):
         input_relevant_keys = [
@@ -31,9 +31,9 @@ class ConfigureBackupSource(WebDriverMethod):
         ]
         select_relevant_keys = ["Interface", "Enable HA Mode", "Program Selection Mode"]
         try:
-            self.web_log("UDP Backup Source 설정")
+            self.sub_step_log("UDP Backup Source 설정")
             for key, value in backup_source_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.backup_source_elements,
                     (
@@ -81,12 +81,12 @@ class ConfigureBackupSource(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
             return False
 
     def backup_source_rtp(self, backup_source_options):
         try:
-            self.web_log("RTP Backup Source 설정")
+            self.sub_step_log("RTP Backup Source 설정")
             self.input_text(
                 By.CSS_SELECTOR,
                 self.backup_source_elements.backup_source_udp_network_url,
@@ -94,11 +94,11 @@ class ConfigureBackupSource(WebDriverMethod):
             )
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
 
     def backup_source_rtmp(self, backup_source_options):
         try:
-            self.web_log("RTMP Backup Source 설정")
+            self.sub_step_log("RTMP Backup Source 설정")
             self.input_text(
                 By.CSS_SELECTOR,
                 self.backup_source_elements.backup_source_udp_network_url,
@@ -106,11 +106,11 @@ class ConfigureBackupSource(WebDriverMethod):
             )
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
 
     def backup_source_hls(self, backup_source_options):
         try:
-            self.web_log("HLS Backup Source 설정")
+            self.sub_step_log("HLS Backup Source 설정")
             self.input_text(
                 By.CSS_SELECTOR,
                 self.backup_source_elements.backup_source_hls_url,
@@ -118,13 +118,13 @@ class ConfigureBackupSource(WebDriverMethod):
             )
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
 
     def backup_source_sdi(self, backup_source_options):
         try:
-            self.web_log("SDI Backup Source 설정")
+            self.sub_step_log("SDI Backup Source 설정")
             for key, value in backup_source_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(self.backup_source_elements, f"input_sdi_{key}", None)
                 if element_selector:
                     if key in ["teletext_page", "vbi_lines"]:
@@ -134,11 +134,11 @@ class ConfigureBackupSource(WebDriverMethod):
                 time.sleep(1)
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
 
     def backup_source_playlist(self, backup_source_options):
         try:
-            self.web_log("Playlist Backup Source 설정")
+            self.sub_step_log("Playlist Backup Source 설정")
             playlist_type = backup_source_options.get("type")
             if playlist_type:
                 self.select_element(
@@ -173,13 +173,13 @@ class ConfigureBackupSource(WebDriverMethod):
             time.sleep(1)
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
 
     def backup_source_smpte_st_2110(self, backup_source_options):
         try:
-            self.web_log("SMPTE ST 2110 Backup Source 설정")
+            self.web_losub_step_log("SMPTE ST 2110 Backup Source 설정")
             for key, value in backup_source_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(self.backup_source_elements, f"input_smpte_st_2110_{key}", None)
                 if element_selector:
                     if key in [
@@ -194,16 +194,16 @@ class ConfigureBackupSource(WebDriverMethod):
                 time.sleep(1)
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
 
     def backup_source_ndi(self, backup_source_options):
         try:
-            self.web_log("NDI Backup Source 설정")
+            self.sub_step_log("NDI Backup Source 설정")
             for key, value in backup_source_options.items():
-                self.web_log(f"    [OPTION] {key} : {value}")
+                self.option_log(f"{key} : {value}")
                 element_selector = getattr(self.backup_source_elements, f"input_ndi_{key}", None)
                 self.input_text(By.CSS_SELECTOR, element_selector, value)
                 time.sleep(1)
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.web_log(f"[ERROR] {e}")
+            self.error_log(f"{e}")
