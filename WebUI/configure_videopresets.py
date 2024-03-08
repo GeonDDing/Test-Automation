@@ -17,9 +17,13 @@ class ConfigureVideopreset(WebDriverMethod):
             self.click_element(By.XPATH, MainMenuElements().configure_video_presets)
             # Wait for the 'CONFIGURE Videopreset' page to load
             time.sleep(1)
+
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def configure_videopreset(self, preset_name, videopreset_options=None):
         try:
@@ -55,6 +59,7 @@ class ConfigureVideopreset(WebDriverMethod):
                     None,
                 )
                 self.option_log(f"{key} : {value}")
+
                 if any(keyword in key for keyword in select_relevant_keys):
                     self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                 elif any(keyword in key for keyword in input_relevant_keys):
@@ -62,14 +67,14 @@ class ConfigureVideopreset(WebDriverMethod):
 
             self.input_text(By.CSS_SELECTOR, self.videopreset_elements.videopreset_bframe, "2")
             self.click_element(By.CSS_SELECTOR, self.videopreset_elements.videopreset_save_button)
-            # Wait for a moment before continuing
-            time.sleep(1)
-
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def find_exist_videopreset(self, videopreset_name):
         try:
@@ -77,12 +82,17 @@ class ConfigureVideopreset(WebDriverMethod):
 
             for tr in videopreset_table.find_elements(By.XPATH, ".//tbody/tr"):
                 column_value = tr.find_elements(By.TAG_NAME, "td")[0].get_attribute("innerText")
+
                 if column_value == videopreset_name:
                     tr.find_elements(By.TAG_NAME, "td")[0].click()
                     return True  # Videopreset found and clicked
+
             return False  # Videopreset not found
 
         except NoSuchElementException as e:
             self.error_log(f"{e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False
+
+        finally:
+            self.quit_driver()

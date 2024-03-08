@@ -16,9 +16,13 @@ class ConfigureDevice(WebDriverMethod):
             self.click_element(By.XPATH, MainMenuElements().configure)
             self.click_element(By.XPATH, MainMenuElements().configure_devices)
             time.sleep(1)  # Wait for the 'CONFIGURE - Device' page to load
+
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def configure_device(self, device_name, ip_address, group_name, role_name):
         try:
@@ -54,23 +58,32 @@ class ConfigureDevice(WebDriverMethod):
             self.option_log(f"Group : {group_name}")
             # Save Device settings
             self.click_element(By.CSS_SELECTOR, self.device_elements.device_save_button)
-            # Wait for a moment before continuing\
-            time.sleep(1)
             return True
+
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False, e
 
+        finally:
+            self.quit_driver()
+
     def find_exist_device(self, device_name):
         try:
             device_table = self.find_web_element(By.XPATH, self.device_elements.device_table)
+
             for tr in device_table.find_elements(By.XPATH, ".//tbody/tr"):
                 column_value = tr.find_elements(By.TAG_NAME, "td")[0].get_attribute("innerText")
+
                 if column_value == device_name:
                     tr.find_elements(By.TAG_NAME, "td")[0].click()
                     return True  # Device found and clicked
+
             return False  # Device not found
+
         except NoSuchElementException as e:
             self.error_log(f"{e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False
+
+        finally:
+            self.quit_driver()

@@ -21,17 +21,21 @@ class GaGaStreamManager(WebDriverMethod):
     def find_exist_stream(self, stream_name):
         try:
             active_stream_table = self.find_web_element(By.XPATH, self.gaga_elements.gaga_active_stream_table)
+
             for tr in active_stream_table.find_elements(By.XPATH, ".//tbody/tr"):
                 tds = tr.find_elements(By.TAG_NAME, "td")
+
                 if tds:
                     active_stream = tds[2].get_attribute("innerText").split("/")[-1]
                     if stream_name == active_stream:
                         print(f"   {active_stream} is a stream that is already active.")
                         return True
+
         except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"[ERROR] {e}")
-        except Exception as e:
-            print(f"An unexpected error occurred: {e}")
+
+        finally:
+            self.quit_driver()
 
     def gaga_stream_upload(self, element_list=None):
         try:
@@ -46,11 +50,13 @@ class GaGaStreamManager(WebDriverMethod):
             try:
                 if self.wait_element(By.XPATH, self.gaga_elements.gaga_stream_in_table):
                     stream_in_table = self.find_web_element(By.XPATH, self.gaga_elements.gaga_stream_in_table)
+
             except TimeoutException:
                 stream_in_table = self.find_web_element(By.XPATH, "/html/body/div/table[2]")
 
             for tr in stream_in_table.find_elements(By.XPATH, ".//tbody/tr"):
                 tds = tr.find_elements(By.TAG_NAME, "td")
+
                 if tds:
                     file_element = tds[0].get_attribute("innerText").strip()
                     if element_list[1] == file_element:
@@ -68,8 +74,12 @@ class GaGaStreamManager(WebDriverMethod):
                                 self.gaga_elements.gaga_start_streaming_button,
                             )
                             break
+
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"[ERROR] {e}")
+            print(f"{e}")
+
+        finally:
+            self.quit_driver()
 
 
 if __name__ == "__main__":

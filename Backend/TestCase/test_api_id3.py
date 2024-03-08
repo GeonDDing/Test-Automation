@@ -44,6 +44,7 @@ class TestID3API:
             headers=ApiOperation("controls").headers,
             data=json.dumps(channel_start),
         )
+
         if control_response.status_code == 200:
             print("Channel started successfully")
             time.sleep(10)
@@ -53,6 +54,7 @@ class TestID3API:
             # POST
             with allure.step("POST ID3"):
                 response_post = api_operation.post_api_operation()
+
                 for i, response in enumerate(response_post):
                     self.attach_response_result(
                         response,
@@ -116,7 +118,6 @@ class TestID3API:
                     "DELETE Response Status Code",
                     "DELETE Response Result",
                 )
-
             requests.put(
                 f"{ApiOperation('controls').api_url}?id=2&chidx=0",
                 headers=ApiOperation("controls").headers,

@@ -7,8 +7,10 @@ class DeleteNewChannels(ApiOperation):
         channel_dict = dict()
         new_channel_flag = bool()
         get_response = requests.get(f"{self.api_url}?id=-1", headers=self.headers)
+
         if get_response.status_code == 200:
             channel_dict = get_response.json()
+
             for i in range(0, len(channel_dict)):
                 if "New" in channel_dict[i]["name"]:
                     new_channel_flag = True
@@ -21,6 +23,7 @@ class DeleteNewChannels(ApiOperation):
                         print(f"Delete Channel : {channel_dict[i]['name']}")
                 else:
                     new_channel_flag = False
+
         if not new_channel_flag:
             print("There are no more new channels left.")
 

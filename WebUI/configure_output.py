@@ -32,31 +32,40 @@ class ConfigureOutput(WebDriverMethod):
                     output_type,
                 )
                 self.click_element(By.CSS_SELECTOR, self.output_elements.output_create_button)
-
             self.select_stream_preset(videopreset_name, audiopreset_name)
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
 
+        finally:
+            self.quit_driver()
+
     def find_exist_output(self, output_type):
         try:
             if "UDP" in output_type:
                 output_type = "TS"
+
             try:
                 WebDriverWait(self.driver, 3).until(
                     EC.presence_of_element_located((By.XPATH, self.output_elements.output_table))
                 )
                 output_table = self.find_web_element(By.XPATH, self.output_elements.output_table)
+
             except TimeoutException:
                 return False
 
+            finally:
+                self.quit_driver()
+
             for tr in output_table.find_elements(By.XPATH, ".//tbody/tr"):
                 column_value = tr.find_elements(By.TAG_NAME, "td")[3].get_attribute("innerText")
+
                 if f"{output_type}:" in column_value:
                     tr.find_elements(By.TAG_NAME, "td")[3].click()
                     # self.option_log(f"{column_value}")
                     return True  # Output found and clicked
+
             return False  # Output not found
 
         except NoSuchElementException as e:
@@ -84,6 +93,7 @@ class ConfigureOutput(WebDriverMethod):
                     EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_add_stream_button))
                 )
                 self.click_element(By.CSS_SELECTOR, self.output_elements.output_add_stream_button)
+
                 if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_audio_profile):
                     self.select_element(
                         By.CSS_SELECTOR,
@@ -92,6 +102,7 @@ class ConfigureOutput(WebDriverMethod):
                         audiopreset_name,
                     )
                     self.option_log(f"Audiopreset : {audiopreset_name}")
+
             except:
                 self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
                 if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_audio_profile):
@@ -105,8 +116,8 @@ class ConfigureOutput(WebDriverMethod):
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
             self.wait_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
-            time.sleep(1)
             return True
+
         except (
             NoSuchElementException,
             ElementNotVisibleException,
@@ -114,6 +125,9 @@ class ConfigureOutput(WebDriverMethod):
         ) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def output_udp(self, output_options):
         relevant_keys = [
@@ -123,6 +137,7 @@ class ConfigureOutput(WebDriverMethod):
         ]
         try:
             self.sub_step_log(f"UDP/IP Output 생성")
+
             # Output option setting
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
@@ -135,6 +150,7 @@ class ConfigureOutput(WebDriverMethod):
                     ),
                     None,
                 )
+
                 if any(keyword in key for keyword in relevant_keys):
                     self.select_element(By.XPATH, element_selector, "text", value)
                 elif "Broadcasting standard" in key:
@@ -148,14 +164,15 @@ class ConfigureOutput(WebDriverMethod):
                     if element_selector:
                         self.input_text(By.XPATH, element_selector, value)
 
-            time.sleep(1)
-
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def output_hls(self, output_options):
         click_relevant_keys = [
@@ -169,6 +186,7 @@ class ConfigureOutput(WebDriverMethod):
         ]
         try:
             self.sub_step_log(f"HLS Output 생성")
+
             # Output option setting
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
@@ -181,6 +199,7 @@ class ConfigureOutput(WebDriverMethod):
                     ),
                     None,
                 )
+
                 if "Segment Naming" in key:
                     self.select_element(By.XPATH, element_selector, "text", value)
                 elif "Subtitle Type" in key:
@@ -197,8 +216,6 @@ class ConfigureOutput(WebDriverMethod):
                 else:
                     self.input_text(By.XPATH, element_selector, value)
 
-            time.sleep(1)
-
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
@@ -206,9 +223,13 @@ class ConfigureOutput(WebDriverMethod):
             self.error_log(f"{e}")
             return False
 
+        finally:
+            self.quit_driver()
+
     def output_rtsp(self, output_options):
         try:
             self.sub_step_log(f"RTSP Output 생성")
+
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
                 element_selector = getattr(
@@ -221,15 +242,14 @@ class ConfigureOutput(WebDriverMethod):
                     None,
                 )
                 self.input_text(By.XPATH, element_selector, value)
-
             time.sleep(1)
-
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
-
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+        finally:
+            self.quit_driver()
 
     def output_rtmp(self, output_options):
         relevant_keys = ["Subtitle Language", "CDN Authentication"]
@@ -246,12 +266,11 @@ class ConfigureOutput(WebDriverMethod):
                     ),
                     None,
                 )
+
                 if any(keyword in key for keyword in relevant_keys):
                     self.select_element(By.XPATH, element_selector, "text", value)
                 else:
                     self.input_text(By.XPATH, element_selector, value)
-
-            time.sleep(1)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
@@ -259,6 +278,9 @@ class ConfigureOutput(WebDriverMethod):
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def output_live_smooth_streaming(self, output_options):
         input_relevant_keys = [
@@ -275,6 +297,7 @@ class ConfigureOutput(WebDriverMethod):
         ]
         try:
             self.sub_step_log(f"Live Smooth Streaming Output 생성")
+
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
                 element_selector = getattr(
@@ -286,6 +309,7 @@ class ConfigureOutput(WebDriverMethod):
                     ),
                     None,
                 )
+
                 if any(keyword in key for keyword in input_relevant_keys):
                     self.input_text(By.XPATH, element_selector, value)
                 elif any(keyword in key for keyword in click_relevant_keys):
@@ -293,14 +317,15 @@ class ConfigureOutput(WebDriverMethod):
                 else:
                     self.select_element(By.XPATH, element_selector, "text", value)
 
-            time.sleep(1)
-
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def output_dash(self, output_options):
         relevant_keys = [
@@ -313,6 +338,7 @@ class ConfigureOutput(WebDriverMethod):
         ]
         try:
             self.sub_step_log(f"DASH Output 생성")
+
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
                 element_selector = getattr(
@@ -324,6 +350,7 @@ class ConfigureOutput(WebDriverMethod):
                     ),
                     None,
                 )
+
                 if any(keyword in key for keyword in relevant_keys):
                     self.select_element(By.XPATH, element_selector, "text", value)
                 elif "SCTE-35 Signalling" in key:
@@ -331,14 +358,15 @@ class ConfigureOutput(WebDriverMethod):
                 else:
                     self.select_element(By.XPATH, element_selector, "text", value)
 
-            time.sleep(1)
-
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def output_cmaf(self, output_options):
         select_relevant_keys = [
@@ -362,6 +390,7 @@ class ConfigureOutput(WebDriverMethod):
         ]
         try:
             self.sub_step_log(f"CMAF Output 생성")
+
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
                 element_selector = getattr(
@@ -373,6 +402,7 @@ class ConfigureOutput(WebDriverMethod):
                     ),
                     None,
                 )
+
                 if any(keyword in key for keyword in select_relevant_keys):
                     self.select_element(By.XPATH, element_selector, "text", value)
                 elif any(keyword in key for keyword in click_relevant_keys):
@@ -380,11 +410,12 @@ class ConfigureOutput(WebDriverMethod):
                 else:
                     self.select_element(By.XPATH, element_selector, "text", value)
 
-            time.sleep(1)
-
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()

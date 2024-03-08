@@ -19,9 +19,13 @@ class WebDriverMethod(WebDriverInit, WebLog):
     def find_web_element(self, by, locator):
         try:
             return self.driver.find_element(by, locator)
+
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return None
+
+        finally:
+            self.quit_driver()
 
     def click_element(self, by, locator):
         self.find_web_element(by, locator).click()
@@ -45,6 +49,7 @@ class WebDriverMethod(WebDriverInit, WebLog):
 
     def select_element(self, by, locator, select_type, select_value):
         select_box = Select(self.driver.find_element(by, locator))
+
         if select_type == "value":
             select_box.select_by_value(select_value)
         elif select_type == "text":
@@ -58,9 +63,13 @@ class WebDriverMethod(WebDriverInit, WebLog):
         try:
             WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((by, locator)))
             return True
+
         except TimeoutException:
             self.error_log("Element does not appear.")
             return False
+
+        finally:
+            self.quit_driver()
 
     def accept_alert(self):
         WebDriverWait(self.driver, 5).until(EC.alert_is_present())

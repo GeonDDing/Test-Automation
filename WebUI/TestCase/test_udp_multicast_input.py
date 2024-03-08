@@ -65,8 +65,6 @@ class TestUDPMulticastInput:
             "Max input Mbps": "10",
             "Enable HA Mode": "Disabled",
             "Program Selection Mode": "PIDs",
-            # "Video ID": "1024",
-            # "Audio ID": "1025",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",

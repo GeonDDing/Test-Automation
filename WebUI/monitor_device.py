@@ -17,13 +17,18 @@ class MonitorDevice(WebDriverMethod):
     def find_channel_index(self, channel_name):
         try:
             monitor_table = self.find_web_element(By.XPATH, self.monitor_device_elements.monitor_table)
+
             for idx, tr in enumerate(monitor_table.find_elements(By.XPATH, ".//tbody/tr")):
                 if tr.find_elements(By.TAG_NAME, "td")[3].get_attribute("innerText") == channel_name:
                     self.chindex = idx
                     break
+
         except NoSuchElementException as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def channel_start(self, channel_name):
         self.find_channel_index(channel_name)
@@ -36,22 +41,32 @@ class MonitorDevice(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, channel_start_element)
             self.step_log(f"#00{int(self.chindex)+1} {channel_name} 시작")
             return True
+
         except TimeoutException:
             try:
                 self.step_log(f"#00{int(self.chindex)+1} {channel_name} 재시작")
                 self.click_element(By.CSS_SELECTOR, channel_stop_element)
                 self.accept_alert()
+
                 try:
                     WebDriverWait(self.driver, 30).until(
                         EC.element_to_be_clickable((By.CSS_SELECTOR, channel_start_element))
                     )
                     self.click_element(By.CSS_SELECTOR, channel_start_element)
                     return True
+
                 except TimeoutException:
                     return False
+
+                finally:
+                    self.quit_driver()
+
             except (NoSuchElementException, ElementNotInteractableException) as e:
                 self.error_log(f"{e}")
                 return False
+
+            finally:
+                self.quit_driver()
 
 
 if __name__ == "__main__":

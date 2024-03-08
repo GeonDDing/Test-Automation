@@ -49,12 +49,14 @@ class TestAudiopresetAPI:
                     f"POST Response Status Code {i+1}",
                     f"POST Response Result {i+1}",
                 )
+
                 if generated_id == None and "id" in response[1]:
                     generated_id = response[1]["id"]
 
         # PUT
         with allure.step("PUT Audiopreset"):
             response_put = api_operation.put_api_operation(generated_id)
+
             for i, response in enumerate(response_put):
                 self.attach_response_result(
                     response,

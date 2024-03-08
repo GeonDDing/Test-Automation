@@ -36,6 +36,7 @@ class TestControlAPI:
 
         # PUT
         response_put = api_operation.put_api_operation(devid_value, uri_resource, chidx_value)
+
         for i, response in enumerate(response_put):
             with allure.step(f"PUT Control"):
                 self.attach_response_result(

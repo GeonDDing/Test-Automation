@@ -14,6 +14,7 @@ class ApiOperation(ApiConfig):
     def send_request(self, method, id_value=None, *args, data=None):
         try:
             api_url = f"{self.api_url}?id={id_value}" if id_value else self.api_url
+
             if args:
                 args_dict = dict(zip(args[::2], args[1::2]))
                 if not id_value == None:
@@ -23,6 +24,7 @@ class ApiOperation(ApiConfig):
                     api_url += "&" + "&".join([f"{key}={value}" for key, value in args_dict.items()])
                 else:
                     api_url += f"?{args[0]}={args[1]}"
+
                     for key, value in args_dict.items():
                         if key == args[0]:
                             continue
@@ -46,10 +48,10 @@ class ApiOperation(ApiConfig):
             else:
                 print(f"Unexpected status code: {response.status_code}")
 
+            return response.status_code, response.json()
+
         except requests.exceptions.RequestException as e:
             print(f"An error occurred during the request: {e}")
-
-        return response.status_code, response.json()
 
     def get_api_operation(self, id_value=None, *args):
         print("GET API Request")
@@ -59,6 +61,7 @@ class ApiOperation(ApiConfig):
         print("POST API Request")
         request = list()
         post_data_list = self.convert_json(self.api_resource, "post")
+
         for i, post_data in enumerate(post_data_list):
             request.append(self.send_request("post", *args, data=post_data))
             if len(post_data_list) > 1:
@@ -69,8 +72,10 @@ class ApiOperation(ApiConfig):
         print("PUT API Request")
         request = list()
         put_data_list = self.convert_json(self.api_resource, "put")
+
         for i, put_data in enumerate(put_data_list):
             request.append(self.send_request("put", id_value, *args, data=put_data))
+
             if len(put_data_list) > 1:
                 sleep(20)
         return request

@@ -22,9 +22,13 @@ class ConfigureChannel(ConfigureRole):
             self.click_element(By.XPATH, MainMenuElements().configure)
             self.click_element(By.XPATH, MainMenuElements().configure_channels)
             time.sleep(1)  # Wait for the 'CONFIGURE - Channel' page to load
+
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def pre_channel_configuration(self):
         try:
@@ -43,6 +47,9 @@ class ConfigureChannel(ConfigureRole):
             self.error_log(f"{e}")
             return False
 
+        finally:
+            self.quit_driver()
+
     def post_channel_configuration(self):
         try:
             self.input_text(
@@ -53,15 +60,20 @@ class ConfigureChannel(ConfigureRole):
             error_message = self.find_web_element(
                 By.CSS_SELECTOR, self.input_elements.input_common_error_message
             ).get_attribute("innerText")
+
             if error_message == "최소 하나의 Output이 필요합니다. 채널을 생성하지 못하여 테스트를 종료합니다.":
                 self.error_log(error_message)
                 self.quit_driver()
                 return False
             else:
                 return True
+
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def setup_input(self):
         try:
@@ -76,12 +88,17 @@ class ConfigureChannel(ConfigureRole):
                 "SMPTE ST 2110": configure_input.input_smpte_st_2110,
                 "NDI": configure_input.input_ndi,
             }
+
             if self.channel_configure_data["Input Type"] in input_functions:
                 return input_functions[self.channel_configure_data["Input Type"]](
                     self.channel_configure_data["Input Options"]
                 )
+
         except Exception as e:
             return False
+
+        finally:
+            self.quit_driver()
 
     def setup_backups_source(self):
         try:
@@ -107,6 +124,7 @@ class ConfigureChannel(ConfigureRole):
                     set_backupsource_result = backup_source_functions[
                         self.channel_configure_data["Backup Source Type"]
                     ](self.channel_configure_data["Backup Source Options"])
+
                     time.sleep(1)
                 # Save backup source options.
                 self.click_element(By.CSS_SELECTOR, self.channel_elements.channel_save_button)
@@ -114,6 +132,9 @@ class ConfigureChannel(ConfigureRole):
 
         except Exception as e:
             return False
+
+        finally:
+            self.quit_driver()
 
     def setup_output(self):
         try:
@@ -128,12 +149,17 @@ class ConfigureChannel(ConfigureRole):
                 "RTMP": configure_output.output_rtmp,
                 "HLS": configure_output.output_hls,
             }
+
             if self.channel_configure_data["Output Type"] in output_functions:
                 return output_functions[self.channel_configure_data["Output Type"]](
                     self.channel_configure_data["Output Options"]
                 )
+
         except Exception as e:
             return False
+
+        finally:
+            self.quit_driver()
 
     def find_exist_channel(self):
         try:
@@ -141,12 +167,18 @@ class ConfigureChannel(ConfigureRole):
 
             for tr in channel_table.find_elements(By.XPATH, ".//tbody/tr"):
                 column_value = tr.find_elements(By.TAG_NAME, "td")[0].get_attribute("innerText")
+
                 if column_value == self.channel_configure_data["Channel Name"]:
                     tr.find_elements(By.TAG_NAME, "td")[0].click()
                     time.sleep(0.5)
                     return True  # channel found and clicked
+
             return False  # channel not found
+
         except NoSuchElementException as e:
             self.error_log(f"{e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False
+
+        finally:
+            self.quit_driver()

@@ -21,6 +21,9 @@ class ConfigureGroup(ConfigureDevice):
             self.error_log(f"{e}")
             return False
 
+        finally:
+            self.quit_driver()
+
     def configure_group(self, group_name, domain):
         try:
             self.navigate_to_configure_groups()
@@ -52,13 +55,14 @@ class ConfigureGroup(ConfigureDevice):
                 self.option_log(f"Domain : {domain}")
             # Save group settings
             self.click_element(By.CSS_SELECTOR, self.group_elements.group_save_button)
-            # Wait for a moment before continuing
-            time.sleep(1)
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def find_exist_group(self, group_name):
         try:
@@ -66,12 +70,17 @@ class ConfigureGroup(ConfigureDevice):
 
             for tr in group_table.find_elements(By.XPATH, ".//tbody/tr"):
                 column_value = tr.find_elements(By.TAG_NAME, "td")[1].get_attribute("innerText")
+
                 if column_value == group_name:
                     tr.find_elements(By.TAG_NAME, "td")[1].click()
                     return True  # Group found and clicked
+
             return False  # Group not found
 
         except NoSuchElementException as e:
             self.error_log(f"{e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False
+
+        finally:
+            self.quit_driver()

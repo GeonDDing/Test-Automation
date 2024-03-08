@@ -24,6 +24,7 @@ class StatsSender:
             try:
                 chidx = 0
                 stat_response = requests.get(f"{self.url}:900{chidx}/stats")
+
             except requests.exceptions.ConnectionError as e:
                 max_retries -= 1
                 WebLog.info_log(f"Retrying in 5 seconds...")
@@ -35,9 +36,11 @@ class StatsSender:
             else:
                 try:
                     root = elementTree.fromstring(stat_response.text)
+
                 except elementTree.ParseError as e:
                     max_retries -= 1
                     WebLog.info_log(f"Retrying in 5 seconds...")
+
                     if max_retries == 0:
                         WebLog.info_log("Terminated because xml could not be parsed.")
                         queue.put("quit")
@@ -57,6 +60,7 @@ class StatsSender:
                         video_rate = float(stats.find("videoRate").text) / 1000000
                         frame_count = stats.find("muxedFrameCount").text
                         frame_rate = stats.find("frameRate").text
+
                         if not video_rate == 0.0:
                             mux_rate = float(stats.find("muxRate").text) / 1000000
                             output_info = f"{video_codec_type} {video_width}x{video_height} {video_rate:.3f} Mbps {frame_rate} fps | Mux Rate: {mux_rate:.3f} Mbps | Frames : {frame_count}"

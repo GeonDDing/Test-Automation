@@ -30,11 +30,10 @@ class TestSourceAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @pytest.mark.parametrize(
-        "devid_vlaue, chidx_value",
-        [("2", "0")],
-    )
+    # fmt: off
+    @pytest.mark.parametrize("devid_vlaue, chidx_value",[("2", "0")],)
     @allure.title("API: Source")
+    # fmt: on
     def test_sources(self, devid_vlaue, chidx_value):
         # Source API 호출 전 채널 시작
         channel_start = {"operation": "transcode", "action": "start"}

@@ -11,11 +11,11 @@ class WebDriverInit:
             config_path = os.path.join(script_directory, "config.ini")  # 현재 경로에서 config.ini 찾음
             self.config = configparser.ConfigParser()  # config.ini 파싱
             self.config.read(config_path)  # config.ini 파싱 후 일기
+
         except Exception as e:
             print(e)
 
         webdriver_options = self.config.items("WebDriverOptions")
-
         self.options = Options()
 
         for option_key, option_value in webdriver_options:

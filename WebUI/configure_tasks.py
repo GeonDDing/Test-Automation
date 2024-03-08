@@ -16,9 +16,13 @@ class ConfigureTask(WebDriverMethod):
             self.click_element(By.XPATH, MainMenuElements().configure)
             self.click_element(By.XPATH, MainMenuElements().configure_tasks)
             time.sleep(1)  # Wait for the 'CONFIGURE Tasks' page to load
+
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def configure_task(self, task_name, taks_options=None):
         try:
@@ -34,6 +38,7 @@ class ConfigureTask(WebDriverMethod):
                 self.input_text(By.CSS_SELECTOR, self.task_elements.task_name, task_name)
             else:
                 self.step_log("Task 수정")
+
             select_relevant_keys = {
                 "Group",
                 "Channel",
@@ -43,6 +48,7 @@ class ConfigureTask(WebDriverMethod):
                 "Recurring daily",
                 "State",
             }
+
             for key, value in taks_options.items():
                 self.option_log(f"{key} : {value}")
                 element_selector = getattr(
@@ -54,6 +60,7 @@ class ConfigureTask(WebDriverMethod):
                     ),
                     None,
                 )
+
                 if any(keyword in key for keyword in select_relevant_keys):
                     self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                 elif "Recurring weekly" == key:
@@ -64,13 +71,14 @@ class ConfigureTask(WebDriverMethod):
             # Save task settings
             self.click_element(By.CSS_SELECTOR, self.task_elements.task_save_button)
             # Wait for a moment before continuing
-            time.sleep(1)
-
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
     def find_exist_task(self, task_name):
         try:
@@ -81,9 +89,13 @@ class ConfigureTask(WebDriverMethod):
                 if column_value == task_name:
                     tr.find_elements(By.TAG_NAME, "td")[0].click()
                     return True  # Task found and clicked
+
             return False  # Task not found
 
         except NoSuchElementException as e:
             self.error_log(f"{e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False
+
+        finally:
+            self.quit_driver()

@@ -25,9 +25,13 @@ class Login(WebDriverMethod):
                 return True
             else:
                 return False
+
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
             return False
+
+        finally:
+            self.quit_driver()
 
 
 class Logout(WebDriverMethod):

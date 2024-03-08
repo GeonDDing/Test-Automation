@@ -33,6 +33,7 @@ class StatsReceiver:
                             if source_layer == "1"
                             else f"#{chidx} Source changed (source:#0)"
                         )
+
                 if source_stat == "-1" and is_evergreen_flag:
                     WebLog.info_log(f"#{chidx} Evergreen occurred.")
                     is_evergreen_flag = False
@@ -46,6 +47,7 @@ class StatsReceiver:
 
                 prev_source_layer, prev_source_stat = source_layer, source_stat
                 time.sleep(2)
+
             except Exception as e:
                 WebLog.info_log("An error occurred:", e)
 

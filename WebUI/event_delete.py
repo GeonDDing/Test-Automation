@@ -16,6 +16,8 @@ class ConfigureDevice(WebDriverMethod):
             time.sleep(1)  # Wait for the 'EVENTS' page to load
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
+        finally:
+            self.quit_driver()
 
     def event_delete_all(self):
         # Navigate to the 'EVENTS' page
@@ -25,3 +27,5 @@ class ConfigureDevice(WebDriverMethod):
             time.sleep(1)
         except (NoSuchElementException, ElementNotVisibleException) as e:
             self.error_log(f"{e}")
+        finally:
+            self.quit_driver()
