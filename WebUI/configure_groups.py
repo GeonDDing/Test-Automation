@@ -18,11 +18,8 @@ class ConfigureGroup(ConfigureDevice):
             time.sleep(1)  # Wait for the 'CONFIGURE - Group' page to load
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def configure_group(self, group_name, domain):
         try:
@@ -58,11 +55,8 @@ class ConfigureGroup(ConfigureDevice):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def find_exist_group(self, group_name):
         try:
@@ -78,9 +72,6 @@ class ConfigureGroup(ConfigureDevice):
             return False  # Group not found
 
         except NoSuchElementException as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             # Handle the error as needed, for example, return False or raise the exception again
             return False
-
-        finally:
-            self.quit_driver()

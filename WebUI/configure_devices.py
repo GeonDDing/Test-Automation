@@ -18,11 +18,8 @@ class ConfigureDevice(WebDriverMethod):
             time.sleep(1)  # Wait for the 'CONFIGURE - Device' page to load
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def configure_device(self, device_name, ip_address, group_name, role_name):
         try:
@@ -61,11 +58,8 @@ class ConfigureDevice(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False, e
-
-        finally:
-            self.quit_driver()
 
     def find_exist_device(self, device_name):
         try:
@@ -81,9 +75,6 @@ class ConfigureDevice(WebDriverMethod):
             return False  # Device not found
 
         except NoSuchElementException as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             # Handle the error as needed, for example, return False or raise the exception again
             return False
-
-        finally:
-            self.quit_driver()

@@ -13,6 +13,7 @@ from configure_roles import ConfigureRole
 from configure_groups import ConfigureGroup
 from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
+from stats_receiver import StatsReceiver
 from login import Login
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
@@ -156,7 +157,7 @@ class TestUDPMulticastInput:
 
     @attach_result("Channel 시작", "Channel 시작 성공", "Channel 시작 실패")
     def channel_start(self, **kwargs):
-        with allure.step("Channrl Start"):
+        with allure.step("Channel Start"):
             monitor_device_instance = MonitorDevice()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_start(kwargs["Channel Name"])
@@ -183,7 +184,7 @@ class TestUDPMulticastInput:
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
-        time.sleep(20)
+        time.sleep(10)
 
 
 if __name__ == "__main__":

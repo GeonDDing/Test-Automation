@@ -19,11 +19,8 @@ class ConfigureInput(WebDriverMethod):
             self.select_element(By.CSS_SELECTOR, self.input_elements.input_type, "text", input_type)
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def input_udp(self, input_options):
         input_relevant_keys = [
@@ -87,11 +84,8 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def input_rtsp(self, input_options):
         try:
@@ -104,11 +98,8 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def input_rtmp(self, input_options):
         try:
@@ -121,11 +112,8 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def input_hls(self, input_options):
         try:
@@ -138,11 +126,8 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def input_sdi(self, input_options):
         input_relevant_keys = ["Teletext page", "VBI lines"]
@@ -169,11 +154,8 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def input_playlist(self, input_options):
         input_relevant_keys = ["URI", "Recurring the last N files"]
@@ -205,11 +187,8 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def input_smpte_st_2110(self, input_options):
         input_relevant_keys = [
@@ -241,11 +220,8 @@ class ConfigureInput(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def input_ndi(self, input_options):
         try:
@@ -266,8 +242,5 @@ class ConfigureInput(WebDriverMethod):
 
             return True
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()

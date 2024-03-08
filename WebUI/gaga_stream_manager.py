@@ -34,9 +34,6 @@ class GaGaStreamManager(WebDriverMethod):
         except (NoSuchElementException, ElementNotVisibleException) as e:
             print(f"[ERROR] {e}")
 
-        finally:
-            self.quit_driver()
-
     def gaga_stream_upload(self, element_list=None):
         try:
             # Construct current page URL
@@ -76,10 +73,7 @@ class GaGaStreamManager(WebDriverMethod):
                             break
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            print(f"{e}")
-
-        finally:
-            self.quit_driver()
+            print(e)
 
 
 if __name__ == "__main__":

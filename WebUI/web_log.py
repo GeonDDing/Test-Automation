@@ -7,6 +7,11 @@ from Common.convert_date import ConvertDate
 
 class WebLog:
     @classmethod
+    def exec_log(self, log):
+        date = ConvertDate.convert_date()[1]
+        return print(f"{date}: {log}")
+
+    @classmethod
     def step_log(self, log):
         date = ConvertDate.convert_date()[1]
         return print(f"{date}: [STEP] {log}")
@@ -24,7 +29,7 @@ class WebLog:
     @classmethod
     def option_log(self, log):
         date = ConvertDate.convert_date()[1]
-        return print(f"{date}:   [OPTION] {log}")
+        return print(f"{date}:     [OPTION] {log}")
 
     @classmethod
     def error_log(self, log):

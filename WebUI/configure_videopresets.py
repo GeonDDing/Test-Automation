@@ -19,11 +19,8 @@ class ConfigureVideopreset(WebDriverMethod):
             time.sleep(1)
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def configure_videopreset(self, preset_name, videopreset_options=None):
         try:
@@ -70,11 +67,8 @@ class ConfigureVideopreset(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def find_exist_videopreset(self, videopreset_name):
         try:
@@ -90,9 +84,6 @@ class ConfigureVideopreset(WebDriverMethod):
             return False  # Videopreset not found
 
         except NoSuchElementException as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             # Handle the error as needed, for example, return False or raise the exception again
             return False
-
-        finally:
-            self.quit_driver()

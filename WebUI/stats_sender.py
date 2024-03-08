@@ -3,10 +3,11 @@ import configparser
 import requests
 import time
 import os
+from webdriver_method import WebDriverMethod
 from web_log import WebLog
 
 
-class StatsSender:
+class StatsSender(WebDriverMethod):
     def __init__(self):
         try:
             script_directory = os.path.dirname(os.path.realpath(__file__))  # 현재 경로만 추출
@@ -14,38 +15,48 @@ class StatsSender:
             config = configparser.ConfigParser()
             config.read(config_path)
             self.url = config.get("Webpage", "url")
+
         except Exception as e:
             WebLog.error_log("An error occurred:", e)
 
-    def stats_sender(self, queue):
+    def stats_sender(self, queue, chidx):
+        self.close_driver()
         output_info = None
         max_retries = 3
+        start_time = time.time()
         while max_retries > 0:
+            if time.time() - start_time > 60:
+                queue.put("quit")
+                break
+
             try:
                 chidx = 0
                 stat_response = requests.get(f"{self.url}:900{chidx}/stats")
 
             except requests.exceptions.ConnectionError as e:
                 max_retries -= 1
-                WebLog.info_log(f"Retrying in 5 seconds...")
+                WebLog.exec_log(f"Retrying in 5 seconds...")
+
                 if max_retries == 0:
-                    WebLog.info_log("A connection error occurred and terminated.")
+                    WebLog.exec_log("A connection error occurred and terminated.")
                     queue.put("quit")
                     break
                 time.sleep(5)
+
             else:
                 try:
                     root = elementTree.fromstring(stat_response.text)
 
                 except elementTree.ParseError as e:
                     max_retries -= 1
-                    WebLog.info_log(f"Retrying in 5 seconds...")
+                    WebLog.exec_log(f"Retrying in 5 seconds...")
 
                     if max_retries == 0:
-                        WebLog.info_log("Terminated because xml could not be parsed.")
+                        WebLog.exec_log("Terminated because xml could not be parsed.")
                         queue.put("quit")
                         break
                     time.sleep(5)
+
                 else:
                     max_retries = 3
                     source_layer = root.find("sourceLayer").text
@@ -67,4 +78,5 @@ class StatsSender:
 
                     if output_info is not None:
                         queue.put((chidx, source_layer, source_stat, output_info))
+
                     time.sleep(2)

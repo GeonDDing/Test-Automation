@@ -24,11 +24,8 @@ class ConfigureChannel(ConfigureRole):
             time.sleep(1)  # Wait for the 'CONFIGURE - Channel' page to load
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def pre_channel_configuration(self):
         try:
@@ -44,11 +41,8 @@ class ConfigureChannel(ConfigureRole):
                 self.info_log(f"Channel : {self.channel_configure_data['Channel Name']}")
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def post_channel_configuration(self):
         try:
@@ -69,11 +63,8 @@ class ConfigureChannel(ConfigureRole):
                 return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def setup_input(self):
         try:
@@ -96,9 +87,6 @@ class ConfigureChannel(ConfigureRole):
 
         except Exception as e:
             return False
-
-        finally:
-            self.quit_driver()
 
     def setup_backups_source(self):
         try:
@@ -133,9 +121,6 @@ class ConfigureChannel(ConfigureRole):
         except Exception as e:
             return False
 
-        finally:
-            self.quit_driver()
-
     def setup_output(self):
         try:
             configure_output = ConfigureOutput(
@@ -158,9 +143,6 @@ class ConfigureChannel(ConfigureRole):
         except Exception as e:
             return False
 
-        finally:
-            self.quit_driver()
-
     def find_exist_channel(self):
         try:
             channel_table = self.find_web_element(By.XPATH, self.channel_elements.channel_table)
@@ -176,9 +158,6 @@ class ConfigureChannel(ConfigureRole):
             return False  # channel not found
 
         except NoSuchElementException as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             # Handle the error as needed, for example, return False or raise the exception again
             return False
-
-        finally:
-            self.quit_driver()

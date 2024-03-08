@@ -18,11 +18,8 @@ class ConfigureRole(ConfigureDevice):
             time.sleep(1)  # Wait for the 'CONFIGURE Role' page to load
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def configure_role(self, role_name, *channel_name):
         try:
@@ -58,11 +55,8 @@ class ConfigureRole(ConfigureDevice):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             return False
-
-        finally:
-            self.quit_driver()
 
     def find_exist_role(self, role_name):
         try:
@@ -77,9 +71,6 @@ class ConfigureRole(ConfigureDevice):
             return False  # Role not found
 
         except NoSuchElementException as e:
-            self.error_log(f"{e}")
+            self.error_log(e)
             # Handle the error as needed, for example, return False or raise the exception again
             return False
-
-        finally:
-            self.quit_driver()
