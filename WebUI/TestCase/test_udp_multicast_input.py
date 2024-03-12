@@ -2,10 +2,8 @@ import os
 import sys
 import time
 import allure
-import pytest
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-
 from configure_audiopresets import ConfigureAudiopreset
 from configure_videopresets import ConfigureVideopreset
 from configure_channels import ConfigureChannel
@@ -15,6 +13,7 @@ from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
+
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
 
@@ -159,8 +158,25 @@ class TestUDPMulticastInput:
     def channel_start(self, **kwargs):
         with allure.step("Channel Start"):
             monitor_device_instance = MonitorDevice()
+            channel_info = list()
             # Required parameters: Channel Name
-            return monitor_device_instance.channel_start(kwargs["Channel Name"])
+            channel_info = monitor_device_instance.channel_start(kwargs["Channel Name"])
+            self.chidx = channel_info[1]
+            return channel_info[0]
+
+    @attach_result("Channel Stats 요청", "Channel Stats 요청 성공", "Channel Stats 요청 실패")
+    def get_channel_stats(self, **kwargs):
+        with allure.step("Get Channel Stats"):
+            stats_instance = StatsReceiver()
+            # Required parameters: Channel Index
+            return stats_instance.exec_multiprocessing(self.chidx)
+
+    @attach_result("Channel 종료", "Channel 종료 성공", "Channel 종료 실패")
+    def channel_stop(self, **kwargs):
+        with allure.step("Channel Stop"):
+            monitor_device_instance = MonitorDevice()
+            # Required parameters: Channel Name
+            return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     """ 
     The 'create_channel' function parameter definitions are as follows.
@@ -173,18 +189,21 @@ class TestUDPMulticastInput:
     def test_udp_input(self):
         test_functions = [
             self.login,
-            self.create_videopreset,
-            self.create_audiopreset,
-            self.create_channel,
-            self.create_role,
-            self.create_group,
-            self.create_device,
+            # self.create_videopreset,
+            # self.create_audiopreset,
+            # self.create_channel,
+            # self.create_role,
+            # self.create_group,
+            # self.create_device,
             self.channel_start,
+            self.get_channel_stats,
+            # self.channel_stop,
         ]
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
-        time.sleep(10)
+
+        time.sleep(3)
 
 
 if __name__ == "__main__":

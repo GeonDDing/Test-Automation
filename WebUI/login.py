@@ -11,7 +11,7 @@ class Login(WebDriverMethod):
         self.driver.get(self.url)
         try:
             print("\n")
-            self.step_log(f"페이지 로그인")
+            self.step_log(f"Web Login")
             # Input username
             self.option_log(f"ID : {username}")
             self.input_text(By.CSS_SELECTOR, LoginElements.login, username)

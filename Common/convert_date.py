@@ -4,7 +4,7 @@ from datetime import datetime
 
 class ConvertDate:
     @classmethod
-    def convert_date(self):
+    def convert_date(cls):
         time = datetime.now()
 
         hour_minute_second = time.strftime("%H%M%S")

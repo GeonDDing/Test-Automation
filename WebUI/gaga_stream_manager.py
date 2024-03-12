@@ -45,8 +45,8 @@ class GaGaStreamManager(WebDriverMethod):
             time.sleep(1)
             # Find stream table
             try:
-                if self.wait_element(By.XPATH, self.gaga_elements.gaga_stream_in_table):
-                    stream_in_table = self.find_web_element(By.XPATH, self.gaga_elements.gaga_stream_in_table)
+                WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.XPATH, self.gaga_elements.gaga_stream_in_table)))
+                stream_in_table = self.find_web_element(By.XPATH, self.gaga_elements.gaga_stream_in_table)
 
             except TimeoutException:
                 stream_in_table = self.find_web_element(By.XPATH, "/html/body/div/table[2]")
