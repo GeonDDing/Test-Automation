@@ -20,7 +20,7 @@ class WebDriverMethod(WebDriverInit, WebLog):
         try:
             return self.driver.find_element(by, locator)
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return None
 

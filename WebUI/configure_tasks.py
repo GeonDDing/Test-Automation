@@ -17,7 +17,7 @@ class ConfigureTask(WebDriverMethod):
             self.click_element(By.XPATH, MainMenuElements().configure_tasks)
             time.sleep(1)  # Wait for the 'CONFIGURE Tasks' page to load
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -70,7 +70,7 @@ class ConfigureTask(WebDriverMethod):
             # Wait for a moment before continuing
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 

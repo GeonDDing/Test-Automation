@@ -18,7 +18,7 @@ class ConfigureInput(WebDriverMethod):
                 input_type == "HTTP/HLS"
             self.select_element(By.CSS_SELECTOR, self.input_elements.input_type, "text", input_type)
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -51,6 +51,7 @@ class ConfigureInput(WebDriverMethod):
                         mode = self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                         try:
                             self.accept_alert()
+                            time.sleep(1)
                             self.input_text(
                                 By.CSS_SELECTOR,
                                 self.input_elements.input_common_analysis_window,
@@ -83,7 +84,7 @@ class ConfigureInput(WebDriverMethod):
 
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -97,7 +98,7 @@ class ConfigureInput(WebDriverMethod):
             )
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -111,7 +112,7 @@ class ConfigureInput(WebDriverMethod):
             )
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -125,7 +126,7 @@ class ConfigureInput(WebDriverMethod):
             )
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -153,7 +154,7 @@ class ConfigureInput(WebDriverMethod):
 
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -186,7 +187,7 @@ class ConfigureInput(WebDriverMethod):
 
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -219,7 +220,7 @@ class ConfigureInput(WebDriverMethod):
 
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -241,6 +242,6 @@ class ConfigureInput(WebDriverMethod):
                 self.input_text(By.CSS_SELECTOR, element_selector, value)
 
             return True
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False

@@ -26,9 +26,12 @@ class Login(WebDriverMethod):
             else:
                 return False
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
-            self.error_log(e)
-            return False
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
+            if self.driver.current_url == "http://10.1.0.145/hms/index.php":
+                return True
+            else:
+                self.error_log(e)
+                return False
 
 
 class Logout(WebDriverMethod):

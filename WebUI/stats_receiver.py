@@ -30,8 +30,16 @@ class StatsReceiver:
                                 if source_layer == "1"
                                 else f"   #{chidx} Source changed (source:#1)"
                             )
+                            formatted_messages.append(
+                                f"   #{chidx} User replaced source, Input Changed"
+                                if source_layer == "1"
+                                else f"   #{chidx} Source changed (source:#1)"
+                            )
                         elif prev_source_layer == "1":
                             WebLog.info_log(
+                                f"#{chidx} Restored to the {'Primary' if source_layer == '0' else 'Backup'} source"
+                            )
+                            formatted_messages.append(
                                 f"#{chidx} Restored to the {'Primary' if source_layer == '0' else 'Backup'} source"
                             )
                         elif prev_source_layer == "2":
@@ -40,13 +48,20 @@ class StatsReceiver:
                                 if source_layer == "1"
                                 else f"   #{chidx} Source changed (source:#0)"
                             )
+                            formatted_messages.append(
+                                f"   #{chidx} User replaced source, Input Changed"
+                                if source_layer == "1"
+                                else f"   #{chidx} Source changed (source:#0)"
+                            )
 
                     if source_stat == "-1" and is_evergreen_flag:
                         WebLog.info_log(f"   #{chidx} Evergreen occurred.")
+                        formatted_messages.append(f"   #{chidx} Evergreen occurred.")
                         is_evergreen_flag = False
                     elif source_stat != "-1":
                         if not is_evergreen_flag and prev_source_stat != source_stat:
                             WebLog.info_log(f"   #{chidx} Evergreen recovered.")
+                            formatted_messages.append(f"   #{chidx} Evergreen recovered.")
                             is_evergreen_flag = True
                         WebLog.exec_log(
                             f'   #{chidx} {"Primary" if source_layer == "0" else "Backup" if source_layer == "2" else "Replaced"} Source : {get_stats[4]}'
@@ -59,7 +74,8 @@ class StatsReceiver:
                     time.sleep(2)
 
             except Exception as e:
-                print(f"An error occurred: {e}")
+                WebLog.error_log(f"An error occurred: {e}")
+                formatted_messages.append(f"An error occurred: {e}")
 
     def exec_multiprocessing(self, chidx):
         stats_queue = Queue()

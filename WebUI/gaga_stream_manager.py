@@ -31,7 +31,7 @@ class GaGaStreamManager(WebDriverMethod):
                         print(f"   {active_stream} is a stream that is already active.")
                         return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             print(f"[ERROR] {e}")
 
     def gaga_stream_upload(self, element_list=None):
@@ -45,7 +45,9 @@ class GaGaStreamManager(WebDriverMethod):
             time.sleep(1)
             # Find stream table
             try:
-                WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.XPATH, self.gaga_elements.gaga_stream_in_table)))
+                WebDriverWait(self.driver, 3).until(
+                    EC.presence_of_element_located((By.XPATH, self.gaga_elements.gaga_stream_in_table))
+                )
                 stream_in_table = self.find_web_element(By.XPATH, self.gaga_elements.gaga_stream_in_table)
 
             except TimeoutException:
@@ -72,7 +74,7 @@ class GaGaStreamManager(WebDriverMethod):
                             )
                             break
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             print(e)
 
 

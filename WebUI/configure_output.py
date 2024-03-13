@@ -34,7 +34,7 @@ class ConfigureOutput(WebDriverMethod):
                 self.click_element(By.CSS_SELECTOR, self.output_elements.output_create_button)
             self.select_stream_preset(videopreset_name, audiopreset_name)
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -114,11 +114,7 @@ class ConfigureOutput(WebDriverMethod):
             self.wait_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
             return True
 
-        except (
-            NoSuchElementException,
-            ElementNotVisibleException,
-            TimeoutException,
-        ) as e:
+        except (NoSuchElementException, ElementNotVisibleException, TimeoutException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -160,7 +156,7 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -209,7 +205,7 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -232,7 +228,7 @@ class ConfigureOutput(WebDriverMethod):
             time.sleep(1)
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -260,7 +256,7 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -302,7 +298,7 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -340,7 +336,7 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -389,6 +385,6 @@ class ConfigureOutput(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False

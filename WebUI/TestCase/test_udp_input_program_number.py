@@ -20,7 +20,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestUDPMulticastInput:
+class TestUDPInputProgramNumber:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -30,7 +30,7 @@ class TestUDPMulticastInput:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP Multicast Testing Channel",
+        "Channel Name": "UDP Program Number Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -58,19 +58,20 @@ class TestUDPMulticastInput:
             "Bitrate": "128",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:15008",
+            "Network URL": "224.30.30.10:19006",
             "Interface": "NIC2",
             "Enable TS over RTP": False,
             "Enable SRT": False,
             "Max input Mbps": "10",
             "Enable HA Mode": "Disabled",
-            "Program Selection Mode": "PIDs",
+            "Program Selection Mode": "Program number",
+            "Program Number": "1010",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19005",
+            "Primary Output Port": "19007",
             "Primary Network Interface": "NIC1",
-            "Service Name": "testing",
+            # "Service Name": "testing",
         },
         "Backup Source Options": None,
     }
@@ -185,27 +186,20 @@ class TestUDPMulticastInput:
     """
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Multicast Input")
+    @allure.title("UDP/IP Input Prpgram Number")
     def test_udp_input(self):
         test_functions = [
-            self.login,
+            # self.login,
             # self.create_videopreset,
             # self.create_audiopreset,
-            # self.create_channel,
-            # self.create_role,
+            self.create_channel,
+            self.create_role,
             # self.create_group,
             # self.create_device,
             self.channel_start,
             self.get_channel_stats,
-            # self.channel_stop,
+            self.channel_stop,
         ]
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
-
-        time.sleep(3)
-
-
-if __name__ == "__main__":
-    instance = TestUDPMulticastInput()
-    instance.test_udp_input()

@@ -23,7 +23,7 @@ class ConfigureChannel(ConfigureRole):
             self.click_element(By.XPATH, MainMenuElements().configure_channels)
             time.sleep(1)  # Wait for the 'CONFIGURE - Channel' page to load
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -40,7 +40,7 @@ class ConfigureChannel(ConfigureRole):
                 self.step_log(f"Channel(Input, Backup Source, Output) 수정")
                 self.info_log(f"Channel : {self.channel_configure_data['Channel Name']}")
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -62,7 +62,7 @@ class ConfigureChannel(ConfigureRole):
             else:
                 return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 

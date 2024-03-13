@@ -17,7 +17,7 @@ class ConfigureRole(ConfigureDevice):
             self.click_element(By.XPATH, MainMenuElements().configure_roles)
             time.sleep(1)  # Wait for the 'CONFIGURE Role' page to load
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -54,7 +54,7 @@ class ConfigureRole(ConfigureDevice):
             self.click_element(By.CSS_SELECTOR, self.role_elements.role_save_button)
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 

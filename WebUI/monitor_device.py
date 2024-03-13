@@ -8,6 +8,7 @@ from selenium.common.exceptions import (
 )
 from webdriver_method import WebDriverMethod
 from web_elements import MonitorDeviceElements, MainMenuElements
+import time
 
 
 class MonitorDevice(WebDriverMethod):
@@ -47,7 +48,7 @@ class MonitorDevice(WebDriverMethod):
                 )
                 return True, self.chindex
 
-            except (TimeoutException, ElementNotInteractableException) as e:
+            except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
                 self.error_log(e)
                 return False, None
 
@@ -67,15 +68,17 @@ class MonitorDevice(WebDriverMethod):
                     )
                     return True, self.chindex
 
-                except (TimeoutException, ElementNotInteractableException) as e:
+                except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
                     self.error_log(e)
                     return False, None
 
-            except (TimeoutException, ElementNotInteractableException) as e:
+            except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
                 self.error_log(e)
                 return False, None
 
     def channel_stop(self, chindex, channel_name):
+        self.channel_start_element = self.monitor_device_elements.monitor_device_channel_start.format(chindex)
+        self.channel_stop_element = self.monitor_device_elements.monitor_device_channel_stop.format(chindex)
         try:
             WebDriverWait(self.driver, 20).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
@@ -89,10 +92,10 @@ class MonitorDevice(WebDriverMethod):
                 )
                 return True
 
-            except (TimeoutException, ElementNotInteractableException) as e:
+            except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
                 self.error_log(e)
                 return False
 
-        except (TimeoutException, ElementNotInteractableException):
+        except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
             self.error_log(e)
             return False

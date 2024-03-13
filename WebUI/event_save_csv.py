@@ -20,5 +20,5 @@ class ConfigureDevice(WebDriverMethod):
 
             time.sleep(1)
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)

@@ -18,7 +18,7 @@ class ConfigureVideopreset(WebDriverMethod):
             # Wait for the 'CONFIGURE Videopreset' page to load
             time.sleep(1)
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -66,7 +66,7 @@ class ConfigureVideopreset(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.videopreset_elements.videopreset_save_button)
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 

@@ -18,7 +18,7 @@ class ConfigureBackupSource(WebDriverMethod):
                 backup_source_type,
             )
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
 
     def backup_source_udp(self, backup_source_options):
@@ -84,7 +84,7 @@ class ConfigureBackupSource(WebDriverMethod):
 
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
 
@@ -97,7 +97,7 @@ class ConfigureBackupSource(WebDriverMethod):
                 backup_source_options.get("sdf_file"),
             )
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
 
     def backup_source_rtmp(self, backup_source_options):
@@ -109,7 +109,7 @@ class ConfigureBackupSource(WebDriverMethod):
                 backup_source_options.get("url"),
             )
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
 
     def backup_source_hls(self, backup_source_options):
@@ -121,7 +121,7 @@ class ConfigureBackupSource(WebDriverMethod):
                 backup_source_options.get("url"),
             )
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
 
     def backup_source_sdi(self, backup_source_options):
@@ -138,7 +138,7 @@ class ConfigureBackupSource(WebDriverMethod):
                 else:
                     self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
 
     def backup_source_playlist(self, backup_source_options):
@@ -179,7 +179,7 @@ class ConfigureBackupSource(WebDriverMethod):
 
             time.sleep(1)
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
 
     def backup_source_smpte_st_2110(self, backup_source_options):
@@ -201,7 +201,7 @@ class ConfigureBackupSource(WebDriverMethod):
                     self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                 time.sleep(1)
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
 
     def backup_source_ndi(self, backup_source_options):
@@ -214,5 +214,5 @@ class ConfigureBackupSource(WebDriverMethod):
                 self.input_text(By.CSS_SELECTOR, element_selector, value)
                 time.sleep(1)
 
-        except (NoSuchElementException, ElementNotVisibleException) as e:
+        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
