@@ -95,30 +95,6 @@ class TestUDPInputServiceName:
 
         return step_decorator
 
-    @attach_result("로그인", "Login 성공", "Login 실패")
-    def login(self, **kwargs):
-        with allure.step("Login"):
-            login_instance = Login()
-            return login_instance.login(kwargs["ID"], kwargs["PW"])
-
-    @attach_result("Video Preset 생성", "Video Preset 생성 성공", "Video Preset 생성 실패")
-    def create_videopreset(self, **kwargs):
-        with allure.step("Create video preset"):
-            videopreset_instance = ConfigureVideopreset()
-            # Required parameters: Videopreset Name, Videopreset Options
-            return videopreset_instance.configure_videopreset(
-                kwargs["Preset Name"]["Videopreset Name"], kwargs["Videopreset Options"]
-            )
-
-    @attach_result("Audio Preset 생성", "Audio Preset 생성 성공", "Audio Preset 생성 실패")
-    def create_audiopreset(self, **kwargs):
-        with allure.step("Create audio preset"):
-            audiopreset_instance = ConfigureAudiopreset()
-            # Required parameters: Audiopreset Name, Audiopreset Options
-            return audiopreset_instance.configure_audiopreset(
-                kwargs["Preset Name"]["Audiopreset Name"], kwargs["Audiopreset Options"]
-            )
-
     @attach_result("Channel 생성", "Channel 생성 성공", "Channel 생성 실패")
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
@@ -136,25 +112,6 @@ class TestUDPInputServiceName:
             role_instance = ConfigureRole()
             # Required parametes: Role Name, Channel Name
             return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
-
-    @attach_result("Group 생성", "Group 생성 성공", "Group 생성 실패")
-    def create_group(self, **kwargs):
-        with allure.step("Group Configuration"):
-            group_instance = ConfigureGroup()
-            # Required parameters: Group Name, Domain
-            return group_instance.configure_group(kwargs["Group Options"]["Name"], kwargs["Group Options"]["Domain"])
-
-    @attach_result("Device 생성", "Device 생성 성공", "Device 생성 실패")
-    def create_device(self, **kwargs):
-        with allure.step("Group Configuration"):
-            device_instance = ConfigureDevice()
-            # Required parameters: Device Name, Device IP, Group Name, Role Name
-            return device_instance.configure_device(
-                kwargs["Device Options"]["Name"],
-                kwargs["Device Options"]["IP"],
-                kwargs["Group Options"]["Name"],
-                kwargs["Role Options"]["Name"],
-            )
 
     @attach_result("Channel 시작", "Channel 시작 성공", "Channel 시작 실패")
     def channel_start(self, **kwargs):
@@ -190,13 +147,8 @@ class TestUDPInputServiceName:
     @allure.title("UDP/IP Input Service Name")
     def test_udp_input(self):
         test_functions = [
-            # self.login,
-            # self.create_videopreset,
-            # self.create_audiopreset,
             self.create_channel,
             self.create_role,
-            # self.create_group,
-            # self.create_device,
             self.channel_start,
             self.get_channel_stats,
             self.channel_stop,

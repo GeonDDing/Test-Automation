@@ -34,7 +34,7 @@ class WebLog:
     @classmethod
     def warning_log(cls, log):
         date = ConvertDate.convert_date()[1]
-        return print(f"{date}: [WARNING] {log}")
+        return print(f"{date}:    [WARNING] {log}")
 
     @classmethod
     def error_log(cls, log):

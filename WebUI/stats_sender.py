@@ -22,8 +22,9 @@ class StatsSender:
         output_info = None
         max_retries = 3
         start_time = time.time()
+        mchidx = f"0{chidx+1:02}"
         while max_retries > 0:
-            if time.time() - start_time > 10:
+            if time.time() - start_time > 20:
                 queue.put("quit")
                 break
 
@@ -32,10 +33,10 @@ class StatsSender:
 
             except requests.exceptions.ConnectionError as e:
                 max_retries -= 1
-                WebLog.warning_log(f"Retrying in 5 seconds...")
+                WebLog.warning_log(f"#{mchidx} Retrying in 5 seconds...")
 
                 if max_retries == 0:
-                    WebLog.error_log("A connection error occurred and terminated.")
+                    WebLog.error_log(f"#{mchidx} A connection error occurred and terminated.")
                     queue.put("quit")
                     break
                 time.sleep(5)
@@ -46,17 +47,16 @@ class StatsSender:
 
                 except elementTree.ParseError as e:
                     max_retries -= 1
-                    WebLog.warning_log(f"Retrying in 5 seconds...")
+                    WebLog.warning_log(f"#{mchidx} Retrying in 5 seconds...")
 
                     if max_retries == 0:
-                        WebLog.error_log("Terminated because xml could not be parsed.")
+                        WebLog.error_log(f"#{mchidx} Terminated because xml could not be parsed.")
                         queue.put("quit")
                         break
                     time.sleep(5)
 
                 else:
                     max_retries = 3
-                    channel_id = root.find("channel_id").text
                     channel_name = root.find("configName").text
                     source_layer = root.find("sourceLayer").text
                     source_stat = root.find("sourceStat").text
@@ -76,6 +76,6 @@ class StatsSender:
                             output_info = f"{video_codec_type} {video_width}x{video_height} {video_rate:.3f} Mbps {frame_rate} fps | Mux Rate: {mux_rate:.3f} Mbps | Frames : {frame_count}"
 
                     if output_info != None:
-                        queue.put((int(channel_id), channel_name, source_layer, source_stat, output_info))
+                        queue.put((chidx, channel_name, source_layer, source_stat, output_info))
 
                     time.sleep(2)
