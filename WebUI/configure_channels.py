@@ -34,10 +34,10 @@ class ConfigureChannel(ConfigureRole):
             if not self.find_exist_channel():
                 self.click_element(By.CSS_SELECTOR, self.channel_elements.channel_add_button)
                 # Wait for the time to move to the channel creation page.
-                self.step_log(f"Channel(Input, Backup Source, Output) 생성")
+                self.step_log(f"Channel(Input, Backup Source, Output) Creation")
                 self.info_log(f"Channel : {self.channel_configure_data['Channel Name']}")
             else:
-                self.step_log(f"Channel(Input, Backup Source, Output) 수정")
+                self.step_log(f"Channel(Input, Backup Source, Output) Modification")
                 self.info_log(f"Channel : {self.channel_configure_data['Channel Name']}")
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
@@ -55,7 +55,7 @@ class ConfigureChannel(ConfigureRole):
                 By.CSS_SELECTOR, self.input_elements.input_common_error_message
             ).get_attribute("innerText")
 
-            if error_message == "최소 하나의 Output이 필요합니다. 채널을 생성하지 못하여 테스트를 종료합니다.":
+            if error_message == "최소 하나의 Output이 필요합니다. 채널을하지 못하여 테스트를 Stop합니다.":
                 self.error_log(error_message)
                 self.quit_driver()
                 return False
@@ -71,7 +71,8 @@ class ConfigureChannel(ConfigureRole):
             configure_input = ConfigureInput(self.channel_configure_data["Input Type"])
             input_functions = {
                 "UDP": configure_input.input_udp,
-                "RTP/RTSP": configure_input.input_rtsp,
+                "RTP": configure_input.input_rtsp,
+                "RTSP": configure_input.input_rtsp,
                 "RTMP": configure_input.input_rtmp,
                 "HTTP/HLS": configure_input.input_hls,
                 "SDI": configure_input.input_sdi,
@@ -99,9 +100,11 @@ class ConfigureChannel(ConfigureRole):
 
                 backup_source_functions = {
                     "UDP": configure_backup_source.backup_source_udp,
-                    "RTP/RTSP": configure_backup_source.backup_source_rtp,
+                    "RTP": configure_backup_source.backup_source_rtp,
+                    "RTSP": configure_backup_source.backup_source_rtp,
                     "RTMP": configure_backup_source.backup_source_rtmp,
-                    "HTTP/HLS": configure_backup_source.backup_source_hls,
+                    "HTTP": configure_backup_source.backup_source_hls,
+                    "HLS": configure_backup_source.backup_source_hls,
                     "SDI": configure_backup_source.backup_source_sdi,
                     "Playlist": configure_backup_source.backup_source_playlist,
                     "SMPTE ST 2110": configure_backup_source.backup_source_smpte_st_2110,

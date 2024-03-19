@@ -93,13 +93,13 @@ class TestInputUDPMulticast:
 
         return step_decorator
 
-    @attach_result("로그인", "Login 성공", "Login 실패")
+    @attach_result("Login", "Login Successful", "Login Failed")
     def login(self, **kwargs):
         with allure.step("Login"):
             login_instance = Login()
             return login_instance.login(kwargs["ID"], kwargs["PW"])
 
-    @attach_result("Video Preset 생성", "Video Preset 생성 성공", "Video Preset 생성 실패")
+    @attach_result("Video Preset Creation", "Video Preset Creation Successful", "Video Preset Creation Failed")
     def create_videopreset(self, **kwargs):
         with allure.step("Create video preset"):
             videopreset_instance = ConfigureVideopreset()
@@ -108,7 +108,7 @@ class TestInputUDPMulticast:
                 kwargs["Preset Name"]["Videopreset Name"], kwargs["Videopreset Options"]
             )
 
-    @attach_result("Audio Preset 생성", "Audio Preset 생성 성공", "Audio Preset 생성 실패")
+    @attach_result("Audio Preset Creation", "Audio Preset Creation Successful", "Audio Preset Creation Failed")
     def create_audiopreset(self, **kwargs):
         with allure.step("Create audio preset"):
             audiopreset_instance = ConfigureAudiopreset()
@@ -117,7 +117,7 @@ class TestInputUDPMulticast:
                 kwargs["Preset Name"]["Audiopreset Name"], kwargs["Audiopreset Options"]
             )
 
-    @attach_result("Channel 생성", "Channel 생성 성공", "Channel 생성 실패")
+    @attach_result("Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
         channel_instance.pre_channel_configuration()
@@ -128,21 +128,21 @@ class TestInputUDPMulticast:
             channel_instance.setup_input()
         return channel_instance.post_channel_configuration()
 
-    @attach_result("Role 생성", "Role 생성 성공", "Role 생성 실패")
+    @attach_result("Role Creation", "Role Creation Successful", "Role Creation Failed")
     def create_role(self, **kwargs):
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
             # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
 
-    @attach_result("Group 생성", "Group 생성 성공", "Group 생성 실패")
+    @attach_result("Group Creation", "Group Creation Successful", "Group Creation Failed")
     def create_group(self, **kwargs):
         with allure.step("Group Configuration"):
             group_instance = ConfigureGroup()
             # Required parameters: Group Name, Domain
             return group_instance.configure_group(kwargs["Group Options"]["Name"], kwargs["Group Options"]["Domain"])
 
-    @attach_result("Device 생성", "Device 생성 성공", "Device 생성 실패")
+    @attach_result("Device Creation", "Device Creation Successful", "Device Creation Failed")
     def create_device(self, **kwargs):
         with allure.step("Group Configuration"):
             device_instance = ConfigureDevice()
@@ -154,7 +154,7 @@ class TestInputUDPMulticast:
                 kwargs["Role Options"]["Name"],
             )
 
-    @attach_result("Channel 시작", "Channel 시작 성공", "Channel 시작 실패")
+    @attach_result("Channel Start", "Channel Start Successful", "Channel Start Failed")
     def channel_start(self, **kwargs):
         with allure.step("Channel Start"):
             monitor_device_instance = MonitorDevice()
@@ -164,14 +164,14 @@ class TestInputUDPMulticast:
             self.chidx = channel_info[1]
             return channel_info[0]
 
-    @attach_result("Channel Stats 요청", "Channel Stats 요청 성공", "Channel Stats 요청 실패")
+    @attach_result("Channel Stats Request", "Channel Stats Request Successful", "Channel Stats Request Failed")
     def get_channel_stats(self, **kwargs):
         with allure.step("Get Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
             return stats_instance.exec_multiprocessing(self.chidx)
 
-    @attach_result("Channel 종료", "Channel 종료 성공", "Channel 종료 실패")
+    @attach_result("Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def channel_stop(self, **kwargs):
         with allure.step("Channel Stop"):
             monitor_device_instance = MonitorDevice()
@@ -179,7 +179,7 @@ class TestInputUDPMulticast:
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Input TS over RTP")
+    @allure.title("UDP/IP Multicast Input")
     def test_input_udp_multiple_audio_pid(self):
         test_functions = [
             self.login,

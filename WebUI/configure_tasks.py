@@ -23,7 +23,7 @@ class ConfigureTask(WebDriverMethod):
 
     def configure_task(self, task_name, taks_options=None):
         try:
-            self.step_log("Task 설정")
+            self.step_log("Task Creation")
             self.navigate_to_configure_tasks()
 
             # Click the button to add a new task or find an existing one
@@ -34,7 +34,7 @@ class ConfigureTask(WebDriverMethod):
                 # Since there is no existing Task with the same name, a Task is created with that name.
                 self.input_text(By.CSS_SELECTOR, self.task_elements.task_name, task_name)
             else:
-                self.step_log("Task 수정")
+                self.step_log("Task Modification")
 
             select_relevant_keys = {
                 "Group",

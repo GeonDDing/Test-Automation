@@ -28,7 +28,7 @@ class ConfigureVideopreset(WebDriverMethod):
 
             # Click the button to add a new videopreset or find an existing one
             if not self.find_exist_videopreset(preset_name):
-                self.step_log(f"Video Preset 생성")
+                self.step_log(f"Video Preset Creation")
                 self.click_element(By.CSS_SELECTOR, self.videopreset_elements.videopreset_add_button)
                 # Wait for the time to move to the videopreset creation page.
                 time.sleep(1)
@@ -39,7 +39,7 @@ class ConfigureVideopreset(WebDriverMethod):
                     preset_name,
                 )
             else:
-                self.step_log(f"Video Preset 수정")
+                self.step_log(f"Video Preset Modification")
             # Codec
             # H.264/AVC | H.265/HEVC
             select_relevant_keys = ["Codec", "Encoding engine", "Resolution", "H.264 Profile"]

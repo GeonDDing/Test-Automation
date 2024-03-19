@@ -26,7 +26,7 @@ class ConfigureAudiopreset(WebDriverMethod):
             self.navigate_to_configure_audiopresets()
             # Click the button to add a new audiopreset or find an existing one
             if not self.find_exist_audiopreset(preset_name):
-                self.step_log(f"Audio Preset 생성")
+                self.step_log(f"Audio Preset Creation")
                 self.click_element(By.CSS_SELECTOR, self.audiopreset_elements.audiopreset_add_button)
                 # Wait for the time to move to the audiopreset creation page.
                 time.sleep(1)
@@ -37,7 +37,7 @@ class ConfigureAudiopreset(WebDriverMethod):
                     preset_name,
                 )
             else:
-                self.step_log(f"Aidio Preset 수정")
+                self.step_log(f"Audio Preset Modification")
 
             # Codec
             # H.264/AVC | H.265/HEVC

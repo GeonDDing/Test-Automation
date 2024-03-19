@@ -33,7 +33,7 @@ class ConfigureBackupSource(WebDriverMethod):
         select_relevant_keys = ["Interface", "Enable HA Mode", "Program Selection Mode"]
 
         try:
-            self.sub_step_log("UDP Backup Source 설정")
+            self.sub_step_log("UDP Backup Source Settings")
 
             for key, value in backup_source_options.items():
                 self.option_log(f"{key} : {value}")

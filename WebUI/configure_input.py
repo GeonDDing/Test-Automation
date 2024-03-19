@@ -32,7 +32,7 @@ class ConfigureInput(WebDriverMethod):
         ]
         select_relevant_keys = ["Interface", "Enable HA Mode", "Program Selection Mode"]
         try:
-            self.step_log(f"UDP/IP Input 생성")
+            self.sub_step_log(f"Create UDP/IP Input")
 
             for key, value in input_options.items():
                 if isinstance(value, dict):
@@ -104,12 +104,11 @@ class ConfigureInput(WebDriverMethod):
 
     def input_rtsp(self, input_options):
         try:
-            self.sub_step_log(f"RTSP Input 생성")
-            self.input_text(
-                By.CSS_SELECTOR,
-                self.input_elements.input_udp_network_url,
-                input_options.get("SDP File"),
-            )
+            self.sub_step_log(f"Create RTP/RTSP Input")
+            for key, value in input_options.items():
+                self.option_log(f"{key} : {value}")
+                if key == "SDP File":
+                    self.input_text(By.CSS_SELECTOR, self.input_elements.input_rtp_sdp_file, value)
             return True
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
@@ -118,12 +117,11 @@ class ConfigureInput(WebDriverMethod):
 
     def input_rtmp(self, input_options):
         try:
-            self.sub_step_log(f"RTMP Input 생성")
-            self.input_text(
-                By.CSS_SELECTOR,
-                self.input_elements.input_udp_network_url,
-                input_options.get("URL"),
-            )
+            self.sub_step_log(f"Create RTMP Input")
+            for key, value in input_options.items():
+                self.option_log(f"{key} : {value}")
+                if key == "URL":
+                    self.input_text(By.CSS_SELECTOR, self.input_elements.input_rtmp_url, value)
             return True
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
@@ -132,12 +130,11 @@ class ConfigureInput(WebDriverMethod):
 
     def input_hls(self, input_options):
         try:
-            self.info_log(" HLS Input 생성")
-            self.input_text(
-                By.CSS_SELECTOR,
-                self.input_elements.input_hls_url,
-                input_options.get("URL"),
-            )
+            self.info_log("Create HLS Input")
+            for key, value in input_options.items():
+                self.option_log(f"{key} : {value}")
+                if key == "URL":
+                    self.input_text(By.CSS_SELECTOR, self.input_elements.input_hls_url, value)
             return True
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
@@ -147,7 +144,7 @@ class ConfigureInput(WebDriverMethod):
     def input_sdi(self, input_options):
         input_relevant_keys = ["Teletext page", "VBI lines"]
         try:
-            self.sub_step_log(f"SDI Input 생성")
+            self.sub_step_log(f"Create SDI Input")
 
             for key, value in input_options.items():
                 self.option_log(f"{key} : {value}")
@@ -175,7 +172,7 @@ class ConfigureInput(WebDriverMethod):
     def input_playlist(self, input_options):
         input_relevant_keys = ["URI", "Recurring the last N files"]
         try:
-            self.info_log(" Playlist Input 생성")
+            self.info_log("Create Playlist Input")
             # playlist_type = input_options.get('Type')
             # self.select_element(
             #     By.CSS_SELECTOR, self.input_elements.input_playlist_type, 'text', playlist_type)
@@ -213,7 +210,7 @@ class ConfigureInput(WebDriverMethod):
             "Teletext page",
         ]
         try:
-            self.sub_step_log(f"SMPTE ST 2110 Input 생성")
+            self.sub_step_log(f"Create SMPTE ST 2110 Input")
 
             for key, value in input_options.items():
                 self.option_log(f"{key} : {value}")
@@ -240,7 +237,7 @@ class ConfigureInput(WebDriverMethod):
 
     def input_ndi(self, input_options):
         try:
-            self.sub_step_log(f"NDI Input 생성")
+            self.sub_step_log(f"Create NDI Input")
 
             for key, value in input_options.items():
                 self.info_log(f"{key} : {value}")

@@ -16,7 +16,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestInputUDPMultipleAudioPID:
+class TestInputUDPServiceName:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -26,7 +26,7 @@ class TestInputUDPMultipleAudioPID:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP Multi Audio PID",
+        "Channel Name": "UDP Service Name Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -54,13 +54,15 @@ class TestInputUDPMultipleAudioPID:
             "Bitrate": "128",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:12003",
+            "Network URL": "224.30.30.10:19006",
             "Interface": "NIC2",
-            "Audio ID": {"#01": "601", "#02": "602", "#03": "603", "#04": "604"},
+            "Program Selection Mode": "Service Name",
+            "Service Name": "E2 Channel",
+            "Analysis Window": "6000",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19009",
+            "Primary Output Port": "19008",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -84,13 +86,7 @@ class TestInputUDPMultipleAudioPID:
 
         return step_decorator
 
-    @attach_result("로그인", "Login 성공", "Login 실패")
-    def login(self, **kwargs):
-        with allure.step("Login"):
-            login_instance = Login()
-            return login_instance.login(kwargs["ID"], kwargs["PW"])
-
-    @attach_result("Channel 생성", "Channel 생성 성공", "Channel 생성 실패")
+    @attach_result("Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
         channel_instance.pre_channel_configuration()
@@ -101,14 +97,14 @@ class TestInputUDPMultipleAudioPID:
             channel_instance.setup_input()
         return channel_instance.post_channel_configuration()
 
-    @attach_result("Role 생성", "Role 생성 성공", "Role 생성 실패")
+    @attach_result("Role Creation", "Role Creation Successful", "Role Creation Failed")
     def create_role(self, **kwargs):
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
             # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
 
-    @attach_result("Channel 시작", "Channel 시작 성공", "Channel 시작 실패")
+    @attach_result("Channel Start", "Channel Start Successful", "Channel Start Failed")
     def channel_start(self, **kwargs):
         with allure.step("Channel Start"):
             monitor_device_instance = MonitorDevice()
@@ -118,14 +114,14 @@ class TestInputUDPMultipleAudioPID:
             self.chidx = channel_info[1]
             return channel_info[0]
 
-    @attach_result("Channel Stats 요청", "Channel Stats 요청 성공", "Channel Stats 요청 실패")
+    @attach_result("Channel Stats Request", "Channel Stats Request Successful", "Channel Stats Request Failed")
     def get_channel_stats(self, **kwargs):
         with allure.step("Get Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
             return stats_instance.exec_multiprocessing(self.chidx)
 
-    @attach_result("Channel 종료", "Channel 종료 성공", "Channel 종료 실패")
+    @attach_result("Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def channel_stop(self, **kwargs):
         with allure.step("Channel Stop"):
             monitor_device_instance = MonitorDevice()
@@ -133,10 +129,9 @@ class TestInputUDPMultipleAudioPID:
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Input TS over RTP")
-    def test_input_udp_multiple_audio_pid(self):
+    @allure.title("UDP/IP Service Name Input")
+    def test_input_udp_service_name(self):
         test_functions = [
-            self.login,
             self.create_channel,
             self.create_role,
             self.channel_start,
@@ -146,8 +141,3 @@ class TestInputUDPMultipleAudioPID:
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
-
-
-if __name__ == "__main__":
-    test = TestInputUDPMultipleAudioPID()
-    test.test_input_udp_multiple_audio_pid()

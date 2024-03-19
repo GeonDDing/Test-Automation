@@ -26,14 +26,14 @@ class ConfigureGroup(ConfigureDevice):
             self.navigate_to_configure_groups()
             # Click the button to add a new group or find an existing one
             if not self.find_exist_group(group_name):
-                self.step_log(f"Group 설정")
+                self.step_log(f"Group Creation")
                 self.click_element(By.CSS_SELECTOR, self.group_elements.group_add_button)
                 # Wait for the time to move to the group creation page.
                 time.sleep(1)
                 # Since there is no existing Group with the same name, a Group is created with that name.
                 self.input_text(By.CSS_SELECTOR, self.group_elements.group_name, group_name)
             else:
-                self.step_log(f"Group 수정")
+                self.step_log(f"Group Modification")
 
             # Set group domain
             group_domain_selector = (

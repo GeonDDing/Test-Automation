@@ -26,14 +26,14 @@ class ConfigureDevice(WebDriverMethod):
             self.navigate_to_configure_devices()
             # Click the button to add a new device or find an existing one
             if not self.find_exist_device(device_name):
-                self.step_log(f"Device 설정")
+                self.step_log(f"Device Creation")
                 self.click_element(By.CSS_SELECTOR, self.device_elements.device_add_button)
                 # Wait for the time to move to the device creation page.
                 time.sleep(1)
                 # Since there is no existing device with the same name, a device is created with that name.
                 self.input_text(By.CSS_SELECTOR, self.device_elements.device_name, device_name)
             else:
-                self.step_log(f"Device 수정")
+                self.step_log(f"Device Modification")
 
             # IP Address
             self.input_text(By.CSS_SELECTOR, self.device_elements.device_ip_address, ip_address)

@@ -29,7 +29,7 @@ class ConfigureRole(ConfigureDevice):
 
             # Click the button to add a new role or find an existing one
             if not self.find_exist_role(role_name):
-                self.step_log(f"Role 생성")
+                self.step_log(f"Role Creation")
                 self.click_element(By.CSS_SELECTOR, self.role_elements.role_add_button)
                 # Wait for the time to move to the group creation page.
                 time.sleep(1)
@@ -46,7 +46,7 @@ class ConfigureRole(ConfigureDevice):
                         )
                         self.option_log(f"Channel : {channel_name[index]}")
             else:
-                self.step_log(f"Role 수정")
+                self.step_log(f"Role Modification")
                 while True:
                     try:
                         WebDriverWait(self.driver, 5).until(

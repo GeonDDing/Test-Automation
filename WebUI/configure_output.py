@@ -71,7 +71,7 @@ class ConfigureOutput(WebDriverMethod):
 
     def select_stream_preset(self, videopreset_name, audiopreset_name):
         try:
-            self.sub_step_log(f"Video, Audio Profile 선택")
+            self.sub_step_log(f"Select Video, Audio Profile")
             WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_edit_stream))
             )
@@ -125,7 +125,7 @@ class ConfigureOutput(WebDriverMethod):
             "NULL packet padding",
         ]
         try:
-            self.sub_step_log(f"UDP/IP Output 생성")
+            self.sub_step_log(f"Create UDP/IP Output")
 
             # Output option setting
             for key, value in output_options.items():
@@ -171,7 +171,7 @@ class ConfigureOutput(WebDriverMethod):
             'Append "ENDLIST" at Stop',
         ]
         try:
-            self.sub_step_log(f"HLS Output 생성")
+            self.sub_step_log(f"Create HLS Output")
 
             # Output option setting
             for key, value in output_options.items():
@@ -211,7 +211,7 @@ class ConfigureOutput(WebDriverMethod):
 
     def output_rtsp(self, output_options):
         try:
-            self.sub_step_log(f"RTSP Output 생성")
+            self.sub_step_log(f"Create RTSP Output")
 
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
@@ -235,7 +235,7 @@ class ConfigureOutput(WebDriverMethod):
     def output_rtmp(self, output_options):
         relevant_keys = ["Subtitle Language", "CDN Authentication"]
         try:
-            self.info_log(" RTMP Output 생성")
+            self.info_log("Create RTMP Output")
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
                 element_selector = getattr(
@@ -274,7 +274,7 @@ class ConfigureOutput(WebDriverMethod):
             'Send "mfra" at Stop',
         ]
         try:
-            self.sub_step_log(f"Live Smooth Streaming Output 생성")
+            self.sub_step_log(f"Create  Live Smooth Streaming Output")
 
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
@@ -312,7 +312,7 @@ class ConfigureOutput(WebDriverMethod):
             "DRM Type",
         ]
         try:
-            self.sub_step_log(f"DASH Output 생성")
+            self.sub_step_log(f"Create DASH Output")
 
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
@@ -361,7 +361,7 @@ class ConfigureOutput(WebDriverMethod):
             'Append "ENDLIST" at Stop',
         ]
         try:
-            self.sub_step_log(f"CMAF Output 생성")
+            self.sub_step_log(f"Create  CMAF Output")
 
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
