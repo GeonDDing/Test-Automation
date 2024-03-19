@@ -119,7 +119,7 @@ class TestInputUDPNielsenID3:
             self.chidx = channel_info[1]
             return channel_info[0]
 
-    @attach_result("Channel Stats 요청", "Channel Stats 요청 성공", "Channel Stats 요청 실패")
+    @attach_result("Channel Stats Request", "Channel Stats Request 성공", "Channel Stats Request 실패")
     def get_channel_stats(self, **kwargs):
         with allure.step("Get Channel Stats"):
             stats_instance = StatsReceiver()
@@ -132,12 +132,6 @@ class TestInputUDPNielsenID3:
             monitor_device_instance = MonitorDevice()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
-
-    """ 
-    The 'create_channel' function parameter definitions are as follows.
-    Channel Name, Input Type, Output Type, Backup Source Type,
-    Input Option, Output Option, Backup Source Option, Preset Name
-    """
 
     @allure.sub_suite("UDP/IP")
     @allure.title("UDP/IP Input TS over RTP")

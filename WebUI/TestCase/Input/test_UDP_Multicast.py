@@ -178,15 +178,9 @@ class TestInputUDPMulticast:
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
-    """ 
-    The 'create_channel' function parameter definitions are as follows.
-    Channel Name, Input Type, Output Type, Backup Source Type,
-    Input Option, Output Option, Backup Source Option, Preset Name
-    """
-
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Input Multicast")
-    def test_input_udp_multicast(self):
+    @allure.title("UDP/IP Input TS over RTP")
+    def test_input_udp_multiple_audio_pid(self):
         test_functions = [
             self.login,
             self.create_videopreset,
