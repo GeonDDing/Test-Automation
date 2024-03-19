@@ -3,13 +3,9 @@ import sys
 import time
 import allure
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from configure_audiopresets import ConfigureAudiopreset
-from configure_videopresets import ConfigureVideopreset
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
-from configure_groups import ConfigureGroup
-from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
@@ -20,7 +16,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestUDPInputServiceName:
+class TestInputUDPMultipleAudioPID:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -30,7 +26,7 @@ class TestUDPInputServiceName:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP Service Name Testing",
+        "Channel Name": "UDP Multi Audio PID",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -58,21 +54,14 @@ class TestUDPInputServiceName:
             "Bitrate": "128",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:19006",
+            "Network URL": "224.30.30.10:12003",
             "Interface": "NIC2",
-            "Enable TS over RTP": False,
-            "Enable SRT": False,
-            "Max input Mbps": "10",
-            "Enable HA Mode": "Disabled",
-            "Program Selection Mode": "Service Name",
-            "Service Name": "E2 Channel",
-            "Analysis Window": "6000",
+            "Audio ID": {"#01": "601", "#02": "602", "#03": "603", "#04": "604"},
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19008",
+            "Primary Output Port": "19009",
             "Primary Network Interface": "NIC1",
-            # "Service Name": "testing",
         },
         "Backup Source Options": None,
     }
@@ -95,6 +84,12 @@ class TestUDPInputServiceName:
 
         return step_decorator
 
+    @attach_result("로그인", "Login 성공", "Login 실패")
+    def login(self, **kwargs):
+        with allure.step("Login"):
+            login_instance = Login()
+            return login_instance.login(kwargs["ID"], kwargs["PW"])
+
     @attach_result("Channel 생성", "Channel 생성 성공", "Channel 생성 실패")
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
@@ -110,7 +105,7 @@ class TestUDPInputServiceName:
     def create_role(self, **kwargs):
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
-            # Required parametes: Role Name, Channel Name
+            # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
 
     @attach_result("Channel 시작", "Channel 시작 성공", "Channel 시작 실패")
@@ -144,9 +139,10 @@ class TestUDPInputServiceName:
     """
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Input Service Name")
-    def test_udp_input(self):
+    @allure.title("UDP/IP Input TS over RTP")
+    def test_input_udp_multiple_audio_pid(self):
         test_functions = [
+            self.login,
             self.create_channel,
             self.create_role,
             self.channel_start,
@@ -156,3 +152,8 @@ class TestUDPInputServiceName:
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
+
+
+if __name__ == "__main__":
+    test = TestInputUDPMultipleAudioPID()
+    test.test_input_udp_multiple_audio_pid()

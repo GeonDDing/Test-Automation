@@ -7,3 +7,4 @@ Common/__pycache__/
 .pytest_cache/
 allure-results/
 .DS_Store
+WebUI/TestCase/Input/__pycache__/

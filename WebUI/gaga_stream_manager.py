@@ -91,6 +91,7 @@ if __name__ == "__main__":
         ["/Streams/", "multi_ird_duppids.ts", "224.30.30.10:19006"],
         ["/Streams/NTT/", "rtp_input_11000.pcap", "225.26.1.22"],
         ["/Streams/", "KBS_joy_HD_1080i_.ts", "224.30.30.10:18005"],
+        ["Streams/tmp", "32_Audio.ts", "224.30.30.10:12003"],
     ]
 
     for i in range(0, len(stream_list)):

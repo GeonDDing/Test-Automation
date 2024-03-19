@@ -14,10 +14,11 @@ pytest --capture=tee-sys --tb=no --alluredir=allure-results --allure-no-capture 
 pytest ./Backend/TestCase --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
 
 ### WebUI 테스트케이스만 실행 ###
-pytest ./WebUI/TestCase --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
+pytest ./WebUI/TestCase/Input --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
 
 ### Allure 레포트 생성 ###
 allure serve --host 127.0.0.1 --port 8081 ./allure-results
 
 ### 단일 파일 테스트케이스만 실행 ###
 pytest ./Backend/TestCase/test_api_controls.py --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
+pytest ./WebUI/TestCase/Input/test_UDP_Multicast --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir

@@ -3,13 +3,9 @@ import sys
 import time
 import allure
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from configure_audiopresets import ConfigureAudiopreset
-from configure_videopresets import ConfigureVideopreset
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
-from configure_groups import ConfigureGroup
-from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
@@ -20,7 +16,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestUDPInputSRT:
+class TestInputUDPTSoverRTP:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -30,7 +26,7 @@ class TestUDPInputSRT:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP SRT Sender Testing",
+        "Channel Name": "UDP TS over RTP Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -62,15 +58,11 @@ class TestUDPInputSRT:
             "Interface": "NIC2",
             "Enable TS over RTP": True,
             "Enable SRT": False,
-            "Max input Mbps": "10",
-            "Enable HA Mode": "Disabled",
-            "Program Selection Mode": "PIDs",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
             "Primary Output Port": "19009",
             "Primary Network Interface": "NIC1",
-            # "Service Name": "testing",
         },
         "Backup Source Options": None,
     }
@@ -93,26 +85,8 @@ class TestUDPInputSRT:
 
         return step_decorator
 
-    @attach_result("로그인", "Login 성공", "Login 실패")
-    def login(self, **kwargs):
-        with allure.step("Login"):
-            login_instance = Login()
-            return login_instance.login(kwargs["ID"], kwargs["PW"])
-
-    @attach_result("Sender Channel 생성", "Sender Channel 생성 성공", "Sender Channel 생성 실패")
-    def create_sender_channel(self, **kwargs):
-        channel_instance = ConfigureChannel(**kwargs)
-        channel_instance.pre_channel_configuration()
-        with allure.step("Create output"):
-            channel_instance.setup_output()
-            time.sleep(1)
-        with allure.step("Create input"):
-            channel_instance.setup_input()
-        return channel_instance.post_channel_configuration()
-
-    @attach_result("Receiver Channel 생성", "Receiver Channel 생성 성공", "Receiver Channel 생성 실패")
-    def create_receiver_channel(self, **kwargs):
-        kwargs["Channel Name"] = "UDP SRT Receiver Testing"
+    @attach_result("Channel 생성", "Channel 생성 성공", "Channel 생성 실패")
+    def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
         channel_instance.pre_channel_configuration()
         with allure.step("Create output"):
@@ -124,31 +98,14 @@ class TestUDPInputSRT:
 
     @attach_result("Role 생성", "Role 생성 성공", "Role 생성 실패")
     def create_role(self, **kwargs):
-        kwargs["Channel Name"] = [
-            "UDP SRT Sender Testing",
-            "UDP SRT Receiver Testing",
-        ]
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
-            # Required parametes: Role Name, Channel Name
-            return role_instance.configure_role(
-                kwargs["Role Options"]["Name"], kwargs["Channel Name"][0], kwargs["Channel Name"][1]
-            )
+            # Required parameters: Role Name, Channel Name
+            return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
 
-    @attach_result("Sender Channel 시작", "Sender Channel 시작 성공", "Sender Channel 시작 실패")
-    def sender_channel_start(self, **kwargs):
+    @attach_result("Channel 시작", "Channel 시작 성공", "Channel 시작 실패")
+    def channel_start(self, **kwargs):
         with allure.step("Channel Start"):
-            monitor_device_instance = MonitorDevice()
-            channel_info = list()
-            # Required parameters: Channel Name
-            channel_info = monitor_device_instance.channel_start(kwargs["Channel Name"])
-            self.chidx = channel_info[1]
-            return channel_info[0]
-
-    @attach_result("Receiver Channel 시작", "Receiver Channel 시작 성공", "Receiver Channel 시작 실패")
-    def receiver_channel_start(self, **kwargs):
-        with allure.step("Channel Start"):
-            kwargs["Channel Name"] = "UDP SRT Receiver Testing"
             monitor_device_instance = MonitorDevice()
             channel_info = list()
             # Required parameters: Channel Name
@@ -178,21 +135,14 @@ class TestUDPInputSRT:
 
     @allure.sub_suite("UDP/IP")
     @allure.title("UDP/IP Input TS over RTP")
-    def test_udp_input(self):
+    def test_input_udp_ts_over_rtp(self):
         test_functions = [
-            self.login,
-            self.create_sender_channel,
-            self.create_receiver_channel,
+            self.create_channel,
             self.create_role,
-            #     self.channel_start,
-            #     self.get_channel_stats,
-            #     self.channel_stop,
+            self.channel_start,
+            self.get_channel_stats,
+            self.channel_stop,
         ]
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
-
-
-if __name__ == "__main__":
-    test = TestUDPInputSRT()
-    test.test_udp_input()

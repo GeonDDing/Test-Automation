@@ -103,6 +103,4 @@ class StatsReceiver:
 
 if __name__ == "__main__":
     test = StatsReceiver()
-    # login = Login()
-    # login.login("admin", "admin")
     test.exec_multiprocessing(0)

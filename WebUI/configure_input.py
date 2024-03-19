@@ -35,7 +35,10 @@ class ConfigureInput(WebDriverMethod):
             self.step_log(f"UDP/IP Input 생성")
 
             for key, value in input_options.items():
-                self.option_log(f"{key} : {value}")
+                if isinstance(value, dict):
+                    self.option_log(f"{key} : {str(value)[1:-1]}")
+                else:
+                    self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.input_elements,
                     (
@@ -77,11 +80,22 @@ class ConfigureInput(WebDriverMethod):
                     else:
                         self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                 elif any(keyword in key for keyword in input_relevant_keys):
-                    self.input_text(By.CSS_SELECTOR, element_selector, value)
+                    if key == "Audio ID" and isinstance(input_options["Audio ID"], dict):
+                        for index, sub_value in enumerate(value.values()):
+                            if index == 0:
+                                self.input_text(By.CSS_SELECTOR, element_selector, sub_value)
+                            else:
+                                self.input_text(
+                                    By.CSS_SELECTOR,
+                                    self.input_elements.input_udp_audio_id_extend.format(index, index),
+                                    sub_value,
+                                )
+                    else:
+                        self.input_text(By.CSS_SELECTOR, element_selector, value)
                 else:
                     if isinstance(value, bool) and value:
                         self.click_element(By.CSS_SELECTOR, element_selector)
-
+            time.sleep(10)
             return True
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:

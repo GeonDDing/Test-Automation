@@ -165,8 +165,12 @@ class ConfigureInputElements:
     input_udp_program_selection_mode = (
         'select[id="/source/mpeg2/programSelectionMode"][name="/source/mpeg2/programSelectionMode"]'
     )
+    index = int()
+
     input_udp_video_id = 'input[type="text"][id="/source/videoId"][name="/source/videoId"]'
     input_udp_audio_id = 'input[type="text"][id="/source/audioId"][name="/source/audioId"]'
+    input_udp_audio_id_extend = 'input[type="text"][id="/source/audioId{}"][name="/source/audioId{}"]'
+
     input_udp_program_number = (
         'input[type="text"][id="/source/mpeg2/programNumber"][name="/source/mpeg2/programNumber"]'
     )

@@ -10,6 +10,7 @@ class ConfigureBackupSource(WebDriverMethod):
     def __init__(self, backup_source_type):
         self.backup_source_elements = ConfigureBackupSourceElements()
         self.input_elements = ConfigureInputElements()
+
         try:
             self.select_element(
                 By.CSS_SELECTOR,
@@ -30,6 +31,7 @@ class ConfigureBackupSource(WebDriverMethod):
             "Audio ID",
         ]
         select_relevant_keys = ["Interface", "Enable HA Mode", "Program Selection Mode"]
+
         try:
             self.sub_step_log("UDP Backup Source 설정")
 
@@ -48,6 +50,7 @@ class ConfigureBackupSource(WebDriverMethod):
                 if any(keyword in key for keyword in select_relevant_keys):
                     if "Program Selection Mode" in key:
                         mode = self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
+
                         try:
                             self.accept_alert()
                             self.input_text(

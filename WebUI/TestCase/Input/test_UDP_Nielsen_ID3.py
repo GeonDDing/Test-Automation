@@ -3,13 +3,9 @@ import sys
 import time
 import allure
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from configure_audiopresets import ConfigureAudiopreset
-from configure_videopresets import ConfigureVideopreset
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
-from configure_groups import ConfigureGroup
-from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
@@ -20,7 +16,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestUDPInputPIDs:
+class TestInputUDPNielsenID3:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -30,7 +26,7 @@ class TestUDPInputPIDs:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP PIDs Testing",
+        "Channel Name": "UDP Nielsen ID3",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -58,21 +54,15 @@ class TestUDPInputPIDs:
             "Bitrate": "128",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:19006",
+            "Network URL": "224.30.30.10:12003",
             "Interface": "NIC2",
-            "Enable TS over RTP": False,
-            "Enable SRT": False,
-            "Max input Mbps": "10",
-            "Enable HA Mode": "Disabled",
-            "Program Selection Mode": "PIDs",
-            "Video ID": "1024",
-            "Audio ID": "1025",
+            "Nielsen ID3": True,
+            "Distributor ID": "MEXL-Jacob",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19006",
+            "Primary Output Port": "19009",
             "Primary Network Interface": "NIC1",
-            # "Service Name": "testing",
         },
         "Backup Source Options": None,
     }
@@ -95,6 +85,12 @@ class TestUDPInputPIDs:
 
         return step_decorator
 
+    @attach_result("로그인", "Login 성공", "Login 실패")
+    def login(self, **kwargs):
+        with allure.step("Login"):
+            login_instance = Login()
+            return login_instance.login(kwargs["ID"], kwargs["PW"])
+
     @attach_result("Channel 생성", "Channel 생성 성공", "Channel 생성 실패")
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
@@ -110,7 +106,7 @@ class TestUDPInputPIDs:
     def create_role(self, **kwargs):
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
-            # Required parametes: Role Name, Channel Name
+            # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
 
     @attach_result("Channel 시작", "Channel 시작 성공", "Channel 시작 실패")
@@ -144,9 +140,10 @@ class TestUDPInputPIDs:
     """
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Input PIDs")
-    def test_udp_input(self):
+    @allure.title("UDP/IP Input TS over RTP")
+    def test_input_udp_nielsen_id3(self):
         test_functions = [
+            self.login,
             self.create_channel,
             self.create_role,
             self.channel_start,
@@ -156,8 +153,3 @@ class TestUDPInputPIDs:
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
-
-
-if __name__ == "__main__":
-    testcase = TestUDPInputPIDs()
-    testcase.test_udp_input()

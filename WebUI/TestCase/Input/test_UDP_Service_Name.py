@@ -3,13 +3,9 @@ import sys
 import time
 import allure
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from configure_audiopresets import ConfigureAudiopreset
-from configure_videopresets import ConfigureVideopreset
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
-from configure_groups import ConfigureGroup
-from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
@@ -20,7 +16,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestUDPInputProgramNumber:
+class TestInputUDPServiceName:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -30,7 +26,7 @@ class TestUDPInputProgramNumber:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP Program Number Testing",
+        "Channel Name": "UDP Service Name Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -60,18 +56,14 @@ class TestUDPInputProgramNumber:
         "Input Options": {
             "Network URL": "224.30.30.10:19006",
             "Interface": "NIC2",
-            "Enable TS over RTP": False,
-            "Enable SRT": False,
-            "Max input Mbps": "10",
-            "Enable HA Mode": "Disabled",
-            "Program Selection Mode": "Program number",
-            "Program Number": "1010",
+            "Program Selection Mode": "Service Name",
+            "Service Name": "E2 Channel",
+            "Analysis Window": "6000",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19007",
+            "Primary Output Port": "19008",
             "Primary Network Interface": "NIC1",
-            # "Service Name": "testing",
         },
         "Backup Source Options": None,
     }
@@ -109,7 +101,7 @@ class TestUDPInputProgramNumber:
     def create_role(self, **kwargs):
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
-            # Required parametes: Role Name, Channel Name
+            # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
 
     @attach_result("Channel 시작", "Channel 시작 성공", "Channel 시작 실패")
@@ -143,8 +135,8 @@ class TestUDPInputProgramNumber:
     """
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Input Prpgram Number")
-    def test_udp_input(self):
+    @allure.title("UDP/IP Input Service Name")
+    def test_input_udp_service_name(self):
         test_functions = [
             self.create_channel,
             self.create_role,

@@ -3,13 +3,9 @@ import sys
 import time
 import allure
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from configure_audiopresets import ConfigureAudiopreset
-from configure_videopresets import ConfigureVideopreset
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
-from configure_groups import ConfigureGroup
-from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
@@ -20,7 +16,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestUDPInputMulticast:
+class TestInputUDPProgramNumber:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -30,7 +26,7 @@ class TestUDPInputMulticast:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP Multicast Testing",
+        "Channel Name": "UDP Program Number Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -58,19 +54,15 @@ class TestUDPInputMulticast:
             "Bitrate": "128",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:15008",
+            "Network URL": "224.30.30.10:19006",
             "Interface": "NIC2",
-            "Enable TS over RTP": False,
-            "Enable SRT": False,
-            "Max input Mbps": "10",
-            "Enable HA Mode": "Disabled",
-            "Program Selection Mode": "PIDs",
+            "Program Selection Mode": "Program number",
+            "Program Number": "1010",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19005",
+            "Primary Output Port": "19007",
             "Primary Network Interface": "NIC1",
-            "Service Name": "testing",
         },
         "Backup Source Options": None,
     }
@@ -93,30 +85,6 @@ class TestUDPInputMulticast:
 
         return step_decorator
 
-    @attach_result("로그인", "Login 성공", "Login 실패")
-    def login(self, **kwargs):
-        with allure.step("Login"):
-            login_instance = Login()
-            return login_instance.login(kwargs["ID"], kwargs["PW"])
-
-    @attach_result("Video Preset 생성", "Video Preset 생성 성공", "Video Preset 생성 실패")
-    def create_videopreset(self, **kwargs):
-        with allure.step("Create video preset"):
-            videopreset_instance = ConfigureVideopreset()
-            # Required parameters: Videopreset Name, Videopreset Options
-            return videopreset_instance.configure_videopreset(
-                kwargs["Preset Name"]["Videopreset Name"], kwargs["Videopreset Options"]
-            )
-
-    @attach_result("Audio Preset 생성", "Audio Preset 생성 성공", "Audio Preset 생성 실패")
-    def create_audiopreset(self, **kwargs):
-        with allure.step("Create audio preset"):
-            audiopreset_instance = ConfigureAudiopreset()
-            # Required parameters: Audiopreset Name, Audiopreset Options
-            return audiopreset_instance.configure_audiopreset(
-                kwargs["Preset Name"]["Audiopreset Name"], kwargs["Audiopreset Options"]
-            )
-
     @attach_result("Channel 생성", "Channel 생성 성공", "Channel 생성 실패")
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
@@ -132,27 +100,8 @@ class TestUDPInputMulticast:
     def create_role(self, **kwargs):
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
-            # Required parametes: Role Name, Channel Name
+            # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
-
-    @attach_result("Group 생성", "Group 생성 성공", "Group 생성 실패")
-    def create_group(self, **kwargs):
-        with allure.step("Group Configuration"):
-            group_instance = ConfigureGroup()
-            # Required parameters: Group Name, Domain
-            return group_instance.configure_group(kwargs["Group Options"]["Name"], kwargs["Group Options"]["Domain"])
-
-    @attach_result("Device 생성", "Device 생성 성공", "Device 생성 실패")
-    def create_device(self, **kwargs):
-        with allure.step("Group Configuration"):
-            device_instance = ConfigureDevice()
-            # Required parameters: Device Name, Device IP, Group Name, Role Name
-            return device_instance.configure_device(
-                kwargs["Device Options"]["Name"],
-                kwargs["Device Options"]["IP"],
-                kwargs["Group Options"]["Name"],
-                kwargs["Role Options"]["Name"],
-            )
 
     @attach_result("Channel 시작", "Channel 시작 성공", "Channel 시작 실패")
     def channel_start(self, **kwargs):
@@ -185,16 +134,11 @@ class TestUDPInputMulticast:
     """
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Input Multicast")
-    def test_udp_input(self):
+    @allure.title("UDP/IP Input Prpgram Number")
+    def test_input_udp_program_number(self):
         test_functions = [
-            self.login,
-            # self.create_videopreset,
-            # self.create_audiopreset,
-            # self.create_channel,
-            # self.create_role,
-            # self.create_group,
-            # self.create_device,
+            self.create_channel,
+            self.create_role,
             self.channel_start,
             self.get_channel_stats,
             self.channel_stop,
