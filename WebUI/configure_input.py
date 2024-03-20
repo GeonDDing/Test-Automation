@@ -42,7 +42,7 @@ class ConfigureInput(WebDriverMethod):
                 element_selector = getattr(
                     self.input_elements,
                     (
-                        f"input_udp_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"input_udp_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"input_udp_{key.lower().replace(' ', '_')}"
                     ),
@@ -151,7 +151,7 @@ class ConfigureInput(WebDriverMethod):
                 element_selector = getattr(
                     self.input_elements,
                     (
-                        f"input_sdi_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"input_sdi_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"input_sdi_{key.replace(' ', '_').lower()}"
                     ),
@@ -182,7 +182,7 @@ class ConfigureInput(WebDriverMethod):
                 element_selector = getattr(
                     self.input_elements,
                     (
-                        f"input_playlist_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"input_playlist_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"input_playlist_{key.replace(' ', '_').lower()}"
                     ),
@@ -217,7 +217,7 @@ class ConfigureInput(WebDriverMethod):
                 element_selector = getattr(
                     self.input_elements,
                     (
-                        f"input_smpte_st_2110_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"input_smpte_st_2110_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"input_smpte_st_2110_{key.replace(' ', '_').lower()}"
                     ),
@@ -244,7 +244,7 @@ class ConfigureInput(WebDriverMethod):
                 element_selector = getattr(
                     self.input_elements,
                     (
-                        f"input_ndi_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"input_ndi_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"input_ndi_{key.replace(' ', '_').lower()}"
                     ),

@@ -13,7 +13,7 @@ from stats_receiver import StatsReceiver
 from login import Login
 
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTMP Input")]
 
 
 @allure.parent_suite("WebUI Test Automation")
@@ -193,16 +193,15 @@ class TestInputTRMP:
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.output_chidx, kwargs["Channel Name"])
 
-    @allure.sub_suite("RTP/RTSP")
-    @allure.title("RTP/RTSP Input")
+    @allure.sub_suite("RTMP")
+    @allure.title("RTMP Input")
     def test_input_rtmp(self):
+        print("\n")
         test_functions = [
-            self.login,
+            # self.login,
             self.create_rtmp_input_channel,
             self.create_rtmp_output_channel,
             self.create_role,
-            self.create_group,
-            self.create_device,
             self.output_channel_start,
             self.input_channel_start,
             self.get_channel_stats,

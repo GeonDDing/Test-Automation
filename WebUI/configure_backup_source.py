@@ -33,14 +33,14 @@ class ConfigureBackupSource(WebDriverMethod):
         select_relevant_keys = ["Interface", "Enable HA Mode", "Program Selection Mode"]
 
         try:
-            self.sub_step_log("UDP Backup Source Settings")
+            self.sub_step_log("Add UDP Backup Source Settings")
 
             for key, value in backup_source_options.items():
                 self.option_log(f"{key} : {value}")
                 element_selector = getattr(
                     self.backup_source_elements,
                     (
-                        f"input_udp_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"input_udp_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"input_udp_{key.lower().replace(' ', '_')}"
                     ),
@@ -93,7 +93,7 @@ class ConfigureBackupSource(WebDriverMethod):
 
     def backup_source_rtp(self, backup_source_options):
         try:
-            self.sub_step_log("RTP Backup Source 설정")
+            self.sub_step_log("Add RTP Backup Source")
             self.input_text(
                 By.CSS_SELECTOR,
                 self.backup_source_elements.backup_source_udp_network_url,
@@ -105,7 +105,7 @@ class ConfigureBackupSource(WebDriverMethod):
 
     def backup_source_rtmp(self, backup_source_options):
         try:
-            self.sub_step_log("RTMP Backup Source 설정")
+            self.sub_step_log("Add RTMP Backup Source")
             self.input_text(
                 By.CSS_SELECTOR,
                 self.backup_source_elements.backup_source_udp_network_url,
@@ -117,7 +117,7 @@ class ConfigureBackupSource(WebDriverMethod):
 
     def backup_source_hls(self, backup_source_options):
         try:
-            self.sub_step_log("HLS Backup Source 설정")
+            self.sub_step_log("Add HLS Backup Source")
             self.input_text(
                 By.CSS_SELECTOR,
                 self.backup_source_elements.backup_source_hls_url,
@@ -129,7 +129,7 @@ class ConfigureBackupSource(WebDriverMethod):
 
     def backup_source_sdi(self, backup_source_options):
         try:
-            self.sub_step_log("SDI Backup Source 설정")
+            self.sub_step_log("Add SDI Backup Source")
 
             for key, value in backup_source_options.items():
                 self.option_log(f"{key} : {value}")
@@ -146,7 +146,7 @@ class ConfigureBackupSource(WebDriverMethod):
 
     def backup_source_playlist(self, backup_source_options):
         try:
-            self.sub_step_log("Playlist Backup Source 설정")
+            self.sub_step_log("Add Playlist Backup Source")
             playlist_type = backup_source_options.get("type")
 
             if playlist_type:
@@ -187,7 +187,7 @@ class ConfigureBackupSource(WebDriverMethod):
 
     def backup_source_smpte_st_2110(self, backup_source_options):
         try:
-            self.sub_step_log("SMPTE ST 2110 Backup Source 설정")
+            self.sub_step_log("Add SMPTE ST 2110 Backup Source")
 
             for key, value in backup_source_options.items():
                 self.option_log(f"{key} : {value}")
@@ -209,7 +209,7 @@ class ConfigureBackupSource(WebDriverMethod):
 
     def backup_source_ndi(self, backup_source_options):
         try:
-            self.sub_step_log("NDI Backup Source 설정")
+            self.sub_step_log("Add NDI Backup Source")
 
             for key, value in backup_source_options.items():
                 self.option_log(f"{key} : {value}")

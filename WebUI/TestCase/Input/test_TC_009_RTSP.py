@@ -16,18 +16,13 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestInputUDPProgramNumber:
+class TestInputRTSP:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
         "Role Options": {"Name": "UI Testing Role"},
-        "Group Options": {"Name": "UI Testing Group", "Domain": "Live"},
-        "Device Options": {
-            "Name": "Local Device",
-            "IP": "127.0.0.1",
-        },
-        "Channel Name": "UDP Program Number Input Testing",
-        "Input Type": "UDP",
+        "Channel Name": "RTSP Input Testing",
+        "Input Type": "RTSP",
         "Output Type": "UDP",
         "Backup Source Type": None,
         "Preset Name": {
@@ -54,14 +49,11 @@ class TestInputUDPProgramNumber:
             "Bitrate": "128",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:19006",
-            "Interface": "NIC2",
-            "Program Selection Mode": "Program number",
-            "Program Number": "1010",
+            "SDP File": "rtsp://admin:mek@10.1.1.156/profile3/media.smp",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19007",
+            "Primary Output Port": "14005",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -84,6 +76,12 @@ class TestInputUDPProgramNumber:
             return step_wrapper
 
         return step_decorator
+
+    @attach_result("Login", "Login Successful", "Login Failed")
+    def login(self, **kwargs):
+        with allure.step("Login"):
+            login_instance = Login()
+            return login_instance.login(kwargs["ID"], kwargs["PW"])
 
     @attach_result("Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
     def create_channel(self, **kwargs):
@@ -127,11 +125,12 @@ class TestInputUDPProgramNumber:
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
-    @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Prpgram Number Input")
-    def test_input_udp_program_number(self):
+    @allure.sub_suite("RTP/RTSP")
+    @allure.title("RTP/RTSP Input")
+    def test_input_udp_rtsp(self):
         print("\n")
         test_functions = [
+            # self.login,
             self.create_channel,
             self.create_role,
             self.channel_start,

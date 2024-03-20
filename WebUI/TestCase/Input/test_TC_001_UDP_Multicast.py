@@ -30,7 +30,7 @@ class TestInputUDPMulticast:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP Multicast Testing",
+        "Channel Name": "UDP Multicast Input Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -181,8 +181,9 @@ class TestInputUDPMulticast:
     @allure.sub_suite("UDP/IP")
     @allure.title("UDP/IP Multicast Input")
     def test_input_udp_multiple_audio_pid(self):
+        print("\n")
         test_functions = [
-            self.login,
+            # self.login,
             self.create_videopreset,
             self.create_audiopreset,
             self.create_channel,

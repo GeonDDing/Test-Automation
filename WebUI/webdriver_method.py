@@ -14,7 +14,7 @@ import platform
 
 class WebDriverMethod(WebDriverInit, WebLog):
     driver = webdriver.Chrome(options=WebDriverInit().options)
-    driver.set_window_position(1280, 0)
+    driver.set_window_position(720, 0)
     driver.set_window_size(1280, 1920)
 
     def find_web_element(self, by, locator):
@@ -67,7 +67,7 @@ class WebDriverMethod(WebDriverInit, WebLog):
             return False
 
     def accept_alert(self):
-        WebDriverWait(self.driver, 5).until(EC.alert_is_present())
+        WebDriverWait(self.driver, 3).until(EC.alert_is_present())
         alert = Alert(self.driver)
         alert.accept()
 

@@ -26,7 +26,7 @@ class TestInputUDPTSoverRTP:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP TS over RTP Testing",
+        "Channel Name": "UDP TS over RTP Input Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -130,6 +130,7 @@ class TestInputUDPTSoverRTP:
     @allure.sub_suite("UDP/IP")
     @allure.title("UDP/IP TS over RTP Input")
     def test_input_udp_ts_over_rtp(self):
+        print("\n")
         test_functions = [
             self.create_channel,
             self.create_role,

@@ -1,4 +1,4 @@
-# fmt: on
+# fmt: off
 class GaGaWebElements:
     # XPATH
     gaga_active_stream_table = "/html/body/div/table[1]"
@@ -140,13 +140,9 @@ class ConfigureInputElements:
     input_common_error_message = "#errorMessage"
 
     # UDP Options CSS Selector
-    input_udp_network_url = (
-        'input[type="text"][id="/source/mpeg2/netConfig/networkUrl"][name="/source/mpeg2/netConfig/networkUrl"]'
-    )
+    input_udp_network_url = ('input[type="text"][id="/source/mpeg2/netConfig/networkUrl"][name="/source/mpeg2/netConfig/networkUrl"]')
     input_udp_interface = 'select[id="/source/mpeg2/netConfig/interfaceId"][name="/source/mpeg2/netConfig/interfaceId"]'
-    input_udp_enable_ts_over_rtp = (
-        'input[type="checkbox"][id="/source/mpeg2/enableTsOverRtp"][name="/source/mpeg2/enableTsOverRtp"]'
-    )
+    input_udp_enable_ts_over_rtp = ('input[type="checkbox"][id="/source/mpeg2/enableTsOverRtp"][name="/source/mpeg2/enableTsOverRtp"]')
     input_udp_max_input_mbps = 'input[type="text"][id="/source/mpeg2/netConfig/maxInputBitrateMbps"][name="/source/mpeg2/netConfig/maxInputBitrateMbps"]'
     input_udp_enable_ha_mode = (
         'select[id="/source/mpeg2/enableHighAvailabilityMode"][name="/source/mpeg2/enableHighAvailabilityMode"]'
@@ -465,7 +461,7 @@ class ConfigureOutputElements:
     output_hls_tagging_playlists_with_timestamp = (
         "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[24]/span/input"
     )
-    output_hls_scte35_signaling = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[25]/span/select"
+    output_hls_scte_35_signaling = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[25]/span/select"
     output_hls_enable_id3_tden_tag = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[26]/span/input"
     output_hls_enable_encryption = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[27]/span/input"
     output_hls_append_endlist_at_stop = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[38]/span/input"
@@ -518,7 +514,7 @@ class ConfigureOutputElements:
     output_dash_segment_template_mode = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[15]/span/select"
     output_dash_hevc_codec_tag = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[16]/span/select"
     output_dash_subtitle_type = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[17]/span/select"
-    output_dash_scte35_signalling = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[18]/span/input"
+    output_dash_scte_35_signalling = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[18]/span/input"
     output_dash_drm_type = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[20]/span/select"
 
     # CMAF output options
@@ -535,7 +531,7 @@ class ConfigureOutputElements:
     output_cmaf_hevc_codec_tag = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[14]/span/select"
     output_cmaf_dvb_sutitle_track = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[17]/span/input"
     output_cmaf_dvb_teletext_track = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[20]/span/input"
-    output_cmaf_scte35_signalling = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[23]/span/input"
+    output_cmaf_scte_35_signalling = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[23]/span/input"
     output_cmaf_enable_id3 = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[26]/span/input"
     output_cmaf_use_utc_in_tfdt = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[27]/span/input"
     output_cmaf_use_negative_time_offset_in_trun = (
@@ -561,7 +557,7 @@ class ConfigureVideopresetElements:
     videopreset_bframe = 'input[type="text"][id="/video/bframes"][name="/video/bframes"]'
     videopreset_bitrate = 'input[type="text"][id="/video/bitrate"][name="/video/bitrate"]'
     videopreset_h264_profile = 'select[id="/video/h264Profile"][name="/video/h264Profile"]'
-    videopreset_iframe_interval = 'input[type="text"][id="/video/gopSize"][name="/video/gopSize"]'
+    videopreset_i_frame_interval = 'input[type="text"][id="/video/gopSize"][name="/video/gopSize"]'
     videopreset_buffering_time = 'input.inputbox[type="text"][id="/video/lookaheaddepth"][name="/video/lookaheaddepth"]'
     videopreset_add_button = 'input.black-button[type="button"][value="Add"]'
     videopreset_save_button = 'input.black-button[type="submit"][name="action"][value="Save"]'

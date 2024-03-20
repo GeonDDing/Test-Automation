@@ -26,7 +26,7 @@ class TestInputUDPNielsenID3:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP Nielsen ID3 Testing",
+        "Channel Name": "UDP Nielsen ID3 Input Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -54,7 +54,7 @@ class TestInputUDPNielsenID3:
             "Bitrate": "128",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:12003",
+            "Network URL": "224.30.30.10:12000",
             "Interface": "NIC2",
             "Nielsen ID3": True,
             "Distributor ID": "MEXL-Jacob",
@@ -136,8 +136,9 @@ class TestInputUDPNielsenID3:
     @allure.sub_suite("UDP/IP")
     @allure.title("UDP/IP Nielsen ID3 Input")
     def test_input_udp_nielsen_id3(self):
+        print("\n")
         test_functions = [
-            self.login,
+            # self.login,
             self.create_channel,
             self.create_role,
             self.channel_start,

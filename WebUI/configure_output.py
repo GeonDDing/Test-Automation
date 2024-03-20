@@ -133,7 +133,7 @@ class ConfigureOutput(WebDriverMethod):
                 element_selector = getattr(
                     self.output_elements,
                     (
-                        f"output_udp_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"output_udp_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"output_udp_{key.replace(' ', '_').lower()}"
                     ),
@@ -149,8 +149,21 @@ class ConfigureOutput(WebDriverMethod):
                         else self.output_elements.output_udp_broadcasting_standard_dvb
                     )
                     self.click_element(By.CSS_SELECTOR, broadcasting_standard_element)
+                elif "DVB-Subtitle-Track" in key:
+                    self.click_element(By.XPATH, self.output_elements.output_udp_dvb_subtitle_track_checkbox)
+                    time.sleep(1)
+                    self.input_text(By.XPATH, element_selector, value)
+
                 else:
                     if element_selector:
+                        # fmt: off
+                        if "DVB-Subtitle-Track" in key:
+                            if not self.find_web_element(By.XPATH, self.output_elements.output_udp_dvb_subtitle_track_checkbox).get_attribute("checked"):
+                                self.click_element(By.XPATH, self.output_elements.output_udp_dvb_subtitle_track_checkbox)
+                        elif "DVB-Teletext-Track" in key:
+                            if not self.find_web_element(By.XPATH, self.output_elements.output_udp_dvb_teletext_track_checkbox).get_attribute("checked"):
+                                self.click_element(By.XPATH, self.output_elements.output_udp_dvb_teletext_track_checkbox)
+                        # fmt: on
                         self.input_text(By.XPATH, element_selector, value)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
@@ -179,7 +192,7 @@ class ConfigureOutput(WebDriverMethod):
                 element_selector = getattr(
                     self.output_elements,
                     (
-                        f"output_hls_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"output_hls_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"output_hls_{key.replace(' ', '_').lower()}"
                     ),
@@ -218,7 +231,7 @@ class ConfigureOutput(WebDriverMethod):
                 element_selector = getattr(
                     self.output_elements,
                     (
-                        f"output_rtsp_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"output_rtsp_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"output_rtsp_{key.replace(' ', '_').lower()}"
                     ),
@@ -241,7 +254,7 @@ class ConfigureOutput(WebDriverMethod):
                 element_selector = getattr(
                     self.output_elements,
                     (
-                        f"output_rtmp_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"output_rtmp_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"output_rtmp_{key.replace(' ', '_').lower()}"
                     ),
@@ -281,7 +294,7 @@ class ConfigureOutput(WebDriverMethod):
                 element_selector = getattr(
                     self.output_elements,
                     (
-                        f"output_lss_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"output_lss_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"output_lss_{key.replace(' ', '_').lower()}"
                     ),
@@ -319,7 +332,7 @@ class ConfigureOutput(WebDriverMethod):
                 element_selector = getattr(
                     self.output_elements,
                     (
-                        f"output_dash_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"output_dash_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"output_dash_{key.replace(' ', '_').lower()}"
                     ),
@@ -368,7 +381,7 @@ class ConfigureOutput(WebDriverMethod):
                 element_selector = getattr(
                     self.output_elements,
                     (
-                        f"output_dash_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"output_dash_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"output_dash_{key.replace(' ', '_').lower()}"
                     ),

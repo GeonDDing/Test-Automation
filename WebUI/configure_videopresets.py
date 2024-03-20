@@ -49,7 +49,7 @@ class ConfigureVideopreset(WebDriverMethod):
                 element_selector = getattr(
                     self.videopreset_elements,
                     (
-                        f"videopreset_{''.join(key.replace(' ', '_').replace('.', '').lower().split('-'))}"
+                        f"videopreset_{''.join(key.replace(' ', '_').replace('.', '').replace('-', '_').lower())}"
                         if "-" in key or "." in key
                         else f"videopreset_{key.replace(' ', '_').lower()}"
                     ),

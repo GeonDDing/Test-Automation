@@ -51,7 +51,7 @@ class ConfigureTask(WebDriverMethod):
                 element_selector = getattr(
                     self.task_elements,
                     (
-                        f"task_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"task_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"task_{key.replace(' ', '_').lower()}"
                     ),

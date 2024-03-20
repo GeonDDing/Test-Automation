@@ -55,7 +55,7 @@ class ConfigureAudiopreset(WebDriverMethod):
                 element_selector = getattr(
                     self.audiopreset_elements,
                     (
-                        f"audiopreset_{''.join(key.replace(' ', '_').lower().split('-'))}"
+                        f"audiopreset_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
                         if "-" in key
                         else f"audiopreset_{key.replace(' ', '_').lower()}"
                     ),
