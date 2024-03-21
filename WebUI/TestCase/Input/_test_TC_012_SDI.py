@@ -6,6 +6,7 @@ import allure
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
+from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
@@ -16,7 +17,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestInputUDPSRT:
+class TestInputSDI:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -26,8 +27,8 @@ class TestInputUDPSRT:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP SRT Sender Testing",
-        "Input Type": "UDP",
+        "Channel Name": "SDI Input Testing",
+        "Input Type": "SDI",
         "Output Type": "UDP",
         "Backup Source Type": None,
         "Preset Name": {
@@ -54,15 +55,18 @@ class TestInputUDPSRT:
             "Bitrate": "128",
         },
         "Input Options": {
-            "Network URL": "225.26.1.22:11000",
-            "Interface": "NIC2",
-            "Enable TS over RTP": False,
-            "Enable SRT": True,
+            "Signal type": "SDI",
+            "Video format ": "Auto",
+            "Time code type": "Auto",
+            "Timed text source": "Teletext (OP-47)",
+            "Teletext page": "692",
+            "Teletext Language Tag": "nor",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19009",
+            "Primary Output Port": "12001",
             "Primary Network Interface": "NIC1",
+            "DVB-Teletext-Track": "nor",
         },
         "Backup Source Options": None,
     }
@@ -85,28 +89,14 @@ class TestInputUDPSRT:
 
         return step_decorator
 
-    @attach_result("로그인", "Login Successful", "Login Failed")
+    @attach_result("Login", "Login Successful", "Login Failed")
     def login(self, **kwargs):
         with allure.step("Login"):
             login_instance = Login()
             return login_instance.login(kwargs["ID"], kwargs["PW"])
 
-    @attach_result("Sender Channel Creation", "Sender Channel Creation Successful", "Sender Channel Creation Failed")
-    def create_sender_channel(self, **kwargs):
-        channel_instance = ConfigureChannel(**kwargs)
-        channel_instance.pre_channel_configuration()
-        with allure.step("Create output"):
-            channel_instance.setup_output()
-            time.sleep(1)
-        with allure.step("Create input"):
-            channel_instance.setup_input()
-        return channel_instance.post_channel_configuration()
-
-    @attach_result(
-        "Receiver Channel Creation", "Receiver Channel Creation Successful", "Receiver Channel Creation Failed"
-    )
-    def create_receiver_channel(self, **kwargs):
-        kwargs["Channel Name"] = "UDP SRT Receiver Testing"
+    @attach_result("Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
+    def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
         channel_instance.pre_channel_configuration()
         with allure.step("Create output"):
@@ -118,73 +108,64 @@ class TestInputUDPSRT:
 
     @attach_result("Role Creation", "Role Creation Successful", "Role Creation Failed")
     def create_role(self, **kwargs):
-        kwargs["Channel Name"] = [
-            "UDP SRT Sender Testing",
-            "UDP SRT Receiver Testing",
-        ]
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
             # Required parameters: Role Name, Channel Name
-            return role_instance.configure_role(
-                kwargs["Role Options"]["Name"], kwargs["Channel Name"][0], kwargs["Channel Name"][1]
+            return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
+
+    @attach_result("Device Creation", "Device Creation Successful", "Device Creation Failed")
+    def create_device(self, **kwargs):
+        with allure.step("Group Configuration"):
+            device_instance = ConfigureDevice()
+            # Required parameters: Device Name, Device IP, Group Name, Role Name
+            return device_instance.configure_device(
+                kwargs["Device Options"]["Name"],
+                kwargs["Device Options"]["IP"],
+                kwargs["Group Options"]["Name"],
+                kwargs["Role Options"]["Name"],
             )
 
-    @attach_result("Sender Channel Start", "Sender Channel Start Successful", "Sender Channel Start Failed")
-    def sender_channel_start(self, **kwargs):
+    @attach_result("Channel Start", "Channel Start Successful", "Channel Start Failed")
+    def channel_start(self, **kwargs):
         with allure.step("Channel Start"):
             monitor_device_instance = MonitorDevice()
             channel_info = list()
             # Required parameters: Channel Name
             channel_info = monitor_device_instance.channel_start(kwargs["Channel Name"])
-            self.sender_chidx = channel_info[1]
+            self.chidx = channel_info[1]
             return channel_info[0]
 
-    @attach_result("Receiver Channel Start", "Receiver Channel Start Successful", "Receiver Channel Start Failed")
-    def receiver_channel_start(self, **kwargs):
-        with allure.step("Channel Start"):
-            kwargs["Channel Name"] = "UDP SRT Receiver Testing"
-            monitor_device_instance = MonitorDevice()
-            channel_info = list()
-            # Required parameters: Channel Name
-            channel_info = monitor_device_instance.channel_start(kwargs["Channel Name"])
-            self.receiver_chidx = channel_info[1]
-            return channel_info[0]
-
-    @attach_result("Receiver Channel Stats Request", "Channel Stats Request Successful", "Channel Stats Request Failed")
+    @attach_result("Channel Stats Request", "Channel Stats Request Successful", "Channel Stats Request Failed")
     def get_channel_stats(self, **kwargs):
         with allure.step("Get Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
-            return stats_instance.exec_multiprocessing(self.receiver_chidx)
+            stats_result = stats_instance.exec_multiprocessing(self.chidx, kwargs["Channel Name"])
+            if type(stats_result) == bool:
+                return stats_result
+            else:
+                MonitorDevice().channel_stop(self.chidx, stats_result)
+                return False
 
-    @attach_result("Sender Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
-    def sender_channel_stop(self, **kwargs):
+    @attach_result("Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
+    def channel_stop(self, **kwargs):
         with allure.step("Channel Stop"):
             monitor_device_instance = MonitorDevice()
             # Required parameters: Channel Name
-            return monitor_device_instance.channel_stop(self.sender_chidx, kwargs["Channel Name"])
+            return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
-    @attach_result("Receiver Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
-    def receiver_channel_stop(self, **kwargs):
-        with allure.step("Channel Stop"):
-            kwargs["Channel Name"] = "UDP SRT Receiver Testing"
-            monitor_device_instance = MonitorDevice()
-            # Required parameters: Channel Name
-            return monitor_device_instance.channel_stop(self.receiver_chidx, kwargs["Channel Name"])
-
-    @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP SRT Input")
-    def test_input_udp_srt(self):
+    @allure.sub_suite("SDI")
+    @allure.title("SDI Input")
+    def test_input_sdi(self):
+        print("\n")
         test_functions = [
-            self.login,
-            self.create_sender_channel,
-            self.create_receiver_channel,
+            # self.login,
+            self.create_channel,
             self.create_role,
-            self.sender_channel_start,
-            self.receiver_channel_start,
+            self.create_device,
+            self.channel_start,
             self.get_channel_stats,
-            self.sender_channel_stop,
-            self.receiver_channel_stop,
+            self.channel_stop,
         ]
 
         for test_step_func in test_functions:

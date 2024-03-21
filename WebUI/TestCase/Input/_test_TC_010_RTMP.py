@@ -176,7 +176,12 @@ class TestInputTRMP:
         with allure.step("Get Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
-            return stats_instance.exec_multiprocessing(self.output_chidx)
+            stats_result = stats_instance.exec_multiprocessing(self.chidx, kwargs["Channel Name"])
+            if type(stats_result) == bool:
+                return stats_result
+            else:
+                MonitorDevice().channel_stop(self.chidx, stats_result)
+                return False
 
     @attach_result("RTMP Input Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def input_channel_stop(self, **kwargs):

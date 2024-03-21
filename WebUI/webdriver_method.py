@@ -14,8 +14,12 @@ import platform
 
 class WebDriverMethod(WebDriverInit, WebLog):
     driver = webdriver.Chrome(options=WebDriverInit().options)
-    driver.set_window_position(720, 0)
-    driver.set_window_size(1280, 1920)
+    if platform.system() == "Darwin":
+        driver.set_window_position(720, 0)
+        driver.set_window_size(1280, 1920)
+    else:
+        driver.set_window_position(1280, 0)
+        driver.set_window_size(1280, 1920)
 
     def find_web_element(self, by, locator):
         try:

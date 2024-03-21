@@ -49,7 +49,7 @@ class TestInputHLS:
             "Bitrate": "128",
         },
         "Input Options": {
-            "URL": "http://10.1.1.214/hera/videos/testlink_hls/master.m3u8",
+            "URL": "http://10.1.0.145/hera/hls_stream/master.m3u8",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
@@ -87,12 +87,17 @@ class TestInputHLS:
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
         channel_instance.pre_channel_configuration()
+        output_result = bool()
+        input_result = bool()
         with allure.step("Create output"):
-            channel_instance.setup_output()
+            output_result = channel_instance.setup_output()
             time.sleep(1)
         with allure.step("Create input"):
-            channel_instance.setup_input()
-        return channel_instance.post_channel_configuration()
+            input_result = channel_instance.setup_input()
+        if output_result and input_result:
+            return channel_instance.post_channel_configuration()
+        else:
+            return False
 
     @attach_result("Role Creation", "Role Creation Successful", "Role Creation Failed")
     def create_role(self, **kwargs):
@@ -116,7 +121,12 @@ class TestInputHLS:
         with allure.step("Get Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
-            return stats_instance.exec_multiprocessing(self.chidx)
+            stats_result = stats_instance.exec_multiprocessing(self.chidx, kwargs["Channel Name"])
+            if type(stats_result) == bool:
+                return stats_result
+            else:
+                MonitorDevice().channel_stop(self.chidx, stats_result)
+                return False
 
     @attach_result("Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def channel_stop(self, **kwargs):
@@ -125,14 +135,22 @@ class TestInputHLS:
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
+    def execute_test_functions(self, test_functions, configuration_data):
+        for test_step_func in test_functions:
+            result = test_step_func(**configuration_data)
+            if result is False:
+                print(f"Test failed at step: {test_step_func.__name__}")
+                return False
+        return True
+
     @allure.sub_suite("HLS")
     @allure.title("HLS Input")
-    def test_input_udp_nielsen_id3(self):
+    def test_input_hls(self):
         print("\n")
         test_functions = [
             # self.login,
-            self.create_channel,
-            self.create_role,
+            # self.create_channel,
+            # self.create_role,
             self.channel_start,
             self.get_channel_stats,
             self.channel_stop,
@@ -140,3 +158,8 @@ class TestInputHLS:
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
+
+
+if __name__ == "__main__":
+    exec_tc = TestInputHLS()
+    exec_tc.test_input_hls()

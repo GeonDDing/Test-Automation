@@ -41,7 +41,7 @@ class MonitorDevice(WebDriverMethod):
                 EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
             )
             self.click_element(By.CSS_SELECTOR, self.channel_start_element)
-            self.step_log(f"#00{int(self.chindex+1)} {channel_name} Starting")
+            self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Starting")
             try:
                 WebDriverWait(self.driver, 20).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
@@ -53,7 +53,7 @@ class MonitorDevice(WebDriverMethod):
                 return False, None
 
         except (TimeoutException, ElementNotInteractableException):
-            self.step_log(f"#00{int(self.chindex+1)} {channel_name} Restarting")
+            self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Restarting")
             self.click_element(By.CSS_SELECTOR, self.channel_stop_element)
             self.accept_alert()
 
@@ -83,7 +83,7 @@ class MonitorDevice(WebDriverMethod):
             WebDriverWait(self.driver, 20).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
             )
-            self.step_log(f"#00{int(chindex+1)} {channel_name} Stoping")
+            self.step_log(f"#00{int(chindex+1)} {channel_name} Channel Stoping")
             self.click_element(By.CSS_SELECTOR, self.channel_stop_element)
             self.accept_alert()
             try:

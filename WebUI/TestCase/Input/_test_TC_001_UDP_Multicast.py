@@ -4,8 +4,12 @@ import time
 import allure
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+from configure_audiopresets import ConfigureAudiopreset
+from configure_videopresets import ConfigureVideopreset
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
+from configure_groups import ConfigureGroup
+from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
@@ -16,7 +20,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestUDPInputPID:
+class TestInputUDPMulticast:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -26,7 +30,7 @@ class TestUDPInputPID:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP PIDs Input Testing",
+        "Channel Name": "UDP Multicast Input Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -54,16 +58,19 @@ class TestUDPInputPID:
             "Bitrate": "128",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:19006",
+            "Network URL": "224.30.30.10:15008",
             "Interface": "NIC2",
+            "Enable TS over RTP": False,
+            "Enable SRT": False,
+            "Max input Mbps": "10",
+            "Enable HA Mode": "Disabled",
             "Program Selection Mode": "PIDs",
-            "Video ID": "1024",
-            "Audio ID": "1025",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19006",
+            "Primary Output Port": "19005",
             "Primary Network Interface": "NIC1",
+            "Service Name": "testing",
         },
         "Backup Source Options": None,
     }
@@ -86,6 +93,30 @@ class TestUDPInputPID:
 
         return step_decorator
 
+    @attach_result("Login", "Login Successful", "Login Failed")
+    def login(self, **kwargs):
+        with allure.step("Login"):
+            login_instance = Login()
+            return login_instance.login(kwargs["ID"], kwargs["PW"])
+
+    @attach_result("Video Preset Creation", "Video Preset Creation Successful", "Video Preset Creation Failed")
+    def create_videopreset(self, **kwargs):
+        with allure.step("Create video preset"):
+            videopreset_instance = ConfigureVideopreset()
+            # Required parameters: Videopreset Name, Videopreset Options
+            return videopreset_instance.configure_videopreset(
+                kwargs["Preset Name"]["Videopreset Name"], kwargs["Videopreset Options"]
+            )
+
+    @attach_result("Audio Preset Creation", "Audio Preset Creation Successful", "Audio Preset Creation Failed")
+    def create_audiopreset(self, **kwargs):
+        with allure.step("Create audio preset"):
+            audiopreset_instance = ConfigureAudiopreset()
+            # Required parameters: Audiopreset Name, Audiopreset Options
+            return audiopreset_instance.configure_audiopreset(
+                kwargs["Preset Name"]["Audiopreset Name"], kwargs["Audiopreset Options"]
+            )
+
     @attach_result("Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
@@ -104,6 +135,25 @@ class TestUDPInputPID:
             # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
 
+    @attach_result("Group Creation", "Group Creation Successful", "Group Creation Failed")
+    def create_group(self, **kwargs):
+        with allure.step("Group Configuration"):
+            group_instance = ConfigureGroup()
+            # Required parameters: Group Name, Domain
+            return group_instance.configure_group(kwargs["Group Options"]["Name"], kwargs["Group Options"]["Domain"])
+
+    @attach_result("Device Creation", "Device Creation Successful", "Device Creation Failed")
+    def create_device(self, **kwargs):
+        with allure.step("Group Configuration"):
+            device_instance = ConfigureDevice()
+            # Required parameters: Device Name, Device IP, Group Name, Role Name
+            return device_instance.configure_device(
+                kwargs["Device Options"]["Name"],
+                kwargs["Device Options"]["IP"],
+                kwargs["Group Options"]["Name"],
+                kwargs["Role Options"]["Name"],
+            )
+
     @attach_result("Channel Start", "Channel Start Successful", "Channel Start Failed")
     def channel_start(self, **kwargs):
         with allure.step("Channel Start"):
@@ -119,7 +169,12 @@ class TestUDPInputPID:
         with allure.step("Get Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
-            return stats_instance.exec_multiprocessing(self.chidx)
+            stats_result = stats_instance.exec_multiprocessing(self.chidx, kwargs["Channel Name"])
+            if type(stats_result) == bool:
+                return stats_result
+            else:
+                MonitorDevice().channel_stop(self.chidx, stats_result)
+                return False
 
     @attach_result("Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def channel_stop(self, **kwargs):
@@ -129,12 +184,17 @@ class TestUDPInputPID:
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP PID Input")
-    def test_input_udp_pid(self):
+    @allure.title("UDP/IP Multicast Input")
+    def test_input_udp_multiple_audio_pid(self):
         print("\n")
         test_functions = [
+            # self.login,
+            self.create_videopreset,
+            self.create_audiopreset,
             self.create_channel,
             self.create_role,
+            self.create_group,
+            self.create_device,
             self.channel_start,
             self.get_channel_stats,
             self.channel_stop,

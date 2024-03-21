@@ -16,8 +16,9 @@ class StatsReceiver:
         while True:
             try:
                 get_stats = queue.get()
-
-                if get_stats == "quit":
+                if get_stats == "Channel names do not match":
+                    break
+                elif get_stats == "quit":
                     break
                 else:
                     chidx = f"0{get_stats[0]+1:02}"
@@ -77,14 +78,29 @@ class StatsReceiver:
                 WebLog.error_log(f"An error occurred: {e}")
                 formatted_messages.append(f"An error occurred: {e}")
 
-    def exec_multiprocessing(self, chidx):
+    def exec_multiprocessing(self, chidx, channel_name):
         stats_queue = Queue()
         sender = StatsSender()
         manager = Manager()
         formatted_messages = manager.list()
+        config_channel_name = manager.list()
 
-        sender_process = Process(target=sender.stats_sender, args=(stats_queue, chidx))
-        receiver_process = Process(target=self.stats_receiver, args=(stats_queue, formatted_messages))
+        sender_process = Process(
+            target=sender.stats_sender,
+            args=(
+                stats_queue,
+                chidx,
+                channel_name,
+                config_channel_name,
+            ),
+        )
+        receiver_process = Process(
+            target=self.stats_receiver,
+            args=(
+                stats_queue,
+                formatted_messages,
+            ),
+        )
 
         sender_process.start()
         receiver_process.start()
@@ -95,10 +111,10 @@ class StatsReceiver:
         for message in formatted_messages:
             print(message)
 
-        if formatted_messages != None:
+        if formatted_messages:
             return True
         else:
-            return False
+            return str(config_channel_name)[2:-2]
 
 
 if __name__ == "__main__":

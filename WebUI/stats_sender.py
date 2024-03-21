@@ -18,7 +18,7 @@ class StatsSender:
         except Exception as e:
             WebLog.exec_log("An error occurred:", e)
 
-    def stats_sender(self, queue, chidx):
+    def stats_sender(self, queue, chidx, channel_name, config_channel_name):
         output_info = None
         max_retries = 3
         start_time = time.time()
@@ -57,25 +57,29 @@ class StatsSender:
 
                 else:
                     max_retries = 3
-                    channel_name = root.find("configName").text
+                    config_name = root.find("configName").text
                     source_layer = root.find("sourceLayer").text
                     source_stat = root.find("sourceStat").text
                     codec_type_mapping = {"0": "H.264/AVC", "8": "HEVC"}
+                    if config_name == channel_name:
+                        for stats in root.findall("stream"):
+                            codec_type_mapping = {"0": "H.264/AVC", "8": "HEVC"}
+                            video_codec_type = codec_type_mapping.get(stats.find("videoCodecType").text, "Unknown")
+                            video_width = stats.find("videoWidth").text
+                            video_height = stats.find("videoHeight").text
+                            video_rate = float(stats.find("videoRate").text) / 1000000
+                            frame_count = stats.find("muxedFrameCount").text
+                            frame_rate = stats.find("frameRate").text
 
-                    for stats in root.findall("stream"):
-                        codec_type_mapping = {"0": "H.264/AVC", "8": "HEVC"}
-                        video_codec_type = codec_type_mapping.get(stats.find("videoCodecType").text, "Unknown")
-                        video_width = stats.find("videoWidth").text
-                        video_height = stats.find("videoHeight").text
-                        video_rate = float(stats.find("videoRate").text) / 1000000
-                        frame_count = stats.find("muxedFrameCount").text
-                        frame_rate = stats.find("frameRate").text
+                            if not video_rate == 0.0:
+                                mux_rate = float(stats.find("muxRate").text) / 1000000
+                                output_info = f"{video_codec_type} {video_width}x{video_height} {video_rate:.3f} Mbps {frame_rate} fps | Mux Rate: {mux_rate:.3f} Mbps | Frames : {frame_count}"
 
-                        if not video_rate == 0.0:
-                            mux_rate = float(stats.find("muxRate").text) / 1000000
-                            output_info = f"{video_codec_type} {video_width}x{video_height} {video_rate:.3f} Mbps {frame_rate} fps | Mux Rate: {mux_rate:.3f} Mbps | Frames : {frame_count}"
-
-                    if output_info != None:
-                        queue.put((chidx, channel_name, source_layer, source_stat, output_info))
-
+                        if output_info != None:
+                            queue.put((chidx, channel_name, source_layer, source_stat, output_info))
+                    else:
+                        WebLog.error_log("Channel names do not match.")
+                        config_channel_name.append(config_name)
+                        queue.put("Channel names do not match")
+                        break
                     time.sleep(2)

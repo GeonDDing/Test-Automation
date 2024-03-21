@@ -16,7 +16,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestInputUDPNielsenID3:
+class TestInputUDPProgramNumber:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -26,7 +26,7 @@ class TestInputUDPNielsenID3:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP Nielsen ID3 Input Testing",
+        "Channel Name": "UDP Program Number Input Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -54,14 +54,14 @@ class TestInputUDPNielsenID3:
             "Bitrate": "128",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:12000",
+            "Network URL": "224.30.30.10:19006",
             "Interface": "NIC2",
-            "Nielsen ID3": True,
-            "Distributor ID": "MEXL-Jacob",
+            "Program Selection Mode": "Program number",
+            "Program Number": "1010",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19009",
+            "Primary Output Port": "19007",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -84,12 +84,6 @@ class TestInputUDPNielsenID3:
             return step_wrapper
 
         return step_decorator
-
-    @attach_result("로그인", "Login Successful", "Login Failed")
-    def login(self, **kwargs):
-        with allure.step("Login"):
-            login_instance = Login()
-            return login_instance.login(kwargs["ID"], kwargs["PW"])
 
     @attach_result("Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
     def create_channel(self, **kwargs):
@@ -124,7 +118,12 @@ class TestInputUDPNielsenID3:
         with allure.step("Get Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
-            return stats_instance.exec_multiprocessing(self.chidx)
+            stats_result = stats_instance.exec_multiprocessing(self.chidx, kwargs["Channel Name"])
+            if type(stats_result) == bool:
+                return stats_result
+            else:
+                MonitorDevice().channel_stop(self.chidx, stats_result)
+                return False
 
     @attach_result("Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def channel_stop(self, **kwargs):
@@ -134,11 +133,10 @@ class TestInputUDPNielsenID3:
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Nielsen ID3 Input")
-    def test_input_udp_nielsen_id3(self):
+    @allure.title("UDP/IP Prpgram Number Input")
+    def test_input_udp_program_number(self):
         print("\n")
         test_functions = [
-            # self.login,
             self.create_channel,
             self.create_role,
             self.channel_start,
