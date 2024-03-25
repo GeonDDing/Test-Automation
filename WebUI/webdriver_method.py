@@ -19,7 +19,7 @@ class WebDriverMethod(WebDriverInit, WebLog):
         driver.set_window_size(1280, 1920)
     else:
         driver.set_window_position(1280, 0)
-        driver.set_window_size(1280, 1920)
+        driver.set_window_size(1280, 2160)
 
     def find_web_element(self, by, locator):
         try:

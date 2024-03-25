@@ -151,7 +151,7 @@ class TestInputTRMP:
 
     @attach_result("Channel Start", "Channel Start Successful", "Channel Start Failed")
     def input_channel_start(self, **kwargs):
-        with allure.step("Channel Start"):
+        with allure.step("Input Channel Start"):
             monitor_device_instance = MonitorDevice()
             channel_info = list()
             # Required parameters: Channel Name
@@ -161,40 +161,45 @@ class TestInputTRMP:
 
     @attach_result("Channel Start", "Channel Start Successful", "Channel Start Failed")
     def output_channel_start(self, **kwargs):
-        with allure.step("Channel Start"):
+        with allure.step("Output Channel Start"):
             kwargs["Channel Name"] = "RTMP Output Testing"
             monitor_device_instance = MonitorDevice()
             channel_info = list()
             # Required parameters: Channel Name
             channel_info = monitor_device_instance.channel_start(kwargs["Channel Name"])
             self.output_chidx = channel_info[1]
-            time.sleep(10)
-            return channel_info[0]
+
+            if StatsReceiver().exec_multiprocessing(self.output_chidx, kwargs["Channel Name"]):
+                return channel_info[0]
+            else:
+                return False
 
     @attach_result("Input Channel Stats Request", "Channel Stats Request Successful", "Channel Stats Request Failed")
     def get_channel_stats(self, **kwargs):
         with allure.step("Get Channel Stats"):
+            kwargs["Channel Name"] = "RTMP Input Testing"
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
-            stats_result = stats_instance.exec_multiprocessing(self.chidx, kwargs["Channel Name"])
+            stats_result = stats_instance.exec_multiprocessing(self.input_chidx, kwargs["Channel Name"])
             if type(stats_result) == bool:
                 return stats_result
             else:
-                MonitorDevice().channel_stop(self.chidx, stats_result)
+                MonitorDevice().channel_stop(self.input_chidx, stats_result)
                 return False
 
     @attach_result("RTMP Input Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def input_channel_stop(self, **kwargs):
-        with allure.step("Channel Stop"):
+        with allure.step("Input Channel Stop"):
             monitor_device_instance = MonitorDevice()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.input_chidx, kwargs["Channel Name"])
 
     @attach_result("RTMP Output Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def output_channel_stop(self, **kwargs):
-        with allure.step("Channel Stop"):
+        with allure.step("Output Channel Stop"):
             kwargs["Channel Name"] = "RTMP Output Testing"
             monitor_device_instance = MonitorDevice()
+            start_result = bool()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.output_chidx, kwargs["Channel Name"])
 
@@ -215,6 +220,7 @@ class TestInputTRMP:
         ]
 
         for test_step_func in test_functions:
+            print(str(test_step_func))
             test_step_func(**self.rtmp_input_configuration_data)
 
 

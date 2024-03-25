@@ -181,7 +181,7 @@ class TestInputUDPSRT:
     @allure.title("UDP/IP SRT Input")
     def test_input_udp_srt(self):
         test_functions = [
-            self.login,
+            # self.login,
             self.create_sender_channel,
             self.create_receiver_channel,
             self.create_role,

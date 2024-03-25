@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
 from configure_devices import ConfigureDevice
+from monitor_device import MonitorDevice
 from web_elements import ConfigureRoleElements, MainMenuElements
 import time
 
@@ -25,6 +26,7 @@ class ConfigureRole(ConfigureDevice):
 
     def configure_role(self, role_name, *channel_name):
         try:
+            MonitorDevice().channel_stop_all()
             self.navigate_to_configure_roles()
 
             # Click the button to add a new role or find an existing one
@@ -47,16 +49,6 @@ class ConfigureRole(ConfigureDevice):
                         self.option_log(f"Channel : {channel_name[index]}")
             else:
                 self.step_log(f"Role Modification")
-                while True:
-                    try:
-                        WebDriverWait(self.driver, 5).until(
-                            EC.element_to_be_clickable((By.CSS_SELECTOR, self.role_elements.role_remove_button))
-                        )
-                        self.click_element(By.CSS_SELECTOR, self.role_elements.role_remove_button)
-                        time.sleep(0.5)
-                    except:
-                        break
-
                 if channel_name:
                     for index, channel_value in enumerate(channel_name):
                         # selected_channel_list = f"//*[@id='channel{index}']"

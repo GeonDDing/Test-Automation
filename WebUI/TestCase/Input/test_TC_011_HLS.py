@@ -135,22 +135,14 @@ class TestInputHLS:
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
-    def execute_test_functions(self, test_functions, configuration_data):
-        for test_step_func in test_functions:
-            result = test_step_func(**configuration_data)
-            if result is False:
-                print(f"Test failed at step: {test_step_func.__name__}")
-                return False
-        return True
-
     @allure.sub_suite("HLS")
     @allure.title("HLS Input")
     def test_input_hls(self):
         print("\n")
         test_functions = [
             # self.login,
-            # self.create_channel,
-            # self.create_role,
+            self.create_channel,
+            self.create_role,
             self.channel_start,
             self.get_channel_stats,
             self.channel_stop,

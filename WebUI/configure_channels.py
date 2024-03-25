@@ -55,7 +55,7 @@ class ConfigureChannel(ConfigureRole):
                 By.CSS_SELECTOR, self.input_elements.input_common_error_message
             ).get_attribute("innerText")
 
-            if error_message == "최소 하나의 Output이 필요합니다. 채널을하지 못하여 테스트를 Stop합니다.":
+            if error_message == "At least one Output is required. The test stops because the channel fails.":
                 self.error_log(error_message)
                 self.quit_driver()
                 return False
@@ -145,6 +145,7 @@ class ConfigureChannel(ConfigureRole):
                 )
 
         except Exception as e:
+            self.error_log(e)
             return False
 
     def find_exist_channel(self):

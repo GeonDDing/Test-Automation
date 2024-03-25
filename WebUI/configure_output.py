@@ -44,7 +44,7 @@ class ConfigureOutput(WebDriverMethod):
                 output_type = "TS"
 
             try:
-                WebDriverWait(self.driver, 3).until(
+                WebDriverWait(self.driver, 2).until(
                     EC.presence_of_element_located((By.XPATH, self.output_elements.output_table))
                 )
                 output_table = self.find_web_element(By.XPATH, self.output_elements.output_table)
@@ -70,7 +70,7 @@ class ConfigureOutput(WebDriverMethod):
     def select_stream_preset(self, videopreset_name, audiopreset_name):
         try:
             self.sub_step_log(f"Select Video, Audio Profile")
-            WebDriverWait(self.driver, 10).until(
+            WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_edit_stream))
             )
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
@@ -83,7 +83,7 @@ class ConfigureOutput(WebDriverMethod):
             )
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
             try:
-                WebDriverWait(self.driver, 10).until(
+                WebDriverWait(self.driver, 5).until(
                     EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_add_stream_button))
                 )
                 self.click_element(By.CSS_SELECTOR, self.output_elements.output_add_stream_button)

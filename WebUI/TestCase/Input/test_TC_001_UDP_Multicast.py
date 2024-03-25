@@ -70,7 +70,6 @@ class TestInputUDPMulticast:
             "Primary Output Address": "10.1.0.220",
             "Primary Output Port": "19005",
             "Primary Network Interface": "NIC1",
-            "Service Name": "testing",
         },
         "Backup Source Options": None,
     }

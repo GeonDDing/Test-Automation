@@ -85,6 +85,12 @@ class TestInputUDPProgramNumber:
 
         return step_decorator
 
+    @attach_result("Login", "Login Successful", "Login Failed")
+    def login(self, **kwargs):
+        with allure.step("Login"):
+            login_instance = Login()
+            return login_instance.login(kwargs["ID"], kwargs["PW"])
+
     @attach_result("Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
@@ -146,3 +152,8 @@ class TestInputUDPProgramNumber:
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
+
+
+if __name__ == "__main__":
+    test = TestInputUDPProgramNumber()
+    test.test_input_udp_program_number()

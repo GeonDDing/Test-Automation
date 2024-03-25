@@ -92,7 +92,7 @@ class TestUDPInputPID:
         channel_instance.pre_channel_configuration()
         with allure.step("Create output"):
             channel_instance.setup_output()
-            time.sleep(1)
+            time.sleep(2)
         with allure.step("Create input"):
             channel_instance.setup_input()
         return channel_instance.post_channel_configuration()

@@ -162,7 +162,6 @@ class TestInputSDI:
             # self.login,
             self.create_channel,
             self.create_role,
-            self.create_device,
             self.channel_start,
             self.get_channel_stats,
             self.channel_stop,

@@ -27,6 +27,8 @@ class ConfigureInput(WebDriverMethod):
             "Network URL",
             "SSM host",
             "Max input Mbps",
+            "Program Number",
+            "Service Name",
             "Video ID",
             "Audio ID",
         ]
@@ -51,7 +53,8 @@ class ConfigureInput(WebDriverMethod):
 
                 if any(keyword in key for keyword in select_relevant_keys):
                     if "Program Selection Mode" in key:
-                        mode = self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
+                        # mode = self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
+                        self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                         try:
                             self.accept_alert()
                             time.sleep(1)
@@ -65,21 +68,22 @@ class ConfigureInput(WebDriverMethod):
                         except:
                             pass
 
-                        if mode in ["Program number", "Service name"]:
-                            mapping = {
-                                "Program number": (
-                                    self.input_elements.input_udp_program_number,
-                                    "1010",
-                                ),
-                                "Service name": (
-                                    self.input_elements.input_udp_service_name,
-                                    "E2 Channel",
-                                ),
-                            }
-                            self.input_text(By.CSS_SELECTOR, *mapping.get(mode))
+                        # if mode in ["Program Number", "Service Name"]:
+                        #     mapping = {
+                        #         "Program Number": (
+                        #             self.input_elements.input_udp_program_number,
+                        #             "1010",
+                        #         ),
+                        #         "Service Name": (
+                        #             self.input_elements.input_udp_service_name,
+                        #             "E2 Channel",
+                        #         ),
+                        #     }
+                        #     self.input_text(By.CSS_SELECTOR, *mapping.get(mode))
                     else:
                         self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
-                elif any(keyword in key for keyword in input_relevant_keys):
+                # elif any(keyword in key for keyword in input_relevant_keys):
+                if any(keyword in key for keyword in input_relevant_keys):
                     if key == "Audio ID" and isinstance(input_options["Audio ID"], dict):
                         for index, sub_value in enumerate(value.values()):
                             if index == 0:

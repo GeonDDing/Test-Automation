@@ -12,7 +12,7 @@ class DeleteNewChannels(ApiOperation):
             channel_dict = get_response.json()
 
             for i in range(0, len(channel_dict)):
-                if "New" in channel_dict[i]["name"]:
+                if "Testing" in channel_dict[i]["name"]:
                     new_channel_flag = True
                     print(channel_dict[i]["name"], channel_dict[i]["id"])
                     delete_reponse = requests.delete(

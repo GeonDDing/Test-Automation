@@ -56,7 +56,7 @@ class TestInputUDPServiceName:
         "Input Options": {
             "Network URL": "224.30.30.10:19006",
             "Interface": "NIC2",
-            "Program Selection Mode": "Service Name",
+            "Program Selection Mode": "Service name",
             "Service Name": "E2 Channel",
             "Analysis Window": "6000",
         },
@@ -85,6 +85,12 @@ class TestInputUDPServiceName:
             return step_wrapper
 
         return step_decorator
+
+    @attach_result("Login", "Login Successful", "Login Failed")
+    def login(self, **kwargs):
+        with allure.step("Login"):
+            login_instance = Login()
+            return login_instance.login(kwargs["ID"], kwargs["PW"])
 
     @attach_result("Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
     def create_channel(self, **kwargs):
@@ -138,6 +144,7 @@ class TestInputUDPServiceName:
     def test_input_udp_service_name(self):
         print("\n")
         test_functions = [
+            # self.login,
             self.create_channel,
             self.create_role,
             self.channel_start,
@@ -147,3 +154,8 @@ class TestInputUDPServiceName:
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
+
+
+if __name__ == "__main__":
+    test = TestInputUDPServiceName()
+    test.test_input_udp_service_name()

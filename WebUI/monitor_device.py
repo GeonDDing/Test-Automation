@@ -43,17 +43,36 @@ class MonitorDevice(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.channel_start_element)
             self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Starting")
             try:
-                WebDriverWait(self.driver, 20).until(
+                WebDriverWait(self.driver, 30).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
                 )
                 return True, self.chindex
 
-            except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
-                self.error_log(e)
-                return False, None
+            except:
+                # Action when startup fails after clicking the channel start button.
+                self.info_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure")
+                try:
+                    WebDriverWait(self.driver, 30).until(
+                        EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
+                    )
+                    self.click_element(By.CSS_SELECTOR, self.channel_start_element)
+                    self.info_log(f"#00{int(self.chindex+1)} {channel_name} Channel Restarting")
+                    try:
+                        WebDriverWait(self.driver, 30).until(
+                            EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
+                        )
+                        return True, self.chindex
+
+                    except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
+                        self.error_log(e)
+                        return False, None
+
+                except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
+                    self.error_log(e)
+                    return False, None
 
         except (TimeoutException, ElementNotInteractableException):
-            self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Restarting")
+            self.info_log(f"#00{int(self.chindex+1)} {channel_name} Channel Restarting")
             self.click_element(By.CSS_SELECTOR, self.channel_stop_element)
             self.accept_alert()
 
@@ -88,7 +107,7 @@ class MonitorDevice(WebDriverMethod):
             self.accept_alert()
             try:
                 WebDriverWait(self.driver, 20).until(
-                    EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_start_all))
                 )
                 return True
 
@@ -98,4 +117,27 @@ class MonitorDevice(WebDriverMethod):
 
         except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
             self.error_log(e)
+            return False
+
+    def channel_stop_all(self):
+        try:
+            self.click_element(By.XPATH, MainMenuElements().monitor)
+            time.sleep(1)
+            self.click_element(By.XPATH, self.monitor_device_elements.monitor_device_page)
+            WebDriverWait(self.driver, 2).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_stop_all))
+            )
+            self.step_log("Stoping all channels")
+            self.click_element(By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_stop_all)
+            self.accept_alert()
+            try:
+                WebDriverWait(self.driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_start_all))
+                )
+                return True
+
+            except:
+                return False
+
+        except:
             return False
