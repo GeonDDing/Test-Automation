@@ -71,7 +71,7 @@ class MonitorDevice(WebDriverMethod):
                     self.error_log(e)
                     return False, None
 
-        except (TimeoutException, ElementNotInteractableException):
+        except:
             self.info_log(f"#00{int(self.chindex+1)} {channel_name} Channel Restarting")
             self.click_element(By.CSS_SELECTOR, self.channel_stop_element)
             self.accept_alert()

@@ -1,6 +1,11 @@
 # configure_channels.py
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, ElementNotVisibleException
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import (
+    NoSuchElementException,
+    ElementNotVisibleException,
+    ElementNotVisibleException,
+)
 from webdriver_method import WebDriverMethod
 from web_elements import ConfigureInputElements
 import time
@@ -23,6 +28,7 @@ class ConfigureInput(WebDriverMethod):
             return False
 
     def input_udp(self, input_options):
+        program_selection_mode_flag = bool()
         input_relevant_keys = [
             "Network URL",
             "SSM host",
@@ -55,6 +61,7 @@ class ConfigureInput(WebDriverMethod):
                     if "Program Selection Mode" in key:
                         # mode = self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                         self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
+                        program_selection_mode_flag = True
                         try:
                             self.accept_alert()
                             time.sleep(1)
@@ -64,22 +71,8 @@ class ConfigureInput(WebDriverMethod):
                                 "6000",
                             )
                             time.sleep(1)
-
                         except:
                             pass
-
-                        # if mode in ["Program Number", "Service Name"]:
-                        #     mapping = {
-                        #         "Program Number": (
-                        #             self.input_elements.input_udp_program_number,
-                        #             "1010",
-                        #         ),
-                        #         "Service Name": (
-                        #             self.input_elements.input_udp_service_name,
-                        #             "E2 Channel",
-                        #         ),
-                        #     }
-                        #     self.input_text(By.CSS_SELECTOR, *mapping.get(mode))
                     else:
                         self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
                 # elif any(keyword in key for keyword in input_relevant_keys):
@@ -94,8 +87,15 @@ class ConfigureInput(WebDriverMethod):
                                     self.input_elements.input_udp_audio_id_extend.format(index, index),
                                     sub_value,
                                 )
+                                # Audio ID 입력후 어딘가 클릭해야 다음 ID 입력란이 생성 되기 때문에 Input 백그라운드를 클릭하도록 함
+                                self.click_element(By.XPATH, '//*[@id="editform"]/div[1]/div[3]')
+                                time.sleep(0.3)
                     else:
-                        self.input_text(By.CSS_SELECTOR, element_selector, value)
+                        if key in ["Program Number", "Service Name"]:
+                            if program_selection_mode_flag:
+                                self.input_text(By.CSS_SELECTOR, element_selector, value)
+                        else:
+                            self.input_text(By.CSS_SELECTOR, element_selector, value)
                 else:
                     if isinstance(value, bool) and value:
                         self.click_element(By.CSS_SELECTOR, element_selector)

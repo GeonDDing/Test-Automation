@@ -15,7 +15,7 @@ import platform
 class WebDriverMethod(WebDriverInit, WebLog):
     driver = webdriver.Chrome(options=WebDriverInit().options)
     if platform.system() == "Darwin":
-        driver.set_window_position(720, 0)
+        driver.set_window_position(540, 0)
         driver.set_window_size(1280, 1920)
     else:
         driver.set_window_position(1280, 0)
@@ -31,7 +31,7 @@ class WebDriverMethod(WebDriverInit, WebLog):
 
     def click_element(self, by, locator):
         self.find_web_element(by, locator).click()
-        time.sleep(1)
+        time.sleep(0.5)
 
     def input_text(self, by, locator, contents):
         if platform.system() == "Darwin":

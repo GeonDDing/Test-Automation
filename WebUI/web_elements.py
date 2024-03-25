@@ -99,7 +99,7 @@ class ConfigureRoleElements:
     role_name = 'input[type="text"][name="Name"]'
     role_add_button = 'input.black-button[type="button"][value="Add"]'
     role_save_button = 'input.black-button[type="submit"][name="action"][value="Save"]'
-    role_remove_button = 'input[type="button"][name="sbtChannel2685"][value="Remove"]'
+    role_remove_button = 'input.grey-button[type="button"][value="Remove"]'
 
     ### XPATH ###
     add_channel_list = '//*[@id="channelAdd"]'

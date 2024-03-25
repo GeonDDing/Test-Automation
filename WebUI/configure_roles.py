@@ -2,7 +2,12 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
+from selenium.common.exceptions import (
+    NoSuchElementException,
+    ElementNotVisibleException,
+    TimeoutException,
+    ElementNotInteractableException,
+)
 from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from web_elements import ConfigureRoleElements, MainMenuElements
@@ -49,11 +54,20 @@ class ConfigureRole(ConfigureDevice):
                         self.option_log(f"Channel : {channel_name[index]}")
             else:
                 self.step_log(f"Role Modification")
+                while True:
+                    try:
+                        WebDriverWait(self.driver, 3).until(
+                            EC.element_to_be_clickable((By.CSS_SELECTOR, self.role_elements.role_remove_button))
+                        )
+                        self.click_element(By.CSS_SELECTOR, self.role_elements.role_remove_button)
+                    except Exception as e:
+                        self.info_log("Channel removal complete")
+                        break
                 if channel_name:
                     for index, channel_value in enumerate(channel_name):
                         # selected_channel_list = f"//*[@id='channel{index}']"
                         self.select_element(By.XPATH, self.role_elements.add_channel_list, "text", channel_value)
-                        self.option_log(f"Channel : {channel_name[index]} ")
+                        self.option_log(f"Channel : {channel_name[index]}")
 
             self.click_element(By.CSS_SELECTOR, self.role_elements.role_save_button)
             return True

@@ -21,7 +21,10 @@ class TestInputUDPMultipleAudioPID:
         "ID": "admin",
         "PW": "admin",
         "Role Options": {"Name": "UI Testing Role"},
-        "Group Options": {"Name": "UI Testing Group", "Domain": "Live"},
+        "Group Options": {
+            "Name": "UI Testing Group",
+            "Domain": "Live",
+        },
         "Device Options": {
             "Name": "Local Device",
             "IP": "127.0.0.1",
@@ -56,7 +59,15 @@ class TestInputUDPMultipleAudioPID:
         "Input Options": {
             "Network URL": "224.30.30.10:12003",
             "Interface": "NIC2",
-            "Audio ID": {"#01": "601", "#02": "602", "#03": "603", "#04": "604"},
+            "Audio ID": {
+                "#01": "601",
+                "#02": "602",
+                "#03": "603",
+                "#04": "604",
+                "#05": "605",
+                "#06": "606",
+                "#07": "607",
+            },
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
@@ -94,9 +105,9 @@ class TestInputUDPMultipleAudioPID:
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
         channel_instance.pre_channel_configuration()
-        with allure.step("Create output"):
-            channel_instance.setup_output()
-            time.sleep(1)
+        # with allure.step("Create output"):
+        #     channel_instance.setup_output()
+        #     time.sleep(1)
         with allure.step("Create input"):
             channel_instance.setup_input()
         return channel_instance.post_channel_configuration()

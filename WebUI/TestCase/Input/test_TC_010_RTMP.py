@@ -23,7 +23,10 @@ class TestInputTRMP:
         "ID": "admin",
         "PW": "admin",
         "Role Options": {"Name": "UI Testing Role"},
-        "Group Options": {"Name": "UI Testing Group", "Domain": "Live"},
+        "Group Options": {
+            "Name": "UI Testing Group",
+            "Domain": "Live",
+        },
         "Device Options": {
             "Name": "Local Device",
             "IP": "127.0.0.1",
@@ -130,28 +133,10 @@ class TestInputTRMP:
                 kwargs["Role Options"]["Name"], kwargs["Channel Name"][0], kwargs["Channel Name"][1]
             )
 
-    @attach_result("Group Creation", "Group Creation Successful", "Group Creation Failed")
-    def create_group(self, **kwargs):
-        with allure.step("Group Configuration"):
-            group_instance = ConfigureGroup()
-            # Required parameters: Group Name, Domain
-            return group_instance.configure_group(kwargs["Group Options"]["Name"], kwargs["Group Options"]["Domain"])
-
-    @attach_result("Device Creation", "Device Creation Successful", "Device Creation Failed")
-    def create_device(self, **kwargs):
-        with allure.step("Group Configuration"):
-            device_instance = ConfigureDevice()
-            # Required parameters: Device Name, Device IP, Group Name, Role Name
-            return device_instance.configure_device(
-                kwargs["Device Options"]["Name"],
-                kwargs["Device Options"]["IP"],
-                kwargs["Group Options"]["Name"],
-                kwargs["Role Options"]["Name"],
-            )
-
     @attach_result("Channel Start", "Channel Start Successful", "Channel Start Failed")
     def input_channel_start(self, **kwargs):
         with allure.step("Input Channel Start"):
+            kwargs["Channel Name"] = "RTMP Input Testing"
             monitor_device_instance = MonitorDevice()
             channel_info = list()
             # Required parameters: Channel Name
@@ -190,6 +175,7 @@ class TestInputTRMP:
     @attach_result("RTMP Input Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def input_channel_stop(self, **kwargs):
         with allure.step("Input Channel Stop"):
+            kwargs["Channel Name"] = "RTMP Input Testing"
             monitor_device_instance = MonitorDevice()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.input_chidx, kwargs["Channel Name"])
@@ -220,10 +206,4 @@ class TestInputTRMP:
         ]
 
         for test_step_func in test_functions:
-            print(str(test_step_func))
             test_step_func(**self.rtmp_input_configuration_data)
-
-
-if __name__ == "__main__":
-    tc = TestInputTRMP()
-    tc.test_input_rtmp()

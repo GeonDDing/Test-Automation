@@ -17,11 +17,14 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
 class TestInputUDPSRT:
-    test_configuration_data = {
+    srt_sender_configuration_data = {
         "ID": "admin",
         "PW": "admin",
         "Role Options": {"Name": "UI Testing Role"},
-        "Group Options": {"Name": "UI Testing Group", "Domain": "Live"},
+        "Group Options": {
+            "Name": "UI Testing Group",
+            "Domain": "Live",
+        },
         "Device Options": {
             "Name": "Local Device",
             "IP": "127.0.0.1",
@@ -54,14 +57,35 @@ class TestInputUDPSRT:
             "Bitrate": "128",
         },
         "Input Options": {
-            "Network URL": "225.26.1.22:11000",
+            "Network URL": "224.30.30.10:18007",
             "Interface": "NIC2",
-            "Enable TS over RTP": False,
+        },
+        "Output Options": {
+            "Primary Output Address": "10.1.0.145",
+            "Primary Output Port": "15005",
+            "Primary Network Interface": "NIC1",
+            "SRT": True,
+        },
+        "Backup Source Options": None,
+    }
+
+    srt_receiver_configuration_data = {
+        "Channel Name": "UDP SRT Receiver Testing",
+        "Input Type": "UDP",
+        "Output Type": "UDP",
+        "Backup Source Type": None,
+        "Preset Name": {
+            "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
+            "Audiopreset Name": "AAC | 128K | 48kHz | Testing",
+        },
+        "Input Options": {
+            "Network URL": "10.1.0.145:15005",
+            "Interface": "NIC1",
             "Enable SRT": True,
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19009",
+            "Primary Output Port": "19008",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -106,7 +130,7 @@ class TestInputUDPSRT:
         "Receiver Channel Creation", "Receiver Channel Creation Successful", "Receiver Channel Creation Failed"
     )
     def create_receiver_channel(self, **kwargs):
-        kwargs["Channel Name"] = "UDP SRT Receiver Testing"
+        kwargs = self.srt_receiver_configuration_data
         channel_instance = ConfigureChannel(**kwargs)
         channel_instance.pre_channel_configuration()
         with allure.step("Create output"):
@@ -137,12 +161,16 @@ class TestInputUDPSRT:
             # Required parameters: Channel Name
             channel_info = monitor_device_instance.channel_start(kwargs["Channel Name"])
             self.sender_chidx = channel_info[1]
-            return channel_info[0]
+
+            if StatsReceiver().exec_multiprocessing(self.sender_chidx, kwargs["Channel Name"]):
+                return channel_info[0]
+            else:
+                return False
 
     @attach_result("Receiver Channel Start", "Receiver Channel Start Successful", "Receiver Channel Start Failed")
     def receiver_channel_start(self, **kwargs):
         with allure.step("Channel Start"):
-            kwargs["Channel Name"] = "UDP SRT Receiver Testing"
+            kwargs = self.srt_receiver_configuration_data
             monitor_device_instance = MonitorDevice()
             channel_info = list()
             # Required parameters: Channel Name
@@ -153,18 +181,20 @@ class TestInputUDPSRT:
     @attach_result("Receiver Channel Stats Request", "Channel Stats Request Successful", "Channel Stats Request Failed")
     def get_channel_stats(self, **kwargs):
         with allure.step("Get Channel Stats"):
+            kwargs["Channel Name"] = "UDP SRT Receiver Testing"
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
-            stats_result = stats_instance.exec_multiprocessing(self.chidx, kwargs["Channel Name"])
+            stats_result = stats_instance.exec_multiprocessing(self.receiver_chidx, kwargs["Channel Name"])
             if type(stats_result) == bool:
                 return stats_result
             else:
-                MonitorDevice().channel_stop(self.chidx, stats_result)
+                MonitorDevice().channel_stop(self.receiver_chidx, stats_result)
                 return False
 
     @attach_result("Sender Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def sender_channel_stop(self, **kwargs):
         with allure.step("Channel Stop"):
+            kwargs["Channel Name"] = "UDP SRT Sender Testing"
             monitor_device_instance = MonitorDevice()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.sender_chidx, kwargs["Channel Name"])
@@ -172,7 +202,7 @@ class TestInputUDPSRT:
     @attach_result("Receiver Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def receiver_channel_stop(self, **kwargs):
         with allure.step("Channel Stop"):
-            kwargs["Channel Name"] = "UDP SRT Receiver Testing"
+            kwargs = self.srt_receiver_configuration_data
             monitor_device_instance = MonitorDevice()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.receiver_chidx, kwargs["Channel Name"])
@@ -180,6 +210,7 @@ class TestInputUDPSRT:
     @allure.sub_suite("UDP/IP")
     @allure.title("UDP/IP SRT Input")
     def test_input_udp_srt(self):
+        print("\n")
         test_functions = [
             # self.login,
             self.create_sender_channel,
@@ -188,9 +219,9 @@ class TestInputUDPSRT:
             self.sender_channel_start,
             self.receiver_channel_start,
             self.get_channel_stats,
-            self.sender_channel_stop,
             self.receiver_channel_stop,
+            self.sender_channel_stop,
         ]
 
         for test_step_func in test_functions:
-            test_step_func(**self.test_configuration_data)
+            test_step_func(**self.srt_sender_configuration_data)

@@ -18,7 +18,14 @@ class ConfigureOutput(WebDriverMethod):
         # Click output add button
         try:
             if not self.find_exist_output(output_type):
-                self.click_element(By.CSS_SELECTOR, self.output_elements.output_add_output_button)
+                try:
+                    WebDriverWait(self.driver, 3).until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_add_output_button))
+                    )
+                    self.click_element(By.CSS_SELECTOR, self.output_elements.output_add_output_button)
+
+                except TimeoutException as e:
+                    self.error_log(e)
                 # Wait for the time to move to the group creation page.
                 time.sleep(1)
                 # Since there is no existing Group with the same name, a Group is created with that name.
@@ -69,10 +76,10 @@ class ConfigureOutput(WebDriverMethod):
 
     def select_stream_preset(self, videopreset_name, audiopreset_name):
         try:
-            self.sub_step_log(f"Select Video, Audio Profile")
-            WebDriverWait(self.driver, 5).until(
+            WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_edit_stream))
             )
+            self.sub_step_log(f"Select Video, Audio Profile")
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
             self.option_log(f"Videopreset : {videopreset_name}")
             self.select_element(
@@ -122,6 +129,15 @@ class ConfigureOutput(WebDriverMethod):
             "Secondary Network Interface",
             "NULL packet padding",
         ]
+        click_relevant_kyes = [
+            "Enable SCTE-35 Passthru",
+            "Enable ID3 TDEN tag",
+            "Enable TS over RTP",
+            "ProMPEG",
+            "SRT",
+            "ATS/EBP",
+            "VCT",
+        ]
         try:
             self.sub_step_log(f"Create UDP/IP Output")
 
@@ -131,29 +147,25 @@ class ConfigureOutput(WebDriverMethod):
                 element_selector = getattr(
                     self.output_elements,
                     (
-                        f"output_udp_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
+                        f"output_udp_{''.join(key.replace(' ', '_').replace('-', '_').replace('/', '_').lower())}"
                         if "-" in key
                         else f"output_udp_{key.replace(' ', '_').lower()}"
                     ),
                     None,
                 )
-
-                if any(keyword in key for keyword in relevant_keys):
-                    self.select_element(By.XPATH, element_selector, "text", value)
-                elif "Broadcasting standard" in key:
-                    broadcasting_standard_element = (
-                        self.output_elements.output_udp_broadcasting_standard_atsc
-                        if value == "ATSC"
-                        else self.output_elements.output_udp_broadcasting_standard_dvb
-                    )
-                    self.click_element(By.CSS_SELECTOR, broadcasting_standard_element)
-                elif "DVB-Subtitle-Track" in key:
-                    self.click_element(By.XPATH, self.output_elements.output_udp_dvb_subtitle_track_checkbox)
-                    time.sleep(1)
-                    self.input_text(By.XPATH, element_selector, value)
-
-                else:
-                    if element_selector:
+                if element_selector:
+                    if any(keyword in key for keyword in relevant_keys):
+                        self.select_element(By.XPATH, element_selector, "text", value)
+                    elif any(click_keyword in key for click_keyword in click_relevant_kyes):
+                        self.click_element(By.XPATH, element_selector)
+                    elif "Broadcasting standard" in key:
+                        broadcasting_standard_element = (
+                            self.output_elements.output_udp_broadcasting_standard_atsc
+                            if value == "ATSC"
+                            else self.output_elements.output_udp_broadcasting_standard_dvb
+                        )
+                        self.click_element(By.CSS_SELECTOR, broadcasting_standard_element)
+                    else:
                         # fmt: off
                         if "DVB-Subtitle-Track" in key:
                             if not self.find_web_element(By.XPATH, self.output_elements.output_udp_dvb_subtitle_track_checkbox).get_attribute("checked"):
@@ -196,22 +208,22 @@ class ConfigureOutput(WebDriverMethod):
                     ),
                     None,
                 )
-
-                if "Segment Naming" in key:
-                    self.select_element(By.XPATH, element_selector, "text", value)
-                elif "Subtitle Type" in key:
-                    self.select_element(By.XPATH, element_selector, "text", value)
-                    if "DVB-Subtitle" in key:
+                if element_selector:
+                    if "Segment Naming" in key:
+                        self.select_element(By.XPATH, element_selector, "text", value)
+                    elif "Subtitle Type" in key:
+                        self.select_element(By.XPATH, element_selector, "text", value)
+                        if "DVB-Subtitle" in key:
+                            self.input_text(By.XPATH, element_selector, value)
+                        if "DVB-Teletext" in key:
+                            self.input_text(By.XPATH, element_selector, value)
+                    elif "SCTE-35 Signaling" in key:
+                        self.select_element(By.XPATH, element_selector, "text", value)
+                    # elif key in hls_click_options:
+                    elif any(keyword in key for keyword in click_relevant_keys):
+                        self.click_element(By.XPATH, element_selector)
+                    else:
                         self.input_text(By.XPATH, element_selector, value)
-                    if "DVB-Teletext" in key:
-                        self.input_text(By.XPATH, element_selector, value)
-                elif "SCTE-35 Signaling" in key:
-                    self.select_element(By.XPATH, element_selector, "text", value)
-                # elif key in hls_click_options:
-                elif any(keyword in key for keyword in click_relevant_keys):
-                    self.click_element(By.XPATH, element_selector)
-                else:
-                    self.input_text(By.XPATH, element_selector, value)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
@@ -235,7 +247,8 @@ class ConfigureOutput(WebDriverMethod):
                     ),
                     None,
                 )
-                self.input_text(By.XPATH, element_selector, value)
+                if element_selector:
+                    self.input_text(By.XPATH, element_selector, value)
             time.sleep(1)
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
@@ -258,11 +271,11 @@ class ConfigureOutput(WebDriverMethod):
                     ),
                     None,
                 )
-
-                if any(keyword in key for keyword in relevant_keys):
-                    self.select_element(By.XPATH, element_selector, "text", value)
-                else:
-                    self.input_text(By.XPATH, element_selector, value)
+                if element_selector:
+                    if any(keyword in key for keyword in relevant_keys):
+                        self.select_element(By.XPATH, element_selector, "text", value)
+                    else:
+                        self.input_text(By.XPATH, element_selector, value)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
@@ -298,13 +311,13 @@ class ConfigureOutput(WebDriverMethod):
                     ),
                     None,
                 )
-
-                if any(keyword in key for keyword in input_relevant_keys):
-                    self.input_text(By.XPATH, element_selector, value)
-                elif any(keyword in key for keyword in click_relevant_keys):
-                    self.click_element(By.CSS_SELECTOR, element_selector)
-                else:
-                    self.select_element(By.XPATH, element_selector, "text", value)
+                if element_selector:
+                    if any(keyword in key for keyword in input_relevant_keys):
+                        self.input_text(By.XPATH, element_selector, value)
+                    elif any(keyword in key for keyword in click_relevant_keys):
+                        self.click_element(By.CSS_SELECTOR, element_selector)
+                    else:
+                        self.select_element(By.XPATH, element_selector, "text", value)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
@@ -336,13 +349,13 @@ class ConfigureOutput(WebDriverMethod):
                     ),
                     None,
                 )
-
-                if any(keyword in key for keyword in relevant_keys):
-                    self.select_element(By.XPATH, element_selector, "text", value)
-                elif "SCTE-35 Signalling" in key:
-                    self.click_element(By.CSS_SELECTOR, element_selector)
-                else:
-                    self.select_element(By.XPATH, element_selector, "text", value)
+                if element_selector:
+                    if any(keyword in key for keyword in relevant_keys):
+                        self.select_element(By.XPATH, element_selector, "text", value)
+                    elif "SCTE-35 Signalling" in key:
+                        self.click_element(By.CSS_SELECTOR, element_selector)
+                    else:
+                        self.select_element(By.XPATH, element_selector, "text", value)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True
@@ -385,13 +398,13 @@ class ConfigureOutput(WebDriverMethod):
                     ),
                     None,
                 )
-
-                if any(keyword in key for keyword in select_relevant_keys):
-                    self.select_element(By.XPATH, element_selector, "text", value)
-                elif any(keyword in key for keyword in click_relevant_keys):
-                    self.click_element(By.CSS_SELECTOR, element_selector)
-                else:
-                    self.select_element(By.XPATH, element_selector, "text", value)
+                if element_selector:
+                    if any(keyword in key for keyword in select_relevant_keys):
+                        self.select_element(By.XPATH, element_selector, "text", value)
+                    elif any(keyword in key for keyword in click_relevant_keys):
+                        self.click_element(By.CSS_SELECTOR, element_selector)
+                    else:
+                        self.select_element(By.XPATH, element_selector, "text", value)
 
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True

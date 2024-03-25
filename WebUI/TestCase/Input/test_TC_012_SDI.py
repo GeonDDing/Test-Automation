@@ -22,7 +22,10 @@ class TestInputSDI:
         "ID": "admin",
         "PW": "admin",
         "Role Options": {"Name": "UI Testing Role"},
-        "Group Options": {"Name": "UI Testing Group", "Domain": "Live"},
+        "Group Options": {
+            "Name": "UI Testing Group",
+            "Domain": "Live",
+        },
         "Device Options": {
             "Name": "Local Device",
             "IP": "127.0.0.1",

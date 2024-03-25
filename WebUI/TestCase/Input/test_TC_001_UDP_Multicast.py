@@ -25,7 +25,10 @@ class TestInputUDPMulticast:
         "ID": "admin",
         "PW": "admin",
         "Role Options": {"Name": "UI Testing Role"},
-        "Group Options": {"Name": "UI Testing Group", "Domain": "Live"},
+        "Group Options": {
+            "Name": "UI Testing Group",
+            "Domain": "Live",
+        },
         "Device Options": {
             "Name": "Local Device",
             "IP": "127.0.0.1",
@@ -60,11 +63,6 @@ class TestInputUDPMulticast:
         "Input Options": {
             "Network URL": "224.30.30.10:15008",
             "Interface": "NIC2",
-            "Enable TS over RTP": False,
-            "Enable SRT": False,
-            "Max input Mbps": "10",
-            "Enable HA Mode": "Disabled",
-            "Program Selection Mode": "PIDs",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
