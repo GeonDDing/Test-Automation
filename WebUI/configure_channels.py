@@ -67,6 +67,7 @@ class ConfigureChannel(ConfigureRole):
             return False
 
     def setup_input(self):
+        input_return = bool()
         try:
             configure_input = ConfigureInput(self.channel_configure_data["Input Type"])
             input_functions = {
@@ -83,9 +84,11 @@ class ConfigureChannel(ConfigureRole):
             }
 
             if self.channel_configure_data["Input Type"] in input_functions:
-                return input_functions[self.channel_configure_data["Input Type"]](
+                input_return = input_functions[self.channel_configure_data["Input Type"]](
                     self.channel_configure_data["Input Options"]
                 )
+                configure_input.input_common(self.channel_configure_data["Common Options"])
+                return input_return
 
         except Exception as e:
             return False

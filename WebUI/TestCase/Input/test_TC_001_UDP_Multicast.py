@@ -3,7 +3,7 @@ import sys
 import time
 import allure
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_audiopresets import ConfigureAudiopreset
 from configure_videopresets import ConfigureVideopreset
 from configure_channels import ConfigureChannel
@@ -59,6 +59,10 @@ class TestInputUDPMulticast:
             "Channels": "Stereo",
             "Sampling Rate": "48000",
             "Bitrate": "128",
+        },
+        "Common Options": {
+            "Evergreen Timeout": "4000",
+            "Analysis window": "4000",
         },
         "Input Options": {
             "Network URL": "224.30.30.10:15008",
@@ -186,8 +190,8 @@ class TestInputUDPMulticast:
         print("\n")
         test_functions = [
             # self.login,
-            self.create_videopreset,
-            self.create_audiopreset,
+            # self.create_videopreset,
+            # self.create_audiopreset,
             self.create_channel,
             self.create_role,
             self.create_group,

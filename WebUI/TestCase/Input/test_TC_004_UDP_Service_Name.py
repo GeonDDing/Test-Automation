@@ -3,7 +3,7 @@ import sys
 import time
 import allure
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
@@ -56,12 +56,15 @@ class TestInputUDPServiceName:
             "Sampling Rate": "48000",
             "Bitrate": "128",
         },
+        "Common Options": {
+            "Evergreen Timeout": "6000",
+            "Analysis window": "6000",
+        },
         "Input Options": {
             "Network URL": "224.30.30.10:19006",
             "Interface": "NIC2",
             "Program Selection Mode": "Service name",
             "Service Name": "E2 Channel",
-            "Analysis Window": "6000",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",

@@ -5,8 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import (
     NoSuchElementException,
     ElementNotVisibleException,
-    TimeoutException,
-    ElementNotInteractableException,
 )
 from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice

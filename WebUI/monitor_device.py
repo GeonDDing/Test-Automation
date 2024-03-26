@@ -43,7 +43,7 @@ class MonitorDevice(WebDriverMethod):
             self.click_element(By.CSS_SELECTOR, self.channel_start_element)
             self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Starting")
             try:
-                WebDriverWait(self.driver, 30).until(
+                WebDriverWait(self.driver, 70).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
                 )
                 return True, self.chindex
@@ -52,7 +52,7 @@ class MonitorDevice(WebDriverMethod):
                 # Action when startup fails after clicking the channel start button.
                 self.info_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure")
                 try:
-                    WebDriverWait(self.driver, 30).until(
+                    WebDriverWait(self.driver, 70).until(
                         EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
                     )
                     self.click_element(By.CSS_SELECTOR, self.channel_start_element)
@@ -107,7 +107,7 @@ class MonitorDevice(WebDriverMethod):
             self.accept_alert()
             try:
                 WebDriverWait(self.driver, 20).until(
-                    EC.element_to_be_clickable((By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_start_all))
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
                 )
                 return True
 

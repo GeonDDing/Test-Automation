@@ -3,7 +3,7 @@ import sys
 import time
 import allure
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
@@ -56,6 +56,10 @@ class TestInputUDPMultipleAudioPID:
             "Sampling Rate": "48000",
             "Bitrate": "128",
         },
+        "Common Options": {
+            "Evergreen Timeout": "4000",
+            "Analysis window": "4000",
+        },
         "Input Options": {
             "Network URL": "224.30.30.10:12003",
             "Interface": "NIC2",
@@ -105,9 +109,9 @@ class TestInputUDPMultipleAudioPID:
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
         channel_instance.pre_channel_configuration()
-        # with allure.step("Create output"):
-        #     channel_instance.setup_output()
-        #     time.sleep(1)
+        with allure.step("Create output"):
+            channel_instance.setup_output()
+            time.sleep(1)
         with allure.step("Create input"):
             channel_instance.setup_input()
         return channel_instance.post_channel_configuration()

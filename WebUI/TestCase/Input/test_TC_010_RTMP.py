@@ -3,7 +3,7 @@ import sys
 import time
 import allure
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from configure_groups import ConfigureGroup
@@ -39,6 +39,10 @@ class TestInputTRMP:
             "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
             "Audiopreset Name": "AAC | 128K | 48kHz | Testing",
         },
+        "Common Options": {
+            "Evergreen Timeout": "4000",
+            "Analysis window": "4000",
+        },
         "Input Options": {
             "URL": "rtmp://10.1.0.145:1935/live/rtmp_testing",
         },
@@ -59,6 +63,10 @@ class TestInputTRMP:
         "Preset Name": {
             "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
             "Audiopreset Name": "AAC | 128K | 48kHz | Testing",
+        },
+        "Common Options": {
+            "Evergreen Timeout": "4000",
+            "Analysis window": "4000",
         },
         "Input Options": {
             "Network URL": "224.30.30.10:15008",

@@ -22,10 +22,32 @@ class ConfigureInput(WebDriverMethod):
             elif "HTTP" == input_type or "HLS" == input_type:
                 input_type = "HTTP/HLS"
             self.select_element(By.CSS_SELECTOR, self.input_elements.input_type, "text", input_type)
+            # self.input_common(input_options)
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(e)
             return False
+
+    def input_common(self, common_options):
+        try:
+            for key, value in common_options.items():
+                self.option_log(f"{key} : {value}")
+                element_selector = getattr(
+                    self.input_elements,
+                    (
+                        f"input_common_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
+                        if "-" in key
+                        else f"input_common_{key.lower().replace(' ', '_')}"
+                    ),
+                    None,
+                )
+                if key in ["Evergreen Timeout", "Analysis window", "Distributor ID"]:
+                    self.input_text(By.CSS_SELECTOR, element_selector, value)
+                else:
+                    self.click_element(By.CSS_SELECTOR, element_selector)
+
+        except Exception as e:
+            self.error_log(e)
 
     def input_udp(self, input_options):
         program_selection_mode_flag = bool()

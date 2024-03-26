@@ -9,7 +9,6 @@ from configure_tasks import ConfigureTask
 from login import Login
 from webdriver_method import WebDriverMethod
 from datetime import datetime
-import sys
 
 
 preset_name = {

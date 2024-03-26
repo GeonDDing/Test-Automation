@@ -2,7 +2,7 @@ import requests
 import json
 
 
-class DeleteNewChannels:
+class ResotreConfiguration:
     base_url = "http://10.1.0.145/hms/rest/"
     headers = {"Content-type": "application/json", "Accept": "text/plain"}
     device_data = {"ip": "127.0.0.1", "groupid": 1, "roleid": 1, "name": "Local Device"}
@@ -85,8 +85,8 @@ class DeleteNewChannels:
 
 
 if __name__ == "__main__":
-    test = DeleteNewChannels()
-    test.delelte_channels()
-    test.restore_device()
-    # test.delete_groups()
-    # test.delete_roles()
+    api = ResotreConfiguration()
+    api.restore_device()
+    api.delete_groups()
+    api.delete_roles()
+    api.delelte_channels()

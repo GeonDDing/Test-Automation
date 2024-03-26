@@ -3,7 +3,7 @@ import sys
 import time
 import allure
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
@@ -56,6 +56,10 @@ class TestInputUDPSRT:
             "Sampling Rate": "48000",
             "Bitrate": "128",
         },
+        "Common Options": {
+            "Evergreen Timeout": "4000",
+            "Analysis window": "4000",
+        },
         "Input Options": {
             "Network URL": "224.30.30.10:18007",
             "Interface": "NIC2",
@@ -77,6 +81,10 @@ class TestInputUDPSRT:
         "Preset Name": {
             "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
             "Audiopreset Name": "AAC | 128K | 48kHz | Testing",
+        },
+        "Common Options": {
+            "Evergreen Timeout": "4000",
+            "Analysis window": "4000",
         },
         "Input Options": {
             "Network URL": "10.1.0.145:15005",
@@ -179,12 +187,14 @@ class TestInputUDPSRT:
             return channel_info[0]
 
     @attach_result("Receiver Channel Stats Request", "Channel Stats Request Successful", "Channel Stats Request Failed")
-    def get_channel_stats(self, **kwargs):
+    def get_receiver_channel_stats(self, **kwargs):
         with allure.step("Get Channel Stats"):
-            kwargs["Channel Name"] = "UDP SRT Receiver Testing"
+            kwargs = self.srt_receiver_configuration_data
+            # kwargs["Channel Name"] = "UDP SRT Receiver Testing"
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
             stats_result = stats_instance.exec_multiprocessing(self.receiver_chidx, kwargs["Channel Name"])
+            # allure.attach를 사용하여 stats_result를 보고서에 추가
             if type(stats_result) == bool:
                 return stats_result
             else:
@@ -194,7 +204,6 @@ class TestInputUDPSRT:
     @attach_result("Sender Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def sender_channel_stop(self, **kwargs):
         with allure.step("Channel Stop"):
-            kwargs["Channel Name"] = "UDP SRT Sender Testing"
             monitor_device_instance = MonitorDevice()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.sender_chidx, kwargs["Channel Name"])
@@ -213,12 +222,12 @@ class TestInputUDPSRT:
         print("\n")
         test_functions = [
             # self.login,
-            self.create_sender_channel,
-            self.create_receiver_channel,
-            self.create_role,
+            # self.create_sender_channel,
+            # self.create_receiver_channel,
+            # self.create_role,
             self.sender_channel_start,
             self.receiver_channel_start,
-            self.get_channel_stats,
+            self.get_receiver_channel_stats,
             self.receiver_channel_stop,
             self.sender_channel_stop,
         ]

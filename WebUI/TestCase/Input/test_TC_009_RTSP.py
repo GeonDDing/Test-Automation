@@ -3,7 +3,7 @@ import sys
 import time
 import allure
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
@@ -47,6 +47,10 @@ class TestInputRTSP:
             "Channels": "Stereo",
             "Sampling Rate": "48000",
             "Bitrate": "128",
+        },
+        "Common Options": {
+            "Evergreen Timeout": "4000",
+            "Analysis window": "4000",
         },
         "Input Options": {
             "SDP File": "rtsp://admin:mek@10.1.1.156/profile3/media.smp",
