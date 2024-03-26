@@ -30,7 +30,7 @@ class Login(WebDriverMethod):
             if self.driver.current_url == "http://10.1.0.145/hms/index.php":
                 return True
             else:
-                self.error_log(e)
+                self.error_log(f"Login failed error {e}")
                 return False
 
 

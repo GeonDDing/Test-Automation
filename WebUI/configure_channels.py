@@ -22,26 +22,21 @@ class ConfigureChannel(ConfigureRole):
             self.click_element(By.XPATH, MainMenuElements().configure)
             self.click_element(By.XPATH, MainMenuElements().configure_channels)
             time.sleep(1)  # Wait for the 'CONFIGURE - Channel' page to load
-
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Error moving to channel configuration page {e}")
             return False
 
     def pre_channel_configuration(self):
         try:
             self.navigate_to_configure_channels()
-            # Click the button to add a new channel or find an existing one
             if not self.find_exist_channel():
                 self.click_element(By.CSS_SELECTOR, self.channel_elements.channel_add_button)
-                # Wait for the time to move to the channel creation page.
                 self.step_log(f"Channel(Input, Backup Source, Output) Creation")
-                self.info_log(f"Channel : {self.channel_configure_data['Channel Name']}")
             else:
                 self.step_log(f"Channel(Input, Backup Source, Output) Modification")
-                self.info_log(f"Channel : {self.channel_configure_data['Channel Name']}")
-
+            self.info_log(f"Channel : {self.channel_configure_data['Channel Name']}")
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Pre channel configuration setting error {e}")
             return False
 
     def post_channel_configuration(self):
@@ -61,9 +56,8 @@ class ConfigureChannel(ConfigureRole):
                 return False
             else:
                 return True
-
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Post channel configuration setting error {e}")
             return False
 
     def setup_input(self):
@@ -82,15 +76,14 @@ class ConfigureChannel(ConfigureRole):
                 "SMPTE ST 2110": configure_input.input_smpte_st_2110,
                 "NDI": configure_input.input_ndi,
             }
-
             if self.channel_configure_data["Input Type"] in input_functions:
                 input_return = input_functions[self.channel_configure_data["Input Type"]](
                     self.channel_configure_data["Input Options"]
                 )
                 configure_input.input_common(self.channel_configure_data["Common Options"])
                 return input_return
-
         except Exception as e:
+            self.error_log(f"Input configuration setting error {e}")
             return False
 
     def setup_backups_source(self):
@@ -148,24 +141,20 @@ class ConfigureChannel(ConfigureRole):
                 )
 
         except Exception as e:
-            self.error_log(e)
+            self.error_log(f"Output configuration setting error {e}")
             return False
 
     def find_exist_channel(self):
         try:
             channel_table = self.find_web_element(By.XPATH, self.channel_elements.channel_table)
-
             for tr in channel_table.find_elements(By.XPATH, ".//tbody/tr"):
                 column_value = tr.find_elements(By.TAG_NAME, "td")[0].get_attribute("innerText")
-
                 if column_value == self.channel_configure_data["Channel Name"]:
                     tr.find_elements(By.TAG_NAME, "td")[0].click()
                     time.sleep(0.5)
                     return True  # channel found and clicked
-
             return False  # channel not found
-
         except NoSuchElementException as e:
-            self.error_log(e)
+            self.error_log(f"Not found exist channel {e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False

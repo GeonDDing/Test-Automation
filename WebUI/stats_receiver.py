@@ -75,8 +75,8 @@ class StatsReceiver:
                     time.sleep(2)
 
             except Exception as e:
-                WebLog.error_log(f"An error occurred: {e}")
-                formatted_messages.append(f"An error occurred: {e}")
+                WebLog.error_log(f"stats receiver error {e}")
+                formatted_messages.append(f"stats receiver error {e}")
 
     def exec_multiprocessing(self, chidx, channel_name):
         stats_queue = Queue()

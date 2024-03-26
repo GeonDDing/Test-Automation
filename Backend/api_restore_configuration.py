@@ -13,7 +13,7 @@ class ResotreConfiguration:
         )
 
         if put_reponse.status_code == 200:
-            print(put_reponse.json())
+            print(f"Restore Device : {put_reponse.json()}")
         else:
             print(f"{put_reponse.status_code}, {put_reponse.text}")
 

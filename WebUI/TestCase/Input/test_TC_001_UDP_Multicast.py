@@ -190,8 +190,8 @@ class TestInputUDPMulticast:
         print("\n")
         test_functions = [
             # self.login,
-            # self.create_videopreset,
-            # self.create_audiopreset,
+            self.create_videopreset,
+            self.create_audiopreset,
             self.create_channel,
             self.create_role,
             self.create_group,

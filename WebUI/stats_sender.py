@@ -85,5 +85,5 @@ class StatsSender:
                             break
                         time.sleep(2)
         except Exception as e:
-            WebLog.error_log(e)
+            WebLog.error_log(f"Stats sender error {e}")
             queue.put("quit")

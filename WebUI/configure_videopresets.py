@@ -19,7 +19,7 @@ class ConfigureVideopreset(WebDriverMethod):
             time.sleep(1)
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Error moving to vdieo preset configuration page  {e}")
             return False
 
     def configure_videopreset(self, preset_name, videopreset_options=None):
@@ -67,7 +67,7 @@ class ConfigureVideopreset(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Video preset setting error {e}")
             return False
 
     def find_exist_videopreset(self, videopreset_name):
@@ -84,6 +84,6 @@ class ConfigureVideopreset(WebDriverMethod):
             return False  # Videopreset not found
 
         except NoSuchElementException as e:
-            self.error_log(e)
+            self.error_log(f"Not found exist video preset {e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False

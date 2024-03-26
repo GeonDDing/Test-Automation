@@ -18,7 +18,7 @@ class ConfigureDevice(WebDriverMethod):
             time.sleep(1)  # Wait for the 'CONFIGURE - Device' page to load
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Error moving to device configuration page  {e}")
             return False
 
     def configure_device(self, device_name, ip_address, group_name, role_name):
@@ -58,7 +58,7 @@ class ConfigureDevice(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Deivce setting error {e}")
             return False, e
 
     def find_exist_device(self, device_name):
@@ -75,6 +75,6 @@ class ConfigureDevice(WebDriverMethod):
             return False  # Device not found
 
         except NoSuchElementException as e:
-            self.error_log(e)
+            self.error_log(f"Not found exist device {e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False

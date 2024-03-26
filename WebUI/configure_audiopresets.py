@@ -19,7 +19,7 @@ class ConfigureAudiopreset(WebDriverMethod):
             time.sleep(1)
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Error moving to audio preset configuration page  {e}")
 
     def configure_audiopreset(self, preset_name, audiopreset_options=None):
         try:
@@ -74,7 +74,7 @@ class ConfigureAudiopreset(WebDriverMethod):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Audio preset setting error {e}")
             return False
 
     def find_exist_audiopreset(self, audiopreset_name):
@@ -90,6 +90,6 @@ class ConfigureAudiopreset(WebDriverMethod):
             return False  # audiopreset not found
 
         except NoSuchElementException as e:
-            self.error_log(e)
+            self.error_log(f"Not found exist audio preset {e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False

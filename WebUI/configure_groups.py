@@ -18,7 +18,7 @@ class ConfigureGroup(ConfigureDevice):
             time.sleep(1)  # Wait for the 'CONFIGURE - Group' page to load
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Error moving to group configuration page  {e}")
             return False
 
     def configure_group(self, group_name, domain):
@@ -55,7 +55,7 @@ class ConfigureGroup(ConfigureDevice):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Group setting error {e}")
             return False
 
     def find_exist_group(self, group_name):
@@ -72,6 +72,6 @@ class ConfigureGroup(ConfigureDevice):
             return False  # Group not found
 
         except NoSuchElementException as e:
-            self.error_log(e)
+            self.error_log(f"Not found exist group {e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False

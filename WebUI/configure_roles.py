@@ -24,7 +24,7 @@ class ConfigureRole(ConfigureDevice):
             time.sleep(1)  # Wait for the 'CONFIGURE Role' page to load
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Error moving to role configuration page  {e}")
             return False
 
     def configure_role(self, role_name, *channel_name):
@@ -58,7 +58,7 @@ class ConfigureRole(ConfigureDevice):
                             EC.element_to_be_clickable((By.CSS_SELECTOR, self.role_elements.role_remove_button))
                         )
                         self.click_element(By.CSS_SELECTOR, self.role_elements.role_remove_button)
-                    except Exception as e:
+                    except:
                         self.info_log("Channel removal complete")
                         break
                 if channel_name:
@@ -71,7 +71,7 @@ class ConfigureRole(ConfigureDevice):
             return True
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"Role setting error {e}")
             return False
 
     def find_exist_role(self, role_name):
@@ -87,6 +87,6 @@ class ConfigureRole(ConfigureDevice):
             return False  # Role not found
 
         except NoSuchElementException as e:
-            self.error_log(e)
+            self.error_log(f"Not found exist role {e}")
             # Handle the error as needed, for example, return False or raise the exception again
             return False
