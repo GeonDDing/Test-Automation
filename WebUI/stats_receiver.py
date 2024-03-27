@@ -11,7 +11,7 @@ from Common.convert_date import ConvertDate
 
 class StatsReceiver:
     def stats_receiver(self, queue, formatted_messages):
-        is_evergreen_flag = True
+        is_evergreen = True
         prev_source_layer = prev_source_stat = None
         while True:
             try:
@@ -55,20 +55,20 @@ class StatsReceiver:
                                 else f"   #{chidx} Source changed (source:#0)"
                             )
 
-                    if source_stat == "-1" and is_evergreen_flag:
+                    if source_stat == "-1" and is_evergreen:
                         WebLog.info_log(f"   #{chidx} Evergreen occurred.")
                         formatted_messages.append(f"   #{chidx} Evergreen occurred.")
-                        is_evergreen_flag = False
+                        is_evergreen = False
                     elif source_stat != "-1":
-                        if not is_evergreen_flag and prev_source_stat != source_stat:
+                        if not is_evergreen and prev_source_stat != source_stat:
                             WebLog.info_log(f"   #{chidx} Evergreen recovered.")
                             formatted_messages.append(f"   #{chidx} Evergreen recovered.")
-                            is_evergreen_flag = True
+                            is_evergreen = True
                         WebLog.exec_log(
-                            f'   #{chidx} {"Primary" if source_layer == "0" else "Backup" if source_layer == "2" else "Replaced"} Source : {get_stats[4]}'
+                            f' #{chidx} {"Primary" if source_layer == "0" else "Backup" if source_layer == "2" else "Replaced"} Source : {get_stats[4]}'
                         )
                         formatted_messages.append(
-                            f'{ConvertDate.convert_date()[1]}:    #{chidx} {"Primary" if source_layer == "0" else "Backup" if source_layer == "2" else "Replaced"} Source : {get_stats[4]}'
+                            f'{ConvertDate.convert_date()[1]}: #{chidx} {"Primary" if source_layer == "0" else "Backup" if source_layer == "2" else "Replaced"} Source : {get_stats[4]}'
                         )
 
                     prev_source_layer, prev_source_stat = source_layer, source_stat
@@ -112,7 +112,7 @@ class StatsReceiver:
         #     parse_message.append(message + "\n")
 
         if formatted_messages:
-            return True
+            return True, formatted_messages
         else:
             return str(config_channel_name)[2:-2]
 

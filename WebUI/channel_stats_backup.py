@@ -20,11 +20,11 @@ class ChannelStats:
 
     def channel_stats(self, chidx):
         output_info = None
-        is_evergreen_flag = True
+        is_evergreen = True
         prev_source_layer = prev_source_stat = None
         max_retries = 3
         start_time = time.time()
-
+        chidx = f"0{chidx+1:02}"
         while max_retries > 0:
             if time.time() - start_time > 60:
                 break
@@ -34,7 +34,7 @@ class ChannelStats:
 
             except requests.exceptions.ConnectionError as e:
                 max_retries -= 1
-                WebLog.warning_log(f"Retrying in 5 seconds...")
+                WebLog.warning_log(f"#{chidx} Retrying in 5 seconds...")
 
                 if max_retries == 0:
                     WebLog.error_log("A connection error occurred and terminated.")
@@ -47,7 +47,7 @@ class ChannelStats:
 
                 except elementTree.ParseError as e:
                     max_retries -= 1
-                    WebLog.warning_log(f"Retrying in 5 seconds...")
+                    WebLog.warning_log(f"#{chidx} Retrying in 5 seconds...")
 
                     if max_retries == 0:
                         WebLog.error_log("Terminated because xml could not be parsed.")
@@ -91,13 +91,13 @@ class ChannelStats:
                                 else f"   #{chidx+1:03} Source changed (source:#0)"
                             )
 
-                    if source_stat == "-1" and is_evergreen_flag:
+                    if source_stat == "-1" and is_evergreen:
                         WebLog.exec_log(f"   #{chidx+1:03} Evergreen occurred.")
-                        is_evergreen_flag = False
+                        is_evergreen = False
                     elif source_stat != "-1":
-                        if not is_evergreen_flag and prev_source_stat != source_stat:
+                        if not is_evergreen and prev_source_stat != source_stat:
                             WebLog.exec_log(f"   #{chidx+1:03} Evergreen recovered.")
-                            is_evergreen_flag = True
+                            is_evergreen = True
                         WebLog.exec_log(
                             f'   #{chidx+1:03} {"Primary" if source_layer == "0" else "Backup" if source_layer == "2" else "Replaced"} Source : {output_info}'
                         )

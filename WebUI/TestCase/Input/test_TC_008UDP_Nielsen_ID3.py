@@ -59,12 +59,12 @@ class TestInputUDPNielsenID3:
         "Common Options": {
             "Evergreen Timeout": "4000",
             "Analysis window": "4000",
+            "Nielsen ID3": True,
+            "Distributor ID": "MEXL-Jacob",
         },
         "Input Options": {
             "Network URL": "224.30.30.10:12000",
             "Interface": "NIC2",
-            "Nielsen ID3": True,
-            "Distributor ID": "MEXL-Jacob",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
@@ -132,8 +132,13 @@ class TestInputUDPNielsenID3:
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
             stats_result = stats_instance.exec_multiprocessing(self.chidx, kwargs["Channel Name"])
-            if type(stats_result) == bool:
-                return stats_result
+            if type(stats_result[0]) == bool:
+                allure.attach(
+                    "\n".join(stats_result[1]),
+                    name="Channel Stats Info",
+                    attachment_type=allure.attachment_type.TEXT,
+                )
+                return stats_result[0]
             else:
                 MonitorDevice().channel_stop(self.chidx, stats_result)
                 return False

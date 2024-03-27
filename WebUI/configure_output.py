@@ -27,7 +27,7 @@ class ConfigureOutput(WebDriverMethod):
     def add_output(self, output_type):
         try:
             # Channel edit 페이지에서 Add Output button 이 나타날 때 까지 기다림
-            WebDriverWait(self.driver, 3).until(
+            WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_add_output_button))
             )
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_add_output_button)
@@ -72,50 +72,54 @@ class ConfigureOutput(WebDriverMethod):
         try:
             self.sub_step_log(f"Select Video, Audio Profile")
             # Output 설정 페이지에서 Stream edit icon이 나타날 때 까지 기다림
-            WebDriverWait(self.driver, 3).until(
+            WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_edit_stream))
             )
             # Video preset 을 선택하기 위에 Stream edit icon 을 클릭
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
             # Video preset 셀렉터가 나타날 때 까지 기다림
-            WebDriverWait(self.driver, 3).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_video_profile))
-            )
-            # Vidoe preset 선택
-            self.select_element(
-                By.CSS_SELECTOR,
-                self.output_elements.output_video_profile,
-                "text",
-                videopreset_name,
-            )
-            self.option_log(f"Videopreset : {videopreset_name}")
-            # 선택한 Video preset 을 저장
-            self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
+            if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_video_profile):
+                # Vidoe preset 선택
+                self.select_element(
+                    By.CSS_SELECTOR,
+                    self.output_elements.output_video_profile,
+                    "text",
+                    videopreset_name,
+                )
+                self.option_log(f"Videopreset : {videopreset_name}")
+                # 선택한 Video preset 을 저장
+                self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
             # TS UDP/IP, RTSP, RTMP ... Add Stream button이 없는 경우 Edit Icon을 클릭해서 Video, Audio 를 같은 스트림에서 선택해야
             try:
-                WebDriverWait(self.driver, 3).until(
+                WebDriverWait(self.driver, 5).until(
                     EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_add_stream_button))
                 )
                 # Add Stream button exist case
                 self.click_element(By.CSS_SELECTOR, self.output_elements.output_add_stream_button)
             except:
                 # Add Stream button not exist case
-                self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
+                if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream):
+                    self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
             # Audio preset 셀렉터가 나타날 때 까지 기다림
-            WebDriverWait(self.driver, 3).until(
+            WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_audio_profile))
             )
-            # Audio preset 선택
-            self.select_element(
-                By.CSS_SELECTOR,
-                self.output_elements.output_audio_profile,
-                "text",
-                audiopreset_name,
-            )
-            self.option_log(f"Audiopreset : {audiopreset_name}")
-            # 선택한 Audio preset 저장
+            if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_audio_profile):
+                # Audio preset 선택
+                self.select_element(
+                    By.CSS_SELECTOR,
+                    self.output_elements.output_audio_profile,
+                    "text",
+                    audiopreset_name,
+                )
+                self.option_log(f"Audiopreset : {audiopreset_name}")
+                # 선택한 Audio preset 저장
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
-            # Stream edit icon이 나타날 때 (Output 설정 페이지가 보여짐) 까지 기다림
+            """
+            Stream edit icon이 나타날 때 (Output 설정 페이지가 보여짐) 까지 기다림
+            기다리지 않으면 페이지가 열리지 않은 상태에서 Output option 을 입력하려고 시도하기 때문에
+            no such element 에러가 발생함
+            """
             self.wait_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
             return True
         except Exception as e:
@@ -125,7 +129,7 @@ class ConfigureOutput(WebDriverMethod):
     def output_options_handler(self, output_type, output_options, select_options_key, click_options_key):
         try:
             # Output option settings
-            self.sub_step_log(f"{output_type} Input Configuration Setting")
+            self.sub_step_log(f"{output_type} Output Configuration Setting")
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
                 element_selector = self.get_element_selector(output_type, key)
@@ -137,8 +141,15 @@ class ConfigureOutput(WebDriverMethod):
                         else:
                             self.select_element(By.XPATH, element_selector, "text", value)
                     elif any(keyword in key for keyword in click_options_key):
-                        self.click_element(By.XPATH, element_selector)
+                        if not self.is_checked(By.XPATH, element_selector):
+                            self.click_element(By.XPATH, element_selector)
                     else:
+                        # UDP output subtitle 설정
+                        if key in ["DVB-Teletext-Track", "DVB-Subtitle-Track"]:
+                            sutitle_element_selector = self.get_element_selector(output_type, f"{key}_checkbox")
+                            if not self.is_checked(By.XPATH, f"{sutitle_element_selector}"):
+                                self.click_element(By.XPATH, f"{sutitle_element_selector}")
+                                time.sleep(1)
                         self.input_text(By.XPATH, element_selector, value)
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_save_button)
             return True

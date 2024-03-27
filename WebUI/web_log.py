@@ -1,6 +1,3 @@
-import sys
-import os
-
 from Common.convert_date import ConvertDate
 
 

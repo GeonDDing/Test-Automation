@@ -8,7 +8,7 @@
 2. --clean-alluredir : 테스트 실행 전 테스트 결과 데이터 파일 삭제하고 테스트 실행
 
 ### 전체 테스트케이스 실행 ###
-pytest --color=no --capture=tee-sys --tb=no --alluredir=allure-results --allure-no-capture --clean-alluredir
+pytest --color=no --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
 
 ### Backend API 테스트케이스만 실행 ###
 pytest ./Backend/TestCase --color=no --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
@@ -24,4 +24,4 @@ allure generate --single-file ./allure-report
 pytest ./Backend/TestCase/test_api_sources.py --color=no --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
 pytest ./WebUI/TestCase/Input/test_UDP_Multicast.py --color=no --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
 pytest ./WebUI/TestCase/Input/test_TC_000_Login.py ./WebUI/TestCase/Input/test_TC_004_UDP_Service_Name.py --color=no --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
-pytest ./WebUI/TestCase/Input/test_TC_000_Login.py ./WebUI/TestCase/Input/test_TC_007_UDP_Multiple_Audio_PID.py --color=no --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
+pytest ./WebUI/TestCase/Input/test_TC_000_Login.py ./WebUI/TestCase/Input/test_TC_012_SDI.py -color=no --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir

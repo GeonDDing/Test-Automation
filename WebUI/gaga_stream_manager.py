@@ -45,7 +45,7 @@ class GaGaStreamManager(WebDriverMethod):
             time.sleep(1)
             # Find stream table
             try:
-                WebDriverWait(self.driver, 3).until(
+                WebDriverWait(self.driver, 5).until(
                     EC.presence_of_element_located((By.XPATH, self.gaga_elements.gaga_stream_in_table))
                 )
                 stream_in_table = self.find_web_element(By.XPATH, self.gaga_elements.gaga_stream_in_table)

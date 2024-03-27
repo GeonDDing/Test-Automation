@@ -71,7 +71,7 @@ class WebDriverMethod(WebDriverInit, WebLog):
             return False
 
     def accept_alert(self):
-        WebDriverWait(self.driver, 3).until(EC.alert_is_present())
+        WebDriverWait(self.driver, 5).until(EC.alert_is_present())
         alert = Alert(self.driver)
         alert.accept()
 

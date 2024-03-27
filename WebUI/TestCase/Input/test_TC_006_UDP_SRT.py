@@ -195,8 +195,13 @@ class TestInputUDPSRT:
             # Required parameters: Channel Index
             stats_result = stats_instance.exec_multiprocessing(self.receiver_chidx, kwargs["Channel Name"])
             # allure.attach를 사용하여 stats_result를 보고서에 추가
-            if type(stats_result) == bool:
-                return stats_result
+            if type(stats_result[0]) == bool:
+                allure.attach(
+                    "\n".join(stats_result[1]),
+                    name="Channel Stats Info",
+                    attachment_type=allure.attachment_type.TEXT,
+                )
+                return stats_result[0]
             else:
                 MonitorDevice().channel_stop(self.receiver_chidx, stats_result)
                 return False
@@ -222,9 +227,9 @@ class TestInputUDPSRT:
         print("\n")
         test_functions = [
             # self.login,
-            # self.create_sender_channel,
-            # self.create_receiver_channel,
-            # self.create_role,
+            self.create_sender_channel,
+            self.create_receiver_channel,
+            self.create_role,
             self.sender_channel_start,
             self.receiver_channel_start,
             self.get_receiver_channel_stats,

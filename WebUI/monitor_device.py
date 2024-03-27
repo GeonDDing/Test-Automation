@@ -9,12 +9,14 @@ from selenium.common.exceptions import (
 from webdriver_method import WebDriverMethod
 from web_elements import MonitorDeviceElements, MainMenuElements
 import time
+import requests
 
 
 class MonitorDevice(WebDriverMethod):
     def __init__(self, chindex=0):
         self.monitor_device_elements = MonitorDeviceElements()
         self.chindex = chindex
+        self.url = self.base_url_parser()
 
     def find_channel_index(self, channel_name):
         try:
@@ -26,74 +28,116 @@ class MonitorDevice(WebDriverMethod):
                     break
 
         except NoSuchElementException as e:
-            self.error_log(e)
+            self.error_log(f"Not found exist monitoring channel {e}")
             return False
 
     def channel_start(self, channel_name):
-        self.click_element(By.XPATH, MainMenuElements().monitor)
-        self.find_channel_index(channel_name)
+        is_channel_start = bool()
         self.channel_start_element = self.monitor_device_elements.monitor_device_channel_start.format(self.chindex)
         self.channel_stop_element = self.monitor_device_elements.monitor_device_channel_stop.format(self.chindex)
+        self.click_element(By.XPATH, MainMenuElements().monitor)
+        self.find_channel_index(channel_name)
+        self.click_element(By.XPATH, self.monitor_device_elements.monitor_device_page)
         try:
-            self.click_element(By.XPATH, self.monitor_device_elements.monitor_device_page)
-
-            WebDriverWait(self.driver, 5).until(
+            WebDriverWait(self.driver, 3).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
             )
             self.click_element(By.CSS_SELECTOR, self.channel_start_element)
             self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Starting")
-            try:
-                WebDriverWait(self.driver, 70).until(
-                    EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
-                )
-                return True, self.chindex
-
-            except:
-                # Action when startup fails after clicking the channel start button.
-                self.info_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure")
+            channel_start_time = time.time()
+            while True:
                 try:
-                    WebDriverWait(self.driver, 70).until(
+                    channel_status = requests.get(f"{self.url}:900{self.chindex}/stats")
+                    if channel_status.status_code == 200:
+                        is_channel_start = True
+                        break
+                except requests.exceptions.ConnectionError as e:
+                    if time.time() - channel_start_time > 70:
+                        self.warning_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure")
+                        is_channel_start = False, None
+                        break
+                time.sleep(2)
+            if not is_channel_start:
+                try:
+                    WebDriverWait(self.driver, 3).until(
                         EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
                     )
                     self.click_element(By.CSS_SELECTOR, self.channel_start_element)
                     self.info_log(f"#00{int(self.chindex+1)} {channel_name} Channel Restarting")
-                    try:
-                        WebDriverWait(self.driver, 30).until(
-                            EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
-                        )
-                        return True, self.chindex
+                    channel_restart_time = time.time()
+                    while True:
+                        try:
+                            channel_status = requests.get(f"{self.url}:900{self.chindex}/stats")
+                            if channel_status.status_code == 200:
+                                break
+                        except requests.exceptions.ConnectionError as e:
+                            if time.time() - channel_restart_time > 70:
+                                self.warning_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure")
+                                return False, None
+                        time.sleep(2)
+                except Exception as e:
+                    self.error_log(f"The channel failed to restart because an error occurred. {e}")
+            return True, self.chindex
+        except Exception as e:
+            self.error_log(f"The channel failed to start because an error occurred. {e}")
 
-                    except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
-                        self.error_log(e)
-                        return False, None
+        # try:
+        #     WebDriverWait(self.driver, 5).until(
+        #         EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
+        #     )
+        #     self.click_element(By.CSS_SELECTOR, self.channel_start_element)
+        #     self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Starting")
+        #     try:
+        #         WebDriverWait(self.driver, 5).until(
+        #             EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
+        #         )
+        #         return True, self.chindex
 
-                except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
-                    self.error_log(e)
-                    return False, None
+        #     except:
+        #         # Action when startup fails after clicking the channel start button.
+        #         self.warning_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure")
+        #         try:
+        #             WebDriverWait(self.driver, 70).until(
+        #                 EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
+        #             )
+        #             self.click_element(By.CSS_SELECTOR, self.channel_start_element)
+        #             self.info_log(f"#00{int(self.chindex+1)} {channel_name} Channel Restarting")
+        #             try:
+        #                 WebDriverWait(self.driver, 5).until(
+        #                     EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
+        #                 )
+        #                 return True, self.chindex
 
-        except:
-            self.info_log(f"#00{int(self.chindex+1)} {channel_name} Channel Restarting")
-            self.click_element(By.CSS_SELECTOR, self.channel_stop_element)
-            self.accept_alert()
+        #             except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
+        #                 self.error_log(f"Stop button is not clickable {e}")
+        #                 return False, None
 
-            try:
-                WebDriverWait(self.driver, 30).until(
-                    EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
-                )
-                self.click_element(By.CSS_SELECTOR, self.channel_start_element)
-                try:
-                    WebDriverWait(self.driver, 30).until(
-                        EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
-                    )
-                    return True, self.chindex
+        #         except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
+        #             self.error_log(f"Start button is not clickable {e}")
+        #             return False, None
 
-                except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
-                    self.error_log(e)
-                    return False, None
+        # except:
+        #     self.info_log(f"#00{int(self.chindex+1)} {channel_name} Channel Restarting")
+        #     self.click_element(By.CSS_SELECTOR, self.channel_stop_element)
+        #     self.accept_alert()
+        #     try:
+        #         WebDriverWait(self.driver, 70).until(
+        #             EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
+        #         )
+        #         self.click_element(By.CSS_SELECTOR, self.channel_start_element)
+        #         try:
+        #             WebDriverWait(self.driver, 5).until(
+        #                 EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
+        #             )
+        #             return True, self.chindex
 
-            except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
-                self.error_log(e)
-                return False, None
+        #         except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
+        #             self.error_log(f"Stop button is not clickable {e}")
+        #             return False, None
+
+        #     except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
+        #         self.error_log(f"Start button is not clickable {e}")
+        #         return False, None
 
     def channel_stop(self, chindex, channel_name):
         self.channel_start_element = self.monitor_device_elements.monitor_device_channel_start.format(chindex)
@@ -105,18 +149,29 @@ class MonitorDevice(WebDriverMethod):
             self.step_log(f"#00{int(chindex+1)} {channel_name} Channel Stoping")
             self.click_element(By.CSS_SELECTOR, self.channel_stop_element)
             self.accept_alert()
-            try:
-                WebDriverWait(self.driver, 20).until(
-                    EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
-                )
-                return True
+            # try:
+            #     WebDriverWait(self.driver, 20).until(
+            #         EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
+            #     )
+            #     return True
 
-            except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
-                self.error_log(e)
-                return False
+            # except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
+            #     self.error_log(f"Start button is not clickable {e}")
+            #     return False
+            channel_stop_time = time.time()
+            while True:
+                try:
+                    channel_status = requests.get(f"{self.url}:900{self.chindex}/stats")
+                    if channel_status.status_code == 200:
+                        if time.time() - channel_stop_time > 70:
+                            self.warning_log(f"#00{int(self.chindex+1)} {channel_name} Channel Stop Failure")
+                            return False
+                except requests.exceptions.ConnectionError as e:
+                    return True
+                time.sleep(2)
 
         except (TimeoutException, ElementNotInteractableException, AttributeError) as e:
-            self.error_log(e)
+            self.error_log(f"The channel failed to stop because an error occurred. {e}")
             return False
 
     def channel_stop_all(self):
