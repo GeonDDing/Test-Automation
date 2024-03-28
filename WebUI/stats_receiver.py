@@ -65,7 +65,7 @@ class StatsReceiver:
                             formatted_messages.append(f"   #{chidx} Evergreen recovered.")
                             is_evergreen = True
                         WebLog.exec_log(
-                            f' #{chidx} {"Primary" if source_layer == "0" else "Backup" if source_layer == "2" else "Replaced"} Source : {get_stats[4]}'
+                            f'#{chidx} {"Primary" if source_layer == "0" else "Backup" if source_layer == "2" else "Replaced"} Source : {get_stats[4]}'
                         )
                         formatted_messages.append(
                             f'{ConvertDate.convert_date()[1]}: #{chidx} {"Primary" if source_layer == "0" else "Backup" if source_layer == "2" else "Replaced"} Source : {get_stats[4]}'
@@ -84,7 +84,7 @@ class StatsReceiver:
         manager = Manager()
         formatted_messages = manager.list()
         config_channel_name = manager.list()
-
+        time.sleep(10)
         sender_process = Process(
             target=sender.stats_sender,
             args=(

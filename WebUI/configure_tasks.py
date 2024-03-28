@@ -10,7 +10,7 @@ class ConfigureTask(WebDriverMethod):
     def __init__(self):
         self.task_elements = ConfigureTaskElements()
 
-    def navigate_to_configure_tasks(self):
+    def access_configure_tasks(self):
         try:
             # Navigate to the 'Configure devices' page
             self.click_element(By.XPATH, MainMenuElements().configure)
@@ -24,7 +24,7 @@ class ConfigureTask(WebDriverMethod):
     def configure_task(self, task_name, taks_options=None):
         try:
             self.step_log("Task Creation")
-            self.navigate_to_configure_tasks()
+            self.access_configure_tasks()
 
             # Click the button to add a new task or find an existing one
             if not self.find_exist_task(task_name):

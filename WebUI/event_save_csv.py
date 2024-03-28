@@ -7,14 +7,14 @@ import time
 
 
 class ConfigureDevice(WebDriverMethod):
-    def navigate_to_event(self):
+    def access_event(self):
         # Navigate to the 'Configure devices' page
         self.click_element(By.XPATH, MainMenuElements().events)
         time.sleep(1)  # Wait for the 'CONFIGURE - device' page to load
 
     def event_delete_all(self):
         # Navigate to the 'Configure devices' page
-        self.navigate_to_event()
+        self.access_event()
         try:
             self.info_log("Delete event")
 

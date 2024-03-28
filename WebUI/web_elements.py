@@ -638,3 +638,19 @@ class MonitorDeviceElements:
     moniotr_device_replace_source = 'a[id="open-source-replacement-menu"][title="Show replace input source menu"]'
     ### XAPTH ###
     monitor_device_page = '//*[@id="dev_info0"]/div[2]/table/tbody/tr/td[1]/div[2]/table'
+
+class SettingsNetworkingElements:
+    networking_netconfig_selector = 'select[name="netconfigmenuid"]'
+    networking_configure_button = 'input.grey-button[type="submit"][value="Configure"]'
+    networking_advanced_configure_button = 'input.grey-button[type="submit"][value="Configure"]'
+    networking_advanced_dns_servers = 'input[type="text"][name="dnssrv"]'
+    networking_advanced_default_gateway = 'input[type="text"][name="dgw"]'
+    networking_advanced_configure_apply_button = 'input.grey-button[type="submit"][value="Apply"]'
+    networking_services_snmp_configure_button = '/html/body/div/div[4]/div/div[1]/div[2]/table/tbody/tr[3]/td/center/div[1]/div/table/tbody/tr[14]/td/form/input[3]'
+    networking_services_snmp_host = 'input[type="text"][name="snmp_host1"]'
+    networking_services_snmp_port = 'input[type="text"][name="snmp_portnum1"]'
+    networking_services_snmp_community = 'input[type="text"][name="snmp_community1"]'
+    networking_services_snmp_apply_button = 'input.grey-button[type="submit"][value="Apply"]'
+    networking_services_smb_list = 'select[id="mount_id"][name="mount_id"]'
+    networking_services_smb_mount_button = 'input.grey-button[type="submit"][name="cifsmount"][value="Mount"]'
+    networking_services_smb_path = 'input[type="text"][name="mountsrc"]'

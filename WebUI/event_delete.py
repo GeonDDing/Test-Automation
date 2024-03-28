@@ -9,7 +9,7 @@ import time
 class ConfigureDevice(WebDriverMethod):
     # def __init__(self):
     # self.event_elements
-    def navigate_to_event(self):
+    def access_event(self):
         try:
             # Navigate to the 'EVENTS' page
             self.click_element(By.XPATH, MainMenuElements().events)
@@ -19,7 +19,7 @@ class ConfigureDevice(WebDriverMethod):
 
     def event_delete_all(self):
         # Navigate to the 'EVENTS' page
-        self.navigate_to_event()
+        self.access_event()
         try:
             self.info_log("Delete event")
             time.sleep(1)

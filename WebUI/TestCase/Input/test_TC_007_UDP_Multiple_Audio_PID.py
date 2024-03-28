@@ -142,7 +142,7 @@ class TestInputUDPMultipleAudioPID:
             if type(stats_result[0]) == bool:
                 allure.attach(
                     "\n".join(stats_result[1]),
-                    name="Channel Stats Info",
+                    name="Channel Stats Infomation",
                     attachment_type=allure.attachment_type.TEXT,
                 )
                 return stats_result[0]

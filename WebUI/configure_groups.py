@@ -10,7 +10,7 @@ class ConfigureGroup(ConfigureDevice):
     def __init__(self):
         self.group_elements = ConfigureGroupElements()
 
-    def navigate_to_configure_groups(self):
+    def access_configure_groups(self):
         try:
             # Navigate to the 'Configure Groups' page
             self.click_element(By.XPATH, MainMenuElements().configure)
@@ -18,12 +18,12 @@ class ConfigureGroup(ConfigureDevice):
             time.sleep(1)  # Wait for the 'CONFIGURE - Group' page to load
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(f"Error moving to group configuration page  {e}")
+            self.error_log(f"An error occurred while accessing the group configuration page  {e}")
             return False
 
     def configure_group(self, group_name, domain):
         try:
-            self.navigate_to_configure_groups()
+            self.access_configure_groups()
             # Click the button to add a new group or find an existing one
             if not self.find_exist_group(group_name):
                 self.step_log(f"Group Creation")

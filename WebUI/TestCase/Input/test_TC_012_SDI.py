@@ -12,7 +12,7 @@ from stats_receiver import StatsReceiver
 from login import Login
 
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("SDI Input")]
 
 
 @allure.parent_suite("WebUI Test Automation")
@@ -151,7 +151,7 @@ class TestInputSDI:
             if type(stats_result[0]) == bool:
                 allure.attach(
                     "\n".join(stats_result[1]),
-                    name="Channel Stats Info",
+                    name="Channel Stats Infomation",
                     attachment_type=allure.attachment_type.TEXT,
                 )
                 return stats_result[0]
@@ -172,8 +172,8 @@ class TestInputSDI:
         print("\n")
         test_functions = [
             # self.login,
-            # self.create_channel,
-            # self.create_role,
+            self.create_channel,
+            self.create_role,
             self.channel_start,
             self.get_channel_stats,
             self.channel_stop,

@@ -11,7 +11,7 @@ from stats_receiver import StatsReceiver
 from login import Login
 
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTSP Input")]
 
 
 @allure.parent_suite("WebUI Test Automation")
@@ -124,7 +124,7 @@ class TestInputRTSP:
             if type(stats_result[0]) == bool:
                 allure.attach(
                     "\n".join(stats_result[1]),
-                    name="Channel Stats Info",
+                    name="Channel Stats Infomation",
                     attachment_type=allure.attachment_type.TEXT,
                 )
                 return stats_result[0]

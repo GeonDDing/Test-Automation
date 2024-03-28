@@ -10,7 +10,7 @@ class ConfigureVideopreset(WebDriverMethod):
     def __init__(self):
         self.videopreset_elements = ConfigureVideopresetElements()
 
-    def navigate_to_configure_videopresets(self):
+    def access_configure_videopresets(self):
         try:
             # Navigate to the 'Configure videopresets' page
             self.click_element(By.XPATH, MainMenuElements().configure)
@@ -19,12 +19,12 @@ class ConfigureVideopreset(WebDriverMethod):
             time.sleep(1)
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(f"Error moving to vdieo preset configuration page  {e}")
+            self.error_log(f"An error occurred while accessing the vdieo preset configuration page  {e}")
             return False
 
     def configure_videopreset(self, preset_name, videopreset_options=None):
         try:
-            self.navigate_to_configure_videopresets()
+            self.access_configure_videopresets()
 
             # Click the button to add a new videopreset or find an existing one
             if not self.find_exist_videopreset(preset_name):

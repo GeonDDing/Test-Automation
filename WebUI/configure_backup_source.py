@@ -159,6 +159,7 @@ class ConfigureBackupSource(WebDriverMethod):
                 if playlist_type == "Local Static Playlist":
                     self.select_element(
                         By.CSS_SELECTOR,
+                        "text",
                         self.backup_source_elements.backup_source_playlist_playlists_name,
                     )
                 elif playlist_type == "Clipcasting XML" or playlist_type == "Remote Media Asset Directory":

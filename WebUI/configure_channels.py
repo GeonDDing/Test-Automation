@@ -16,19 +16,19 @@ class ConfigureChannel(ConfigureRole):
         self.channel_elements = ConfigureChannelElements()
         self.channel_configure_data = kwagrs
 
-    def navigate_to_configure_channels(self):
+    def access_configure_channels(self):
         try:
             # Navigate to the 'Configure channels' page
             self.click_element(By.XPATH, MainMenuElements().configure)
             self.click_element(By.XPATH, MainMenuElements().configure_channels)
             time.sleep(1)  # Wait for the 'CONFIGURE - Channel' page to load
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(f"Error moving to channel configuration page {e}")
+            self.error_log(f"An error occurred while accessing the channel configuration page {e}")
             return False
 
     def pre_channel_configuration(self):
         try:
-            self.navigate_to_configure_channels()
+            self.access_configure_channels()
             if not self.find_exist_channel():
                 self.click_element(By.CSS_SELECTOR, self.channel_elements.channel_add_button)
                 self.step_log(f"Channel(Input, Backup Source, Output) Creation")
@@ -91,7 +91,7 @@ class ConfigureChannel(ConfigureRole):
             set_backupsource_result = bool()
             if not self.channel_configure_data["Backup Source Type"] == None:
                 configure_backup_source = ConfigureBackupSource(self.channel_configure_data["Backup Source Type"])
-                self.navigate_to_configure_channels()
+                self.access_configure_channels()
                 time.sleep(1)
                 self.find_exist_channel()
 

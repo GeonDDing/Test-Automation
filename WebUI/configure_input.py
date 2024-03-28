@@ -63,12 +63,12 @@ class ConfigureInput(WebDriverMethod):
                 else:
                     self.option_log(f"{key} : {value}")
                 # 각 옵션 별 Element 를 만들어 주기 위한 함수
-                element_selector = self.get_element_selector(input_type, key)
+                input_element = self.get_input_elements(input_type, key)
                 # any는 하나라도 True 이면 결과가 True 이기 때문에 keyword 가 select_options_key 리스트에 존재하면 True를 반환하고 Element 선택
                 if any(keyword in key for keyword in select_options_key):
                     # UDP 입력 Program Selection Mode 에서 Service Name을 선택 할 시 Analysis Window의 값이 4000ms 이상이어야 함
                     if "Program Selection Mode" in key:
-                        self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
+                        self.select_element(By.CSS_SELECTOR, input_element, "text", value)
                         try:
                             self.accept_alert()
                             time.sleep(1)
@@ -81,14 +81,14 @@ class ConfigureInput(WebDriverMethod):
                         except:
                             pass
                     else:
-                        self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
+                        self.select_element(By.CSS_SELECTOR, input_element, "text", value)
                 elif any(keyword in key for keyword in input_options_key):
                     # Audio ID 가 4개 이상 (0~32개 까지 가능)
                     if key == "Audio ID" and isinstance(input_options["Audio ID"], dict):
                         # Audio ID 가 #01 부터 순차적으로 입력 됨
                         for index, sub_value in enumerate(value.values()):
                             if index == 0:
-                                self.input_text(By.CSS_SELECTOR, element_selector, sub_value)
+                                self.input_text(By.CSS_SELECTOR, input_element, sub_value)
                             else:
                                 self.input_text(
                                     By.CSS_SELECTOR,
@@ -100,12 +100,12 @@ class ConfigureInput(WebDriverMethod):
                                 time.sleep(0.5)
                     # Element input text
                     else:
-                        self.input_text(By.CSS_SELECTOR, element_selector, value)
+                        self.input_text(By.CSS_SELECTOR, input_element, value)
                 # Input option 중 체크박스 선택은 True, False 로 주기 때문에 Value가 Boolean 타입이면서 True일 때 클릭
                 else:
                     if isinstance(value, bool) and value:
-                        if not self.is_checked(By.CSS_SELECTOR, element_selector):
-                            self.click_element(By.CSS_SELECTOR, element_selector)
+                        if not self.is_checked(By.CSS_SELECTOR, input_element):
+                            self.click_element(By.CSS_SELECTOR, input_element)
             return True
 
         except Exception as e:
@@ -169,7 +169,7 @@ class ConfigureInput(WebDriverMethod):
             "URI",
             "Recurring the last N files",
         ]
-        select_options_key = ["Type"]
+        select_options_key = ["Type", "Playlists name"]
         return self.input_options_handler(input_type, input_options, input_options_key, select_options_key)
 
     def input_smpte_st_2110(self, input_options):
@@ -189,10 +189,10 @@ class ConfigureInput(WebDriverMethod):
         select_options_key = []
         return self.input_options_handler(input_type, input_options, input_options_key, select_options_key)
 
-    def get_element_selector(self, input_type, key):
-        element_selector = getattr(
+    def get_input_elements(self, input_type, key):
+        element = getattr(
             self.input_elements,
             f"input_{input_type.lower()}_{key.replace(' ', '_').replace('-', '_').lower()}",
             None,
         )
-        return element_selector
+        return element

@@ -10,7 +10,7 @@ class ConfigureAudiopreset(WebDriverMethod):
     def __init__(self):
         self.audiopreset_elements = ConfigureAudiopresetElements()
 
-    def navigate_to_configure_audiopresets(self):
+    def access_configure_audiopresets(self):
         try:
             # Navigate to the 'Configure audiopresets' page
             self.click_element(By.XPATH, MainMenuElements().configure)
@@ -19,11 +19,11 @@ class ConfigureAudiopreset(WebDriverMethod):
             time.sleep(1)
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(f"Error moving to audio preset configuration page  {e}")
+            self.error_log(f"An error occurred while accessing the audio preset configuration page  {e}")
 
     def configure_audiopreset(self, preset_name, audiopreset_options=None):
         try:
-            self.navigate_to_configure_audiopresets()
+            self.access_configure_audiopresets()
             # Click the button to add a new audiopreset or find an existing one
             if not self.find_exist_audiopreset(preset_name):
                 self.step_log(f"Audio Preset Creation")

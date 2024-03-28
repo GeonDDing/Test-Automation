@@ -16,7 +16,7 @@ class ConfigureRole(ConfigureDevice):
     def __init__(self):
         self.role_elements = ConfigureRoleElements()
 
-    def navigate_to_configure_roles(self):
+    def access_configure_roles(self):
         try:
             # Navigate to the 'Configure Roles' page
             self.click_element(By.XPATH, MainMenuElements().configure)
@@ -24,13 +24,13 @@ class ConfigureRole(ConfigureDevice):
             time.sleep(1)  # Wait for the 'CONFIGURE Role' page to load
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(f"Error moving to role configuration page  {e}")
+            self.error_log(f"An error occurred while accessing the role configuration page  {e}")
             return False
 
     def configure_role(self, role_name, *channel_name):
         try:
             MonitorDevice().channel_stop_all()
-            self.navigate_to_configure_roles()
+            self.access_configure_roles()
 
             # Click the button to add a new role or find an existing one
             if not self.find_exist_role(role_name):

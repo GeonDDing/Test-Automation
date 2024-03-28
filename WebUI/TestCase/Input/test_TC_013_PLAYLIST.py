@@ -6,17 +6,18 @@ import allure
 # sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
+from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
 
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Playlist Input")]
 
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestInputUDPNielsenID3:
+class TestInputPlaylist:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -29,8 +30,8 @@ class TestInputUDPNielsenID3:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP Nielsen ID3 Input Testing",
-        "Input Type": "UDP",
+        "Channel Name": "Playlist Input Testing",
+        "Input Type": "Playlist",
         "Output Type": "UDP",
         "Backup Source Type": None,
         "Preset Name": {
@@ -59,16 +60,14 @@ class TestInputUDPNielsenID3:
         "Common Options": {
             "Evergreen Timeout": "4000",
             "Analysis window": "4000",
-            "Nielsen ID3": True,
-            "Distributor ID": "MEXL-Jacob",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:12000",
-            "Interface": "NIC2",
+            "Type": "Local Static Playlist",
+            "Playlists name": "bbb",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19009",
+            "Primary Output Port": "18001",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -116,6 +115,18 @@ class TestInputUDPNielsenID3:
             # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
 
+    @attach_result("Device Creation", "Device Creation Successful", "Device Creation Failed")
+    def create_device(self, **kwargs):
+        with allure.step("Group Configuration"):
+            device_instance = ConfigureDevice()
+            # Required parameters: Device Name, Device IP, Group Name, Role Name
+            return device_instance.configure_device(
+                kwargs["Device Options"]["Name"],
+                kwargs["Device Options"]["IP"],
+                kwargs["Group Options"]["Name"],
+                kwargs["Role Options"]["Name"],
+            )
+
     @attach_result("Channel Start", "Channel Start Successful", "Channel Start Failed")
     def channel_start(self, **kwargs):
         with allure.step("Channel Start"):
@@ -150,9 +161,9 @@ class TestInputUDPNielsenID3:
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
-    @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Nielsen ID3 Input")
-    def test_input_udp_nielsen_id3(self):
+    @allure.sub_suite("Playlist")
+    @allure.title("Playlist Input")
+    def test_input_sdi(self):
         print("\n")
         test_functions = [
             # self.login,

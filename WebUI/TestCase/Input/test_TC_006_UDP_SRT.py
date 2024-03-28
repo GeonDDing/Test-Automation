@@ -169,7 +169,7 @@ class TestInputUDPSRT:
             # Required parameters: Channel Name
             channel_info = monitor_device_instance.channel_start(kwargs["Channel Name"])
             self.sender_chidx = channel_info[1]
-
+            time.sleep(10)
             if StatsReceiver().exec_multiprocessing(self.sender_chidx, kwargs["Channel Name"]):
                 return channel_info[0]
             else:
@@ -194,11 +194,11 @@ class TestInputUDPSRT:
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
             stats_result = stats_instance.exec_multiprocessing(self.receiver_chidx, kwargs["Channel Name"])
-            # allure.attach를 사용하여 stats_result를 보고서에 추가
+            # Multiprocessing 함수에서 출력하는 로그는 stdout에 안나오기 때문에 report에 직접 추가
             if type(stats_result[0]) == bool:
                 allure.attach(
                     "\n".join(stats_result[1]),
-                    name="Channel Stats Info",
+                    name="Channel Stats Infomation",
                     attachment_type=allure.attachment_type.TEXT,
                 )
                 return stats_result[0]
