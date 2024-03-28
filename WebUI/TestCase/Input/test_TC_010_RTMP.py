@@ -48,7 +48,7 @@ class TestInputTRMP:
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "14005",
+            "Primary Output Port": "15010",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -203,7 +203,7 @@ class TestInputTRMP:
             return monitor_device_instance.channel_stop(self.output_chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("RTMP")
-    @allure.title("RTMP Input")
+    @allure.title("RTMP")
     def test_input_rtmp(self):
         print("\n")
         test_functions = [

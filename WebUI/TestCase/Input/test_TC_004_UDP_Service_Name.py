@@ -57,8 +57,8 @@ class TestInputUDPServiceName:
             "Bitrate": "128",
         },
         "Common Options": {
-            "Evergreen Timeout": "4000",
-            "Analysis window": "4000",
+            "Evergreen Timeout": "6000",
+            "Analysis window": "6000",
         },
         "Input Options": {
             "Network URL": "224.30.30.10:19006",
@@ -68,7 +68,7 @@ class TestInputUDPServiceName:
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19008",
+            "Primary Output Port": "15004",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -151,7 +151,7 @@ class TestInputUDPServiceName:
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Service Name Input")
+    @allure.title("Service Name")
     def test_input_udp_service_name(self):
         print("\n")
         test_functions = [

@@ -11,18 +11,26 @@ from stats_receiver import StatsReceiver
 from login import Login
 
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("HLS Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
 
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestInputHLS:
+class TestInputUDPNielsenID3:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
         "Role Options": {"Name": "UI Testing Role"},
-        "Channel Name": "HLS Input Testing",
-        "Input Type": "HLS",
+        "Group Options": {
+            "Name": "UI Testing Group",
+            "Domain": "Live",
+        },
+        "Device Options": {
+            "Name": "Local Device",
+            "IP": "127.0.0.1",
+        },
+        "Channel Name": "UDP Nielsen ID3 Input Testing",
+        "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
         "Preset Name": {
@@ -51,13 +59,16 @@ class TestInputHLS:
         "Common Options": {
             "Evergreen Timeout": "4000",
             "Analysis window": "4000",
+            "Nielsen ID3": True,
+            "Distributor ID": "MEXL-Jacob",
         },
         "Input Options": {
-            "URL": "http://10.1.0.145/hera/hls_stream/master.m3u8",
+            "Network URL": "224.30.30.10:12000",
+            "Interface": "NIC2",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "15011",
+            "Primary Output Port": "15008",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -91,17 +102,12 @@ class TestInputHLS:
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
         channel_instance.pre_channel_configuration()
-        output_result = bool()
-        input_result = bool()
         with allure.step("Create output"):
-            output_result = channel_instance.setup_output()
+            channel_instance.setup_output()
             time.sleep(1)
         with allure.step("Create input"):
-            input_result = channel_instance.setup_input()
-        if output_result and input_result:
-            return channel_instance.post_channel_configuration()
-        else:
-            return False
+            channel_instance.setup_input()
+        return channel_instance.post_channel_configuration()
 
     @attach_result("Role Creation", "Role Creation Successful", "Role Creation Failed")
     def create_role(self, **kwargs):
@@ -144,9 +150,9 @@ class TestInputHLS:
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
-    @allure.sub_suite("HTTP/HLS")
-    @allure.title("HLS")
-    def test_input_hls(self):
+    @allure.sub_suite("UDP/IP")
+    @allure.title("Nielsen ID3")
+    def test_input_udp_nielsen_id3(self):
         print("\n")
         test_functions = [
             # self.login,
@@ -159,8 +165,3 @@ class TestInputHLS:
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
-
-
-if __name__ == "__main__":
-    exec_tc = TestInputHLS()
-    exec_tc.test_input_hls()

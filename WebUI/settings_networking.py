@@ -45,36 +45,18 @@ class SettingsNetworking(WebDriverMethod):
                 for key, value in services_options.items():
                     self.option_log(f"{key} : {value}")
                     services_element = self.get_networking_elements(netconfig, key)
+                    # Network Services 에는 Text 입력만 있음
+                    # SNMP 는 추후에 사용하게되면 UI에서 값 세팅만 자동화 (MIB Browser 를 사용해야해서 자동화 불가)
                     if any(keyword in key for keyword in input_options_key):
-                        if key in ["Host", "Port", "Community"]:
-                            if self.wait_element(
-                                By.XPATH, self.networking_elements.networking_services_snmp_configure_button
-                            ):
-                                print(services_element)
-                                # services_element = self.get_networking_elements("Services SNMP", key)
+                        if key == "SMB path":
+                            if not self.find_web_element(By.CSS_SELECTOR, services_element).get_attribute("value"):
+                                self.input_text(By.CSS_SELECTOR, services_element, value)
                                 self.click_element(
-                                    By.XPATH,
-                                    self.networking_elements.networking_services_snmp_configure_button,
+                                    By.CSS_SELECTOR,
+                                    self.networking_elements.networking_services_smb_mount_button,
                                 )
-                            if self.wait_element(By.CSS_SELECTOR, services_element):
-                                self.select_element(By.CSS_SELECTOR, services_element, "text", value)
-                            self.click_element(
-                                By.CSS_SELECTOR,
-                                self.networking_elements.networking_services_snmp_apply_button,
-                            )
-                        # elif key == "SMB path":
-                        #     if not self.find_web_element(By.CSS_SELECTOR, services_element).get_attribute("value"):
-                        #         self.input_text(By.CSS_SELECTOR, services_element, value)
-                        #         self.click_element(
-                        #             By.CSS_SELECTOR,
-                        #             self.networking_elements.networking_services_smb_mount_button,
-                        #         )
-                        # else:
-                        #     self.input_text(By.CSS_SELECTOR, services_element, value)
-                    else:
-                        self.click_element(By.CSS_SELECTOR, services_element)
         except Exception as e:
-            print(e)
+            self.error_log(f"Networking {netconfig} setting error {e}")
 
     def get_networking_elements(self, netconfig, key):
         elements = getattr(

@@ -70,7 +70,7 @@ class TestInputUDPMulticast:
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19005",
+            "Primary Output Port": "15001",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -190,7 +190,7 @@ class TestInputUDPMulticast:
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Multicast Input")
+    @allure.title("Multicast")
     def test_input_udp_multiple_audio_pid(self):
         print("\n")
         test_functions = [

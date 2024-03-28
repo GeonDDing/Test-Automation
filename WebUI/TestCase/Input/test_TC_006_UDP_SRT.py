@@ -66,7 +66,7 @@ class TestInputUDPSRT:
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.145",
-            "Primary Output Port": "15005",
+            "Primary Output Port": "15006",
             "Primary Network Interface": "NIC1",
             "SRT": True,
         },
@@ -87,13 +87,13 @@ class TestInputUDPSRT:
             "Analysis window": "4000",
         },
         "Input Options": {
-            "Network URL": "10.1.0.145:15005",
+            "Network URL": "10.1.0.145:15006",
             "Interface": "NIC1",
             "Enable SRT": True,
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19008",
+            "Primary Output Port": "15006",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -222,7 +222,7 @@ class TestInputUDPSRT:
             return monitor_device_instance.channel_stop(self.receiver_chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP SRT Input")
+    @allure.title("SRT")
     def test_input_udp_srt(self):
         print("\n")
         test_functions = [

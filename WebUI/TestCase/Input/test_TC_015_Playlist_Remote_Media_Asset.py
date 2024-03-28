@@ -13,12 +13,12 @@ from settings_networking import SettingsNetworking
 from login import Login
 
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Clipcasting XML Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Remote Media Asset Input")]
 
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestInputClipcastingXML:
+class TestInputRemoteMediaAsset:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -31,7 +31,7 @@ class TestInputClipcastingXML:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "Playlist Input Testing",
+        "Channel Name": "Remote Media Asset Input Testing",
         "Input Type": "Playlist",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -63,12 +63,12 @@ class TestInputClipcastingXML:
             "Analysis window": "4000",
         },
         "Input Options": {
-            "Type": "Clipcasting XML",
-            "Playlists name": "mnt/10.1.0.10/mek/Streams/tmp/tmp_jacob/Clipcasting.xml",
+            "Type": "Remote Media Asset Directory",
+            "Playlists name": "mnt/10.1.0.10/mek/Streams/tmp/tmp_jacob/in",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "18001",
+            "Primary Output Port": "15015",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -179,17 +179,17 @@ class TestInputClipcastingXML:
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("Playlist")
-    @allure.title("Clipcasting XML Input")
-    def test_input_clipcasting_xml(self):
+    @allure.title("Remote Media Asset")
+    def test_input_remote_media_asset(self):
         print("\n")
         test_functions = [
             # self.login,
             self.set_network,
-            # self.create_channel,
-            # self.create_role,
-            # self.channel_start,
-            # self.get_channel_stats,
-            # self.channel_stop,
+            self.create_channel,
+            self.create_role,
+            self.channel_start,
+            self.get_channel_stats,
+            self.channel_stop,
         ]
 
         for test_step_func in test_functions:

@@ -57,7 +57,7 @@ class TestInputRTSP:
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "14005",
+            "Primary Output Port": "15009",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -140,7 +140,7 @@ class TestInputRTSP:
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("RTP/RTSP")
-    @allure.title("RTP/RTSP Input")
+    @allure.title("RTSP")
     def test_input_udp_rtsp(self):
         print("\n")
         test_functions = [

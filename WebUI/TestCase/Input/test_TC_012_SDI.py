@@ -71,7 +71,7 @@ class TestInputSDI:
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "12001",
+            "Primary Output Port": "15012",
             "Primary Network Interface": "NIC1",
             "DVB-Teletext-Track": "nor",
         },
@@ -167,7 +167,7 @@ class TestInputSDI:
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("SDI")
-    @allure.title("SDI Input")
+    @allure.title("SDI")
     def test_input_sdi(self):
         print("\n")
         test_functions = [

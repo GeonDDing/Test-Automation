@@ -67,7 +67,7 @@ class TestInputPlaylist:
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "18001",
+            "Primary Output Port": "15013",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -162,7 +162,7 @@ class TestInputPlaylist:
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("Playlist")
-    @allure.title("Playlist Input")
+    @allure.title("Playlist")
     def test_input_sdi(self):
         print("\n")
         test_functions = [

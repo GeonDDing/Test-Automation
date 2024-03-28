@@ -68,7 +68,7 @@ class TestInputUDPProgramNumber:
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "19007",
+            "Primary Output Port": "15003",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -151,7 +151,7 @@ class TestInputUDPProgramNumber:
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("UDP/IP Prpgram Number Input")
+    @allure.title("Prpgram Number")
     def test_input_udp_program_number(self):
         print("\n")
         test_functions = [

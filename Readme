@@ -18,7 +18,6 @@ pytest ./WebUI/TestCase/Input --capture=tee-sys --tb=no --alluredir=allure-resul
 
 ### Allure 레포트 생성 ###
 allure serve --host 127.0.0.1 --port 8081 ./allure-results
-allure generate --single-file ./allure-report
 
 ### 단일 파일 테스트케이스만 실행 ###
 pytest ./Backend/TestCase/test_api_sources.py --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
