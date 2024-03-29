@@ -158,8 +158,11 @@ class ConfigureInput(WebDriverMethod):
             "VBI lines",
         ]
         select_options_key = [
-            "Teletext Language Tag",
             "Video format",
+            "Time code type",
+            "Timed text source",
+            "Teletext character set",
+            "Teletext Language Tag",
         ]
         return self.input_options_handler(input_type, input_options, input_options_key, select_options_key)
 

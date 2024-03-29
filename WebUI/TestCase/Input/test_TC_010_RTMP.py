@@ -19,7 +19,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTMP Input")
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
 class TestInputTRMP:
-    rtmp_input_configuration_data = {
+    rtmp_receiver_configuration_data = {
         "ID": "admin",
         "PW": "admin",
         "Role Options": {"Name": "UI Testing Role"},
@@ -31,7 +31,7 @@ class TestInputTRMP:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "RTMP Input Testing",
+        "Channel Name": "RTMP Receiver Testing",
         "Input Type": "RTMP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -54,9 +54,9 @@ class TestInputTRMP:
         "Backup Source Options": None,
     }
 
-    rtmp_output_configuration_data = {
+    rtmp_sender_configuration_data = {
         "Role Options": {"Name": "UI Testing Role"},
-        "Channel Name": "RTMP Output Testing",
+        "Channel Name": "RTMP Sender Testing",
         "Input Type": "UDP",
         "Output Type": "RTMP",
         "Backup Source Type": None,
@@ -105,46 +105,55 @@ class TestInputTRMP:
             login_instance = Login()
             return login_instance.login(kwargs["ID"], kwargs["PW"])
 
-    @attach_result("RTMP Input Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
+    @attach_result("RTMP Receiver Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
     def create_rtmp_input_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
-        channel_instance.pre_channel_configuration()
+        is_pre = channel_instance.pre_channel_configuration()
         with allure.step("Create output"):
-            channel_instance.setup_output()
+            is_output = channel_instance.setup_output()
             time.sleep(1)
         with allure.step("Create input"):
-            channel_instance.setup_input()
-        return channel_instance.post_channel_configuration()
+            is_input = channel_instance.setup_input()
+        with allure.step("Create Channel"):
+            is_post = channel_instance.post_channel_configuration()
+        if all((is_pre, is_output, is_input, is_post)):
+            return True
+        else:
+            return False
 
-    @attach_result("RTMP Output Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
+    @attach_result("RTMP Sender Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
     def create_rtmp_output_channel(self, **kwargs):
-        kwargs = self.rtmp_output_configuration_data
+        kwargs = self.rtmp_sender_configuration_data
         channel_instance = ConfigureChannel(**kwargs)
-        channel_instance.pre_channel_configuration()
+        is_pre = channel_instance.pre_channel_configuration()
         with allure.step("Create output"):
-            channel_instance.setup_output()
+            is_output = channel_instance.setup_output()
             time.sleep(1)
         with allure.step("Create input"):
-            channel_instance.setup_input()
-        return channel_instance.post_channel_configuration()
+            is_input = channel_instance.setup_input()
+        with allure.step("Create Channel"):
+            is_post = channel_instance.post_channel_configuration()
+        if all((is_pre, is_output, is_input, is_post)):
+            return True
+        else:
+            return False
 
     @attach_result("Role Creation", "Role Creation Successful", "Role Creation Failed")
     def create_role(self, **kwargs):
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
             kwargs["Channel Name"] = [
-                "RTMP Output Testing",
-                "RTMP Input Testing",
+                "RTMP Sender Testing",
+                "RTMP Receiver Testing",
             ]
             # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(
                 kwargs["Role Options"]["Name"], kwargs["Channel Name"][0], kwargs["Channel Name"][1]
             )
 
-    @attach_result("Channel Start", "Channel Start Successful", "Channel Start Failed")
+    @attach_result("RTMP Receiver Channel Start", "Channel Start Successful", "Channel Start Failed")
     def input_channel_start(self, **kwargs):
-        with allure.step("Input Channel Start"):
-            kwargs["Channel Name"] = "RTMP Input Testing"
+        with allure.step("RTMP Receiver Channel Start"):
             monitor_device_instance = MonitorDevice()
             channel_info = list()
             # Required parameters: Channel Name
@@ -152,10 +161,10 @@ class TestInputTRMP:
             self.input_chidx = channel_info[1]
             return channel_info[0]
 
-    @attach_result("Channel Start", "Channel Start Successful", "Channel Start Failed")
+    @attach_result("RTMP Sender Channel Start", "Channel Start Successful", "Channel Start Failed")
     def output_channel_start(self, **kwargs):
-        with allure.step("Output Channel Start"):
-            kwargs["Channel Name"] = "RTMP Output Testing"
+        kwargs = self.rtmp_sender_configuration_data
+        with allure.step("RTMP Sender Channel Start"):
             monitor_device_instance = MonitorDevice()
             channel_info = list()
             # Required parameters: Channel Name
@@ -167,10 +176,11 @@ class TestInputTRMP:
             else:
                 return False
 
-    @attach_result("Input Channel Stats Request", "Channel Stats Request Successful", "Channel Stats Request Failed")
+    @attach_result(
+        "RTMP Receiver Channel Stats Request", "Channel Stats Request Successful", "Channel Stats Request Failed"
+    )
     def get_channel_stats(self, **kwargs):
-        with allure.step("Get Channel Stats"):
-            kwargs["Channel Name"] = "RTMP Input Testing"
+        with allure.step("Get RTMP Receiver Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
             stats_result = stats_instance.exec_multiprocessing(self.input_chidx, kwargs["Channel Name"])
@@ -185,18 +195,17 @@ class TestInputTRMP:
                 MonitorDevice().channel_stop(self.input_chidx, stats_result)
                 return False
 
-    @attach_result("RTMP Input Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
+    @attach_result("RTMP Receiver Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def input_channel_stop(self, **kwargs):
-        with allure.step("Input Channel Stop"):
-            kwargs["Channel Name"] = "RTMP Input Testing"
+        with allure.step("RTMP Receiver Channel Stop"):
             monitor_device_instance = MonitorDevice()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.input_chidx, kwargs["Channel Name"])
 
-    @attach_result("RTMP Output Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
+    @attach_result("RTMP Sender Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
     def output_channel_stop(self, **kwargs):
-        with allure.step("Output Channel Stop"):
-            kwargs["Channel Name"] = "RTMP Output Testing"
+        kwargs = self.rtmp_sender_configuration_data
+        with allure.step("RTMP Sender Channel Stop"):
             monitor_device_instance = MonitorDevice()
             start_result = bool()
             # Required parameters: Channel Name
@@ -219,4 +228,4 @@ class TestInputTRMP:
         ]
 
         for test_step_func in test_functions:
-            test_step_func(**self.rtmp_input_configuration_data)
+            test_step_func(**self.rtmp_receiver_configuration_data)

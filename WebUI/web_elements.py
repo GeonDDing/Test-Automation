@@ -184,8 +184,7 @@ class ConfigureInputElements:
     # Playlist Options CSS Selector
     input_playlist_type = 'select[id="/source/fileList/type"][name="/source/fileList/type"]'
     input_playlist_playlists_name = 'select[id="/source/fileList/fileName"][name="/source/fileList/fileName"]'
-    input_playlist_clipcasting_uri = 'input[type="text"][id="/source/fileList/url"][name="/source/fileList/url"]'
-    input_playlist_remote_media_asset_uri = 'input[type="text"][id="/source/fileList/url"][name="/source/fileList/url"]'
+    input_playlist_uri = 'input[type="text"][id="/source/fileList/url"][name="/source/fileList/url"]'
     input_playlist_recurring_the_last_n_files = (
         'input[type="text"][id="/source/fileList/recurring"][name="/source/fileList/recurring"]'
     )
@@ -636,9 +635,8 @@ class MonitorDeviceElements:
     )
     monitor_device_switch_source = 'input[type="button"][id="SwitchSourceBtn{}"][title="Click to toggle switch between primary and backup source"][value="Switch"]'
     moniotr_device_replace_source = 'a[id="open-source-replacement-menu"][title="Show replace input source menu"]'
-    ### XAPTH ###
-    monitor_device_page = '//*[@id="dev_info0"]/div[2]/table/tbody/tr/td[1]/div[2]/table'
 
+  
 class SettingsNetworkingElements:
     networking_netconfig_selector = 'select[name="netconfigmenuid"]'
     networking_configure_button = 'input.grey-button[type="submit"][value="Configure"]'
@@ -646,7 +644,7 @@ class SettingsNetworkingElements:
     networking_advanced_dns_servers = 'input[type="text"][name="dnssrv"]'
     networking_advanced_default_gateway = 'input[type="text"][name="dgw"]'
     networking_advanced_configure_apply_button = 'input.grey-button[type="submit"][value="Apply"]'
-    networking_services_snmp_configure_button = '/html/body/div/div[4]/div/div[1]/div[2]/table/tbody/tr[3]/td/center/div[1]/div/table/tbody/tr[14]/td/form/input[3]'
+    networking_services_snmp_configure_button = '//*[@id="page-body-inner"]/div[1]/div[2]/table/tbody/tr[3]/td/center/div[1]/div/table/tbody/tr[14]/td/form/input[3]'
     networking_services_snmp_host = 'input[type="text"][name="snmp_host1"]'
     networking_services_snmp_port = 'input[type="text"][name="snmp_portnum1"]'
     networking_services_snmp_community = 'input[type="text"][name="snmp_community1"]'

@@ -13,7 +13,7 @@ from settings_networking import SettingsNetworking
 from login import Login
 
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Remote Media Asset Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Playlist Input")]
 
 
 @allure.parent_suite("WebUI Test Automation")
@@ -31,7 +31,7 @@ class TestInputRemoteMediaAsset:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "Remote Media Asset Input Testing",
+        "Channel Name": "Playlist Remote Media Asset Testing",
         "Input Type": "Playlist",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -75,9 +75,6 @@ class TestInputRemoteMediaAsset:
         "Networking": {
             "Services Options": {
                 "SMB path": "smb://mek:mediaExcel5@10.1.0.10/mek",
-                "SNMP Host": "10.1.0.220",
-                "SNMP Port": "162",
-                "SNMP Community": "public",
             },
         },
     }
@@ -115,15 +112,18 @@ class TestInputRemoteMediaAsset:
     @attach_result("Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
-        with allure.step("Create Channel"):
-            channel_instance.pre_channel_configuration()
-            time.sleep(1)
+        is_pre = channel_instance.pre_channel_configuration()
         with allure.step("Create output"):
-            channel_instance.setup_output()
+            is_output = channel_instance.setup_output()
             time.sleep(1)
         with allure.step("Create input"):
-            channel_instance.setup_input()
-        return channel_instance.post_channel_configuration()
+            is_input = channel_instance.setup_input()
+        with allure.step("Create Channel"):
+            is_post = channel_instance.post_channel_configuration()
+        if all((is_pre, is_output, is_input, is_post)):
+            return True
+        else:
+            return False
 
     @attach_result("Role Creation", "Role Creation Successful", "Role Creation Failed")
     def create_role(self, **kwargs):

@@ -27,7 +27,6 @@ class SettingsNetworking(WebDriverMethod):
             "SNMP Port",
             "SNMP Community",
         ]
-        print(services_options)
         try:
             self.sub_step_log(f"Networking {netconfig} Settings")
             if self.wait_element(By.CSS_SELECTOR, self.networking_elements.networking_netconfig_selector):
@@ -55,6 +54,7 @@ class SettingsNetworking(WebDriverMethod):
                                     By.CSS_SELECTOR,
                                     self.networking_elements.networking_services_smb_mount_button,
                                 )
+            return True
         except Exception as e:
             self.error_log(f"Networking {netconfig} setting error {e}")
 

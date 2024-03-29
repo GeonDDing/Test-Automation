@@ -1,8 +1,7 @@
-
 {
 	"http_method": "put",
 	"data": {
-		"ip": "10.1.1.178",
+		"ip": "10.1.0.145",
 		"groupid": 1,
 		"roleid": 1,
 		"name": "API PUT Device"

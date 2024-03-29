@@ -30,7 +30,7 @@ class TestInputPlaylist:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "Playlist Input Testing",
+        "Channel Name": "Playlist Testing",
         "Input Type": "Playlist",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -100,13 +100,18 @@ class TestInputPlaylist:
     @attach_result("Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
-        channel_instance.pre_channel_configuration()
+        is_pre = channel_instance.pre_channel_configuration()
         with allure.step("Create output"):
-            channel_instance.setup_output()
+            is_output = channel_instance.setup_output()
             time.sleep(1)
         with allure.step("Create input"):
-            channel_instance.setup_input()
-        return channel_instance.post_channel_configuration()
+            is_input = channel_instance.setup_input()
+        with allure.step("Create Channel"):
+            is_post = channel_instance.post_channel_configuration()
+        if all((is_pre, is_output, is_input, is_post)):
+            return True
+        else:
+            return False
 
     @attach_result("Role Creation", "Role Creation Successful", "Role Creation Failed")
     def create_role(self, **kwargs):

@@ -17,7 +17,6 @@ class MonitorDevice(WebDriverMethod):
     def find_channel_index(self, channel_name):
         try:
             monitor_table = self.find_web_element(By.XPATH, self.monitor_device_elements.monitor_table)
-
             for idx, tr in enumerate(monitor_table.find_elements(By.XPATH, ".//tbody/tr")):
                 if tr.find_elements(By.TAG_NAME, "td")[3].get_attribute("innerText") == channel_name:
                     self.chindex = idx
@@ -31,7 +30,7 @@ class MonitorDevice(WebDriverMethod):
         is_channel_start = bool()
         self.click_element(By.XPATH, MainMenuElements().monitor)
         self.find_channel_index(channel_name)
-        self.click_element(By.XPATH, self.monitor_device_elements.monitor_device_page)
+        self.click_element(By.XPATH, self.monitor_device_elements.monitor_table)
         self.channel_start_element = self.monitor_device_elements.monitor_device_channel_start.format(self.chindex)
         self.channel_stop_element = self.monitor_device_elements.monitor_device_channel_stop.format(self.chindex)
         try:
@@ -109,7 +108,7 @@ class MonitorDevice(WebDriverMethod):
         try:
             self.click_element(By.XPATH, MainMenuElements().monitor)
             time.sleep(1)
-            self.click_element(By.XPATH, self.monitor_device_elements.monitor_device_page)
+            self.click_element(By.XPATH, self.monitor_device_elements.monitor_table)
             WebDriverWait(self.driver, 2).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_stop_all))
             )

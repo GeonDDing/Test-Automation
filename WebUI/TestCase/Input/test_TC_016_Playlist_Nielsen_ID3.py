@@ -6,17 +6,19 @@ import allure
 # sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
+from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
+from settings_networking import SettingsNetworking
 from login import Login
 
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Playlist Input")]
 
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Input")
-class TestInputUDPProgramNumber:
+class TestInputPlaylistNielsenID3:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -29,8 +31,8 @@ class TestInputUDPProgramNumber:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP Program Number Testing",
-        "Input Type": "UDP",
+        "Channel Name": "Playlist Nielsen ID3 Testing",
+        "Input Type": "Playlist",
         "Output Type": "UDP",
         "Backup Source Type": None,
         "Preset Name": {
@@ -59,19 +61,24 @@ class TestInputUDPProgramNumber:
         "Common Options": {
             "Evergreen Timeout": "4000",
             "Analysis window": "4000",
+            "Nielsen ID3": True,
+            "Distributor ID": "Playlist ID3",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:19006",
-            "Interface": "NIC2",
-            "Program Selection Mode": "Program number",
-            "Program Number": "1010",
+            "Type": "Local Static Playlist",
+            "Playlists name": "bbb",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "15003",
+            "Primary Output Port": "15016",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
+        "Networking": {
+            "Services Options": {
+                "SMB path": "smb://mek:mediaExcel5@10.1.0.10/mek",
+            },
+        },
     }
 
     @staticmethod
@@ -98,6 +105,12 @@ class TestInputUDPProgramNumber:
             login_instance = Login()
             return login_instance.login(kwargs["ID"], kwargs["PW"])
 
+    @attach_result("Network Setting", "Network Setting Successful", "Network Setting Failed")
+    def set_network(self, **kwargs):
+        with allure.step("SMB Setting"):
+            network_instance = SettingsNetworking()
+            return network_instance.networking_services(kwargs["Networking"]["Services Options"])
+
     @attach_result("Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
@@ -120,6 +133,18 @@ class TestInputUDPProgramNumber:
             role_instance = ConfigureRole()
             # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
+
+    @attach_result("Device Creation", "Device Creation Successful", "Device Creation Failed")
+    def create_device(self, **kwargs):
+        with allure.step("Group Configuration"):
+            device_instance = ConfigureDevice()
+            # Required parameters: Device Name, Device IP, Group Name, Role Name
+            return device_instance.configure_device(
+                kwargs["Device Options"]["Name"],
+                kwargs["Device Options"]["IP"],
+                kwargs["Group Options"]["Name"],
+                kwargs["Role Options"]["Name"],
+            )
 
     @attach_result("Channel Start", "Channel Start Successful", "Channel Start Failed")
     def channel_start(self, **kwargs):
@@ -155,11 +180,13 @@ class TestInputUDPProgramNumber:
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
-    @allure.sub_suite("UDP/IP")
-    @allure.title("Prpgram Number")
-    def test_input_udp_program_number(self):
+    @allure.sub_suite("Playlist")
+    @allure.title("Nielsen ID3")
+    def test_input_clipcasting_xml(self):
         print("\n")
         test_functions = [
+            # self.login,
+            self.set_network,
             self.create_channel,
             self.create_role,
             self.channel_start,
@@ -169,8 +196,3 @@ class TestInputUDPProgramNumber:
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
-
-
-if __name__ == "__main__":
-    test = TestInputUDPProgramNumber()
-    test.test_input_udp_program_number()

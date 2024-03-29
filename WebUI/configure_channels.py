@@ -35,6 +35,7 @@ class ConfigureChannel(ConfigureRole):
             else:
                 self.step_log(f"Channel(Input, Backup Source, Output) Modification")
             self.info_log(f"Channel : {self.channel_configure_data['Channel Name']}")
+            return True
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
             self.error_log(f"Pre channel configuration setting error {e}")
             return False
