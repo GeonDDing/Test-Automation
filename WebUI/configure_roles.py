@@ -54,7 +54,7 @@ class ConfigureRole(ConfigureDevice):
                 self.step_log(f"Role Modification")
                 while True:
                     try:
-                        WebDriverWait(self.driver, 5).until(
+                        WebDriverWait(self.driver, 2).until(
                             EC.element_to_be_clickable((By.CSS_SELECTOR, self.role_elements.role_remove_button))
                         )
                         self.click_element(By.CSS_SELECTOR, self.role_elements.role_remove_button)

@@ -1,15 +1,10 @@
-import os
-import sys
 import time
 import allure
-
-# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
-
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
 
@@ -29,7 +24,7 @@ class TestInputUDPSRT:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP SRT Sender Testing",
+        "Channel Name": "Input UDP SRT Sender Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -74,7 +69,7 @@ class TestInputUDPSRT:
     }
 
     srt_receiver_configuration_data = {
-        "Channel Name": "UDP SRT Receiver Testing",
+        "Channel Name": "Input UDP SRT Receiver Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -127,12 +122,12 @@ class TestInputUDPSRT:
     def create_sender_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
         is_pre = channel_instance.pre_channel_configuration()
-        with allure.step("Create output"):
+        with allure.step("Output Options Setup"):
             is_output = channel_instance.setup_output()
             time.sleep(1)
-        with allure.step("Create input"):
+        with allure.step("Input Options Setup"):
             is_input = channel_instance.setup_input()
-        with allure.step("Create Channel"):
+        with allure.step("Channel Creation Finalization"):
             is_post = channel_instance.post_channel_configuration()
         if all((is_pre, is_output, is_input, is_post)):
             return True
@@ -146,19 +141,23 @@ class TestInputUDPSRT:
         kwargs = self.srt_receiver_configuration_data
         channel_instance = ConfigureChannel(**kwargs)
         is_pre = channel_instance.pre_channel_configuration()
-        with allure.step("Create output"):
+        with allure.step("Output Options Setup"):
             is_output = channel_instance.setup_output()
             time.sleep(1)
-        with allure.step("Create input"):
+        with allure.step("Input Options Setup"):
             is_input = channel_instance.setup_input()
-        with allure.step("Create Channel"):
+        with allure.step("Channel Creation Finalization"):
             is_post = channel_instance.post_channel_configuration()
         if all((is_pre, is_output, is_input, is_post)):
             return True
         else:
             return False
 
-    @attach_result("Role Creation", "Role Creation Successful", "Role Creation Failed")
+    @attach_result(
+        "Role Creation",
+        "Role Creation Successful",
+        "Role Creation Failed",
+    )
     def create_role(self, **kwargs):
         kwargs["Channel Name"] = [
             "UDP SRT Sender Testing",
@@ -216,14 +215,22 @@ class TestInputUDPSRT:
                 MonitorDevice().channel_stop(self.receiver_chidx, stats_result)
                 return False
 
-    @attach_result("Sender Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
+    @attach_result(
+        "Sender Channel Stop",
+        "Channel Stop Successful",
+        "Channel Stop Failed",
+    )
     def sender_channel_stop(self, **kwargs):
         with allure.step("Channel Stop"):
             monitor_device_instance = MonitorDevice()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.sender_chidx, kwargs["Channel Name"])
 
-    @attach_result("Receiver Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
+    @attach_result(
+        "Receiver Channel Stop",
+        "Channel Stop Successful",
+        "Channel Stop Failed",
+    )
     def receiver_channel_stop(self, **kwargs):
         with allure.step("Channel Stop"):
             kwargs = self.srt_receiver_configuration_data

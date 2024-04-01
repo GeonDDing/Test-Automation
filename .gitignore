@@ -8,3 +8,4 @@ Common/__pycache__/
 allure-results/
 .DS_Store
 WebUI/TestCase/Input/__pycache__/
+WebUI/TestCase/BackupSource/__pycache__/

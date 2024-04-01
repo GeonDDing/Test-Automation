@@ -1,8 +1,14 @@
-# configure_channels.py
+# configure_backup_source.py
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import (
+    NoSuchElementException,
+    ElementNotVisibleException,
+    TimeoutException,
+)
 from webdriver_method import WebDriverMethod
-from web_elements import ConfigureBackupSourceElements, ConfigureInputElements
+from web_elements import ConfigureInputElements, ConfigureBackupSourceElements
 import time
 
 
@@ -10,213 +16,215 @@ class ConfigureBackupSource(WebDriverMethod):
     def __init__(self, backup_source_type):
         self.backup_source_elements = ConfigureBackupSourceElements()
         self.input_elements = ConfigureInputElements()
-
+        if backup_source_type == "UDP":
+            backup_source_type = "UDP/IP"
+        elif backup_source_type in ["RTP", "RTSP"]:
+            backup_source_type = "RTP/RTSP"
+        elif backup_source_type in ["HTTP", "HLS"]:
+            backup_source_type = "HTTP/HLS"
         try:
+            WebDriverWait(self.driver, 3).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, self.backup_source_elements.backup_soruce_settings_button)
+                )
+            )
+            self.click_element(
+                By.CSS_SELECTOR,
+                self.backup_source_elements.backup_soruce_settings_button,
+            )
+            WebDriverWait(self.driver, 3).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, self.backup_source_elements.backup_source_type))
+            )
             self.select_element(
                 By.CSS_SELECTOR,
                 self.backup_source_elements.backup_source_type,
                 "text",
                 backup_source_type,
             )
+        except TimeoutException as e:
+            self.error_log(f"Not found backup source type selector {e}")
+            return False
 
-        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
-
-    def backup_source_udp(self, backup_source_options):
-        input_relevant_keys = [
-            "Network URL",
-            "SSM host",
-            "Max input Mbps",
-            "Video ID",
-            "Audio ID",
-        ]
-        select_relevant_keys = ["Interface", "Enable HA Mode", "Program Selection Mode"]
-
+    def switch_backup_source(self):
         try:
-            self.sub_step_log("Add UDP Backup Source Settings")
-
-            for key, value in backup_source_options.items():
-                self.option_log(f"{key} : {value}")
-                element_selector = getattr(
-                    self.backup_source_elements,
-                    (
-                        f"input_udp_{''.join(key.replace(' ', '_').replace('-', '_').lower())}"
-                        if "-" in key
-                        else f"input_udp_{key.lower().replace(' ', '_')}"
-                    ),
-                    None,
+            WebDriverWait(self.driver, 3).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, self.backup_source_elements.backup_source_switch_source_button)
                 )
+            )
+            self.click_element(By.CLASS_NAME, self.backup_source_elements.backup_source_switch_source_button)
+            self.accept_alert()
+        except TimeoutException as e:
+            self.error_log(f"Not found backup source switch button {e}")
+            return False
 
-                if any(keyword in key for keyword in select_relevant_keys):
+    def backup_source_options_handler(
+        self, backup_source_type, backup_source_options, backup_source_options_key, select_options_key
+    ):
+        try:
+            self.sub_step_log(f"{backup_source_type} Backup Source Configuration Setting")
+            # Backup Source option setting
+            for key, value in backup_source_options.items():
+                # 각 옵션 별 Element 를 만들어 주기 위한 함수
+                backup_source_element = self.get_backup_source_elements(backup_source_type, key)
+                # Audio ID 가 여러개의 Value를 딕셔너리 형태로 가질 수 있어서 '{}' 를 제거하고 Value 만 보여주기 위해 value[1:-1]로 출력
+                if isinstance(value, dict):
+                    self.option_log(f"{key} : {str(value)[1:-1]}")
+                # 일반적인 Key, Value 를 출력
+                else:
+                    self.option_log(f"{key} : {value}")
+                # any는 하나라도 True 이면 결과가 True 이기 때문에 keyword 가 select_options_key 리스트에 존재하면 True를 반환하고 Element 선택
+                if any(keyword in key for keyword in select_options_key):
+                    # UDP 입력 Program Selection Mode 에서 Service Name을 선택 할 시 Analysis Window의 값이 4000ms 이상이어야 함
                     if "Program Selection Mode" in key:
-                        mode = self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
-
+                        self.select_element(By.CSS_SELECTOR, backup_source_element, "text", value)
                         try:
                             self.accept_alert()
+                            time.sleep(1)
                             self.input_text(
                                 By.CSS_SELECTOR,
                                 self.input_elements.input_common_analysis_window,
                                 "6000",
                             )
                             time.sleep(1)
-
                         except:
                             pass
-
-                        if mode in ["Program number", "Service name"]:
-                            mapping = {
-                                "Program number": (
-                                    self.backup_source_elements.backup_source_udp_program_number,
-                                    "1010",
-                                ),
-                                "Service name": (
-                                    self.backup_source_elements.backup_source_udp_service_name,
-                                    "E2 Channel",
-                                ),
-                            }
-                            self.input_text(By.CSS_SELECTOR, *mapping.get(mode))
                     else:
-                        self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
-                elif any(keyword in key for keyword in input_relevant_keys):
-                    self.input_text(By.CSS_SELECTOR, element_selector, value)
+                        self.select_element(By.CSS_SELECTOR, backup_source_element, "text", value)
+                elif any(keyword in key for keyword in backup_source_options_key):
+                    # Audio ID 가 4개 이상 (0~32개 까지 가능)
+                    if key == "Audio ID" and isinstance(backup_source_options["Audio ID"], dict):
+                        # Audio ID 가 #01 부터 순차적으로 입력 됨
+                        for index, sub_value in enumerate(value.values()):
+                            if index == 0:
+                                self.input_text(By.CSS_SELECTOR, backup_source_element, sub_value)
+                            else:
+                                self.input_text(
+                                    By.CSS_SELECTOR,
+                                    self.backup_source_elements.backup_source_udp_audio_id_extend.format(index, index),
+                                    sub_value,
+                                )
+                                # #01, #02 를 넘기고 #03 부터 입력되는 것을 방지하기 위해 5ms 딜레이 추가
+                                time.sleep(0.5)
+                                # Audio ID 가 #04 부터는 빈 공간을 클릭해야 다음 Audio ID 입력 칸이 나타남
+                                self.click_element(By.XPATH, '//*[@id="backupSourceBlock"]/div')
+                    # Element Backup Source text
+                    else:
+                        self.input_text(By.CSS_SELECTOR, backup_source_element, value)
+                # Backup Source option 중 체크박스 선택은 True, False 로 주기 때문에 Value가 Boolean 타입이면서 True일 때 클릭
                 else:
                     if isinstance(value, bool) and value:
-                        self.click_element(By.CSS_SELECTOR, element_selector)
-                    else:
-                        self.click_element(By.CSS_SELECTOR, element_selector)
-
+                        if not self.is_checked(By.CSS_SELECTOR, backup_source_element):
+                            self.click_element(By.CSS_SELECTOR, backup_source_element)
+                # For Loop 속도가 빨라서 옵션 입력을 제대로 못하는 경우가 있어 5ms 딜레이 추가
+                time.sleep(0.5)
             return True
 
-        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+        except Exception as e:
+            self.error_log(f"{backup_source_type} Backup Source setting error {e}")
             return False
 
-    def backup_source_rtp(self, backup_source_options):
-        try:
-            self.sub_step_log("Add RTP Backup Source")
-            self.input_text(
-                By.CSS_SELECTOR,
-                self.backup_source_elements.backup_source_udp_network_url,
-                backup_source_options.get("sdf_file"),
-            )
+    def backup_source_udp(self, backup_source_options):
+        backup_source_type = "UDP"
+        backup_source_options_key = [
+            "Network URL",
+            "SSM host",
+            "Max input Mbps",
+            "Program Number",
+            "Service Name",
+            "Video ID",
+            "Audio ID",
+        ]
+        select_options_key = [
+            "Interface",
+            "Enable HA Mode",
+            "Program Selection Mode",
+        ]
+        return self.backup_source_options_handler(
+            backup_source_type, backup_source_options, backup_source_options_key, select_options_key
+        )
 
-        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+    def backup_source_rtsp(self, backup_source_options):
+        backup_source_type = "RTP"
+        backup_source_options_key = [
+            "SDP File",
+        ]
+        return self.backup_source_options_handler(
+            backup_source_type, backup_source_options, backup_source_options_key, []
+        )
 
     def backup_source_rtmp(self, backup_source_options):
-        try:
-            self.sub_step_log("Add RTMP Backup Source")
-            self.input_text(
-                By.CSS_SELECTOR,
-                self.backup_source_elements.backup_source_udp_network_url,
-                backup_source_options.get("url"),
-            )
-
-        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+        backup_source_type = "RTMP"
+        backup_source_options_key = [
+            "URL",
+        ]
+        return self.backup_source_options_handler(
+            backup_source_type, backup_source_options, backup_source_options_key, []
+        )
 
     def backup_source_hls(self, backup_source_options):
-        try:
-            self.sub_step_log("Add HLS Backup Source")
-            self.input_text(
-                By.CSS_SELECTOR,
-                self.backup_source_elements.backup_source_hls_url,
-                backup_source_options.get("url"),
-            )
-
-        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+        backup_source_type = "HLS"
+        backup_source_options_key = [
+            "URL",
+        ]
+        return self.backup_source_options_handler(
+            backup_source_type, backup_source_options, backup_source_options_key, []
+        )
 
     def backup_source_sdi(self, backup_source_options):
-        try:
-            self.sub_step_log("Add SDI Backup Source")
-
-            for key, value in backup_source_options.items():
-                self.option_log(f"{key} : {value}")
-                element_selector = getattr(self.backup_source_elements, f"input_sdi_{key}", None)
-
-                if element_selector:
-                    if key in ["teletext_page", "vbi_lines"]:
-                        self.input_text(By.CSS_SELECTOR, element_selector, value)
-                else:
-                    self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
-
-        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+        backup_source_type = "SDI"
+        backup_source_options_key = [
+            "Teletext page",
+            "VBI lines",
+        ]
+        select_options_key = [
+            "Input Port",
+            "Video format",
+            "Time code type",
+            "Timed text source",
+            "Teletext character set",
+            "Teletext Language Tag",
+        ]
+        return self.backup_source_options_handler(
+            backup_source_type, backup_source_options, backup_source_options_key, select_options_key
+        )
 
     def backup_source_playlist(self, backup_source_options):
-        try:
-            self.sub_step_log("Add Playlist Backup Source")
-            playlist_type = backup_source_options.get("type")
-
-            if playlist_type:
-                self.select_element(
-                    By.CSS_SELECTOR,
-                    self.backup_source_elements.backup_source_playlist_type,
-                    "text",
-                    playlist_type,
-                )
-                if playlist_type == "Local Static Playlist":
-                    self.select_element(
-                        By.CSS_SELECTOR,
-                        "text",
-                        self.backup_source_elements.backup_source_playlist_playlists_name,
-                    )
-                elif playlist_type == "Clipcasting XML" or playlist_type == "Remote Media Asset Directory":
-                    self.input_text(
-                        By.CSS_SELECTOR,
-                        self.backup_source_elements.backup_source_playlist_clipcasting_uri,
-                        backup_source_options.get("uri"),
-                    )
-                    if playlist_type == "Remote Media Asset Directory":
-                        self.input_text(
-                            By.CSS_SELECTOR,
-                            self.backup_source_elements.backup_source_playlist_remote_media_asset_uri,
-                            backup_source_options.get("recurring"),
-                        )
-                        self.select_element(
-                            By.CSS_SELECTOR,
-                            self.backup_source_elements.backup_soruce_playlist_sort_by,
-                            "text",
-                            backup_source_options.get("sort_by"),
-                        )
-
-            time.sleep(1)
-
-        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+        backup_source_type = "Playlist"
+        backup_source_options_key = [
+            "URI",
+            "Recurring the last N files",
+        ]
+        select_options_key = ["Type", "Playlists name"]
+        return self.backup_source_options_handler(
+            backup_source_type, backup_source_options, backup_source_options_key, select_options_key
+        )
 
     def backup_source_smpte_st_2110(self, backup_source_options):
-        try:
-            self.sub_step_log("Add SMPTE ST 2110 Backup Source")
-
-            for key, value in backup_source_options.items():
-                self.option_log(f"{key} : {value}")
-                element_selector = getattr(self.backup_source_elements, f"input_smpte_st_2110_{key}", None)
-                if element_selector:
-                    if key in [
-                        "video_sdp_url",
-                        "audio_sdp_url",
-                        "ancillary_sdp_url",
-                        "teletext_page",
-                    ]:
-                        self.input_text(By.CSS_SELECTOR, element_selector, value)
-                else:
-                    self.select_element(By.CSS_SELECTOR, element_selector, "text", value)
-                time.sleep(1)
-
-        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+        backup_source_type = "SMPTE ST 2110"
+        backup_source_options_key = [
+            "Video SDP URL",
+            "Audio SDP URL",
+            "Ancillary SDP URL",
+            "Teletext page",
+        ]
+        select_options_key = []
+        return self.backup_source_options_handler(
+            backup_source_type, backup_source_options, backup_source_options_key, select_options_key
+        )
 
     def backup_source_ndi(self, backup_source_options):
-        try:
-            self.sub_step_log("Add NDI Backup Source")
+        backup_source_type = "NDI"
+        backup_source_options_key = []
+        select_options_key = []
+        return self.backup_source_options_handler(
+            backup_source_type, backup_source_options, backup_source_options_key, select_options_key
+        )
 
-            for key, value in backup_source_options.items():
-                self.option_log(f"{key} : {value}")
-                element_selector = getattr(self.backup_source_elements, f"input_ndi_{key}", None)
-                self.input_text(By.CSS_SELECTOR, element_selector, value)
-                time.sleep(1)
-
-        except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            self.error_log(e)
+    def get_backup_source_elements(self, backup_source_type, key):
+        element = getattr(
+            self.backup_source_elements,
+            f"backup_source_{backup_source_type.lower()}_{key.replace(' ', '_').replace('-', '_').lower()}",
+            None,
+        )
+        return element

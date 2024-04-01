@@ -62,7 +62,7 @@ class ConfigureChannel(ConfigureRole):
             return False
 
     def setup_input(self):
-        input_return = bool()
+        setup_input_return = bool()
         try:
             configure_input = ConfigureInput(self.channel_configure_data["Input Type"])
             input_functions = {
@@ -78,28 +78,27 @@ class ConfigureChannel(ConfigureRole):
                 "NDI": configure_input.input_ndi,
             }
             if self.channel_configure_data["Input Type"] in input_functions:
-                input_return = input_functions[self.channel_configure_data["Input Type"]](
+                setup_input_return = input_functions[self.channel_configure_data["Input Type"]](
                     self.channel_configure_data["Input Options"]
                 )
                 configure_input.input_common(self.channel_configure_data["Common Options"])
-                return input_return
+                return setup_input_return
         except Exception as e:
             self.error_log(f"Input configuration setting error {e}")
             return False
 
     def setup_backups_source(self):
         try:
-            set_backupsource_result = bool()
+            setup_backupsource_return = bool()
             if not self.channel_configure_data["Backup Source Type"] == None:
-                configure_backup_source = ConfigureBackupSource(self.channel_configure_data["Backup Source Type"])
                 self.access_configure_channels()
-                time.sleep(1)
                 self.find_exist_channel()
-
+                configure_backup_source = ConfigureBackupSource(self.channel_configure_data["Backup Source Type"])
+                time.sleep(1)
                 backup_source_functions = {
                     "UDP": configure_backup_source.backup_source_udp,
-                    "RTP": configure_backup_source.backup_source_rtp,
-                    "RTSP": configure_backup_source.backup_source_rtp,
+                    "RTP": configure_backup_source.backup_source_rtsp,
+                    "RTSP": configure_backup_source.backup_source_rtsp,
                     "RTMP": configure_backup_source.backup_source_rtmp,
                     "HTTP": configure_backup_source.backup_source_hls,
                     "HLS": configure_backup_source.backup_source_hls,
@@ -108,18 +107,16 @@ class ConfigureChannel(ConfigureRole):
                     "SMPTE ST 2110": configure_backup_source.backup_source_smpte_st_2110,
                     "NDI": configure_backup_source.backup_source_ndi,
                 }
-
                 if self.channel_configure_data["Backup Source Type"] in backup_source_functions:
-                    set_backupsource_result = backup_source_functions[
+                    setup_backupsource_return = backup_source_functions[
                         self.channel_configure_data["Backup Source Type"]
                     ](self.channel_configure_data["Backup Source Options"])
 
-                    time.sleep(1)
                 # Save backup source options.
                 self.click_element(By.CSS_SELECTOR, self.channel_elements.channel_save_button)
-            return set_backupsource_result
-
+            return setup_backupsource_return
         except Exception as e:
+            self.error_log(f"Backup Source configuration setting error {e}")
             return False
 
     def setup_output(self):

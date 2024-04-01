@@ -27,7 +27,7 @@ class ConfigureOutput(WebDriverMethod):
     def add_output(self, output_type):
         try:
             # Channel edit 페이지에서 Add Output button 이 나타날 때 까지 기다림
-            WebDriverWait(self.driver, 5).until(
+            WebDriverWait(self.driver, 3).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_add_output_button))
             )
             self.click_element(By.CSS_SELECTOR, self.output_elements.output_add_output_button)

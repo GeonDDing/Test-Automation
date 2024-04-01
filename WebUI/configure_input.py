@@ -23,10 +23,15 @@ class ConfigureInput(WebDriverMethod):
             elif input_type in ["HTTP", "HLS"]:
                 input_type = "HTTP/HLS"
             try:
-                WebDriverWait(self.driver, 5).until(
+                WebDriverWait(self.driver, 3).until(
                     EC.presence_of_element_located((By.CSS_SELECTOR, self.input_elements.input_type))
                 )
-                self.select_element(By.CSS_SELECTOR, self.input_elements.input_type, "text", input_type)
+                self.select_element(
+                    By.CSS_SELECTOR,
+                    self.input_elements.input_type,
+                    "text",
+                    input_type,
+                )
             except TimeoutException as e:
                 self.error_log(f"Not found input type selector {e}")
                 return False
@@ -56,14 +61,14 @@ class ConfigureInput(WebDriverMethod):
             self.sub_step_log(f"{input_type} Input Configuration Setting")
             # Input option setting
             for key, value in input_options.items():
+                # 각 옵션 별 Element 를 만들어 주기 위한 함수
+                input_element = self.get_input_elements(input_type, key)
                 # Audio ID 가 여러개의 Value를 딕셔너리 형태로 가질 수 있어서 '{}' 를 제거하고 Value 만 보여주기 위해 value[1:-1]로 출력
                 if isinstance(value, dict):
                     self.option_log(f"{key} : {str(value)[1:-1]}")
                 # 일반적인 Key, Value 를 출력
                 else:
                     self.option_log(f"{key} : {value}")
-                # 각 옵션 별 Element 를 만들어 주기 위한 함수
-                input_element = self.get_input_elements(input_type, key)
                 # any는 하나라도 True 이면 결과가 True 이기 때문에 keyword 가 select_options_key 리스트에 존재하면 True를 반환하고 Element 선택
                 if any(keyword in key for keyword in select_options_key):
                     # UDP 입력 Program Selection Mode 에서 Service Name을 선택 할 시 Analysis Window의 값이 4000ms 이상이어야 함
@@ -95,9 +100,10 @@ class ConfigureInput(WebDriverMethod):
                                     self.input_elements.input_udp_audio_id_extend.format(index, index),
                                     sub_value,
                                 )
-                                # Audio ID 가 #04 부터는 어딘가를 클릭해야 다음 Audio ID 입력 칸이 나타남
-                                self.click_element(By.XPATH, '//*[@id="editform"]/div[1]/div[3]')
+                                # #01, #02 를 넘기고 #03 부터 입력되는 것을 방지하기 위해 5ms 딜레이 추가
                                 time.sleep(0.5)
+                                # Audio ID 가 #04 부터는 빈 공간을 클릭해야 다음 Audio ID 입력 칸이 나타남
+                                self.click_element(By.XPATH, '//*[@id="editform"]/div[1]/div[3]')
                     # Element input text
                     else:
                         self.input_text(By.CSS_SELECTOR, input_element, value)
@@ -106,6 +112,8 @@ class ConfigureInput(WebDriverMethod):
                     if isinstance(value, bool) and value:
                         if not self.is_checked(By.CSS_SELECTOR, input_element):
                             self.click_element(By.CSS_SELECTOR, input_element)
+                # For Loop 속도가 빨라서 옵션 입력을 제대로 못하는 경우가 있어 5ms 딜레이 추가
+                time.sleep(0.5)
             return True
 
         except Exception as e:

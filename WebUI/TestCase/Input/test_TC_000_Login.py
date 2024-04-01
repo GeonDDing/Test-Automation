@@ -1,10 +1,5 @@
-import os
-import sys
 import allure
-
-# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from login import Login
-
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Login")]
 

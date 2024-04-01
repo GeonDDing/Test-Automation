@@ -1,9 +1,5 @@
-import os
-import sys
 import time
 import allure
-
-# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from configure_audiopresets import ConfigureAudiopreset
 from configure_videopresets import ConfigureVideopreset
 from configure_channels import ConfigureChannel
@@ -13,7 +9,6 @@ from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
-
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
 
@@ -33,7 +28,7 @@ class TestInputUDPMulticast:
             "Name": "Local Device",
             "IP": "127.0.0.1",
         },
-        "Channel Name": "UDP Multicast Testing",
+        "Channel Name": "Input UDP Multicast Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -100,7 +95,11 @@ class TestInputUDPMulticast:
             login_instance = Login()
             return login_instance.login(kwargs["ID"], kwargs["PW"])
 
-    @attach_result("Video Preset Creation", "Video Preset Creation Successful", "Video Preset Creation Failed")
+    @attach_result(
+        "Video Preset Creation",
+        "Video Preset Creation Successful",
+        "Video Preset Creation Failed",
+    )
     def create_videopreset(self, **kwargs):
         with allure.step("Create video preset"):
             videopreset_instance = ConfigureVideopreset()
@@ -109,7 +108,11 @@ class TestInputUDPMulticast:
                 kwargs["Preset Name"]["Videopreset Name"], kwargs["Videopreset Options"]
             )
 
-    @attach_result("Audio Preset Creation", "Audio Preset Creation Successful", "Audio Preset Creation Failed")
+    @attach_result(
+        "Audio Preset Creation",
+        "Audio Preset Creation Successful",
+        "Audio Preset Creation Failed",
+    )
     def create_audiopreset(self, **kwargs):
         with allure.step("Create audio preset"):
             audiopreset_instance = ConfigureAudiopreset()
@@ -118,37 +121,53 @@ class TestInputUDPMulticast:
                 kwargs["Preset Name"]["Audiopreset Name"], kwargs["Audiopreset Options"]
             )
 
-    @attach_result("Channel Creation", "Channel Creation Successful", "Channel Creation Failed")
+    @attach_result(
+        "Channel Creation",
+        "Channel Creation Successful",
+        "Channel Creation Failed",
+    )
     def create_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
         is_pre = channel_instance.pre_channel_configuration()
-        with allure.step("Create output"):
+        with allure.step("Output Options Setup"):
             is_output = channel_instance.setup_output()
             time.sleep(1)
-        with allure.step("Create input"):
+        with allure.step("Input Options Setup"):
             is_input = channel_instance.setup_input()
-        with allure.step("Create Channel"):
+        with allure.step("Channel Creation Finalization"):
             is_post = channel_instance.post_channel_configuration()
         if all((is_pre, is_output, is_input, is_post)):
             return True
         else:
             return False
 
-    @attach_result("Role Creation", "Role Creation Successful", "Role Creation Failed")
+    @attach_result(
+        "Role Creation",
+        "Role Creation Successful",
+        "Role Creation Failed",
+    )
     def create_role(self, **kwargs):
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
             # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
 
-    @attach_result("Group Creation", "Group Creation Successful", "Group Creation Failed")
+    @attach_result(
+        "Group Creation",
+        "Group Creation Successful",
+        "Group Creation Failed",
+    )
     def create_group(self, **kwargs):
         with allure.step("Group Configuration"):
             group_instance = ConfigureGroup()
             # Required parameters: Group Name, Domain
             return group_instance.configure_group(kwargs["Group Options"]["Name"], kwargs["Group Options"]["Domain"])
 
-    @attach_result("Device Creation", "Device Creation Successful", "Device Creation Failed")
+    @attach_result(
+        "Device Creation",
+        "Device Creation Successful",
+        "Device Creation Failed",
+    )
     def create_device(self, **kwargs):
         with allure.step("Group Configuration"):
             device_instance = ConfigureDevice()
@@ -160,7 +179,11 @@ class TestInputUDPMulticast:
                 kwargs["Role Options"]["Name"],
             )
 
-    @attach_result("Channel Start", "Channel Start Successful", "Channel Start Failed")
+    @attach_result(
+        "Channel Start",
+        "Channel Start Successful",
+        "Channel Start Failed",
+    )
     def channel_start(self, **kwargs):
         with allure.step("Channel Start"):
             monitor_device_instance = MonitorDevice()
@@ -187,7 +210,11 @@ class TestInputUDPMulticast:
                 MonitorDevice().channel_stop(self.chidx, stats_result)
                 return False
 
-    @attach_result("Channel Stop", "Channel Stop Successful", "Channel Stop Failed")
+    @attach_result(
+        "Channel Stop",
+        "Channel Stop Successful",
+        "Channel Stop Failed",
+    )
     def channel_stop(self, **kwargs):
         with allure.step("Channel Stop"):
             monitor_device_instance = MonitorDevice()

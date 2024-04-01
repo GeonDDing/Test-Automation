@@ -22,5 +22,5 @@ allure serve --host 127.0.0.1 --port 8081 ./allure-results
 ### 단일 파일 테스트케이스만 실행 ###
 pytest ./Backend/TestCase/test_api_sources.py --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
 pytest ./WebUI/TestCase/Input/test_UDP_Multicast.py --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
-pytest ./WebUI/TestCase/Input/test_TC_000_Login.py ./WebUI/TestCase/Input/test_TC_010_RTMP.py --capture=tee-sys --tb=no --alluredir=allure-results
-pytest ./WebUI/TestCase/Input/test_TC_000_Login.py ./WebUI/TestCase/Input/test_TC_001_UDP_Multicast.py ./WebUI/TestCase/Input/test_TC_012_SDI.py --capture=tee-sys --tb=no --alluredir=allure-results
+pytest ./WebUI/TestCase/Input/test_TC_000_Login.py ./WebUI/TestCase/BackupSource/test_TC_017_UDP.py --capture=tee-sys --tb=no --alluredir=allure-results
+pytest ./WebUI/TestCase/Input/test_TC_000_Login.py ./WebUI/TestCase/Input/test_TC_001_UDP_Multicast.py ./WebUI/TestCase/Input/test_TC_002_UDP_PID.py --capture=tee-sys --tb=no --alluredir=allure-results

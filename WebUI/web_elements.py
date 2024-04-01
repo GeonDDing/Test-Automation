@@ -250,7 +250,9 @@ class ConfigureInputElements:
 class ConfigureBackupSourceElements:
     ### CSS Selector ###
     # Backup
-    backup_source_type = 'slect[id="/source/secondSource/sourceType"][name="/source/secondSource/sourceType"]'
+    backup_source_type = 'select[id="/source/secondSource/sourceType"][name="/source/secondSource/sourceType"]'
+    backup_soruce_settings_button = 'a[class="black no-decoration more"][id="backupSourceSettings"]'
+    backup_source_switch_source_button = 'input.SwitchSourceBtn0[type="image"][value="Switch"][title="Click to toggle switch between primary and backup source"]'
     backup_source_common_modulate_audio_track = (
         'select[id="/source/secondSource/modulatedAudioTrack"][name="/source/secondSource/modulatedAudioTrack"]'
     )
@@ -279,6 +281,10 @@ class ConfigureBackupSourceElements:
     backup_source_udp_audio_id = (
         'input[type="text"][id="/source/secondSource/audioId"][name="/source/secondSource/audioId"]'
     )
+    index = int()
+    backup_source_udp_video_id = 'input[type="text"][id="/source/videoId"][name="/source/videoId"]'
+    backup_source_udp_audio_id = 'input[type="text"][id="/source/audioId"][name="/source/audioId"]'
+    backup_source_udp_audio_id_extend = 'input[type="text"][id="/source/audioId{}"][name="/source/audioId{}"]'
     backup_source_udp_program_number = 'input[type="text"][id="/source/secondSource/mpeg2/programNumber"][name="/source/secondSource/mpeg2/programNumber"]'
     backup_source_udp_service_name = (
         'input[type="text"][id="/source/secondSource/mpeg2/serviceName"][name="/source/secondSource/mpeg2/serviceName"]'
