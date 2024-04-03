@@ -183,7 +183,7 @@ class TestInputPlaylist:
 
     @allure.sub_suite("Playlist")
     @allure.title("Playlist")
-    def test_input_sdi(self):
+    def test_input_playlist(self):
         print("\n")
         test_functions = [
             # self.login,

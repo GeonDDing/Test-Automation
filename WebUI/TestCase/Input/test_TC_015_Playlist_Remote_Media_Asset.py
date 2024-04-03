@@ -195,7 +195,7 @@ class TestInputRemoteMediaAsset:
 
     @allure.sub_suite("Playlist")
     @allure.title("Remote Media Asset")
-    def test_input_remote_media_asset(self):
+    def test_input_playlist_remote_media_asset(self):
         print("\n")
         test_functions = [
             # self.login,

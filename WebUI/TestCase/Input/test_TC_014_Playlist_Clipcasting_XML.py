@@ -195,7 +195,7 @@ class TestInputClipcastingXML:
 
     @allure.sub_suite("Playlist")
     @allure.title("Clipcasting XML")
-    def test_input_clipcasting_xml(self):
+    def test_input_playlist_clipcasting_xml(self):
         print("\n")
         test_functions = [
             # self.login,

@@ -2,11 +2,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import (
-    NoSuchElementException,
-    ElementNotVisibleException,
-    TimeoutException,
-)
 from webdriver_method import WebDriverMethod
 from web_elements import ConfigureInputElements, ConfigureBackupSourceElements
 import time
@@ -23,15 +18,11 @@ class ConfigureBackupSource(WebDriverMethod):
         elif backup_source_type in ["HTTP", "HLS"]:
             backup_source_type = "HTTP/HLS"
         try:
-            WebDriverWait(self.driver, 3).until(
-                EC.presence_of_element_located(
-                    (By.CSS_SELECTOR, self.backup_source_elements.backup_soruce_settings_button)
+            if not self.find_web_element(By.XPATH, '//*[@id="backupSourceBlock"]/div/table').is_displayed():
+                self.click_element(
+                    By.XPATH,
+                    self.backup_source_elements.backup_soruce_settings_button,
                 )
-            )
-            self.click_element(
-                By.CSS_SELECTOR,
-                self.backup_source_elements.backup_soruce_settings_button,
-            )
             WebDriverWait(self.driver, 3).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, self.backup_source_elements.backup_source_type))
             )
@@ -41,21 +32,8 @@ class ConfigureBackupSource(WebDriverMethod):
                 "text",
                 backup_source_type,
             )
-        except TimeoutException as e:
-            self.error_log(f"Not found backup source type selector {e}")
-            return False
-
-    def switch_backup_source(self):
-        try:
-            WebDriverWait(self.driver, 3).until(
-                EC.presence_of_element_located(
-                    (By.CSS_SELECTOR, self.backup_source_elements.backup_source_switch_source_button)
-                )
-            )
-            self.click_element(By.CLASS_NAME, self.backup_source_elements.backup_source_switch_source_button)
-            self.accept_alert()
-        except TimeoutException as e:
-            self.error_log(f"Not found backup source switch button {e}")
+        except Exception as e:
+            self.error_log(f"Not found backup source table {e}")
             return False
 
     def backup_source_options_handler(

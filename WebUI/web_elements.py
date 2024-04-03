@@ -251,8 +251,11 @@ class ConfigureBackupSourceElements:
     ### CSS Selector ###
     # Backup
     backup_source_type = 'select[id="/source/secondSource/sourceType"][name="/source/secondSource/sourceType"]'
-    backup_soruce_settings_button = 'a[class="black no-decoration more"][id="backupSourceSettings"]'
-    backup_source_switch_source_button = 'input.SwitchSourceBtn0[type="image"][value="Switch"][title="Click to toggle switch between primary and backup source"]'
+    # Backup Source Settings button
+    backup_soruce_settings_button = '//*[@id="backupSourceSettings"]'
+    chidx = int()
+    # backup_source_switch_source_button = 'input.SwitchSourceBtn{}[type="image"][value="Switch"]'
+    backup_source_switch_source_button = '#SwitchSourceBtn{}'
     backup_source_common_modulate_audio_track = (
         'select[id="/source/secondSource/modulatedAudioTrack"][name="/source/secondSource/modulatedAudioTrack"]'
     )

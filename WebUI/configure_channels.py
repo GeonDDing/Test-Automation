@@ -1,18 +1,21 @@
 # configure_channels.py
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, TimeoutException
 from web_elements import ConfigureChannelElements, MainMenuElements
 from configure_roles import ConfigureRole
 from configure_input import ConfigureInput
 from configure_backup_source import ConfigureBackupSource
 from configure_output import ConfigureOutput
-from web_elements import ConfigureInputElements
+from web_elements import ConfigureInputElements, ConfigureBackupSourceElements, MonitorDeviceElements
 import time
 
 
 class ConfigureChannel(ConfigureRole):
     def __init__(self, **kwagrs):
         self.input_elements = ConfigureInputElements()
+        self.backup_source_elements = ConfigureBackupSourceElements()
         self.channel_elements = ConfigureChannelElements()
         self.channel_configure_data = kwagrs
 
@@ -95,28 +98,30 @@ class ConfigureChannel(ConfigureRole):
                 self.find_exist_channel()
                 configure_backup_source = ConfigureBackupSource(self.channel_configure_data["Backup Source Type"])
                 time.sleep(1)
-                backup_source_functions = {
-                    "UDP": configure_backup_source.backup_source_udp,
-                    "RTP": configure_backup_source.backup_source_rtsp,
-                    "RTSP": configure_backup_source.backup_source_rtsp,
-                    "RTMP": configure_backup_source.backup_source_rtmp,
-                    "HTTP": configure_backup_source.backup_source_hls,
-                    "HLS": configure_backup_source.backup_source_hls,
-                    "SDI": configure_backup_source.backup_source_sdi,
-                    "Playlist": configure_backup_source.backup_source_playlist,
-                    "SMPTE ST 2110": configure_backup_source.backup_source_smpte_st_2110,
-                    "NDI": configure_backup_source.backup_source_ndi,
-                }
-                if self.channel_configure_data["Backup Source Type"] in backup_source_functions:
-                    setup_backupsource_return = backup_source_functions[
-                        self.channel_configure_data["Backup Source Type"]
-                    ](self.channel_configure_data["Backup Source Options"])
-
+                try:
+                    backup_source_functions = {
+                        "UDP": configure_backup_source.backup_source_udp,
+                        "RTP": configure_backup_source.backup_source_rtsp,
+                        "RTSP": configure_backup_source.backup_source_rtsp,
+                        "RTMP": configure_backup_source.backup_source_rtmp,
+                        "HTTP": configure_backup_source.backup_source_hls,
+                        "HLS": configure_backup_source.backup_source_hls,
+                        "SDI": configure_backup_source.backup_source_sdi,
+                        "Playlist": configure_backup_source.backup_source_playlist,
+                        "SMPTE ST 2110": configure_backup_source.backup_source_smpte_st_2110,
+                        "NDI": configure_backup_source.backup_source_ndi,
+                    }
+                    if self.channel_configure_data["Backup Source Type"] in backup_source_functions:
+                        setup_backupsource_return = backup_source_functions[
+                            self.channel_configure_data["Backup Source Type"]
+                        ](self.channel_configure_data["Backup Source Options"])
+                except Exception as e:
+                    self.error_log(f"Backup Source configuration setting error {e}")
                 # Save backup source options.
                 self.click_element(By.CSS_SELECTOR, self.channel_elements.channel_save_button)
             return setup_backupsource_return
         except Exception as e:
-            self.error_log(f"Backup Source configuration setting error {e}")
+            self.error_log(f"Failed to enter channel edit page {e}")
             return False
 
     def setup_output(self):
@@ -141,6 +146,29 @@ class ConfigureChannel(ConfigureRole):
         except Exception as e:
             self.error_log(f"Output configuration setting error {e}")
             return False
+
+    def switch_backup_source(self, chdix):
+        self.monitor_device_elements = MonitorDeviceElements()
+        self.click_element(By.XPATH, self.monitor_device_elements.monitor_table)
+        time.sleep(5)
+        print(self.backup_source_elements.backup_source_switch_source_button.format(chdix))
+        self.click_element(By.CLASS_NAME, self.backup_source_elements.backup_source_switch_source_button.format(chdix))
+
+        # try:
+        #     WebDriverWait(self.driver, 3).until(
+        #         EC.presence_of_element_located(
+        #             (By.CSS_SELECTOR, self.backup_source_elements.backup_source_switch_source_button.format(chdix))
+        #         )
+        #     )
+        #     print("displayed switch button")
+        #     print(self.backup_source_elements.backup_source_switch_source_button.format(chdix))
+        #     self.click_element(
+        #         By.CLASS_NAME, self.backup_source_elements.backup_source_switch_source_button.format(chdix)
+        #     )
+        #     self.accept_alert()
+        # except TimeoutException as e:
+        #     self.error_log(f"Not found backup source switch button {e}")
+        #     return False
 
     def find_exist_channel(self):
         try:

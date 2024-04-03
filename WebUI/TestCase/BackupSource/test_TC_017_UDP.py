@@ -159,33 +159,6 @@ class TestBackupSourceUDP:
             return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
 
     @attach_result(
-        "Group Creation",
-        "Group Creation Successful",
-        "Group Creation Failed",
-    )
-    def create_group(self, **kwargs):
-        with allure.step("Group Configuration"):
-            group_instance = ConfigureGroup()
-            # Required parameters: Group Name, Domain
-            return group_instance.configure_group(kwargs["Group Options"]["Name"], kwargs["Group Options"]["Domain"])
-
-    @attach_result(
-        "Device Creation",
-        "Device Creation Successful",
-        "Device Creation Failed",
-    )
-    def create_device(self, **kwargs):
-        with allure.step("Group Configuration"):
-            device_instance = ConfigureDevice()
-            # Required parameters: Device Name, Device IP, Group Name, Role Name
-            return device_instance.configure_device(
-                kwargs["Device Options"]["Name"],
-                kwargs["Device Options"]["IP"],
-                kwargs["Group Options"]["Name"],
-                kwargs["Role Options"]["Name"],
-            )
-
-    @attach_result(
         "Channel Start",
         "Channel Start Successful",
         "Channel Start Failed",
@@ -215,8 +188,7 @@ class TestBackupSourceUDP:
                     name="Primary Source Stats Infomation",
                     attachment_type=allure.attachment_type.TEXT,
                 )
-                if stats_result[1].split(":")[1] == "Primary Source":
-                    return stats_result[0]
+                return stats_result[0]
             else:
                 MonitorDevice().channel_stop(self.chidx, stats_result)
                 return False
@@ -228,8 +200,8 @@ class TestBackupSourceUDP:
     )
     def switch_source(self, **kwargs):
         with allure.step("Switch Backup Source"):
-            backup_source_instance = ConfigureBackupSource(**kwargs)
-            return backup_source_instance.switch_backup_source()
+            channel_instance = ConfigureChannel(**kwargs)
+            return channel_instance.switch_backup_source(0)
 
     @attach_result(
         "Backup Source Stats Request",
@@ -247,8 +219,7 @@ class TestBackupSourceUDP:
                     name="Backup Source Stats Infomation",
                     attachment_type=allure.attachment_type.TEXT,
                 )
-                if stats_result[1].split(":")[1] == "Backup Source":
-                    return stats_result[0]
+                return stats_result[0]
             else:
                 MonitorDevice().channel_stop(self.chidx, stats_result)
                 return False
@@ -265,19 +236,17 @@ class TestBackupSourceUDP:
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("Multicast")
-    def test_input_udp_multiple_audio_pid(self):
+    @allure.title("UDP/IP")
+    def test_backup_source_udp(self):
         print("\n")
         test_functions = [
             # self.login,
             # self.create_videopreset,
             # self.create_audiopreset,
-            self.create_channel,
-            self.create_role,
-            self.create_group,
-            self.create_device,
-            self.channel_start,
-            self.get_primary_source_channel_stats,
+            # self.create_channel,
+            # self.create_role,
+            # self.channel_start,
+            # self.get_primary_source_channel_stats,
             self.switch_source,
             self.get_backup_source_channel_stats,
             self.channel_stop,

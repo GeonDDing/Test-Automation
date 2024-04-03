@@ -63,7 +63,7 @@ class WebDriverMethod(WebDriverInit, WebLog):
 
     def wait_element(self, by, locator):
         try:
-            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((by, locator)))
+            WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((by, locator)))
             return True
 
         except TimeoutException as e:
