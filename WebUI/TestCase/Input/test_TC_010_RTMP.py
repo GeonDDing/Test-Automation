@@ -105,7 +105,7 @@ class TestInputTRMP:
         "Channel Creation Successful",
         "Channel Creation Failed",
     )
-    def create_rtmp_input_channel(self, **kwargs):
+    def create_rtmp_receiver_channel(self, **kwargs):
         channel_instance = ConfigureChannel(**kwargs)
         is_pre = channel_instance.pre_channel_configuration()
         with allure.step("Output Options Setup"):
@@ -125,7 +125,7 @@ class TestInputTRMP:
         "Channel Creation Successful",
         "Channel Creation Failed",
     )
-    def create_rtmp_output_channel(self, **kwargs):
+    def create_rtmp_sender_channel(self, **kwargs):
         kwargs = self.rtmp_sender_configuration_data
         channel_instance = ConfigureChannel(**kwargs)
         is_pre = channel_instance.pre_channel_configuration()
@@ -149,13 +149,11 @@ class TestInputTRMP:
     def create_role(self, **kwargs):
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
-            kwargs["Channel Name"] = [
-                "RTMP Sender Testing",
-                "RTMP Receiver Testing",
-            ]
             # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(
-                kwargs["Role Options"]["Name"], kwargs["Channel Name"][0], kwargs["Channel Name"][1]
+                kwargs["Role Options"]["Name"],
+                self.rtmp_receiver_configuration_data["Channel Name"],
+                self.rtmp_sender_configuration_data["Channel Name"],
             )
 
     @attach_result(
@@ -240,8 +238,8 @@ class TestInputTRMP:
         print("\n")
         test_functions = [
             # self.login,
-            self.create_rtmp_input_channel,
-            self.create_rtmp_output_channel,
+            self.create_rtmp_receiver_channel,
+            self.create_rtmp_sender_channel,
             self.create_role,
             self.output_channel_start,
             self.input_channel_start,

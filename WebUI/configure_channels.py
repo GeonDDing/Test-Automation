@@ -4,16 +4,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, TimeoutException
 from web_elements import ConfigureChannelElements, MainMenuElements
-from configure_roles import ConfigureRole
+from webdriver_method import WebDriverMethod
 from configure_input import ConfigureInput
 from configure_backup_source import ConfigureBackupSource
 from configure_output import ConfigureOutput
 from web_elements import ConfigureInputElements, ConfigureBackupSourceElements, MonitorDeviceElements
 import time
+import requests
+import xml.etree.ElementTree as elementTree
 
 
-class ConfigureChannel(ConfigureRole):
+class ConfigureChannel(WebDriverMethod):
     def __init__(self, **kwagrs):
+        super().__init__()
         self.input_elements = ConfigureInputElements()
         self.backup_source_elements = ConfigureBackupSourceElements()
         self.channel_elements = ConfigureChannelElements()
@@ -147,28 +150,30 @@ class ConfigureChannel(ConfigureRole):
             self.error_log(f"Output configuration setting error {e}")
             return False
 
-    def switch_backup_source(self, chdix):
-        self.monitor_device_elements = MonitorDeviceElements()
-        self.click_element(By.XPATH, self.monitor_device_elements.monitor_table)
-        time.sleep(5)
-        print(self.backup_source_elements.backup_source_switch_source_button.format(chdix))
-        self.click_element(By.CLASS_NAME, self.backup_source_elements.backup_source_switch_source_button.format(chdix))
-
-        # try:
-        #     WebDriverWait(self.driver, 3).until(
-        #         EC.presence_of_element_located(
-        #             (By.CSS_SELECTOR, self.backup_source_elements.backup_source_switch_source_button.format(chdix))
-        #         )
-        #     )
-        #     print("displayed switch button")
-        #     print(self.backup_source_elements.backup_source_switch_source_button.format(chdix))
-        #     self.click_element(
-        #         By.CLASS_NAME, self.backup_source_elements.backup_source_switch_source_button.format(chdix)
-        #     )
-        #     self.accept_alert()
-        # except TimeoutException as e:
-        #     self.error_log(f"Not found backup source switch button {e}")
-        #     return False
+    def switch_backup_source(self, chidx):
+        try:
+            self.step_log(f"Switching Backup Source")
+            WebDriverWait(self.driver, 3).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, self.backup_source_elements.backup_source_switch_source_button.format(chidx))
+                )
+            )
+            self.click_element(
+                By.CSS_SELECTOR, self.backup_source_elements.backup_source_switch_source_button.format(chidx)
+            )
+            self.accept_alert()
+            time.sleep(10)
+            # stats xml 에서 'sourceLayer' 가 2인 경우 Backup source 로 전환 성공, 0이면 Primary source
+            switch_req = requests.get(self.url + f":900{chidx}/stats")
+            root = elementTree.fromstring(switch_req.text)
+            if root.find("sourceLayer").text == "2":
+                return True
+            else:
+                self.error_log("Failed to switching backup source")
+                return False
+        except TimeoutException as e:
+            self.error_log(f"Not found backup source switch button {e}")
+            return False
 
     def find_exist_channel(self):
         try:

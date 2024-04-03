@@ -34,13 +34,13 @@ class StatsSender:
 
                 except requests.exceptions.ConnectionError as e:
                     max_retries -= 1
-                    WebLog.warning_log(f"#{mchidx} Retrying in 5 seconds...")
+                    WebLog.warning_log(f"#{mchidx} Retrying in 10 seconds...")
 
                     if max_retries == 0:
                         WebLog.error_log(f"#{mchidx} A connection error occurred and terminated.")
                         queue.put("quit")
                         break
-                    time.sleep(5)
+                    time.sleep(10)
 
                 else:
                     try:
@@ -48,13 +48,13 @@ class StatsSender:
 
                     except elementTree.ParseError as e:
                         max_retries -= 1
-                        WebLog.warning_log(f"#{mchidx} Retrying in 5 seconds...")
+                        WebLog.warning_log(f"#{mchidx} Retrying in 10 seconds...")
 
                         if max_retries == 0:
                             WebLog.error_log(f"#{mchidx} Terminated because xml could not be parsed.")
                             queue.put("quit")
                             break
-                        time.sleep(5)
+                        time.sleep(10)
 
                     else:
                         max_retries = 3

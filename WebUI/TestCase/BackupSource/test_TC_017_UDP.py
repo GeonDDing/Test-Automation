@@ -4,9 +4,6 @@ from configure_audiopresets import ConfigureAudiopreset
 from configure_videopresets import ConfigureVideopreset
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
-from configure_groups import ConfigureGroup
-from configure_devices import ConfigureDevice
-from configure_backup_source import ConfigureBackupSource
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
@@ -17,6 +14,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Backu
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("BackupSource")
 class TestBackupSourceUDP:
+    chidx = int()
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -201,7 +199,7 @@ class TestBackupSourceUDP:
     def switch_source(self, **kwargs):
         with allure.step("Switch Backup Source"):
             channel_instance = ConfigureChannel(**kwargs)
-            return channel_instance.switch_backup_source(0)
+            return channel_instance.switch_backup_source(self.chidx)
 
     @attach_result(
         "Backup Source Stats Request",
@@ -240,13 +238,13 @@ class TestBackupSourceUDP:
     def test_backup_source_udp(self):
         print("\n")
         test_functions = [
-            # self.login,
+            # # self.login,
             # self.create_videopreset,
             # self.create_audiopreset,
-            # self.create_channel,
-            # self.create_role,
-            # self.channel_start,
-            # self.get_primary_source_channel_stats,
+            self.create_channel,
+            self.create_role,
+            self.channel_start,
+            self.get_primary_source_channel_stats,
             self.switch_source,
             self.get_backup_source_channel_stats,
             self.channel_stop,

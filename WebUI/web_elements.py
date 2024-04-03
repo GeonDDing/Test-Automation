@@ -253,7 +253,7 @@ class ConfigureBackupSourceElements:
     backup_source_type = 'select[id="/source/secondSource/sourceType"][name="/source/secondSource/sourceType"]'
     # Backup Source Settings button
     backup_soruce_settings_button = '//*[@id="backupSourceSettings"]'
-    chidx = int()
+    # chidx = int()
     # backup_source_switch_source_button = 'input.SwitchSourceBtn{}[type="image"][value="Switch"]'
     backup_source_switch_source_button = '#SwitchSourceBtn{}'
     backup_source_common_modulate_audio_track = (

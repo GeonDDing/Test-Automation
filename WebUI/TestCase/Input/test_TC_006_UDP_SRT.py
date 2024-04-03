@@ -159,15 +159,13 @@ class TestInputUDPSRT:
         "Role Creation Failed",
     )
     def create_role(self, **kwargs):
-        kwargs["Channel Name"] = [
-            "UDP SRT Sender Testing",
-            "UDP SRT Receiver Testing",
-        ]
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
             # Required parameters: Role Name, Channel Name
             return role_instance.configure_role(
-                kwargs["Role Options"]["Name"], kwargs["Channel Name"][0], kwargs["Channel Name"][1]
+                kwargs["Role Options"]["Name"],
+                self.srt_sender_configuration_data["Channel Name"],
+                self.srt_receiver_configuration_data["Channel Name"],
             )
 
     @attach_result("Sender Channel Start", "Sender Channel Start Successful", "Sender Channel Start Failed")
