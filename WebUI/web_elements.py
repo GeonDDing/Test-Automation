@@ -21,6 +21,10 @@ class LoginElements:
     login_button = '.grey-button[type="submit"][value="Login"]'
 
 
+class LogoutElements:
+    logout_button ='#user-block > a'
+
+
 class MainMenuElements:
     monitor, configure, events, settings = [f'//*[@id="page-menu-inner"]/a[{i}]' for i in range(1, 5)]
     (

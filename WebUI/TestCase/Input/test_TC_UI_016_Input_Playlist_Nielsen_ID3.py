@@ -5,6 +5,8 @@ from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from settings_networking import SettingsNetworking
+from login import Login
+from logout import Logout
 
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Playlist Input")]
@@ -86,6 +88,16 @@ class TestInputPlaylistNielsenID3:
             return step_wrapper
 
         return step_decorator
+
+    @attach_result(
+        "Login",
+        "Login Successful",
+        "Login Failed",
+    )
+    def login(self, **kwargs):
+        with allure.step("Login"):
+            login_instance = Login()
+            return login_instance.login(kwargs["ID"], kwargs["PW"])
 
     @attach_result("Network Setting", "Network Setting Successful", "Network Setting Failed")
     def set_network(self, **kwargs):
@@ -170,11 +182,22 @@ class TestInputPlaylistNielsenID3:
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
+    @attach_result(
+        "Logout",
+        "Logout Successful",
+        "Logout Failed",
+    )
+    def logout(self):
+        with allure.step("Logout"):
+            logout_instance = Logout()
+            return logout_instance.logout()
+
     @allure.sub_suite("Playlist")
     @allure.title("Nielsen ID3")
     def test_input_playlist_nielsen_id3(self):
         print("\n")
         test_functions = [
+            self.login,
             self.set_network,
             self.create_channel,
             self.create_role,
@@ -185,3 +208,5 @@ class TestInputPlaylistNielsenID3:
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
+
+        self.logout()

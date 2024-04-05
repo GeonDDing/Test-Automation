@@ -6,7 +6,8 @@ from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
-
+from login import Login
+from logout import Logout
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP BackupSource")]
 
@@ -84,6 +85,16 @@ class TestBackupSourceUDP:
             return step_wrapper
 
         return step_decorator
+
+    @attach_result(
+        "Login",
+        "Login Successful",
+        "Login Failed",
+    )
+    def login(self, **kwargs):
+        with allure.step("Login"):
+            login_instance = Login()
+            return login_instance.login(kwargs["ID"], kwargs["PW"])
 
     @attach_result(
         "Video Preset Creation",
@@ -221,14 +232,22 @@ class TestBackupSourceUDP:
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
+    @attach_result(
+        "Logout",
+        "Logout Successful",
+        "Logout Failed",
+    )
+    def logout(self):
+        with allure.step("Logout"):
+            logout_instance = Logout()
+            return logout_instance.logout()
+
     @allure.sub_suite("UDP/IP")
     @allure.title("UDP/IP")
     def test_backup_source_udp(self):
         print("\n")
         test_functions = [
-            #
-            # self.create_videopreset,
-            # self.create_audiopreset,
+            self.login,
             self.create_channel,
             self.create_role,
             self.channel_start,
@@ -240,3 +259,5 @@ class TestBackupSourceUDP:
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
+
+        self.logout()

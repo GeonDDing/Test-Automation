@@ -4,7 +4,8 @@ from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
-
+from login import Login
+from logout import Logout
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Output")]
 
@@ -78,6 +79,16 @@ class TestOutputUDPUnicast:
             return step_wrapper
 
         return step_decorator
+
+    @attach_result(
+        "Login",
+        "Login Successful",
+        "Login Failed",
+    )
+    def login(self, **kwargs):
+        with allure.step("Login"):
+            login_instance = Login()
+            return login_instance.login(kwargs["ID"], kwargs["PW"])
 
     @attach_result(
         "Channel Creation",
@@ -156,11 +167,22 @@ class TestOutputUDPUnicast:
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
 
+    @attach_result(
+        "Logout",
+        "Logout Successful",
+        "Logout Failed",
+    )
+    def logout(self):
+        with allure.step("Logout"):
+            logout_instance = Logout()
+            return logout_instance.logout()
+
     @allure.sub_suite("UDP/IP")
     @allure.title("Unicast")
     def test_output_udp_unicast(self):
         print("\n")
         test_functions = [
+            self.login,
             self.create_channel,
             self.create_role,
             self.channel_start,
@@ -170,3 +192,5 @@ class TestOutputUDPUnicast:
 
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
+
+        self.logout()
