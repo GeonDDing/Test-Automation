@@ -1,16 +1,12 @@
 import allure
 import json
-import sys
-import os
-
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from api_operation import ApiOperation
 
 
 @allure.parent_suite("Backend Test Automation")
 @allure.suite("API")
-@allure.sub_suite("Watch Folder")
-class TestWatchFolderAPI:
+@allure.sub_suite("Channel")
+class TestChannelAPI:
     @staticmethod
     def attach_response_result(response, status_name, result_name):
         status_code = response[0]
@@ -27,13 +23,12 @@ class TestWatchFolderAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @allure.title("API: Watch Folder")
-    def test_watchfolders(self):
-        api_operation = ApiOperation("watchfolders")
+    @allure.title("API: Channel")
+    def test_channels(self):
+        api_operation = ApiOperation("channels")
         generated_id = None
-
         # GET
-        with allure.step("GET Watch Folders"):
+        with allure.step("GET Channel"):
             response_get = api_operation.get_api_operation()
             self.attach_response_result(
                 response_get,
@@ -42,7 +37,7 @@ class TestWatchFolderAPI:
             )
 
         # POST
-        with allure.step("POST Watch Folders"):
+        with allure.step("POST Channel"):
             response_post = api_operation.post_api_operation()
 
             for i, response in enumerate(response_post):
@@ -56,7 +51,7 @@ class TestWatchFolderAPI:
                     generated_id = response[1]["id"]
 
         # PUT
-        with allure.step("PUT Watch Folders"):
+        with allure.step("PUT Channel"):
             response_put = api_operation.put_api_operation(generated_id)
 
             for i, response in enumerate(response_put):
@@ -67,7 +62,7 @@ class TestWatchFolderAPI:
                 )
 
         # DELETE
-        with allure.step("DELETE Watch Folders"):
+        with allure.step("DELETE Channel"):
             response_delete = api_operation.delete_api_operation(generated_id)
             self.attach_response_result(
                 response_delete,

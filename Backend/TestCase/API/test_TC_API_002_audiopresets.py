@@ -1,16 +1,12 @@
 import allure
 import json
-import sys
-import os
-
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from api_operation import ApiOperation
 
 
 @allure.parent_suite("Backend Test Automation")
 @allure.suite("API")
-@allure.sub_suite("Channel")
-class TestChannelAPI:
+@allure.sub_suite("Audiopreset")
+class TestAudiopresetAPI:
     @staticmethod
     def attach_response_result(response, status_name, result_name):
         status_code = response[0]
@@ -27,12 +23,12 @@ class TestChannelAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @allure.title("API: Channel")
-    def test_channels(self):
-        api_operation = ApiOperation("channels")
+    @allure.title("API: Audiopreset")
+    def test_audiopresets(self):
+        api_operation = ApiOperation("audiopresets")
         generated_id = None
         # GET
-        with allure.step("GET Channel"):
+        with allure.step("GET Audiopreset"):
             response_get = api_operation.get_api_operation()
             self.attach_response_result(
                 response_get,
@@ -41,9 +37,8 @@ class TestChannelAPI:
             )
 
         # POST
-        with allure.step("POST Channel"):
+        with allure.step("POST Audiopreset"):
             response_post = api_operation.post_api_operation()
-
             for i, response in enumerate(response_post):
                 self.attach_response_result(
                     response,
@@ -55,7 +50,7 @@ class TestChannelAPI:
                     generated_id = response[1]["id"]
 
         # PUT
-        with allure.step("PUT Channel"):
+        with allure.step("PUT Audiopreset"):
             response_put = api_operation.put_api_operation(generated_id)
 
             for i, response in enumerate(response_put):
@@ -66,7 +61,7 @@ class TestChannelAPI:
                 )
 
         # DELETE
-        with allure.step("DELETE Channel"):
+        with allure.step("DELETE Audiopreset"):
             response_delete = api_operation.delete_api_operation(generated_id)
             self.attach_response_result(
                 response_delete,

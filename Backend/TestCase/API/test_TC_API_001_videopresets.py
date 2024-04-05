@@ -1,16 +1,12 @@
 import allure
 import json
-import sys
-import os
-
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from api_operation import ApiOperation
 
 
 @allure.parent_suite("Backend Test Automation")
 @allure.suite("API")
-@allure.sub_suite("Audiopreset")
-class TestAudiopresetAPI:
+@allure.sub_suite("Video Preset")
+class TestVideopresetAPI:
     @staticmethod
     def attach_response_result(response, status_name, result_name):
         status_code = response[0]
@@ -27,12 +23,13 @@ class TestAudiopresetAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @allure.title("API: Audiopreset")
-    def test_audiopresets(self):
-        api_operation = ApiOperation("audiopresets")
+    @allure.title("API: Videopreset")
+    def test_videopresets(self):
+        api_operation = ApiOperation("videopresets")
         generated_id = None
+
         # GET
-        with allure.step("GET Audiopreset"):
+        with allure.step("GET Videopreset"):
             response_get = api_operation.get_api_operation()
             self.attach_response_result(
                 response_get,
@@ -41,8 +38,9 @@ class TestAudiopresetAPI:
             )
 
         # POST
-        with allure.step("POST Audiopreset"):
+        with allure.step("POST Videopreset"):
             response_post = api_operation.post_api_operation()
+
             for i, response in enumerate(response_post):
                 self.attach_response_result(
                     response,
@@ -54,7 +52,7 @@ class TestAudiopresetAPI:
                     generated_id = response[1]["id"]
 
         # PUT
-        with allure.step("PUT Audiopreset"):
+        with allure.step("PUT Videopreset"):
             response_put = api_operation.put_api_operation(generated_id)
 
             for i, response in enumerate(response_put):
@@ -65,10 +63,14 @@ class TestAudiopresetAPI:
                 )
 
         # DELETE
-        with allure.step("DELETE Audiopreset"):
+        with allure.step("DELETE Videopreset"):
             response_delete = api_operation.delete_api_operation(generated_id)
             self.attach_response_result(
                 response_delete,
                 "DELETE Response Status Code",
                 "DELETE Response Result",
             )
+
+
+if __name__ == "__main__":
+    TestVideopresetAPI().test_videopresets()

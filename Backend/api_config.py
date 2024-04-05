@@ -1,9 +1,6 @@
 # api_config.py
 import json
-
-
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-
+import os
 from Common.convert_date import ConvertDate
 
 

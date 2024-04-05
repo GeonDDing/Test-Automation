@@ -1,3 +1,4 @@
+.vscode
 Backend/__pycache__/
 Backend/TestCase/__pycache__/
 DataBase/__pycache__/
@@ -9,4 +10,5 @@ allure-results/
 .DS_Store
 WebUI/TestCase/Input/__pycache__/
 WebUI/TestCase/BackupSource/__pycache__/
+WebUI/TestCase/Output/__pycache__/
 DataBase/

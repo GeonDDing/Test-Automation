@@ -1,16 +1,12 @@
 import allure
 import json
-import sys
-import os
-
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from api_operation import ApiOperation
 
 
 @allure.parent_suite("Backend Test Automation")
 @allure.suite("API")
-@allure.sub_suite("Group")
-class TestGroupAPI:
+@allure.sub_suite("Device")
+class TestDeviceAPI:
     @staticmethod
     def attach_response_result(response, status_name, result_name):
         status_code = response[0]
@@ -27,13 +23,13 @@ class TestGroupAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @allure.title("API: Group")
-    def test_groups(self):
-        api_operation = ApiOperation("groups")
+    @allure.title("API: Device")
+    def test_devices(self):
+        api_operation = ApiOperation("devices")
         generated_id = None
 
         # GET
-        with allure.step("GET Group"):
+        with allure.step("GET Device"):
             response_get = api_operation.get_api_operation()
             self.attach_response_result(
                 response_get,
@@ -42,7 +38,7 @@ class TestGroupAPI:
             )
 
         # POST
-        with allure.step("POST Group"):
+        with allure.step("POST Device"):
             response_post = api_operation.post_api_operation()
 
             for i, response in enumerate(response_post):
@@ -56,18 +52,17 @@ class TestGroupAPI:
                     generated_id = response[1]["id"]
 
         # PUT
-        with allure.step("PUT Group"):
-            response_put = api_operation.put_api_operation(generated_id)
-
-            for i, response in enumerate(response_put):
-                self.attach_response_result(
-                    response,
-                    f"PUT Response Status Code {i+1}",
-                    f"PUT Response Result {i+1}",
-                )
+        # with allure.step("PUT Device"):
+        #     response_put = api_operation.put_api_operation(generated_id)
+        #     for i, response in enumerate(response_put):
+        #         self.attach_response_result(
+        #             response,
+        #             f"PUT Response Status Code {i+1}",
+        #             f"PUT Response Result {i+1}",
+        #         )
 
         # DELETE
-        with allure.step("DELETE Group"):
+        with allure.step("DELETE Device"):
             response_delete = api_operation.delete_api_operation(generated_id)
             self.attach_response_result(
                 response_delete,

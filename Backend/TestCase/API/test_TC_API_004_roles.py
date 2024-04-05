@@ -1,16 +1,12 @@
 import allure
 import json
-import sys
-import os
-
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from api_operation import ApiOperation
 
 
 @allure.parent_suite("Backend Test Automation")
 @allure.suite("API")
-@allure.sub_suite("Video Preset")
-class TestVideopresetAPI:
+@allure.sub_suite("Role")
+class TestRoleAPI:
     @staticmethod
     def attach_response_result(response, status_name, result_name):
         status_code = response[0]
@@ -27,13 +23,13 @@ class TestVideopresetAPI:
         )
         assert status_code == 200, "테스트 실패"
 
-    @allure.title("API: Videopreset")
-    def test_videopresets(self):
-        api_operation = ApiOperation("videopresets")
+    @allure.title("API: Role")
+    def test_roles(self):
+        api_operation = ApiOperation("roles")
         generated_id = None
 
         # GET
-        with allure.step("GET Videopreset"):
+        with allure.step("GET Role"):
             response_get = api_operation.get_api_operation()
             self.attach_response_result(
                 response_get,
@@ -42,7 +38,7 @@ class TestVideopresetAPI:
             )
 
         # POST
-        with allure.step("POST Videopreset"):
+        with allure.step("POST Channel"):
             response_post = api_operation.post_api_operation()
 
             for i, response in enumerate(response_post):
@@ -56,7 +52,7 @@ class TestVideopresetAPI:
                     generated_id = response[1]["id"]
 
         # PUT
-        with allure.step("PUT Videopreset"):
+        with allure.step("PUT Role"):
             response_put = api_operation.put_api_operation(generated_id)
 
             for i, response in enumerate(response_put):
@@ -67,7 +63,7 @@ class TestVideopresetAPI:
                 )
 
         # DELETE
-        with allure.step("DELETE Videopreset"):
+        with allure.step("DELETE Role"):
             response_delete = api_operation.delete_api_operation(generated_id)
             self.attach_response_result(
                 response_delete,
