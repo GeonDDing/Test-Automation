@@ -569,6 +569,7 @@ class ConfigureVideopresetElements:
     videopreset_buffering_time = 'input.inputbox[type="text"][id="/video/lookaheaddepth"][name="/video/lookaheaddepth"]'
     videopreset_add_button = 'input.black-button[type="button"][value="Add"]'
     videopreset_save_button = 'input.black-button[type="submit"][name="action"][value="Save"]'
+    videopreset_closed_caption = 'select.inputbox[id="/video/EnableCCaption"][name="/video/EnableCCaption"]'
 
 
 class ConfigureAudiopresetElements:

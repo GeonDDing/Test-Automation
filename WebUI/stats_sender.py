@@ -25,7 +25,7 @@ class StatsSender:
             start_time = time.time()
             mchidx = f"0{chidx+1:02}"
             while max_retries > 0:
-                if time.time() - start_time > 20:
+                if time.time() - start_time > 30:
                     queue.put("quit")
                     break
 
