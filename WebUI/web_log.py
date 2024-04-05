@@ -2,37 +2,37 @@ from Common.convert_date import ConvertDate
 
 
 class WebLog:
-    @classmethod
-    def exec_log(cls, log):
+    @staticmethod
+    def exec_log(log):
         date = ConvertDate.convert_date()[1]
         return print(f"{date}: {log}")
 
-    @classmethod
-    def step_log(cls, log):
+    @staticmethod
+    def step_log(log):
         date = ConvertDate.convert_date()[1]
         return print(f"{date}: [STEP] {log}")
 
-    @classmethod
-    def sub_step_log(cls, log):
+    @staticmethod
+    def sub_step_log(log):
         date = ConvertDate.convert_date()[1]
         return print(f"{date}:   [SUB STEP] {log}")
 
-    @classmethod
-    def info_log(cls, log):
+    @staticmethod
+    def info_log(log):
         date = ConvertDate.convert_date()[1]
         return print(f"{date}:   [INFO] {log}")
 
-    @classmethod
-    def option_log(cls, log):
+    @staticmethod
+    def option_log(log):
         date = ConvertDate.convert_date()[1]
         return print(f"{date}:     [OPTION] {log}")
 
-    @classmethod
-    def warning_log(cls, log):
+    @staticmethod
+    def warning_log(log):
         date = ConvertDate.convert_date()[1]
         return print(f"{date}: [WARNING] {log}")
 
-    @classmethod
-    def error_log(cls, log):
+    @staticmethod
+    def error_log(log):
         date = ConvertDate.convert_date()[1]
         return print(f"{date}: [ERROR] {log}")

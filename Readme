@@ -14,13 +14,13 @@ pytest --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
 pytest ./Backend/TestCase --capture=tee-sys --tb=no --alluredir=allure-results
 
 ### WebUI/Input 테스트케이스만 실행 ###
-pytest ./WebUI/TestCase/Input --capture=tee-sys --tb=no --alluredir=allure-results
+pytest ./WebUI/TestCase/Login ./WebUI/TestCase/Input --capture=tee-sys --tb=no --alluredir=allure-results
 
 ### WebUI/BackupSource 테스트케이스만 실행 ###
-pytest ./WebUI/TestCase/BackupSource --capture=tee-sys --tb=no --alluredir=allure-results
+pytest ./WebUI/TestCase/Login ./WebUI/TestCase/BackupSource --capture=tee-sys --tb=no --alluredir=allure-results
 
 ### WebUI/Input 테스트케이스만 실행 ###
-pytest ./WebUI/TestCase/Output --capture=tee-sys --tb=no --alluredir=allure-results
+pytest ./WebUI/TestCase/Login ./WebUI/TestCase/Output --capture=tee-sys --tb=no --alluredir=allure-results
 
 ### Allure 레포트 생성 ###
 allure serve --host 127.0.0.1 --port 8081 ./allure-results
