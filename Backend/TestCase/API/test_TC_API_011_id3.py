@@ -14,7 +14,7 @@ class TestID3API:
     @staticmethod
     def attach_response_result(response, status_name, result_name):
         status_code = response[0]
-        status_message = "테스트 성공" if status_code == 200 else "테스트 실패"
+        status_message = "API Test Successful" if status_code == 200 else "API Test Failed"
         allure.attach(
             f"Response Status Code: {status_code}, {status_message}",
             name=status_name,
@@ -25,7 +25,7 @@ class TestID3API:
             name=result_name,
             attachment_type=None,
         )
-        assert status_code == 200, "테스트 실패"
+        assert status_code == 200, "API Test Failed"
 
     @pytest.mark.parametrize(
         "first_uri_resource, second_uri_resoure, devid_value, chindex_value",
