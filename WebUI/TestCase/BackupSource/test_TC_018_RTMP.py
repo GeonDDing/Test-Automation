@@ -4,7 +4,7 @@ from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
-from login import Login
+
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTMP Backup Source")]
 
@@ -96,12 +96,6 @@ class TestInputTRMP:
             return step_wrapper
 
         return step_decorator
-
-    @attach_result("Login", "Login Successful", "Login Failed")
-    def login(self, **kwargs):
-        with allure.step("Login"):
-            login_instance = Login()
-            return login_instance.login(kwargs["ID"], kwargs["PW"])
 
     @attach_result(
         "RTMP Receiver Channel Creation",
@@ -268,7 +262,6 @@ class TestInputTRMP:
     def test_input_rtmp(self):
         print("\n")
         test_functions = [
-            # self.login,
             self.create_rtmp_receiver_channel,
             self.create_rtmp_sender_channel,
             self.create_role,

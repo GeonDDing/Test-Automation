@@ -4,7 +4,7 @@ from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
-from login import Login
+
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTSP Input")]
 
@@ -75,12 +75,6 @@ class TestInputRTSP:
             return step_wrapper
 
         return step_decorator
-
-    @attach_result("Login", "Login Successful", "Login Failed")
-    def login(self, **kwargs):
-        with allure.step("Login"):
-            login_instance = Login()
-            return login_instance.login(kwargs["ID"], kwargs["PW"])
 
     @attach_result(
         "Channel Creation",
@@ -160,7 +154,6 @@ class TestInputRTSP:
     def test_input_udp_rtsp(self):
         print("\n")
         test_functions = [
-            # self.login,
             self.create_channel,
             self.create_role,
             self.channel_start,

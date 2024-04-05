@@ -6,7 +6,7 @@ from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from settings_networking import SettingsNetworking
-from login import Login
+
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Playlist Input")]
 
@@ -91,12 +91,6 @@ class TestInputRemoteMediaAsset:
             return step_wrapper
 
         return step_decorator
-
-    @attach_result("Login", "Login Successful", "Login Failed")
-    def login(self, **kwargs):
-        with allure.step("Login"):
-            login_instance = Login()
-            return login_instance.login(kwargs["ID"], kwargs["PW"])
 
     @attach_result("Network Setting", "Network Setting Successful", "Network Setting Failed")
     def set_network(self, **kwargs):
@@ -198,7 +192,6 @@ class TestInputRemoteMediaAsset:
     def test_input_playlist_remote_media_asset(self):
         print("\n")
         test_functions = [
-            # self.login,
             self.set_network,
             self.create_channel,
             self.create_role,

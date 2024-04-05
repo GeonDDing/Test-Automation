@@ -6,7 +6,7 @@ from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
-from login import Login
+
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP BackupSource")]
 
@@ -90,12 +90,6 @@ class TestBackupSourceUDP:
             return step_wrapper
 
         return step_decorator
-
-    @attach_result("Login", "Login Successful", "Login Failed")
-    def login(self, **kwargs):
-        with allure.step("Login"):
-            login_instance = Login()
-            return login_instance.login(kwargs["ID"], kwargs["PW"])
 
     @attach_result(
         "Video Preset Creation",
@@ -238,7 +232,7 @@ class TestBackupSourceUDP:
     def test_backup_source_udp(self):
         print("\n")
         test_functions = [
-            # # self.login,
+            #
             # self.create_videopreset,
             # self.create_audiopreset,
             self.create_channel,

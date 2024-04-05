@@ -4,7 +4,7 @@ from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
-from login import Login
+
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
 
@@ -87,12 +87,6 @@ class TestInputUDPNielsenID3:
 
         return step_decorator
 
-    @attach_result("Login", "Login Successful", "Login Failed")
-    def login(self, **kwargs):
-        with allure.step("Login"):
-            login_instance = Login()
-            return login_instance.login(kwargs["ID"], kwargs["PW"])
-
     @attach_result(
         "Channel Creation",
         "Channel Creation Successful",
@@ -171,7 +165,6 @@ class TestInputUDPNielsenID3:
     def test_input_udp_nielsen_id3(self):
         print("\n")
         test_functions = [
-            # self.login,
             self.create_channel,
             self.create_role,
             self.channel_start,
