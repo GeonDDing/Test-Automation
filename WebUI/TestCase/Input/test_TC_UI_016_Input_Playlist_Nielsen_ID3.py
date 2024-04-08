@@ -7,7 +7,7 @@ from stats_receiver import StatsReceiver
 from settings_networking import SettingsNetworking
 from login import Login
 from logout import Logout
-
+from webdriver_method import WebDriverMethod
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Playlist Input")]
 
@@ -28,25 +28,6 @@ class TestInputPlaylistNielsenID3:
         "Preset Name": {
             "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
             "Audiopreset Name": "AAC | 128K | 48kHz | Testing",
-        },
-        "Videopreset Options": {
-            "Codec": "H.264/AVC",
-            "Encoding engine": "S/W codec",
-            "Resolution": "1280 x 720 (HD 720x)",
-            "Frame Rate": "29.97",
-            "# of B frames": "2",
-            "Bitrate": "4000",
-            "H.264 Profile": "Main",
-            "I-Frame Interval": "60",
-            "Buffering Time": "120",
-        },
-        "Audiopreset Options": {
-            "Codec": "AAC",
-            "MPEG version": "MPEG4",
-            "Profile": "Default",
-            "Channels": "Stereo",
-            "Sampling Rate": "48000",
-            "Bitrate": "128",
         },
         "Common Options": {
             "Evergreen Timeout": "4000",
@@ -210,3 +191,4 @@ class TestInputPlaylistNielsenID3:
             test_step_func(**self.test_configuration_data)
 
         self.logout()
+        WebDriverMethod().close_driver()

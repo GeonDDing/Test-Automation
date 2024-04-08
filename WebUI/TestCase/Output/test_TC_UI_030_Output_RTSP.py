@@ -1,5 +1,7 @@
 import time
 import allure
+from configure_audiopresets import ConfigureAudiopreset
+from configure_videopresets import ConfigureVideopreset
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
@@ -7,24 +9,24 @@ from stats_receiver import StatsReceiver
 from login import Login
 from logout import Logout
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTSP Output")]
 
 
 @allure.parent_suite("WebUI Test Automation")
-@allure.suite("Input")
-class TestInputUDPProgramNumber:
+@allure.suite("Output")
+class TestOutputRTSP:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
         "Role Options": {
             "Name": "UI Testing Role",
         },
-        "Channel Name": "Input UDP Program Number Testing",
-        "Input Type": "UDP",
-        "Output Type": "UDP",
+        "Channel Name": "Output RTSP Testing",
+        "Input Type": "Playlist",
+        "Output Type": "RTSP",
         "Backup Source Type": None,
         "Preset Name": {
-            "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
+            "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | CC Testing",
             "Audiopreset Name": "AAC | 128K | 48kHz | Testing",
         },
         "Common Options": {
@@ -32,15 +34,11 @@ class TestInputUDPProgramNumber:
             "Analysis window": "4000",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:19006",
-            "Interface": "NIC2",
-            "Program Selection Mode": "Program number",
-            "Program Number": "1010",
+            "Type": "Local Static Playlist",
+            "Playlists name": "bbb",
         },
         "Output Options": {
-            "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "15003",
-            "Primary Network Interface": "NIC1",
+            "Publishing Point": "rtsp://10.1.0.145:8554/live/rtsp_test",
         },
         "Backup Source Options": None,
     }
@@ -160,9 +158,9 @@ class TestInputUDPProgramNumber:
             logout_instance = Logout()
             return logout_instance.logout()
 
-    @allure.sub_suite("UDP/IP")
-    @allure.title("Prpgram Number")
-    def test_input_udp_program_number(self):
+    @allure.sub_suite("RTSP")
+    @allure.title("RTSP")
+    def test_output_udp_rtsp(self):
         print("\n")
         test_functions = [
             self.login,

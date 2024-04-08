@@ -9,11 +9,11 @@ from stats_receiver import StatsReceiver
 from login import Login
 from logout import Logout
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP BackupSource")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Backup Source")]
 
 
 @allure.parent_suite("WebUI Test Automation")
-@allure.suite("BackupSource")
+@allure.suite("Backup Source")
 class TestBackupSourceUDP:
     chidx = int()
     test_configuration_data = {

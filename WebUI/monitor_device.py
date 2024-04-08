@@ -30,6 +30,7 @@ class MonitorDevice(WebDriverMethod):
         is_channel_start = bool()
         self.click_element(By.XPATH, MainMenuElements().monitor)
         self.find_channel_index(channel_name)
+        time.sleep(0.5)
         self.click_element(By.XPATH, self.monitor_device_elements.monitor_table)
         self.channel_start_element = self.monitor_device_elements.monitor_device_channel_start.format(self.chindex)
         self.channel_stop_element = self.monitor_device_elements.monitor_device_channel_stop.format(self.chindex)

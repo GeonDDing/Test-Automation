@@ -6,6 +6,7 @@ from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
 from logout import Logout
+from webdriver_method import WebDriverMethod
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTMP Backup Source")]
 
@@ -303,6 +304,4 @@ class TestInputTRMP:
             test_step_func(**self.rtmp_receiver_configuration_data)
 
         self.logout()
-
-
-TestInputTRMP().test_input_rtmp()
+        WebDriverMethod().close_driver()

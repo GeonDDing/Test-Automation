@@ -5,7 +5,7 @@ import json
 class ResotreConfiguration:
     base_url = "http://10.1.0.145/hms/rest/"
     headers = {"Content-type": "application/json", "Accept": "text/plain"}
-    device_data = {"ip": "127.0.0.1", "groupid": 1, "roleid": 1, "name": "Local Device"}
+    device_data = {"ip": "127.0.0.1", "groupid": 24, "roleid": 1, "name": "Local Device"}
 
     def restore_device(self):
         put_reponse = requests.put(

@@ -7,19 +7,19 @@ from stats_receiver import StatsReceiver
 from login import Login
 from logout import Logout
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Output")]
 
 
 @allure.parent_suite("WebUI Test Automation")
-@allure.suite("Input")
-class TestInputUDPSRT:
+@allure.suite("Output")
+class TestOutputUDPSRT:
     srt_sender_configuration_data = {
         "ID": "admin",
         "PW": "admin",
         "Role Options": {
             "Name": "UI Testing Role",
         },
-        "Channel Name": "Input UDP SRT Sender Testing",
+        "Channel Name": "Output UDP SRT Sender Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -32,20 +32,21 @@ class TestInputUDPSRT:
             "Analysis window": "4000",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:18007",
+            "Network URL": "224.30.30.10:18003",
             "Interface": "NIC2",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.145",
-            "Primary Output Port": "15006",
+            "Primary Output Port": "15027",
             "Primary Network Interface": "NIC1",
             "SRT": True,
+            "Latency": "120",
         },
         "Backup Source Options": None,
     }
 
     srt_receiver_configuration_data = {
-        "Channel Name": "Input UDP SRT Receiver Testing",
+        "Channel Name": "Output UDP SRT Receiver Testing",
         "Input Type": "UDP",
         "Output Type": "UDP",
         "Backup Source Type": None,
@@ -58,13 +59,14 @@ class TestInputUDPSRT:
             "Analysis window": "4000",
         },
         "Input Options": {
-            "Network URL": "10.1.0.145:15006",
+            "Network URL": "10.1.0.145:15027",
             "Interface": "NIC1",
             "Enable SRT": True,
+            "Latency": "120",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "15006",
+            "Primary Output Port": "15027",
             "Primary Network Interface": "NIC1",
         },
         "Backup Source Options": None,
@@ -228,7 +230,7 @@ class TestInputUDPSRT:
 
     @allure.sub_suite("UDP/IP")
     @allure.title("SRT")
-    def test_input_udp_srt(self):
+    def test_output_udp_srt(self):
         print("\n")
         test_functions = [
             self.login,
