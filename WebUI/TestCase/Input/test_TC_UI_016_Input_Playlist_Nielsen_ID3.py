@@ -176,7 +176,6 @@ class TestInputPlaylistNielsenID3:
     @allure.sub_suite("Playlist")
     @allure.title("Nielsen ID3")
     def test_input_playlist_nielsen_id3(self):
-        print("\n")
         test_functions = [
             self.login,
             self.set_network,

@@ -1,34 +1,34 @@
 ### pytest 옵션 ###
 1. -tb=no : Trace back 출력 안함
 2. -s : pytest 테스트 중 Console에 로그 출력
-3. --color=yes --capture=tee-sys : Allure 레포트에 stdout 출력
+3. --capture=tee-sys : Allure 레포트에 stdout 출력
 
 ### Allure 옵션 ###
 1. --alluredir=allure-results : Allure 레포트 생성을 위한 테스트 결과 데이터 저장 경로
 2. --clean-alluredir : 테스트 실행 전 테스트 결과 데이터 파일 삭제하고 테스트 실행
 
 ### 전체 테스트케이스 실행 ###
-pytest --color=yes --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
+pytest --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
 
 ### Backend API 테스트케이스만 실행 ###
-pytest ./Backend/TestCase --color=yes --capture=tee-sys --tb=no --alluredir=allure-results
+pytest ./Backend/TestCase --capture=tee-sys --tb=no --alluredir=allure-results
 
 ### WebUI/Input 테스트케이스만 실행 ###
-pytest ./WebUI/TestCase/Input --color=yes --capture=tee-sys --tb=no --alluredir=allure-results
+pytest ./WebUI/TestCase/Input --capture=tee-sys --tb=no --alluredir=allure-results
 
 ### WebUI/BackupSource 테스트케이스만 실행 ###
-pytest ./WebUI/TestCase/BackupSource --color=yes --capture=tee-sys --tb=no --alluredir=allure-results
+pytest ./WebUI/TestCase/BackupSource --capture=tee-sys --tb=no --alluredir=allure-results
 
 ### WebUI/Output 테스트케이스만 실행 ###
-pytest ./WebUI/TestCase/Output --color=yes --capture=tee-sys --tb=no --alluredir=allure-results
+pytest ./WebUI/TestCase/Output --capture=tee-sys --tb=no --alluredir=allure-results
 
 ### Allure 레포트 생성 ###
 allure serve --host 127.0.0.1 --port 8081 ./allure-results
 
 ### 파일 단위 테스트케이스 실행 ###
-pytest ./Backend/TestCase/test_TC_API_001_videopresets.py --color=yes --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
-pytest ./WebUI/TestCase/Input/test_TC_UI_000_Login.py ./WebUI/TestCase/BackupSource/test_TC_UI_018_RTMP.py --color=yes --capture=tee-sys --tb=no --alluredir=allure-results
-pytest ./WebUI/TestCase/output/test_TC_UI_027_Output_UDP_SRT.py --color=yes --capture=tee-sys --tb=no --alluredir=allure-results
+pytest ./Backend/TestCase/test_TC_API_001_videopresets.py --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
+pytest ./WebUI/TestCase/Input/test_TC_UI_000_Login.py ./WebUI/TestCase/BackupSource/test_TC_UI_018_RTMP.py --capture=tee-sys --tb=no --alluredir=allure-results
+pytest ./WebUI/TestCase/output/test_TC_UI_030_Output_RTSP.py --capture=tee-sys --tb=no --alluredir=allure-results
 
 ### 실패한 테스트케이스 재 실행 ###
-pytest ./WebUI/TestCase/ --color=yes --capture=tee-sys --tb=no --alluredir=allure-results --last-failed
+pytest ./WebUI/TestCase/ --capture=tee-sys --tb=no --alluredir=allure-results --last-failed

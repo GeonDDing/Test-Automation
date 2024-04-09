@@ -232,7 +232,6 @@ class TestOutputUDPTSoverRTP:
     @allure.sub_suite("UDP/IP")
     @allure.title("TS over RTP")
     def test_output_udp_ts_over_rtp(self):
-        print("\n")
         test_functions = [
             self.login,
             self.create_sender_channel,

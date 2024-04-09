@@ -164,7 +164,6 @@ class TestUDPInputPID:
     @allure.sub_suite("UDP/IP")
     @allure.title("PIDs")
     def test_input_udp_pid(self):
-        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

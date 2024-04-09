@@ -12,7 +12,6 @@ class ApiAuthorization:
         headers = {
             "Content-type": "application/json",
             "Accept": "text/plain",
-            "Authorization": 'Basic realm="Mediaexcel REST API"',
         }
         response = requests.get(
             "http://10.1.0.145/hms/rest/videopresets.php",
@@ -67,8 +66,3 @@ class ApiAuthorization:
         else:
             print(f"Token request failed with status code {response.status_code}")
             print(response.text)
-
-
-if __name__ == "__main__":
-    test = ApiAuthorization()
-    test.OAuth2("test", "3l1jw25lp4iohc56txfim")

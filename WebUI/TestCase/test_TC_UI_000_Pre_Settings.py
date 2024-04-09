@@ -177,7 +177,6 @@ class TestSettings:
     @allure.sub_suite("Settings")
     @allure.title("Pre Settings")
     def test_input_udp_multicast(self):
-        print("\n")
         test_functions = [
             self.login,
             self.create_videopreset,

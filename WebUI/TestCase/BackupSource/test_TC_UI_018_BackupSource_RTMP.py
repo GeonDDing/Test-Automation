@@ -285,7 +285,6 @@ class TestInputTRMP:
     @allure.sub_suite("RTMP")
     @allure.title("RTMP")
     def test_input_rtmp(self):
-        print("\n")
         test_functions = [
             self.login,
             self.create_rtmp_receiver_channel,

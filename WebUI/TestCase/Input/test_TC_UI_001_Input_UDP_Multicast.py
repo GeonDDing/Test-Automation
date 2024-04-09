@@ -1,11 +1,7 @@
 import time
 import allure
-from configure_audiopresets import ConfigureAudiopreset
-from configure_videopresets import ConfigureVideopreset
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
-from configure_groups import ConfigureGroup
-from configure_devices import ConfigureDevice
 from monitor_device import MonitorDevice
 from stats_receiver import StatsReceiver
 from login import Login
@@ -74,32 +70,6 @@ class TestInputUDPMulticast:
         with allure.step("Login"):
             login_instance = Login()
             return login_instance.login(kwargs["ID"], kwargs["PW"])
-
-    @attach_result(
-        "Video Preset Creation",
-        "Video Preset Creation Successful",
-        "Video Preset Creation Failed",
-    )
-    def create_videopreset(self, **kwargs):
-        with allure.step("Create video preset"):
-            videopreset_instance = ConfigureVideopreset()
-            # Required parameters: Videopreset Name, Videopreset Options
-            return videopreset_instance.configure_videopreset(
-                kwargs["Preset Name"]["Videopreset Name"], kwargs["Videopreset Options"]
-            )
-
-    @attach_result(
-        "Audio Preset Creation",
-        "Audio Preset Creation Successful",
-        "Audio Preset Creation Failed",
-    )
-    def create_audiopreset(self, **kwargs):
-        with allure.step("Create audio preset"):
-            audiopreset_instance = ConfigureAudiopreset()
-            # Required parameters: Audiopreset Name, Audiopreset Options
-            return audiopreset_instance.configure_audiopreset(
-                kwargs["Preset Name"]["Audiopreset Name"], kwargs["Audiopreset Options"]
-            )
 
     @attach_result(
         "Channel Creation",
@@ -191,7 +161,6 @@ class TestInputUDPMulticast:
     @allure.sub_suite("UDP/IP")
     @allure.title("Multicast")
     def test_input_udp_multicast(self):
-        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

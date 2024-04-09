@@ -1,7 +1,5 @@
 import time
 import allure
-from configure_audiopresets import ConfigureAudiopreset
-from configure_videopresets import ConfigureVideopreset
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
 from monitor_device import MonitorDevice
@@ -26,7 +24,7 @@ class TestOutputRTSP:
         "Output Type": "RTSP",
         "Backup Source Type": None,
         "Preset Name": {
-            "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | CC Testing",
+            "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
             "Audiopreset Name": "AAC | 128K | 48kHz | Testing",
         },
         "Common Options": {
@@ -161,7 +159,6 @@ class TestOutputRTSP:
     @allure.sub_suite("RTSP")
     @allure.title("RTSP")
     def test_output_udp_rtsp(self):
-        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

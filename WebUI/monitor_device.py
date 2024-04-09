@@ -29,6 +29,7 @@ class MonitorDevice(WebDriverMethod):
     def channel_start(self, channel_name):
         is_channel_start = bool()
         self.click_element(By.XPATH, MainMenuElements().monitor)
+        time.sleep(0.5)
         self.find_channel_index(channel_name)
         time.sleep(0.5)
         self.click_element(By.XPATH, self.monitor_device_elements.monitor_table)

@@ -1,18 +1,18 @@
 {
-	"http_method": "post",
-	"data": {
+    "http_method": "post",
+    "data": {
         "devid": 2,
-		"chindex": 0,
+        "chindex": 0,
         "key": "key0",
         "start": 0,
         "duration": 60,
         "interval": 1,
         "frames": [
             {
-                "id": "mexl",
-                "owner": "www.mexltest.meta.code",
+                "id": "test",
+                "owner": "www.test.meta.code",
                 "information": "post id3 trigger"
             }
         ]
-	}
+    }
 }

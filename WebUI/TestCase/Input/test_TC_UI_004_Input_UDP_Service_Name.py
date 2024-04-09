@@ -163,7 +163,6 @@ class TestInputUDPServiceName:
     @allure.sub_suite("UDP/IP")
     @allure.title("Service Name")
     def test_input_udp_service_name(self):
-        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

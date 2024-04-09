@@ -13,7 +13,6 @@ class Login(WebDriverMethod):
         # Open Page
         self.driver.get(self.url)
         try:
-            print("\n")
             try:
                 WebDriverWait(self.driver, 3).until(
                     EC.presence_of_element_located((By.CSS_SELECTOR, LoginElements.login))

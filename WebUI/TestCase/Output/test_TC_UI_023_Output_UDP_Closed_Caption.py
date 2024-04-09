@@ -1,6 +1,5 @@
 import time
 import allure
-from configure_audiopresets import ConfigureAudiopreset
 from configure_videopresets import ConfigureVideopreset
 from configure_channels import ConfigureChannel
 from configure_roles import ConfigureRole
@@ -188,7 +187,6 @@ class TestOutputUDPClosedCaption:
     @allure.sub_suite("UDP/IP")
     @allure.title("Multicast")
     def test_output_udp_closed_caption(self):
-        print("\n")
         test_functions = [
             self.login,
             self.create_videopreset,

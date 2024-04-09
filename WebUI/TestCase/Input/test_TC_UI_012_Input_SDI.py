@@ -166,7 +166,6 @@ class TestInputSDI:
     @allure.sub_suite("SDI")
     @allure.title("SDI")
     def test_input_sdi(self):
-        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

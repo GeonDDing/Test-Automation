@@ -163,7 +163,6 @@ class TestInputUDPNielsenID3:
     @allure.sub_suite("UDP/IP")
     @allure.title("Nielsen ID3")
     def test_input_udp_nielsen_id3(self):
-        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

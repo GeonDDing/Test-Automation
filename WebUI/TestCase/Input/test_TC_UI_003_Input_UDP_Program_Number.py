@@ -163,7 +163,6 @@ class TestInputUDPProgramNumber:
     @allure.sub_suite("UDP/IP")
     @allure.title("Prpgram Number")
     def test_input_udp_program_number(self):
-        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

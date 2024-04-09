@@ -161,7 +161,6 @@ class TestInputPlaylist:
     @allure.sub_suite("Playlist")
     @allure.title("Playlist")
     def test_input_playlist(self):
-        print("\n")
         test_functions = [
             self.login,
             self.create_channel,
