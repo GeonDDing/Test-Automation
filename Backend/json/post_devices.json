@@ -1,7 +1,7 @@
 {
 	"http_method": "post",
 	"data": {
-		"ip": "10.1.0.145",
+		"ip": "10.1.0.123",
 		"groupid": 24,
 		"roleid": 1,
 		"name": "API POST Device"
