@@ -7,21 +7,21 @@ from stats_receiver import StatsReceiver
 from login import Login
 from logout import Logout
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Output")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTMP Output")]
 
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Output")
-class TestInputUDPDVBTeletext:
+class TestOutputRTMPDvbSubtitle:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
         "Role Options": {
             "Name": "UI Testing Role",
         },
-        "Channel Name": "Output UDP DVB Subtitle Testing",
-        "Input Type": "UDP",
-        "Output Type": "UDP",
+        "Channel Name": "Output RTMP DVB Subtitle Testing",
+        "Input Type": "Playlist",
+        "Output Type": "RTMP",
         "Backup Source Type": None,
         "Preset Name": {
             "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
@@ -32,14 +32,14 @@ class TestInputUDPDVBTeletext:
             "Analysis window": "4000",
         },
         "Input Options": {
-            "Network URL": "224.30.30.10:18003",
-            "Interface": "NIC2",
+            "Type": "Local Static Playlist",
+            "Playlists name": "bbb",
         },
         "Output Options": {
-            "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "15022",
-            "Primary Network Interface": "NIC1",
-            "DVB-Teletext-Track": "nor",
+            "Broadcast Address": "10.1.0.220",
+            "Broadcast Port": "1935",
+            "Broadcast Path": "live",
+            "Stream Name": "jacob",
         },
         "Backup Source Options": None,
     }
@@ -159,9 +159,9 @@ class TestInputUDPDVBTeletext:
             logout_instance = Logout()
             return logout_instance.logout()
 
-    @allure.sub_suite("UDP/IP")
-    @allure.title("DVB-Subtitle")
-    def test_output_udp_dvb_teletext(self):
+    @allure.sub_suite("RTMP")
+    @allure.title("RTMP")
+    def test_output_rtmp(self):
         test_functions = [
             self.login,
             self.create_channel,

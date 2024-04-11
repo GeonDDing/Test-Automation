@@ -12,7 +12,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Outpu
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Output")
-class TestInputUDPMulticast:
+class TestInputUDPDVBSubtitle:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",

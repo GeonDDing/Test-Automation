@@ -29,12 +29,14 @@ class ApiOperation(ApiConfig):
                         if key == args[0]:
                             continue
                         api_url += f"&{key}={value}"
-            print(f"API URL : {api_url}")
+            print(f"API URL : {api_url}", flush=True)
             if method == "get":
                 response = requests.get(api_url, headers=self.headers)
             elif method == "post":
                 response = requests.post(api_url, headers=self.headers, data=json.dumps(data))
             elif method == "put":
+                if self.api_resource == "controls":
+                    print(f"Operation : {data}", flush=True)
                 response = requests.put(api_url, headers=self.headers, data=json.dumps(data))
             elif method == "delete":
                 response = requests.delete(api_url, headers=self.headers)
@@ -44,42 +46,41 @@ class ApiOperation(ApiConfig):
             response.raise_for_status()
 
             if response.status_code == 200:
-                print(json.dumps(response.json(), indent=4))
+                print(json.dumps(response.json(), indent=4), flush=True)
             else:
-                print(f"Unexpected status code: {response.status_code}")
+                print(f"Unexpected status code: {response.status_code}", flush=True)
 
             return response.status_code, response.json()
 
         except requests.exceptions.RequestException as e:
-            print(f"An error occurred during the request: {e}")
+            print(f"An error occurred during the request: {e}", flush=True)
 
     def get_api_operation(self, id_value=None, *args):
-        print("GET API Request")
+        print("GET API Request", flush=True)
         return self.send_request("get", id_value, *args)
 
     def post_api_operation(self, *args):
-        print("POST API Request")
+        print("POST API Request", flush=True)
         request = list()
         post_data_list = self.convert_json(self.api_resource, "post")
 
-        for i, post_data in enumerate(post_data_list):
+        for _, post_data in enumerate(post_data_list):
             request.append(self.send_request("post", *args, data=post_data))
             if len(post_data_list) > 1:
                 sleep(20)
         return request
 
     def put_api_operation(self, id_value=None, *args):
-        print("PUT API Request")
+        print("PUT API Request", flush=True)
         request = list()
         put_data_list = self.convert_json(self.api_resource, "put")
 
-        for i, put_data in enumerate(put_data_list):
+        for _, put_data in enumerate(put_data_list):
             request.append(self.send_request("put", id_value, *args, data=put_data))
-
             if len(put_data_list) > 1:
                 sleep(20)
         return request
 
     def delete_api_operation(self, id_value=None, *args):
-        print("DELETE API Request")
+        print("DELETE API Request", flush=True)
         return self.send_request("delete", id_value, *args)

@@ -303,4 +303,3 @@ class TestInputTRMP:
             test_step_func(**self.rtmp_receiver_configuration_data)
 
         self.logout()
-        WebDriverMethod().close_driver()

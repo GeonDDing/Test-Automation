@@ -190,4 +190,3 @@ class TestInputPlaylistNielsenID3:
             test_step_func(**self.test_configuration_data)
 
         self.logout()
-        WebDriverMethod().close_driver()

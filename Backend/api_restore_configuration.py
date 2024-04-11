@@ -13,9 +13,9 @@ class ResotreConfiguration:
         )
 
         if put_reponse.status_code == 200:
-            print(f"Restore Device : {put_reponse.json()}")
+            print(f"Restore Device : {put_reponse.json()}", flush=True)
         else:
-            print(f"{put_reponse.status_code}, {put_reponse.text}")
+            print(f"{put_reponse.status_code}, {put_reponse.text}", flush=True)
 
     def delete_groups(self):
         group_dict = dict()
@@ -32,7 +32,7 @@ class ResotreConfiguration:
                         headers=self.headers,
                     )
                     if delete_reponse.status_code == 200:
-                        print(f"Delete Groups : {group_dict[i]['name']}")
+                        print(f"Delete Groups : {group_dict[i]['name']}", flush=True)
                 else:
                     exist_group_flag = False
 
@@ -53,12 +53,12 @@ class ResotreConfiguration:
                         headers=self.headers,
                     )
                     if delete_reponse.status_code == 200:
-                        print(f"Delete Roles : {role_dict[i]['name']}")
+                        print(f"Delete Roles : {role_dict[i]['name']}", flush=True)
                 else:
                     exist_role_flag = False
 
         if not exist_role_flag:
-            print("There are no more testing roles left.")
+            print("There are no more testing roles left.", flush=True)
 
     def delelte_channels(self):
         channel_dict = dict()
@@ -76,12 +76,12 @@ class ResotreConfiguration:
                         headers=self.headers,
                     )
                     if delete_reponse.status_code == 200:
-                        print(f"Delete Channel : {channel_dict[i]['name']}")
+                        print(f"Delete Channel : {channel_dict[i]['name']}", flush=True)
                 else:
                     exist_channel_flag = False
 
         if not exist_channel_flag:
-            print("There are no more test channels left.")
+            print("There are no more test channels left.", flush=True)
 
 
 if __name__ == "__main__":

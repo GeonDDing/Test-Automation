@@ -20,11 +20,11 @@ class ApiAuthorization:
         )
 
         if response.status_code == 200:
-            print("Request successful!")
-            print(json.dumps(response.json(), indent=4))
+            print("Request successful!", flush=True)
+            print(json.dumps(response.json(), indent=4), flush=True)
         else:
-            print(f"Request failed with status code {response.status_code}")
-            print(response.text)
+            print(f"Request failed with status code {response.status_code}", flush=True)
+            print(response.text, flush=True)
 
     def OAuth2(self, client_id, client_secret):
         oauth2_url = "https://10.1.0.145:443/hms/rest/oauth2cred.php"
@@ -44,9 +44,9 @@ class ApiAuthorization:
         response = requests.post(oauth2_url, data=json.dumps(data), headers=headers, verify=False)
 
         if response.status_code == 200:
-            print("Token request successful!")
+            print("Token request successful!", flush=True)
             token = response.json().get("access_token")
-            print(f"Token: {token}")
+            print(f"Token: {token}", flush=True)
 
             api_url = "https://10.1.0.145/hms/rest/videopresets.php"
             api_headers = {
@@ -58,11 +58,11 @@ class ApiAuthorization:
             api_response = requests.get(api_url, headers=api_headers, verify=False)
 
             if api_response.status_code == 200:
-                print("API request successful!")
-                print(json.dumps(api_response.json(), indent=4))
+                print("API request successful!", flush=True)
+                print(json.dumps(api_response.json(), indent=4), flush=True)
             else:
-                print(f"API request failed with status code {api_response.status_code}")
-                print(api_response.text)
+                print(f"API request failed with status code {api_response.status_code}", flush=True)
+                print(api_response.text, flush=True)
         else:
-            print(f"Token request failed with status code {response.status_code}")
-            print(response.text)
+            print(f"Token request failed with status code {response.status_code}", flush=True)
+            print(response.text, flush=True)

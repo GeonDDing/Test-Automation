@@ -16,11 +16,12 @@ class MonitorDevice(WebDriverMethod):
 
     def find_channel_index(self, channel_name):
         try:
-            monitor_table = self.find_web_element(By.XPATH, self.monitor_device_elements.monitor_table)
-            for idx, tr in enumerate(monitor_table.find_elements(By.XPATH, ".//tbody/tr")):
-                if tr.find_elements(By.TAG_NAME, "td")[3].get_attribute("innerText") == channel_name:
-                    self.chindex = idx
-                    break
+            if self.wait_element(By.XPATH, self.monitor_device_elements.monitor_table):
+                monitor_table = self.find_web_element(By.XPATH, self.monitor_device_elements.monitor_table)
+                for idx, tr in enumerate(monitor_table.find_elements(By.XPATH, ".//tbody/tr")):
+                    if tr.find_elements(By.TAG_NAME, "td")[3].get_attribute("innerText") == channel_name:
+                        self.chindex = idx
+                        break
 
         except NoSuchElementException as e:
             self.error_log(f"Not found exist monitoring channel {e}")
