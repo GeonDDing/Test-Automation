@@ -1,4 +1,4 @@
-python /Backend/api_restore_configuration.py
+python ./Backend/api_restore_configuration.py
 pytest ./Backend/TestCase --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
 pytest ./WebUI/TestCase/test_TC_UI_000_Pre_Settings.py --capture=tee-sys --tb=no --alluredir=allure-results
 pytest ./WebUI/TestCase/Input --capture=tee-sys --tb=no --alluredir=allure-results
