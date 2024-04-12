@@ -2,7 +2,7 @@ vscode/
 DataBase/
 Backend/__pycache__/
 Backend/TestCase/__pycache__/
-
+Backend/json/
 Common/__pycache__/
 .pytest_cache/
 .DS_Store
@@ -15,4 +15,3 @@ allure-report/
 allure-results/
 html-result/
 junit-result/
-.gitignore
