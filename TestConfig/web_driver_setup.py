@@ -1,5 +1,6 @@
 # webdriver_method.py
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.alert import Alert
@@ -37,7 +38,7 @@ class WebDriverInit:
 
 
 class WebDriverSetup(WebDriverInit, WebLog):
-    driver = webdriver.Chrome(options=WebDriverInit().options)
+    diver = webdriver.Chrome(ChromeDriverManager().install(), options=WebDriverInit().options)
     if platform.system() == "Darwin":
         driver.set_window_position(540, 0)
         driver.set_window_size(1280, 1920)
