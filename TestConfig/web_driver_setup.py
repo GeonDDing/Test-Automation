@@ -24,6 +24,7 @@ class WebDriverInit:
             option_key = option_key.replace("_", "-")
             option_argument = f"--{option_key}={option_value}"
             self.options.add_argument(option_argument)
+            self.options.add_argument("--headless")
 
         self.url = self.config.get("Webpage", "url")
 
