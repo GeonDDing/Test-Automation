@@ -1,7 +1,7 @@
 import requests
 import json
 from time import sleep
-from api_config import ApiConfig
+from Backend.api_config import ApiConfig
 
 
 class ApiOperation(ApiConfig):
