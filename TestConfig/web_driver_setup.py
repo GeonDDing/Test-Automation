@@ -25,6 +25,8 @@ class WebDriverInit:
             option_argument = f"--{option_key}={option_value}"
             self.options.add_argument(option_argument)
             self.options.add_argument("--headless")
+            self.options.add_argument('--no-sandbox')
+            self.options.add_argument('--disable-dev-shm-usage')
 
         self.url = self.config.get("Webpage", "url")
 
