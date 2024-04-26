@@ -38,7 +38,7 @@ class WebDriverInit:
 
 
 class WebDriverSetup(WebDriverInit, WebLog):
-    driver = webdriver.Chrome(options=WebDriverInit().options)
+    driver = webdriver.Chrome(options=WebDriverInit().options, service=Service(ChromeDriverManager().install()))
     if platform.system() == "Darwin":
         driver.set_window_position(540, 0)
         driver.set_window_size(1280, 1920)
