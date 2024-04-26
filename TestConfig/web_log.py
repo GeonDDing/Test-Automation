@@ -1,4 +1,4 @@
-from Common.convert_date import ConvertDate
+from Config.common_convert_date import ConvertDate
 
 
 class WebLog:
