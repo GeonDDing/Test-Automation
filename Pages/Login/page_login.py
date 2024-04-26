@@ -16,7 +16,13 @@ class Login(WebDriverSetup):
             # 로그인 버튼 클릭
             self.click(By.CSS_SELECTOR, LoginElements.login_button)
             if self.driver.current_url == f"{self.url}/hms/index.php":
+                print("True !!!")
                 return True
         except Exception as e:
             print("Failed to compile login, exception is %s" % repr(e))
             return False
+
+
+if __name__ == "__main__":
+    test = Login()
+    test.login("amdin", "admin")
