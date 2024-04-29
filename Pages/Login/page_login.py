@@ -27,4 +27,4 @@ class Login(WebDriverSetup):
 
 if __name__ == "__main__":
     test = Login()
-    test.login("amdin", "admin")
+    test.login("admin", "admin")
