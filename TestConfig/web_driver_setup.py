@@ -42,7 +42,6 @@ class WebDriverInit:
 
 
 class WebDriverSetup(WebDriverInit, WebLog):
-
     if platform.system() == "Darwin" and platform.system() == "Windows":
         driver = webdriver.Chrome(options=WebDriverInit().options)
         driver.set_window_position(540, 0)
