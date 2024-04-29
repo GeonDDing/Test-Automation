@@ -6,6 +6,7 @@ from TestConfig.web_locator import LoginElements
 
 class Login(WebDriverSetup):
     def login(self, username, password):
+        print("test login")
         try:
             # 1. 로그인 페이지 진입
             self.driver.get(self.url)
