@@ -16,6 +16,7 @@ class Login(WebDriverSetup):
             self.input_box(By.CSS_SELECTOR, LoginElements.password, password)
             # 로그인 버튼 클릭
             self.click(By.CSS_SELECTOR, LoginElements.login_button)
+            print(self.driver.current_url)
             if self.driver.current_url == f"{self.url}/hms/index.php":
                 print("True !!!")
                 return True
