@@ -25,8 +25,8 @@ class WebDriverInit:
             option_argument = f"--{option_key}={option_value}"
             self.options.add_argument(option_argument)
             self.options.add_argument("--headless")
-            self.options.add_argument('--no-sandbox')
-            self.options.add_argument('--disable-dev-shm-usage')
+            self.options.add_argument("--no-sandbox")
+            self.options.add_argument("--disable-dev-shm-usage")
 
         self.url = self.config.get("Webpage", "url")
 
@@ -42,12 +42,14 @@ class WebDriverInit:
 
 
 class WebDriverSetup(WebDriverInit, WebLog):
-    driver = webdriver.Chrome(options=WebDriverInit().options, service=Service(ChromeDriverManager().install()))
-    if platform.system() == "Darwin":
+
+    if platform.system() == "Darwin" and platform.system() == "Windows":
+        driver = webdriver.Chrome(options=WebDriverInit().options)
         driver.set_window_position(540, 0)
         driver.set_window_size(1280, 1920)
     else:
-        # driver.set_window_position(1280, 0)
+        # driver.set_window_position(1280, 0) )
+        driver = webdriver.Chrome(options=WebDriverInit().options, executable_path="/app/chromedriver")
         driver.set_window_size(1280, 2160)
 
     def find_element(self, by, locator):
