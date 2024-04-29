@@ -43,7 +43,6 @@ class TestInputPlaylist:
         "Backup Source Options": None,
     }
 
-    @staticmethod
     def attach_result(step_name, success_message, failure_message):
         def step_decorator(func):
             def step_wrapper(*args, **kwargs):

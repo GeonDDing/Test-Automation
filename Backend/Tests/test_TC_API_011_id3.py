@@ -11,7 +11,7 @@ from Backend.api_operation import ApiOperation
 @allure.suite("API")
 @allure.sub_suite("ID3")
 class TestID3API:
-    @staticmethod
+
     def attach_response_result(response, status_name, result_name):
         status_code = response[0]
         status_message = "API Test Successful" if status_code == 200 else "API Test Failed"
