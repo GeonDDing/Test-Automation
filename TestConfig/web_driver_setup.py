@@ -24,9 +24,6 @@ class WebDriverInit:
             option_key = option_key.replace("_", "-")
             option_argument = f"--{option_key}={option_value}"
             self.options.add_argument(option_argument)
-            self.options.add_argument("--headless")
-            self.options.add_argument("--no-sandbox")
-            self.options.add_argument("--disable-dev-shm-usage")
 
         self.url = self.config.get("Webpage", "url")
 
@@ -47,8 +44,8 @@ class WebDriverSetup(WebDriverInit, WebLog):
         driver.set_window_position(540, 0)
         driver.set_window_size(1280, 1920)
     else:
-        # driver.set_window_position(1280, 0) )
-        driver = webdriver.Chrome(options=WebDriverInit().options)
+        # driver.set_window_position(1280, 0)
+        driver = webdriver.Chrome(executable_path="chromedriver", options=WebDriverInit().options)
         driver.set_window_size(1280, 2160)
 
     def find_element(self, by, locator):

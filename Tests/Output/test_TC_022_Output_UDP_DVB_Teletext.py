@@ -44,7 +44,7 @@ class TestInputUDPDVBTeletext:
         "Backup Source Options": None,
     }
 
-    def attach_result(step_name, success_message, failure_message):
+    def attach_result(self, step_name, success_message, failure_message):
         def step_decorator(func):
             def step_wrapper(*args, **kwargs):
                 with allure.step(step_name):
