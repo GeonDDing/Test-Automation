@@ -45,8 +45,8 @@ class WebDriverSetup(WebDriverInit, WebLog):
         driver.set_window_size(1280, 1920)
     else:
         # driver.set_window_position(1280, 0)
-        service = Service(executable_path="chromedriver")
-        driver = webdriver.Chrome(service=service, options=WebDriverInit().options)
+        # service = Service(executable_path="chromedriver")
+        driver = webdriver.Chrome(options=WebDriverInit().options)
         driver.set_window_size(1280, 2160)
 
     def find_element(self, by, locator):
