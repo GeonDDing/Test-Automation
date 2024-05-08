@@ -6,7 +6,6 @@ from Pages.Monitor.page_mdevice import MonitorDevice
 from TestConfig.web_stats_receiver import StatsReceiver
 from Pages.Login.page_login import Login
 from Pages.Logout.page_logout import Logout
-from webdriver_method import WebDriverMethod
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTMP Backup Source")]
 
@@ -258,7 +257,6 @@ class TestInputTRMP:
         kwargs = self.rtmp_sender_configuration_data
         with allure.step("RTMP Sender Channel Stop"):
             monitor_device_instance = MonitorDevice()
-            start_result = bool()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.sender_chidx, kwargs["Channel Name"])
 

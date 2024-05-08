@@ -70,7 +70,3 @@ class TestVideopresetAPI:
                 "DELETE Response Status Code",
                 "DELETE Response Result",
             )
-
-
-if __name__ == "__main__":
-    TestVideopresetAPI().test_videopresets()

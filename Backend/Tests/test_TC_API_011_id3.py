@@ -29,7 +29,7 @@ class TestID3API:
 
     @pytest.mark.parametrize(
         "first_uri_resource, second_uri_resoure, devid_value, chindex_value",
-        [("devid", "chindex", "2", "0")],
+        [("devid", "chindex", "3", "0")],
     )
     @allure.title("API: ID3")
     def test_id3s(self, first_uri_resource, second_uri_resoure, devid_value, chindex_value):

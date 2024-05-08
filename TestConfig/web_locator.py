@@ -103,7 +103,8 @@ class ConfigureRoleElements:
     role_name = 'input[type="text"][name="Name"]'
     role_add_button = 'input.black-button[type="button"][value="Add"]'
     role_save_button = 'input.black-button[type="submit"][name="action"][value="Save"]'
-    role_remove_button = 'input.grey-button[type="button"][value="Remove"]'
+    # role_remove_button = 'input.grey-button[type="button"][value="Remove"][onclick="DelChannel(0)"]'
+    role_remove_button = '#channel_list > table > tbody > tr:nth-child(1) > td:nth-child(3) > input'
 
     ### XPATH ###
     add_channel_list = '//*[@id="channelAdd"]'

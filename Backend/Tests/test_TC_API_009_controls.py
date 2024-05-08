@@ -26,7 +26,7 @@ class TestControlAPI:
         )
         assert status_code == 200, "API Test Failed"
 
-    @pytest.mark.parametrize("devid_value, uri_resource, chidx_value", [("2", "chidx", "0")])
+    @pytest.mark.parametrize("devid_value, uri_resource, chidx_value", [("3", "chidx", "0")])
     @allure.title("API: Contorl")
     def test_controls(self, devid_value, uri_resource, chidx_value):
         api_operation = ApiOperation("controls")

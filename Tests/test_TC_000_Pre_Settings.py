@@ -69,9 +69,9 @@ class TestPreSettings:
         },
         "Backup Source Options": None,
     }
-    
+
     @staticmethod
-    def attach_result( step_name, success_message, failure_message):
+    def attach_result(step_name, success_message, failure_message):
         def step_decorator(func):
             def step_wrapper(*args, **kwargs):
                 with allure.step(step_name):
@@ -188,8 +188,3 @@ class TestPreSettings:
             test_step_func(**self.test_configuration_data)
 
         self.logout()
-
-
-if __name__ == "__main__":
-    test = TestPreSettings()
-    test.test_pre_setting()

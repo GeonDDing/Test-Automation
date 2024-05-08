@@ -82,11 +82,3 @@ class ResotreConfiguration:
 
         if not exist_channel_flag:
             print("There are no more test channels left.", flush=True)
-
-
-if __name__ == "__main__":
-    api = ResotreConfiguration()
-    api.restore_device()
-    api.delete_groups()
-    api.delete_roles()
-    api.delelte_channels()

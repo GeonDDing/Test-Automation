@@ -7,20 +7,20 @@ from selenium.common.exceptions import (
     ElementNotVisibleException,
     TimeoutException,
 )
-from webdriver_method import WebDriverMethod
-from web_elements import GaGaWebElements
+from TestConfig.web_driver_setup import WebDriverSetup
+from TestConfig.web_locator import GaGaWebElements
 
 import time
 
 
-class GaGaStreamManager(WebDriverMethod):
+class GaGaStreamManager(WebDriverSetup):
     def __init__(self):
         self.gaga_elements = GaGaWebElements()
         self.driver.get("http://10.1.0.9")
 
     def find_exist_stream(self, stream_name):
         try:
-            active_stream_table = self.find_web_element(By.XPATH, self.gaga_elements.gaga_active_stream_table)
+            active_stream_table = self.find_element(By.XPATH, self.gaga_elements.gaga_active_stream_table)
 
             for tr in active_stream_table.find_elements(By.XPATH, ".//tbody/tr"):
                 tds = tr.find_elements(By.TAG_NAME, "td")
@@ -48,10 +48,10 @@ class GaGaStreamManager(WebDriverMethod):
                 WebDriverWait(self.driver, 5).until(
                     EC.presence_of_element_located((By.XPATH, self.gaga_elements.gaga_stream_in_table))
                 )
-                stream_in_table = self.find_web_element(By.XPATH, self.gaga_elements.gaga_stream_in_table)
+                stream_in_table = self.find_element(By.XPATH, self.gaga_elements.gaga_stream_in_table)
 
             except TimeoutException:
-                stream_in_table = self.find_web_element(By.XPATH, "/html/body/div/table[2]")
+                stream_in_table = self.find_element(By.XPATH, "/html/body/div/table[2]")
 
             for tr in stream_in_table.find_elements(By.XPATH, ".//tbody/tr"):
                 tds = tr.find_elements(By.TAG_NAME, "td")
@@ -63,12 +63,12 @@ class GaGaStreamManager(WebDriverMethod):
                             print(f"   Upload Stream : {file_element} / {element_list[2]}")
                             tds[0].click()
                             time.sleep(0.5)
-                            self.input_text(
+                            self.input_box(
                                 By.CSS_SELECTOR,
                                 self.gaga_elements.gaga_stream_cast_to,
                                 element_list[2],
                             )
-                            self.click_element(
+                            self.click(
                                 By.CSS_SELECTOR,
                                 self.gaga_elements.gaga_start_streaming_button,
                             )

@@ -1,28 +1,28 @@
 import time
 import allure
-from Pages.Configure.page_videopresets import ConfigureVideopreset
 from Pages.Configure.page_channels import ConfigureChannel
 from Pages.Configure.page_roles import ConfigureRole
+from Pages.Configure.page_videopresets import ConfigureVideopreset
 from Pages.Monitor.page_mdevice import MonitorDevice
 from TestConfig.web_stats_receiver import StatsReceiver
 from Pages.Login.page_login import Login
 from Pages.Logout.page_logout import Logout
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("UDP/IP Output")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTMP Output")]
 
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Output")
-class TestOutputUDPClosedCaption:
+class TestOutputRTMPDvbSubtitle:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
         "Role Options": {
             "Name": "UI Testing Role",
         },
-        "Channel Name": "Output UDP Closed Caption Testing",
-        "Input Type": "UDP",
-        "Output Type": "UDP",
+        "Channel Name": "Output RTMP DVB Subtitle Testing",
+        "Input Type": "Playlist",
+        "Output Type": "RTMP",
         "Backup Source Type": None,
         "Preset Name": {
             "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | CC Testing",
@@ -49,9 +49,10 @@ class TestOutputUDPClosedCaption:
             "Interface": "NIC2",
         },
         "Output Options": {
-            "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "15023",
-            "Primary Network Interface": "NIC1",
+            "Broadcast Address": "10.1.0.220",
+            "Broadcast Port": "1935",
+            "Broadcast Path": "live",
+            "Stream Name": "jacob",
         },
         "Backup Source Options": None,
     }
@@ -184,13 +185,12 @@ class TestOutputUDPClosedCaption:
             logout_instance = Logout()
             return logout_instance.logout()
 
-    @allure.sub_suite("UDP/IP")
-    @allure.title("Multicast")
-    def test_output_udp_closed_caption(self):
+    @allure.sub_suite("RTMP")
+    @allure.title("RTMP")
+    def test_output_rtmp(self):
         test_functions = [
             self.login,
-            # self.create_videopreset,
-            # self.create_channel,
+            self.create_channel,
             self.create_role,
             self.channel_start,
             self.get_channel_stats,
@@ -201,8 +201,3 @@ class TestOutputUDPClosedCaption:
             test_step_func(**self.test_configuration_data)
 
         self.logout()
-
-
-if __name__ == "__main__":
-    test = TestOutputUDPClosedCaption()
-    test.test_output_udp_closed_caption()

@@ -28,7 +28,7 @@ class TestSourceAPI:
         assert status_code == 200, "API Test Failed"
 
     # fmt: off
-    @pytest.mark.parametrize("devid_vlaue, chidx_value",[("2", "0")],)
+    @pytest.mark.parametrize("devid_vlaue, chidx_value",[("3", "0")],)
     @allure.title("API: Source")
     # fmt: on
     def test_sources(self, devid_vlaue, chidx_value):

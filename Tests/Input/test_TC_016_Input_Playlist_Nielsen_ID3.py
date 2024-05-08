@@ -7,7 +7,6 @@ from TestConfig.web_stats_receiver import StatsReceiver
 from Pages.Settings.page_networking import SettingsNetworking
 from Pages.Login.page_login import Login
 from Pages.Logout.page_logout import Logout
-from webdriver_method import WebDriverMethod
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Playlist Input")]
 
