@@ -5,7 +5,7 @@ from Config.common_convert_date import ConvertDate
 import time
 
 
-class StatsReceiver:
+class StatsReceiver(WebLog):
     def stats_receiver(self, queue, formatted_messages):
         is_evergreen = True
         prev_source_layer = prev_source_stat = None
@@ -22,7 +22,7 @@ class StatsReceiver:
 
                     if prev_source_layer is not None and source_layer != prev_source_layer:
                         if prev_source_layer == "0":
-                            WebLog.info_log(
+                            self.info_log(
                                 f"   #{chidx} User replaced source, Input Changed"
                                 if source_layer == "1"
                                 else f"   #{chidx} Source changed (source:#1)"
@@ -33,14 +33,14 @@ class StatsReceiver:
                                 else f"   #{chidx} Source changed (source:#1)"
                             )
                         elif prev_source_layer == "1":
-                            WebLog.info_log(
+                            self.info_log(
                                 f"#{chidx} Restored to the {'Primary' if source_layer == '0' else 'Backup'} source"
                             )
                             formatted_messages.append(
                                 f"#{chidx} Restored to the {'Primary' if source_layer == '0' else 'Backup'} source"
                             )
                         elif prev_source_layer == "2":
-                            WebLog.info_log(
+                            self.info_log(
                                 f"   #{chidx} User replaced source, Input Changed"
                                 if source_layer == "1"
                                 else f"   #{chidx} Source changed (source:#0)"
@@ -52,26 +52,26 @@ class StatsReceiver:
                             )
 
                     if source_stat == "-1" and is_evergreen:
-                        WebLog.info_log(f"   #{chidx} Evergreen occurred.")
+                        self.info_log(f"   #{chidx} Evergreen occurred.")
                         formatted_messages.append(f"   #{chidx} Evergreen occurred.")
                         is_evergreen = False
                     elif source_stat != "-1":
                         if not is_evergreen and prev_source_stat != source_stat:
-                            WebLog.info_log(f"   #{chidx} Evergreen recovered.")
+                            self.info_log(f"   #{chidx} Evergreen recovered.")
                             formatted_messages.append(f"   #{chidx} Evergreen recovered.")
                             is_evergreen = True
-                        WebLog.exec_log(
+                        self.exec_log(
                             f'#{chidx} {"Primary" if source_layer == "0" else "Backup" if source_layer == "2" else "Replaced"} Source : {get_stats[4]}'
                         )
                         formatted_messages.append(
-                            f'{ConvertDate.convert_date()[1]}: #{chidx} {"Primary" if source_layer == "0" else "Backup" if source_layer == "2" else "Replaced"} Source : {get_stats[4]}'
+                            f'{self.convert_date()[1]}: #{chidx} {"Primary" if source_layer == "0" else "Backup" if source_layer == "2" else "Replaced"} Source : {get_stats[4]}'
                         )
 
                     prev_source_layer, prev_source_stat = source_layer, source_stat
                     time.sleep(2)
 
             except Exception as e:
-                WebLog.error_log(f"stats receiver error | {repr(e)}")
+                self.error_log(f"stats receiver error | {repr(e)}")
                 formatted_messages.append(f"stats receiver error | {repr(e)}")
 
     def exec_multiprocessing(self, chidx, channel_name):

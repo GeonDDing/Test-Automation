@@ -160,7 +160,7 @@ class TestInputUDPDVBTeletext:
             return logout_instance.logout()
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("DVB-Subtitle")
+    @allure.title("DVB-Teletext")
     def test_output_udp_dvb_teletext(self):
         test_functions = [
             self.login,

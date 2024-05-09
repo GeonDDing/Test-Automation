@@ -186,7 +186,7 @@ class TestOutputRTMPDvbSubtitle:
             return logout_instance.logout()
 
     @allure.sub_suite("RTMP")
-    @allure.title("RTMP")
+    @allure.title("Closed Caption")
     def test_output_rtmp(self):
         test_functions = [
             self.login,

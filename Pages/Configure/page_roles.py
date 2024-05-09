@@ -47,7 +47,7 @@ class ConfigureRole(ConfigureDevice):
                 self.step_log(f"Role Modification")
                 while True:
                     try:
-                        WebDriverWait(self.driver, 10).until(
+                        WebDriverWait(self.driver, 3).until(
                             EC.presence_of_element_located((By.CSS_SELECTOR, self.role_elements.role_remove_button))
                         )
                         self.click(By.CSS_SELECTOR, self.role_elements.role_remove_button)
@@ -77,11 +77,3 @@ class ConfigureRole(ConfigureDevice):
         except Exception as e:
             self.error_log(f"Not found exist role| {repr(e)}")
             return False
-
-
-if __name__ == "__main__":
-
-    login = Login()
-    login.login("admin", "admin")
-    role = ConfigureRole()
-    role.configure_role("UI Testing Role", "Output UDP Closed Caption Testing")

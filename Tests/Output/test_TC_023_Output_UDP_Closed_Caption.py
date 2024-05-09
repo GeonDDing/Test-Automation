@@ -185,7 +185,7 @@ class TestOutputUDPClosedCaption:
             return logout_instance.logout()
 
     @allure.sub_suite("UDP/IP")
-    @allure.title("Multicast")
+    @allure.title("Closed Caption")
     def test_output_udp_closed_caption(self):
         test_functions = [
             self.login,
@@ -201,8 +201,3 @@ class TestOutputUDPClosedCaption:
             test_step_func(**self.test_configuration_data)
 
         self.logout()
-
-
-if __name__ == "__main__":
-    test = TestOutputUDPClosedCaption()
-    test.test_output_udp_closed_caption()

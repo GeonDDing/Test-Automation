@@ -6,7 +6,7 @@ import os
 from TestConfig.web_log import WebLog
 
 
-class StatsSender:
+class StatsSender(WebLog):
     def __init__(self):
         try:
             script_directory = os.path.dirname(os.path.realpath(__file__))
@@ -16,7 +16,7 @@ class StatsSender:
             self.url = config.get("Webpage", "url")
 
         except Exception as e:
-            WebLog.exec_log("An error occurred:", e)
+            self.exec_log("An error occurred:", e)
 
     def stats_sender(self, queue, chidx, channel_name, config_channel_name):
         try:
@@ -34,13 +34,14 @@ class StatsSender:
 
                 except requests.exceptions.ConnectionError as e:
                     max_retries -= 1
-                    WebLog.warning_log(f"#{mchidx} Retrying in 10 seconds...")
+                    self.warning_log(f"#{mchidx} Retrying in 10 seconds...")
 
                     if max_retries == 0:
-                        WebLog.error_log(f"#{mchidx} A connection error occurred and terminated.")
+                        self.error_log(f"#{mchidx} A connection error occurred and terminated.")
                         queue.put("quit")
                         break
                     time.sleep(10)
+                    pass
 
                 else:
                     try:
@@ -48,13 +49,14 @@ class StatsSender:
 
                     except elementTree.ParseError as e:
                         max_retries -= 1
-                        WebLog.warning_log(f"#{mchidx} Retrying in 10 seconds...")
+                        self.warning_log(f"#{mchidx} Retrying in 10 seconds...")
 
                         if max_retries == 0:
-                            WebLog.error_log(f"#{mchidx} Terminated because xml could not be parsed.")
+                            self.error_log(f"#{mchidx} Terminated because xml could not be parsed.")
                             queue.put("quit")
                             break
                         time.sleep(10)
+                        pass
 
                     else:
                         max_retries = 3
@@ -79,11 +81,11 @@ class StatsSender:
                             if output_info != None:
                                 queue.put((chidx, channel_name, source_layer, source_stat, output_info))
                         else:
-                            WebLog.error_log("Channel names do not match.")
+                            self.error_log("Channel names do not match.")
                             config_channel_name.append(config_name)
                             queue.put("Channel names do not match")
                             break
                         time.sleep(2)
         except Exception as e:
-            WebLog.error_log(f"Stats sender error | {repr(e)}")
+            self.error_log(f"Stats sender error | {repr(e)}")
             queue.put("quit")

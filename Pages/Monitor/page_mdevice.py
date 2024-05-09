@@ -36,7 +36,7 @@ class MonitorDevice(WebDriverSetup):
         try:
             WebDriverWait(self.driver, 3).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
-            ).click(By.CSS_SELECTOR, self.channel_start_element)
+            ).click()
             self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Starting")
             channel_start_time = time.time()
             while True:
@@ -104,11 +104,10 @@ class MonitorDevice(WebDriverSetup):
             self.click(By.XPATH, MainMenuElements().monitor)
             time.sleep(1)
             self.click(By.XPATH, self.monitor_device_elements.monitor_table)
-            WebDriverWait(self.driver, 2).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_stop_all))
-            )
             self.step_log("Stoping all channels")
-            self.click(By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_stop_all)
+            WebDriverWait(self.driver, 5).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_stop_all))
+            ).click()
             self.accept_alert()
             try:
                 WebDriverWait(self.driver, 10).until(
