@@ -52,7 +52,7 @@ class ConfigureRole(ConfigureDevice):
                         )
                         self.click(By.CSS_SELECTOR, self.role_elements.role_remove_button)
                     except Exception as e:
-                        self.info_log(f"Channel removal complete")
+                        self.info_log(f"Channel remove complete")
                         break
                 if channel_name:
                     for index, channel_value in enumerate(channel_name):

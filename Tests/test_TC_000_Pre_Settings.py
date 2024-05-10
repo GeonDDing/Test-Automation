@@ -24,7 +24,7 @@ class TestPreSettings:
             "Domain": "Live",
         },
         "Device Options": {
-            "Name": "Local Device",
+            "Name": "10.1.0.145",
             "IP": "127.0.0.1",
         },
         "Channel Name": "Channel_001",

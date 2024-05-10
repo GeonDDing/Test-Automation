@@ -46,7 +46,7 @@ class ChannelsOutput(WebDriverSetup):
                     return True
             return False
         except Exception as e:
-            self.error_log(f"Not found exist output | {repr(e)}")
+            self.error_log(f"Not found exist output")
             return False
 
     def select_stream_preset(self, videopreset_name, audiopreset_name):

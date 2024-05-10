@@ -9,13 +9,16 @@ class Login(WebDriverSetup):
         try:
             # 1. 로그인 페이지 진입
             self.driver.get(self.url)
-            # 2. 유요한 아이디 입력
-            self.input_box(By.CSS_SELECTOR, LoginElements.login, username)
-            # 유요한 비밀번호 입력
-            self.input_box(By.CSS_SELECTOR, LoginElements.password, password)
-            # 로그인 버튼 클릭
-            self.click(By.CSS_SELECTOR, LoginElements.login_button)
-            if self.driver.current_url == f"{self.url}/hms/index.php":
+            if self.driver.current_url == f"{self.url}/hms/login.php":
+                # 2. 유요한 아이디 입력
+                self.input_box(By.CSS_SELECTOR, LoginElements.login, username)
+                # 유요한 비밀번호 입력
+                self.input_box(By.CSS_SELECTOR, LoginElements.password, password)
+                # 로그인 버튼 클릭
+                self.click(By.CSS_SELECTOR, LoginElements.login_button)
+                if self.driver.current_url == f"{self.url}/hms/index.php":
+                    return True
+            else:
                 return True
         except Exception as e:
             print("Failed to compile login, exception is %s" % repr(e))

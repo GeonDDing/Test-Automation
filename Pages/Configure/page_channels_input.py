@@ -55,48 +55,55 @@ class ChannelsInput(WebDriverSetup):
                 else:
                     self.option_log(f"{key} : {value}")
                 # any는 하나라도 True 이면 결과가 True 이기 때문에 keyword 가 select_options_key 리스트에 존재하면 True를 반환하고 Element 선택
-                if any(keyword in key for keyword in select_options_key):
-                    # UDP 입력 Program Selection Mode 에서 Service Name을 선택 할 시 Analysis Window의 값이 4000ms 이상이어야 함
-                    if "Program Selection Mode" in key:
-                        self.select_box(By.CSS_SELECTOR, input_element, "text", value)
-                        try:
-                            self.accept_alert()
-                            time.sleep(1)
+                # if any(keyword in key for keyword in select_options_key):
+                # UDP 입력 Program Selection Mode 에서 Service Name을 선택 할 시 Analysis Window의 값이 4000ms 이상이어야 함
+                if "Program Selection Mode" in key:
+                    self.select_box(By.CSS_SELECTOR, input_element, "text", value)
+                    try:
+                        self.accept_alert()
+                        time.sleep(1)
+                        self.input_box(
+                            By.CSS_SELECTOR,
+                            self.input_elements.input_common_analysis_window,
+                            "6000",
+                        )
+                        time.sleep(1)
+                    except:
+                        pass
+                # else:
+                #     self.select_box(By.CSS_SELECTOR, input_element, "text", value)
+                # elif any(keyword in key for keyword in input_options_key):
+                # Audio ID 가 4개 이상 (0~32개 까지 가능)
+                if key == "Audio ID" and isinstance(input_options["Audio ID"], dict):
+                    # Audio ID 가 #01 부터 순차적으로 입력 됨
+                    for index, sub_value in enumerate(value.values()):
+                        if index == 0:
+                            self.input_box(By.CSS_SELECTOR, input_element, sub_value)
+                        else:
                             self.input_box(
                                 By.CSS_SELECTOR,
-                                self.input_elements.input_common_analysis_window,
-                                "6000",
+                                self.input_elements.input_udp_audio_id_extend.format(index, index),
+                                sub_value,
                             )
-                            time.sleep(1)
-                        except:
-                            pass
-                    else:
-                        self.select_box(By.CSS_SELECTOR, input_element, "text", value)
-                elif any(keyword in key for keyword in input_options_key):
-                    # Audio ID 가 4개 이상 (0~32개 까지 가능)
-                    if key == "Audio ID" and isinstance(input_options["Audio ID"], dict):
-                        # Audio ID 가 #01 부터 순차적으로 입력 됨
-                        for index, sub_value in enumerate(value.values()):
-                            if index == 0:
-                                self.input_box(By.CSS_SELECTOR, input_element, sub_value)
-                            else:
-                                self.input_box(
-                                    By.CSS_SELECTOR,
-                                    self.input_elements.input_udp_audio_id_extend.format(index, index),
-                                    sub_value,
-                                )
-                                # #01, #02 를 넘기고 #03 부터 입력되는 것을 방지하기 위해 5ms 딜레이 추가
-                                time.sleep(0.5)
-                                # Audio ID 가 #04 부터는 빈 공간을 클릭해야 다음 Audio ID 입력 칸이 나타남
-                                self.click(By.XPATH, '//*[@id="editform"]/div[1]/div[3]')
-                    # Element input text
-                    else:
-                        self.input_box(By.CSS_SELECTOR, input_element, value)
+                            # #01, #02 를 넘기고 #03 부터 입력되는 것을 방지하기 위해 5ms 딜레이 추가
+                            time.sleep(0.5)
+                            # Audio ID 가 #04 부터는 빈 공간을 클릭해야 다음 Audio ID 입력 칸이 나타남
+                            self.click(By.XPATH, '//*[@id="editform"]/div[1]/div[3]')
+                # Element input text
+                # else:
+                #     self.input_box(By.CSS_SELECTOR, input_element, value)
                 # Input option 중 체크박스 선택은 True, False 로 주기 때문에 Value가 Boolean 타입이면서 True일 때 클릭
-                else:
+                # else:
+
+                if "input" in input_element and "text" in input_element:
+                    self.input_box(By.CSS_SELECTOR, input_element, value)
+                elif "input" in input_element and "checkbox" in input_element:
                     if isinstance(value, bool) and value:
                         if not self.is_checked(By.CSS_SELECTOR, input_element):
                             self.click(By.CSS_SELECTOR, input_element)
+                elif "select" in input_element:
+                    self.select_box(By.CSS_SELECTOR, input_element, "text", value)
+
                 # For Loop 속도가 빨라서 옵션 입력을 제대로 못하는 경우가 있어 5ms 딜레이 추가
                 time.sleep(0.5)
             return True

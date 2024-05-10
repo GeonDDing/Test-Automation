@@ -50,7 +50,6 @@ class WebDriverSetup(WebDriverInit, WebLog):
             WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((by, locator)))
             return self.driver.find_element(by, locator)
         except Exception as e:
-            self.error_log(repr(e))
             return None
 
     def click(self, by, locator):
