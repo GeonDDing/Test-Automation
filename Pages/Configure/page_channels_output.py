@@ -46,14 +46,15 @@ class ChannelsOutput(WebDriverSetup):
                     return True
             return False
         except Exception as e:
-            self.error_log(f"Not found exist output")
+            # 새로 만든 채널의 경우 Output이 없는게 맞기 때문에 해당 Exception 은 예외 메시지를 처리하지 않음
             return False
 
     def select_stream_preset(self, videopreset_name, audiopreset_name):
         try:
             self.sub_step_log(f"Select Video, Audio Profile")
-            # Video preset 을 선택하기 위에 Stream edit icon 을 클릭
-            self.click(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
+            if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream):
+                # Video preset 을 선택하기 위에 Stream edit icon 을 클릭
+                self.click(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
             # Video preset 셀렉터가 나타날 때 까지 기다림
             if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_video_profile):
                 # Vidoe preset 선택

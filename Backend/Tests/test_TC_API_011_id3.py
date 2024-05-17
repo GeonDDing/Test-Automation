@@ -12,7 +12,7 @@ from Backend.api_operation import ApiOperation
 @allure.sub_suite("ID3")
 class TestID3API:
 
-    def attach_response_result(response, status_name, result_name):
+    def attach_response_result(self, response, status_name, result_name):
         status_code = response[0]
         status_message = "API Test Successful" if status_code == 200 else "API Test Failed"
         allure.attach(
@@ -29,7 +29,7 @@ class TestID3API:
 
     @pytest.mark.parametrize(
         "first_uri_resource, second_uri_resoure, devid_value, chindex_value",
-        [("devid", "chindex", "3", "0")],
+        [("devid", "chindex", "6", "0")],
     )
     @allure.title("API: ID3")
     def test_id3s(self, first_uri_resource, second_uri_resoure, devid_value, chindex_value):
@@ -37,7 +37,7 @@ class TestID3API:
         channel_start = {"operation": "transcode", "action": "start"}
         channel_stop = {"operation": "transcode", "action": "stop"}
         control_response = requests.put(
-            f"{ApiOperation('controls').api_url}?id=2&chidx=0",
+            f"{ApiOperation('controls').api_url}?id=6&chidx=0",
             headers=ApiOperation("controls").headers,
             data=json.dumps(channel_start),
         )
@@ -116,7 +116,7 @@ class TestID3API:
                     "DELETE Response Result",
                 )
             requests.put(
-                f"{ApiOperation('controls').api_url}?id=2&chidx=0",
+                f"{ApiOperation('controls').api_url}?id=6&chidx=0",
                 headers=ApiOperation("controls").headers,
                 data=json.dumps(channel_stop),
             )

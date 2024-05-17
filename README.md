@@ -1,7 +1,9 @@
 API & WEB Test Automation code
 
 # Execute Pytest
-pytest ./Tests --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
+pytest ./Backend/Tests --capture=tee-sys --tb=no --alluredir=allure-results --clean-alluredir
+pytest ./Tests --capture=tee-sys --tb=no --alluredir=allure-results
+
 # Generate Allure Report
 allure serve --host 127.0.0.1 --port 8081 ./allure-results
 

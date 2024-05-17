@@ -11,7 +11,7 @@ from Backend.api_operation import ApiOperation
 @allure.sub_suite("Control")
 class TestControlAPI:
 
-    def attach_response_result(response, status_name, result_name):
+    def attach_response_result(self, response, status_name, result_name):
         status_code = response[0]
         status_message = "API Test Successful" if status_code == 200 else "API Test Failed"
         allure.attach(
@@ -26,7 +26,7 @@ class TestControlAPI:
         )
         assert status_code == 200, "API Test Failed"
 
-    @pytest.mark.parametrize("devid_value, uri_resource, chidx_value", [("3", "chidx", "0")])
+    @pytest.mark.parametrize("devid_value, uri_resource, chidx_value", [("6", "chidx", "0")])
     @allure.title("API: Contorl")
     def test_controls(self, devid_value, uri_resource, chidx_value):
         api_operation = ApiOperation("controls")

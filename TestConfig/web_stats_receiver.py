@@ -1,7 +1,6 @@
 from multiprocessing import Process, Queue, Manager
 from TestConfig.web_stats_sender import StatsSender
 from TestConfig.web_log import WebLog
-from Config.common_convert_date import ConvertDate
 import time
 
 

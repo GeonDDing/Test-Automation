@@ -40,6 +40,7 @@ class TestInputUDPSRT:
             "Primary Output Port": "15006",
             "Primary Network Interface": "NIC1",
             "SRT": True,
+            "Advanced parameters": "mode=listener",
         },
         "Backup Source Options": None,
     }
@@ -61,6 +62,7 @@ class TestInputUDPSRT:
             "Network URL": "10.1.0.145:15006",
             "Interface": "NIC1",
             "Enable SRT": True,
+            "Advanced parameters": "mode=caller",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",

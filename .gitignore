@@ -2,6 +2,7 @@ __pycache__
 .pytest_cache
 allure-results
 Backend/json/
+Backend/db_operation.py
 Pages\__pycache__
 TestConfig\__pycache__
 Tests\__pycache__

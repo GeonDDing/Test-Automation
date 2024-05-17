@@ -48,8 +48,8 @@ class SettingsNetworking(WebDriverSetup):
                     # SNMP 는 추후에 사용하게되면 UI에서 값 세팅만 자동화 (MIB Browser 를 사용해야해서 자동화 불가)
                     if any(keyword in key for keyword in input_options_key):
                         if key == "SMB path":
-                            if not self.find_web_element(By.CSS_SELECTOR, services_element).get_attribute("value"):
-                                self.input_text(By.CSS_SELECTOR, services_element, value)
+                            if not self.find_element(By.CSS_SELECTOR, services_element).get_attribute("value"):
+                                self.input_box(By.CSS_SELECTOR, services_element, value)
                                 self.click(
                                     By.CSS_SELECTOR,
                                     self.networking_elements.networking_services_smb_mount_button,

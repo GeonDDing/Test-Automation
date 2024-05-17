@@ -21,21 +21,16 @@ class StatsSender(WebLog):
     def stats_sender(self, queue, chidx, channel_name, config_channel_name):
         try:
             output_info = None
-            max_retries = 3
+            max_retries = int(3)
             start_time = time.time()
             mchidx = f"0{chidx+1:02}"
             while max_retries > 0:
-                if time.time() - start_time > 10:
-                    queue.put("quit")
-                    break
-
                 try:
                     stat_response = requests.get(f"{self.url}:900{chidx}/stats")
 
                 except requests.exceptions.ConnectionError as e:
-                    max_retries -= 1
+                    max_retries = max_retries - 1
                     self.warning_log(f"#{mchidx} Retrying in 10 seconds...")
-
                     if max_retries == 0:
                         self.error_log(f"#{mchidx} A connection error occurred and terminated.")
                         queue.put("quit")
@@ -48,9 +43,8 @@ class StatsSender(WebLog):
                         root = elementTree.fromstring(stat_response.text)
 
                     except elementTree.ParseError as e:
-                        max_retries -= 1
-                        self.warning_log(f"#{mchidx} Retrying in 10 seconds...")
-
+                        max_retries = max_retries - 1
+                        self.warning_log(f"#{mchidx} XML could not be parsed. Retrying in 10 seconds...")
                         if max_retries == 0:
                             self.error_log(f"#{mchidx} Terminated because xml could not be parsed.")
                             queue.put("quit")
@@ -84,6 +78,9 @@ class StatsSender(WebLog):
                             self.error_log("Channel names do not match.")
                             config_channel_name.append(config_name)
                             queue.put("Channel names do not match")
+                            break
+                        if time.time() - start_time > 10:
+                            queue.put("quit")
                             break
                         time.sleep(2)
         except Exception as e:

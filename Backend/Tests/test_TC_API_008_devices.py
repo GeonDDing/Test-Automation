@@ -8,7 +8,7 @@ from Backend.api_operation import ApiOperation
 @allure.sub_suite("Device")
 class TestDeviceAPI:
 
-    def attach_response_result(response, status_name, result_name):
+    def attach_response_result(self, response, status_name, result_name):
         status_code = response[0]
         status_message = "API Test Successful" if status_code == 200 else "API Test Failed"
         allure.attach(

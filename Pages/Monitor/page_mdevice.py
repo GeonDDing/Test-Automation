@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from TestConfig.web_driver_setup import WebDriverSetup
 from TestConfig.web_locator import MonitorDeviceElements, MainMenuElements
+import xml.etree.ElementTree as elementTree
 import time
 import requests
 
@@ -34,15 +35,15 @@ class MonitorDevice(WebDriverSetup):
         self.channel_start_element = self.monitor_device_elements.monitor_device_channel_start.format(self.chindex)
         self.channel_stop_element = self.monitor_device_elements.monitor_device_channel_stop.format(self.chindex)
         try:
-            WebDriverWait(self.driver, 3).until(
+            WebDriverWait(self.driver, 5).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
             ).click()
             self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Starting")
             channel_start_time = time.time()
             while True:
                 try:
-                    channel_status = requests.get(f"{self.url}:900{self.chindex}/stats")
-                    if channel_status.status_code == 200:
+                    channel_response = requests.get(f"{self.url}:900{self.chindex}/stats")
+                    if channel_response.status_code == 200 and elementTree.fromstring(channel_response.text):
                         is_channel_start = True
                         break
                 except requests.exceptions.ConnectionError as e:
@@ -58,8 +59,8 @@ class MonitorDevice(WebDriverSetup):
                     channel_restart_time = time.time()
                     while True:
                         try:
-                            channel_status = requests.get(f"{self.url}:900{self.chindex}/stats")
-                            if channel_status.status_code == 200:
+                            channel_response = requests.get(f"{self.url}:900{self.chindex}/stats")
+                            if channel_response.status_code == 200 and elementTree.fromstring(channel_response.text):
                                 break
                         except requests.exceptions.ConnectionError as e:
                             if time.time() - channel_restart_time > 70:
@@ -87,8 +88,8 @@ class MonitorDevice(WebDriverSetup):
             channel_stop_time = time.time()
             while True:
                 try:
-                    channel_status = requests.get(f"{self.url}:900{chindex}/stats")
-                    if channel_status.status_code == 200:
+                    channel_response = requests.get(f"{self.url}:900{chindex}/stats")
+                    if channel_response.status_code == 200 and elementTree.fromstring(channel_response.text):
                         if time.time() - channel_stop_time > 70:
                             self.warning_log(f"#00{int(chindex+1)} {channel_name} Channel Stop Failure")
                             return False

@@ -8,7 +8,7 @@ from Backend.api_operation import ApiOperation
 @allure.sub_suite("Video Preset")
 class TestVideopresetAPI:
 
-    def attach_response_result(response, status_name, result_name):
+    def attach_response_result(self, response, status_name, result_name):
         status_code = response[0]
         status_message = "API Test Successful" if status_code == 200 else "API Test Failed"
         allure.attach(
@@ -31,6 +31,7 @@ class TestVideopresetAPI:
         # GET
         with allure.step("GET Videopreset"):
             response_get = api_operation.get_api_operation()
+            print(response_get)
             self.attach_response_result(
                 response_get,
                 "GET Response Status Code",
@@ -70,3 +71,8 @@ class TestVideopresetAPI:
                 "DELETE Response Status Code",
                 "DELETE Response Result",
             )
+
+
+if __name__ == "__main__":
+    test = TestVideopresetAPI()
+    test.test_videopresets()
