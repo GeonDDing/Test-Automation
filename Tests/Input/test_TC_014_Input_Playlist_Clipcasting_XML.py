@@ -34,7 +34,7 @@ class TestInputClipcastingXML:
         },
         "Input Options": {
             "Type": "Clipcasting XML",
-            "URI": "mnt/10.1.0.10/mek/Streams/tmp/tmp_jacob/Clipcasting.xml",
+            "URI": "/mnt/10.1.0.10/mek/Streams/tmp/tmp_jacob/Clipcasting.xml",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",

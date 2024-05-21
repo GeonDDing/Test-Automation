@@ -189,8 +189,7 @@ class TestOutputUDPClosedCaption:
     def test_output_udp_closed_caption(self):
         test_functions = [
             self.login,
-            # self.create_videopreset,
-            # self.create_channel,
+            self.create_channel,
             self.create_role,
             self.channel_start,
             self.get_channel_stats,

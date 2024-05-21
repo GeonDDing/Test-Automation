@@ -5,7 +5,7 @@ import json
 class ResotreConfiguration:
     base_url = "http://10.1.0.145/hms/rest/"
     headers = {"Content-type": "application/json", "Accept": "text/plain"}
-    device_data = {"ip": "127.0.0.1", "groupid": 24, "roleid": 1, "name": "10.1.0.145"}
+    device_data = {"ip": "127.0.0.1", "groupid": 27, "roleid": 1, "name": "10.1.0.145"}
 
     def restore_device(self):
         put_reponse = requests.put(
@@ -86,7 +86,7 @@ class ResotreConfiguration:
 
 if __name__ == "__main__":
     restore = ResotreConfiguration()
-    # restore.delelte_channels()
+    restore.delelte_channels()
     # restore.restore_device()
-    restore.delete_groups()
-    restore.delete_roles()
+    # restore.delete_groups()
+    # restore.delete_roles()

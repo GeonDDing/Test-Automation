@@ -96,6 +96,9 @@ class WebDriverSetup(WebDriverInit, WebLog):
             self.warning_log("Element does not appear. %s" % repr(e))
             return False
 
+    def clickable_click(self, by, locator):
+        WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable((by, locator))).click()
+
     def accept_alert(self):
         WebDriverWait(self.driver, 10).until(EC.alert_is_present())
         alert = Alert(self.driver)

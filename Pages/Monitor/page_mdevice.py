@@ -35,9 +35,7 @@ class MonitorDevice(WebDriverSetup):
         self.channel_start_element = self.monitor_device_elements.monitor_device_channel_start.format(self.chindex)
         self.channel_stop_element = self.monitor_device_elements.monitor_device_channel_stop.format(self.chindex)
         try:
-            WebDriverWait(self.driver, 5).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_start_element))
-            ).click()
+            self.clickable_click(By.CSS_SELECTOR, self.channel_start_element)
             self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Starting")
             channel_start_time = time.time()
             while True:
@@ -51,6 +49,8 @@ class MonitorDevice(WebDriverSetup):
                         self.warning_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure")
                         is_channel_start = False, None
                         break
+                else:
+                    pass
                 time.sleep(2)
             if not is_channel_start:
                 try:
@@ -61,11 +61,15 @@ class MonitorDevice(WebDriverSetup):
                         try:
                             channel_response = requests.get(f"{self.url}:900{self.chindex}/stats")
                             if channel_response.status_code == 200 and elementTree.fromstring(channel_response.text):
+                                # and elementTree.fromstring(channel_response.text)
                                 break
+
                         except requests.exceptions.ConnectionError as e:
                             if time.time() - channel_restart_time > 70:
                                 self.warning_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure")
                                 return False, None
+                        else:
+                            pass
                         time.sleep(2)
                 except Exception as e:
                     self.error_log(f"The channel failed to restart because an error occurred | {repr(e)}")
@@ -79,9 +83,7 @@ class MonitorDevice(WebDriverSetup):
         self.channel_start_element = self.monitor_device_elements.monitor_device_channel_start.format(chindex)
         self.channel_stop_element = self.monitor_device_elements.monitor_device_channel_stop.format(chindex)
         try:
-            WebDriverWait(self.driver, 20).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, self.channel_stop_element))
-            )
+            self.clickable_click(By.CSS_SELECTOR, self.channel_stop_element)
             self.step_log(f"#00{int(chindex+1)} {channel_name} Channel Stoping")
             self.click(By.CSS_SELECTOR, self.channel_stop_element)
             self.accept_alert()
@@ -95,6 +97,8 @@ class MonitorDevice(WebDriverSetup):
                             return False
                 except requests.exceptions.ConnectionError as e:
                     return True
+                else:
+                    pass
                 time.sleep(2)
         except Exception as e:
             self.error_log(f"The channel failed to stop because an error occurred | {repr(e)}")
@@ -106,14 +110,10 @@ class MonitorDevice(WebDriverSetup):
             time.sleep(1)
             self.click(By.XPATH, self.monitor_device_elements.monitor_table)
             self.step_log("Stoping all channels")
-            WebDriverWait(self.driver, 5).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_stop_all))
-            ).click()
+            self.clickable_click(By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_stop_all)
             self.accept_alert()
             try:
-                WebDriverWait(self.driver, 10).until(
-                    EC.element_to_be_clickable((By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_start_all))
-                )
+                self.clickable_click(By.CSS_SELECTOR, self.monitor_device_elements.monitor_device_start_all)
                 return True
             except:
                 return False

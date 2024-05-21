@@ -158,7 +158,7 @@ class ChannelsInputElements:
     input_udp_latency = 'input[type="text"][id="/source/mpeg2/srtLatency"][name="/source/mpeg2/srtLatency"]'
     input_udp_password = 'input[type="text"][id="/source/mpeg2/srtPassphrase"][name="/source/mpeg2/srtPassphrase"]'
     input_udp_crypto_key_length = 'select[id="/source/mpeg2/srtPbkeylen"][name="/source/mpeg2/srtPbkeylen"]'
-    input_udp_advanced_parmameters = (
+    input_udp_advanced_parameters = (
         'input[type="text"][id="/source/mpeg2/srtAdvancedParameters"][name="/source/mpeg2/srtAdvancedParameters"]'
     )
 

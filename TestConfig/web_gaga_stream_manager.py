@@ -28,11 +28,11 @@ class GaGaStreamManager(WebDriverSetup):
                 if tds:
                     active_stream = tds[2].get_attribute("innerText").split("/")[-1]
                     if stream_name == active_stream:
-                        print(f"   {active_stream} is a stream that is already active.")
+                        print(f"   {active_stream} is a stream that is already active.", flush=True)
                         return True
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            print(f"[ERROR] {e}")
+            print(f"[ERROR] {e}", flush=True)
 
     def gaga_stream_upload(self, element_list=None):
         try:
@@ -60,7 +60,7 @@ class GaGaStreamManager(WebDriverSetup):
                     file_element = tds[0].get_attribute("innerText").strip()
                     if element_list[1] == file_element:
                         if not self.find_exist_stream(element_list[1]):
-                            print(f"   Upload Stream : {file_element} / {element_list[2]}")
+                            print(f"   Upload Stream : {file_element} / {element_list[2]}", flush=True)
                             tds[0].click()
                             time.sleep(0.5)
                             self.input_box(
@@ -75,7 +75,7 @@ class GaGaStreamManager(WebDriverSetup):
                             break
 
         except (NoSuchElementException, ElementNotVisibleException, AttributeError) as e:
-            print(e)
+            print(e, flush=True)
 
 
 if __name__ == "__main__":
@@ -94,5 +94,5 @@ if __name__ == "__main__":
     ]
 
     for i in range(0, len(stream_list)):
-        print("{0}. Stream : {1} / Address : {2}".format(i + 1, stream_list[i][1], stream_list[i][2]))
+        print("{0}. Stream : {1} / Address : {2}".format(i + 1, stream_list[i][1], stream_list[i][2]), flush=True)
         gaga_upload.gaga_stream_upload(stream_list[i])

@@ -1,5 +1,7 @@
 # page_channels_output.py
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from TestConfig.web_driver_setup import WebDriverSetup
 from TestConfig.web_locator import ChannelsOutputElements
 import time
@@ -52,12 +54,12 @@ class ChannelsOutput(WebDriverSetup):
     def select_stream_preset(self, videopreset_name, audiopreset_name):
         try:
             self.sub_step_log(f"Select Video, Audio Profile")
-            if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream):
-                # Video preset 을 선택하기 위에 Stream edit icon 을 클릭
-                self.click(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
+            # Video preset 을 선택하기 위에 Stream edit icon 을 클릭
+            self.clickable_click(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
             # Video preset 셀렉터가 나타날 때 까지 기다림
             if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_video_profile):
                 # Vidoe preset 선택
+                time.sleep(1)
                 self.select_box(
                     By.CSS_SELECTOR,
                     self.output_elements.output_video_profile,
@@ -66,18 +68,17 @@ class ChannelsOutput(WebDriverSetup):
                 )
                 self.option_log(f"Videopreset : {videopreset_name}")
                 # 선택한 Video preset 을 저장
-                self.click(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
+                self.clickable_click(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
             # TS UDP/IP, RTSP, RTMP ... Add Stream button이 없는 경우 Edit Icon을 클릭해서 Video, Audio 를 같은 스트림에서 선택해야
             try:
-                self.click(By.CSS_SELECTOR, self.output_elements.output_add_stream_button)
+                self.clickable_click(By.CSS_SELECTOR, self.output_elements.output_add_stream_button)
             except:
                 # Add Stream button not exist case
-                if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_edit_stream):
-                    self.click(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
+                self.clickable_click(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
             # Audio preset 셀렉터가 나타날 때 까지 기다림
-
             if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_audio_profile):
                 # Audio preset 선택
+                time.sleep(1)
                 self.select_box(
                     By.CSS_SELECTOR,
                     self.output_elements.output_audio_profile,
@@ -86,7 +87,7 @@ class ChannelsOutput(WebDriverSetup):
                 )
                 self.option_log(f"Audiopreset : {audiopreset_name}")
                 # 선택한 Audio preset 저장
-            self.click(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
+            self.clickable_click(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
             """
             Stream edit icon이 나타날 때 (Output 설정 페이지가 보여짐) 까지 기다림
             기다리지 않으면 페이지가 열리지 않은 상태에서 Output option 을 입력하려고 시도하기 때문에

@@ -233,9 +233,9 @@ class TestInputUDPSRT:
     def test_input_udp_srt(self):
         test_functions = [
             self.login,
-            self.create_sender_channel,
+            # self.create_sender_channel,
             self.create_receiver_channel,
-            self.create_role,
+            # self.create_role,
             self.sender_channel_start,
             self.receiver_channel_start,
             self.get_receiver_channel_stats,
