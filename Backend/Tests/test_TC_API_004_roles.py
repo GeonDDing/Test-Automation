@@ -38,7 +38,7 @@ class TestRoleAPI:
             )
 
         # POST
-        with allure.step("POST Channel"):
+        with allure.step("POST Role"):
             response_post = api_operation.post_api_operation()
 
             for i, response in enumerate(response_post):

@@ -28,15 +28,15 @@ class TestSourceAPI:
         assert status_code == 200, "API Test Failed"
 
     # fmt: off
-    @pytest.mark.parametrize("devid_vlaue, chidx_value",[("6", "0")],)
+    @pytest.mark.parametrize("first_uri_resource, devid, second_uri_resource, chindex",[("devid", "16", "chindex", "0")],)
     @allure.title("API: Source")
     # fmt: on
-    def test_sources(self, devid_vlaue, chidx_value):
+    def test_sources(self, first_uri_resource, devid, second_uri_resource, chindex):
         # Source API 호출 전 채널 시작
         channel_start = {"operation": "transcode", "action": "start"}
         channel_stop = {"operation": "transcode", "action": "stop"}
         control_response = requests.put(
-            f"{ApiOperation('controls').api_url}?id={devid_vlaue}&chidx={chidx_value}",
+            f"{ApiOperation('controls').api_url}?id={devid}&chindex={chindex}",
             headers=ApiOperation("controls").headers,
             data=json.dumps(channel_start),
         )
@@ -45,18 +45,43 @@ class TestSourceAPI:
             time.sleep(10)
             api_operation = ApiOperation("sources")
 
+            # GET
+            with allure.step("GET Source"):
+                response_get = api_operation.get_api_operation(
+                    None, first_uri_resource, devid, second_uri_resource, chindex
+                )
+                self.attach_response_result(
+                    response_get,
+                    "GET Response Status Code",
+                    "GET Response Result",
+                )
+
             # POST
             with allure.step("POST Source"):
-                response_post = api_operation.post_api_operation()
+                response_post = api_operation.post_api_operation(
+                    first_uri_resource, devid, second_uri_resource, chindex
+                )
                 for i, response in enumerate(response_post):
                     self.attach_response_result(
                         response,
                         f"POST Response Status Code {i+1}",
                         f"POST Response Result {i+1}",
                     )
+                time.sleep(30)
+
+            # DELETE
+            with allure.step("DELETE Source"):
+                response_delete = api_operation.delete_api_operation(
+                    None, first_uri_resource, devid, second_uri_resource, chindex
+                )
+                self.attach_response_result(
+                    response_delete,
+                    "DELETE Response Status Code",
+                    "DELETE Response Result",
+                )
 
             requests.put(
-                f"{ApiOperation('controls').api_url}?id={devid_vlaue}&chidx={chidx_value}",
+                f"{ApiOperation('controls').api_url}?id={devid}&chidx={chindex}",
                 headers=ApiOperation("controls").headers,
                 data=json.dumps(channel_stop),
             )

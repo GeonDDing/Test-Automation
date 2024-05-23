@@ -38,7 +38,7 @@ class TestWatchFolderAPI:
             )
 
         # POST
-        with allure.step("POST Watch Folders"):
+        with allure.step("POST Watch Folder"):
             response_post = api_operation.post_api_operation()
 
             for i, response in enumerate(response_post):
@@ -52,7 +52,7 @@ class TestWatchFolderAPI:
                     generated_id = response[1]["id"]
 
         # PUT
-        with allure.step("PUT Watch Folders"):
+        with allure.step("PUT Watch Folder"):
             response_put = api_operation.put_api_operation(generated_id)
 
             for i, response in enumerate(response_put):
@@ -63,7 +63,7 @@ class TestWatchFolderAPI:
                 )
 
         # DELETE
-        with allure.step("DELETE Watch Folders"):
+        with allure.step("DELETE Watch Folder"):
             response_delete = api_operation.delete_api_operation(generated_id)
             self.attach_response_result(
                 response_delete,

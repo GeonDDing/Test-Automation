@@ -5,7 +5,7 @@ from Config.common_convert_date import ConvertDate
 
 
 class ApiConfig:
-    def __init__(self, headers=None, base_url="http://10.1.0.145/hms/rest/"):
+    def __init__(self, headers=None, base_url="http://10.1.1.22/hms/rest/"):
         if headers == None:
             headers = {"Content-type": "application/json", "Accept": "text/plain"}
         self.headers = headers
@@ -25,7 +25,7 @@ class ApiConfig:
                 if json_file in ["videopresets", "audiopresets"]:
                     for data in data_list:
                         if "name" in data:
-                            data["name"] = f"{data.get('name', '')}_{ConvertDate.convert_date()[0]}"
+                            data["name"] = f"{data.get('name', '')}_{ConvertDate().convert_date()[0]}"
 
         except FileNotFoundError:
             print(f"Error: File '{json_file}' not found.", flush=True)

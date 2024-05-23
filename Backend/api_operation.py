@@ -14,7 +14,6 @@ class ApiOperation(ApiConfig):
     def send_request(self, method, id_value=None, *args, data=None):
         try:
             api_url = f"{self.api_url}?id={id_value}" if id_value else self.api_url
-
             if args:
                 args_dict = dict(zip(args[::2], args[1::2]))
                 if not id_value == None:
@@ -47,13 +46,12 @@ class ApiOperation(ApiConfig):
 
             if response.status_code == 200:
                 print(json.dumps(response.json(), indent=4), flush=True)
-            else:
-                print(f"Unexpected status code: {response.status_code}", flush=True)
 
             return response.status_code, response.json()
 
         except requests.exceptions.RequestException as e:
-            print(f"An error occurred during the request: {e}", flush=True)
+            print(e, flush=True)
+            print(response.text, flush=True)
 
     def get_api_operation(self, id_value=None, *args):
         print("GET API Request", flush=True)
@@ -65,9 +63,9 @@ class ApiOperation(ApiConfig):
         post_data_list = self.convert_json(self.api_resource, "post")
 
         for _, post_data in enumerate(post_data_list):
-            request.append(self.send_request("post", *args, data=post_data))
+            request.append(self.send_request("post", None, *args, data=post_data))
             if len(post_data_list) > 1:
-                sleep(20)
+                sleep(2)
         return request
 
     def put_api_operation(self, id_value=None, *args):
@@ -78,9 +76,14 @@ class ApiOperation(ApiConfig):
         for _, put_data in enumerate(put_data_list):
             request.append(self.send_request("put", id_value, *args, data=put_data))
             if len(put_data_list) > 1:
-                sleep(20)
+                sleep(2)
         return request
 
     def delete_api_operation(self, id_value=None, *args):
         print("DELETE API Request", flush=True)
         return self.send_request("delete", id_value, *args)
+
+
+if __name__ == "__main__":
+    test = ApiOperation("tasks")
+    test.post_api_operation("groupid", 5, "channelid", 16)

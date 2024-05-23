@@ -28,16 +28,16 @@ class TestID3API:
         assert status_code == 200, "API Test Failed"
 
     @pytest.mark.parametrize(
-        "first_uri_resource, second_uri_resoure, devid_value, chindex_value",
-        [("devid", "chindex", "6", "0")],
+        "first_uri_resource, second_uri_resource, devid, chindex",
+        [("devid", "chindex", "16", "0")],
     )
     @allure.title("API: ID3")
-    def test_id3s(self, first_uri_resource, second_uri_resoure, devid_value, chindex_value):
+    def test_id3s(self, first_uri_resource, second_uri_resource, devid, chindex):
         # id3 API 호출 전 채널 시작
         channel_start = {"operation": "transcode", "action": "start"}
         channel_stop = {"operation": "transcode", "action": "stop"}
         control_response = requests.put(
-            f"{ApiOperation('controls').api_url}?id=6&chidx=0",
+            f"{ApiOperation('controls').api_url}?id={devid}&chidx={chindex}",
             headers=ApiOperation("controls").headers,
             data=json.dumps(channel_start),
         )
@@ -50,7 +50,9 @@ class TestID3API:
 
             # POST
             with allure.step("POST ID3"):
-                response_post = api_operation.post_api_operation()
+                response_post = api_operation.post_api_operation(
+                    first_uri_resource, devid, second_uri_resource, chindex
+                )
 
                 for i, response in enumerate(response_post):
                     self.attach_response_result(
@@ -62,11 +64,7 @@ class TestID3API:
             # GET after POST request
             with allure.step("GET ID3"):
                 response_get = api_operation.get_api_operation(
-                    generated_id,
-                    first_uri_resource,
-                    devid_value,
-                    second_uri_resoure,
-                    chindex_value,
+                    None, first_uri_resource, devid, second_uri_resource, chindex
                 )
                 self.attach_response_result(
                     response_get,
@@ -76,7 +74,9 @@ class TestID3API:
 
             # PUT
             with allure.step("PUT ID3"):
-                response_put = api_operation.put_api_operation()
+                response_put = api_operation.put_api_operation(
+                    None, first_uri_resource, devid, second_uri_resource, chindex
+                )
                 for i, response in enumerate(response_put):
                     self.attach_response_result(
                         response,
@@ -89,9 +89,9 @@ class TestID3API:
                 response_get = api_operation.get_api_operation(
                     generated_id,
                     first_uri_resource,
-                    devid_value,
-                    second_uri_resoure,
-                    chindex_value,
+                    devid,
+                    second_uri_resource,
+                    chindex,
                 )
                 self.attach_response_result(
                     response_get,
@@ -104,9 +104,9 @@ class TestID3API:
                 response_delete = api_operation.delete_api_operation(
                     None,
                     first_uri_resource,
-                    devid_value,
-                    second_uri_resoure,
-                    chindex_value,
+                    devid,
+                    second_uri_resource,
+                    chindex,
                     "key",
                     "key0",
                 )
@@ -115,8 +115,9 @@ class TestID3API:
                     "DELETE Response Status Code",
                     "DELETE Response Result",
                 )
+
             requests.put(
-                f"{ApiOperation('controls').api_url}?id=6&chidx=0",
+                f"{ApiOperation('controls').api_url}?id={devid}&chidx={chindex}",
                 headers=ApiOperation("controls").headers,
                 data=json.dumps(channel_stop),
             )

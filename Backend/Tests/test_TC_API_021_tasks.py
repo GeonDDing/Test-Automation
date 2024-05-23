@@ -6,7 +6,7 @@ from Backend.api_operation import ApiOperation
 
 @allure.parent_suite("Backend Test Automation")
 @allure.suite("API")
-@allure.sub_suite("Job")
+@allure.sub_suite("Task")
 class TestJobAPI:
 
     def attach_response_result(self, response, status_name, result_name):
@@ -24,15 +24,18 @@ class TestJobAPI:
         )
         assert status_code == 200, "API Test Failed"
 
-    @pytest.mark.parametrize("uri_resource, groupid_value", [("groupid", "2")])
-    @allure.title("API: Job")
-    def test_jobs(self, uri_resource, groupid_value):
-        api_operation = ApiOperation("jobs")
+    @pytest.mark.parametrize(
+        "first_uri_resource, groupid, second_uri_resource, channelid", [("groupid", "5", "channelid", "16")]
+    )
+    @allure.title("API: Task")
+    def test_jobs(self, first_uri_resource, groupid, second_uri_resource, channelid):
+        api_operation = ApiOperation("tasks")
         generated_id = None
-
         # GET
-        with allure.step("GET Job"):
-            response_get = api_operation.get_api_operation(generated_id, uri_resource, groupid_value)
+        with allure.step("GET Task"):
+            response_get = api_operation.get_api_operation(
+                None, first_uri_resource, groupid, second_uri_resource, channelid
+            )
             self.attach_response_result(
                 response_get,
                 "GET Response Status Code",
@@ -40,8 +43,10 @@ class TestJobAPI:
             )
 
         # POST
-        with allure.step("POST Job"):
-            response_post = api_operation.post_api_operation()
+        with allure.step("POST Task"):
+            response_post = api_operation.post_api_operation(
+                first_uri_resource, groupid, second_uri_resource, channelid
+            )
 
             for i, response in enumerate(response_post):
                 self.attach_response_result(
@@ -53,20 +58,24 @@ class TestJobAPI:
                 if generated_id == None and "id" in response[1]:
                     generated_id = response[1]["id"]
 
-        # PUT
-        with allure.step("PUT Job"):
-            response_put = api_operation.put_api_operation(37)
-
-            for i, response in enumerate(response_put):
-                self.attach_response_result(
-                    response,
-                    f"PUT Response Status Code {i+1}",
-                    f"PUT Response Result {i+1}",
+            # PUT
+            with allure.step("PUT Task"):
+                response_put = api_operation.put_api_operation(
+                    generated_id, first_uri_resource, groupid, second_uri_resource, channelid
                 )
 
+                for i, response in enumerate(response_put):
+                    self.attach_response_result(
+                        response,
+                        f"PUT Response Status Code {i+1}",
+                        f"PUT Response Result {i+1}",
+                    )
+
         # DELETE
-        with allure.step("DELETE Job"):
-            response_delete = api_operation.delete_api_operation()
+        with allure.step("DELETE Task"):
+            response_delete = api_operation.delete_api_operation(
+                generated_id, first_uri_resource, groupid, second_uri_resource, channelid
+            )
             self.attach_response_result(
                 response_delete,
                 "DELETE Response Status Code",

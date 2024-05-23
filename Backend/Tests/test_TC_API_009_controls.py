@@ -26,18 +26,28 @@ class TestControlAPI:
         )
         assert status_code == 200, "API Test Failed"
 
-    @pytest.mark.parametrize("devid_value, uri_resource, chidx_value", [("6", "chidx", "0")])
+    @pytest.mark.parametrize("devid_value, uri_resource, chidx_value", [("16", "chidx", "0")])
     @allure.title("API: Contorl")
     def test_controls(self, devid_value, uri_resource, chidx_value):
         api_operation = ApiOperation("controls")
 
-        # PUT
-        response_put = api_operation.put_api_operation(devid_value, uri_resource, chidx_value)
+        # GET
+        with allure.step("GET Control"):
+            response_get = api_operation.get_api_operation()
+            self.attach_response_result(
+                response_get,
+                "GET Response Status Code",
+                "GET Response Result",
+            )
 
-        for i, response in enumerate(response_put):
-            with allure.step(f"PUT Control"):
-                self.attach_response_result(
-                    response,
-                    f"PUT Response Status Code {i+1}",
-                    f"PUT Response Result {i+1}",
-                )
+        # PUT
+        with allure.step("PUT Control"):
+            response_put = api_operation.put_api_operation(devid_value, uri_resource, chidx_value)
+            for i, response in enumerate(response_put):
+                with allure.step(f"PUT Control"):
+                    self.attach_response_result(
+                        response,
+                        f"PUT Response Status Code {i+1}",
+                        f"PUT Response Result {i+1}",
+                    )
+            time.sleep(60)
