@@ -160,6 +160,7 @@ class TestInputHLS:
     @allure.sub_suite("HTTP/HLS")
     @allure.title("HLS")
     def test_input_hls(self):
+        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

@@ -27,10 +27,11 @@ class TestLogoInsertionAPI:
         assert status_code == 200, "API Test Failed"
 
     @pytest.mark.parametrize(
-        "first_uri_resource, devid, second_uri_resource, chidx, channelid", [("devid", "16", "chidx", "0", "16")]
+        "first_uri_resource, devid, second_uri_resource, chidx, channelid", [("devid", "27", "chidx", "0", "16")]
     )
     @allure.title("API: Scrolling Text")
     def test_scrollingtext(self, first_uri_resource, devid, second_uri_resource, chidx, channelid):
+        failure_flags = {"put_failed": False}
         channel_start = {"operation": "transcode", "action": "start"}
         channel_stop = {"operation": "transcode", "action": "stop"}
         control_response = requests.put(
@@ -41,24 +42,31 @@ class TestLogoInsertionAPI:
 
         if control_response.status_code == 200:
             print("Channel started successfully")
-            time.sleep(10)
+            time.sleep(20)
             api_operation = ApiOperation("scrollingtext")
 
             # PUT
             with allure.step("PUT Scrolling Text"):
-                response_put = api_operation.put_api_operation(
-                    channelid, first_uri_resource, devid, second_uri_resource, chidx
-                )
-                for i, response in enumerate(response_put):
-                    self.attach_response_result(
-                        response,
-                        f"PUT Response Status Code {i+1}",
-                        f"PUT Response Result {i+1}",
+                try:
+                    response_put = api_operation.put_api_operation(
+                        channelid, first_uri_resource, devid, second_uri_resource, chidx
                     )
-                time.sleep(60)
+                    for response in response_put:
+                        self.attach_response_result(
+                            response,
+                            "PUT Response Status Code",
+                            "PUT Response Result",
+                        )
+                except AssertionError:
+                    failure_flags["put_failed"] = True
 
             control_response = requests.put(
                 f"{ApiOperation('controls').api_url}?id={devid}&chidx={chidx}",
                 headers=ApiOperation("controls").headers,
                 data=json.dumps(channel_stop),
             )
+
+        # Check failure flags and fail the test if any step failed
+        for step, failed in failure_flags.items():
+            if failed:
+                pytest.fail(f"{step.replace('_', ' ').capitalize()}")

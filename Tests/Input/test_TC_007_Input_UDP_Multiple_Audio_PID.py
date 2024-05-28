@@ -170,6 +170,7 @@ class TestInputUDPMultipleAudioPID:
     @allure.sub_suite("UDP/IP")
     @allure.title("Multiple Audio PID")
     def test_input_udp_multiple_audio_pid(self):
+        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

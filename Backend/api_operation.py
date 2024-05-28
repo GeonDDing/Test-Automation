@@ -45,13 +45,16 @@ class ApiOperation(ApiConfig):
             response.raise_for_status()
 
             if response.status_code == 200:
+                print(f"Status Code : {response.status_code}")
                 print(json.dumps(response.json(), indent=4), flush=True)
 
             return response.status_code, response.json()
 
         except requests.exceptions.RequestException as e:
             print(e, flush=True)
-            print(response.text, flush=True)
+            if response.text:
+                print(response.text, flush=True)
+            return response.status_code, response.json()
 
     def get_api_operation(self, id_value=None, *args):
         print("GET API Request", flush=True)
@@ -65,7 +68,7 @@ class ApiOperation(ApiConfig):
         for _, post_data in enumerate(post_data_list):
             request.append(self.send_request("post", None, *args, data=post_data))
             if len(post_data_list) > 1:
-                sleep(2)
+                sleep(30)
         return request
 
     def put_api_operation(self, id_value=None, *args):
@@ -76,7 +79,7 @@ class ApiOperation(ApiConfig):
         for _, put_data in enumerate(put_data_list):
             request.append(self.send_request("put", id_value, *args, data=put_data))
             if len(put_data_list) > 1:
-                sleep(2)
+                sleep(30)
         return request
 
     def delete_api_operation(self, id_value=None, *args):

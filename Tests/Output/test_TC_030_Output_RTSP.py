@@ -159,6 +159,7 @@ class TestOutputRTSP:
     @allure.sub_suite("RTSP")
     @allure.title("RTSP")
     def test_output_udp_rtsp(self):
+        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

@@ -161,6 +161,7 @@ class TestInputUDPMulticast:
     @allure.sub_suite("UDP/IP")
     @allure.title("Multicast")
     def test_input_udp_multicast(self):
+        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

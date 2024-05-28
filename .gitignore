@@ -1,5 +1,6 @@
 __pycache__
 .pytest_cache
+allure-HMS_results
 allure-results
 Backend/json/
 Backend/db_operation.py
@@ -8,3 +9,4 @@ TestConfig\__pycache__
 Tests\__pycache__
 .gitignore
 test_command.txt
+

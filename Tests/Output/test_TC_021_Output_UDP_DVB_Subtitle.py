@@ -162,6 +162,7 @@ class TestInputUDPDVBSubtitle:
     @allure.sub_suite("UDP/IP")
     @allure.title("DVB-Subtitle")
     def test_output_udp_dvb_subtitle(self):
+        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

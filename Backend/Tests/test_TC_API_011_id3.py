@@ -29,7 +29,7 @@ class TestID3API:
 
     @pytest.mark.parametrize(
         "first_uri_resource, second_uri_resource, devid, chindex",
-        [("devid", "chindex", "16", "0")],
+        [("devid", "chindex", "27", "0")],
     )
     @allure.title("API: ID3")
     def test_id3s(self, first_uri_resource, second_uri_resource, devid, chindex):
@@ -44,80 +44,106 @@ class TestID3API:
 
         if control_response.status_code == 200:
             print("Channel started successfully")
-            time.sleep(10)
+            time.sleep(20)
             api_operation = ApiOperation("id3s")
             generated_id = None
+            failure_flags = {
+                "get_failed": False,
+                "post_failed": False,
+                "put_failed": False,
+                "delete_failed": False,
+            }
 
             # POST
             with allure.step("POST ID3"):
-                response_post = api_operation.post_api_operation(
-                    first_uri_resource, devid, second_uri_resource, chindex
-                )
-
-                for i, response in enumerate(response_post):
-                    self.attach_response_result(
-                        response,
-                        f"POST Response Status Code {i+1}",
-                        f"POST Response Result {i+1}",
+                try:
+                    response_post = api_operation.post_api_operation(
+                        first_uri_resource, devid, second_uri_resource, chindex
                     )
+
+                    for response in response_post:
+                        self.attach_response_result(
+                            response,
+                            "POST Response Status Code",
+                            "POST Response Result",
+                        )
+                except AssertionError:
+                    failure_flags["post_failed"] = True
 
             # GET after POST request
             with allure.step("GET ID3"):
-                response_get = api_operation.get_api_operation(
-                    None, first_uri_resource, devid, second_uri_resource, chindex
-                )
-                self.attach_response_result(
-                    response_get,
-                    "GET Response Status Code",
-                    "GET Response Result",
-                )
+                try:
+                    response_get = api_operation.get_api_operation(
+                        None, first_uri_resource, devid, second_uri_resource, chindex
+                    )
+                    self.attach_response_result(
+                        response_get,
+                        "GET Response Status Code",
+                        "GET Response Result",
+                    )
+                except AssertionError:
+                    failure_flags["get_failed"] = True
 
             # PUT
             with allure.step("PUT ID3"):
-                response_put = api_operation.put_api_operation(
-                    None, first_uri_resource, devid, second_uri_resource, chindex
-                )
-                for i, response in enumerate(response_put):
-                    self.attach_response_result(
-                        response,
-                        f"PUT Response Status Code {i+1}",
-                        f"PUT Response Result {i+1}",
+                try:
+                    response_put = api_operation.put_api_operation(
+                        None, first_uri_resource, devid, second_uri_resource, chindex
                     )
+                    for response in response_put:
+                        self.attach_response_result(
+                            response,
+                            "PUT Response Status Code",
+                            "PUT Response Result",
+                        )
+                except AssertionError:
+                    failure_flags["put_failed"] = True
 
             # GET after PUT request
             with allure.step("GET ID3"):
-                response_get = api_operation.get_api_operation(
-                    generated_id,
-                    first_uri_resource,
-                    devid,
-                    second_uri_resource,
-                    chindex,
-                )
-                self.attach_response_result(
-                    response_get,
-                    "GET Response Status Code",
-                    "GET Response Result",
-                )
+                try:
+                    response_get = api_operation.get_api_operation(
+                        generated_id,
+                        first_uri_resource,
+                        devid,
+                        second_uri_resource,
+                        chindex,
+                    )
+                    self.attach_response_result(
+                        response_get,
+                        "GET Response Status Code",
+                        "GET Response Result",
+                    )
+                except AssertionError:
+                    failure_flags["get_after_put_failed"] = True
 
             # DELETE
             with allure.step("DELETE ID3"):
-                response_delete = api_operation.delete_api_operation(
-                    None,
-                    first_uri_resource,
-                    devid,
-                    second_uri_resource,
-                    chindex,
-                    "key",
-                    "key0",
-                )
-                self.attach_response_result(
-                    response_delete,
-                    "DELETE Response Status Code",
-                    "DELETE Response Result",
-                )
+                try:
+                    response_delete = api_operation.delete_api_operation(
+                        None,
+                        first_uri_resource,
+                        devid,
+                        second_uri_resource,
+                        chindex,
+                        "key",
+                        "key0",
+                    )
+                    self.attach_response_result(
+                        response_delete,
+                        "DELETE Response Status Code",
+                        "DELETE Response Result",
+                    )
+                except AssertionError:
+                    failure_flags["delete_failed"] = True
 
             requests.put(
                 f"{ApiOperation('controls').api_url}?id={devid}&chidx={chindex}",
                 headers=ApiOperation("controls").headers,
                 data=json.dumps(channel_stop),
             )
+
+            # Check failure flags and fail the test if any step failed
+            for step, failed in failure_flags.items():
+                if failed:
+                    pytest.fail(f"{step.replace('_', ' ').capitalize()}")

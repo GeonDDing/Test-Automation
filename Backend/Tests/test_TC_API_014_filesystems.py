@@ -29,23 +29,38 @@ class TestFileSystemAPI:
     def test_devices(self, uri_resource, ip_address):
         api_operation = ApiOperation("filesystems")
         generated_id = None
+        failure_flags = {
+            "get_failed": False,
+            "delete_failed": False,
+        }
         # uri_resource = "ip"
         # ip_address = "10.1.0.145"
 
         # GET
         with allure.step("GET File System"):
-            response_get = api_operation.get_api_operation(generated_id, uri_resource, ip_address)
-            self.attach_response_result(
-                response_get,
-                "GET Response Status Code",
-                "GET Response Result",
-            )
+            try:
+                response_get = api_operation.get_api_operation(generated_id, uri_resource, ip_address)
+                self.attach_response_result(
+                    response_get,
+                    "GET Response Status Code",
+                    "GET Response Result",
+                )
+            except AssertionError:
+                failure_flags["get_failed"] = True
 
         # DELETE
         with allure.step("DELETE File System"):
-            response_delete = api_operation.delete_api_operation(generated_id)
-            self.attach_response_result(
-                response_delete,
-                "DELETE Response Status Code",
-                "DELETE Response Result",
-            )
+            try:
+                response_delete = api_operation.delete_api_operation(generated_id)
+                self.attach_response_result(
+                    response_delete,
+                    "DELETE Response Status Code",
+                    "DELETE Response Result",
+                )
+            except AssertionError:
+                failure_flags["delete_failed"] = True
+
+        # Check failure flags and fail the test if any step failed
+        for step, failed in failure_flags.items():
+            if failed:
+                pytest.fail(f"{step.replace('_', ' ').capitalize()}")

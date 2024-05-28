@@ -1,4 +1,5 @@
 import allure
+import pytest
 import json
 from Backend.api_operation import ApiOperation
 
@@ -28,46 +29,67 @@ class TestVideopresetAPI:
         api_operation = ApiOperation("videopresets")
         generated_id = None
 
+        # Initialize failure flags
+        failure_flags = {
+            "get_failed": False,
+            "post_failed": False,
+            "put_failed": False,
+            "delete_failed": False,
+        }
+
         # GET
         with allure.step("GET Videopreset"):
-            response_get = api_operation.get_api_operation()
-            print(response_get)
-            self.attach_response_result(
-                response_get,
-                "GET Response Status Code",
-                "GET Response Result",
-            )
+            try:
+                response_get = api_operation.get_api_operation()
+                self.attach_response_result(
+                    response_get,
+                    "GET Response Status Code",
+                    "GET Response Result",
+                )
+            except AssertionError:
+                failure_flags["get_failed"] = True
 
         # POST
         with allure.step("POST Videopreset"):
-            response_post = api_operation.post_api_operation()
-
-            for i, response in enumerate(response_post):
-                self.attach_response_result(
-                    response,
-                    f"POST Response Status Code {i+1}",
-                    f"POST Response Result {i+1}",
-                )
-
-                if generated_id == None and "id" in response[1]:
-                    generated_id = response[1]["id"]
+            try:
+                response_post = api_operation.post_api_operation()
+                for response in response_post:
+                    self.attach_response_result(
+                        response,
+                        "POST Response Status Code",
+                        "POST Response Result",
+                    )
+                    if generated_id is None and "id" in response[1]:
+                        generated_id = response[1]["id"]
+            except AssertionError:
+                failure_flags["post_failed"] = True
 
         # PUT
         with allure.step("PUT Videopreset"):
-            response_put = api_operation.put_api_operation(generated_id)
-
-            for i, response in enumerate(response_put):
-                self.attach_response_result(
-                    response,
-                    f"PUT Response Status Code {i+1}",
-                    f"PUT Response Result {i+1}",
-                )
+            try:
+                response_put = api_operation.put_api_operation(generated_id)
+                for response in response_put:
+                    self.attach_response_result(
+                        response,
+                        "PUT Response Status Code",
+                        "PUT Response Result",
+                    )
+            except AssertionError:
+                failure_flags["put_failed"] = True
 
         # DELETE
         with allure.step("DELETE Videopreset"):
-            response_delete = api_operation.delete_api_operation(generated_id)
-            self.attach_response_result(
-                response_delete,
-                "DELETE Response Status Code",
-                "DELETE Response Result",
-            )
+            try:
+                response_delete = api_operation.delete_api_operation(generated_id)
+                self.attach_response_result(
+                    response_delete,
+                    "DELETE Response Status Code",
+                    "DELETE Response Result",
+                )
+            except AssertionError:
+                failure_flags["delete_failed"] = True
+
+        # Check failure flags and fail the test if any step failed
+        for step, failed in failure_flags.items():
+            if failed:
+                pytest.fail(f"{step.replace('_', ' ').capitalize()}")

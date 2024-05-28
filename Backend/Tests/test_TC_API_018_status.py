@@ -1,4 +1,6 @@
 import allure
+import requests
+import time
 import pytest
 import json
 from Backend.api_operation import ApiOperation
@@ -24,17 +26,45 @@ class TestStatusAPI:
         )
         assert status_code == 200, "API Test Failed"
 
-    @pytest.mark.parametrize("uri_resource, groupid_value", [("ip", "10.1.1.11")])
+    @pytest.mark.parametrize(
+        "first_uri_resource, groupid, devid, chidx",
+        [("ip", "10.1.1.11", "27", "0")],
+    )
     @allure.title("API: Status")
-    def test_status(self, uri_resource, groupid_value):
-        api_operation = ApiOperation("status")
+    def test_status(self, first_uri_resource, groupid, devid, chidx):
         generated_id = None
+        failure_flags = {"get_failed": False}
+        channel_start = {"operation": "transcode", "action": "start"}
+        channel_stop = {"operation": "transcode", "action": "stop"}
+        control_response = requests.put(
+            f"{ApiOperation('controls').api_url}?id={devid}&chidx={chidx}",
+            headers=ApiOperation("controls").headers,
+            data=json.dumps(channel_start),
+        )
+        if control_response.status_code == 200:
 
-        # GET
-        with allure.step("GET Status"):
-            response_get = api_operation.get_api_operation(generated_id, uri_resource, groupid_value)
-            self.attach_response_result(
-                response_get,
-                "GET Response Status Code",
-                "GET Response Result",
+            time.sleep(10)
+            api_operation = ApiOperation("status")
+
+            # GET
+            with allure.step("GET Status"):
+                try:
+                    response_get = api_operation.get_api_operation(generated_id, first_uri_resource, groupid)
+                    self.attach_response_result(
+                        response_get,
+                        "GET Response Status Code",
+                        "GET Response Result",
+                    )
+                except AssertionError:
+                    failure_flags["get_failed"] = True
+
+            control_response = requests.put(
+                f"{ApiOperation('controls').api_url}?id={devid}&chidx={chidx}",
+                headers=ApiOperation("controls").headers,
+                data=json.dumps(channel_stop),
             )
+
+        # Check failure flags and fail the test if any step failed
+        for step, failed in failure_flags.items():
+            if failed:
+                pytest.fail(f"{step.replace('_', ' ').capitalize()}")

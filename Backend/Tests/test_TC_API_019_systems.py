@@ -29,12 +29,20 @@ class TestSystemAPI:
     def test_status(self, uri_resource, groupid_value):
         api_operation = ApiOperation("systems")
         generated_id = None
-
+        failure_flags = {"get_failed": False}
         # GET
         with allure.step("GET System"):
-            response_get = api_operation.get_api_operation(generated_id, uri_resource, groupid_value)
-            self.attach_response_result(
-                response_get,
-                "GET Response Status Code",
-                "GET Response Result",
-            )
+            try:
+                response_get = api_operation.get_api_operation(generated_id, uri_resource, groupid_value)
+                self.attach_response_result(
+                    response_get,
+                    "GET Response Status Code",
+                    "GET Response Result",
+                )
+            except AssertionError:
+                failure_flags["get_failed"] = True
+
+        # Check failure flags and fail the test if any step failed
+        for step, failed in failure_flags.items():
+            if failed:
+                pytest.fail(f"{step.replace('_', ' ').capitalize()}")

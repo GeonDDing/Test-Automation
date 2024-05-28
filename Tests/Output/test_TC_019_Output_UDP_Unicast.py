@@ -161,6 +161,7 @@ class TestOutputUDPUnicast:
     @allure.sub_suite("UDP/IP")
     @allure.title("Unicast")
     def test_output_udp_unicast(self):
+        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

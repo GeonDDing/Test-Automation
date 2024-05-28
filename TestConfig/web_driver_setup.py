@@ -82,6 +82,8 @@ class WebDriverSetup(WebDriverInit, WebLog):
         elif select_type == "text":
             select_box.select_by_visible_text(select_value)
 
+    # def is_element_displayed(self, locator):
+
     def is_checked(self, by, locator):
         return WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((by, locator))).is_selected()
 

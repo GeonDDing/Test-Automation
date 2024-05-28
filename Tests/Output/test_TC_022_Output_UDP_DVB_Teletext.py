@@ -162,6 +162,7 @@ class TestInputUDPDVBTeletext:
     @allure.sub_suite("UDP/IP")
     @allure.title("DVB-Teletext")
     def test_output_udp_dvb_teletext(self):
+        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

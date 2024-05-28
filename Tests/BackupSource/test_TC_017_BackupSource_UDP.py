@@ -217,6 +217,7 @@ class TestBackupSourceUDP:
     @allure.sub_suite("UDP/IP")
     @allure.title("UDP/IP")
     def test_backup_source_udp(self):
+        print("\n")
         test_functions = [
             self.login,
             self.create_channel,
@@ -227,7 +228,6 @@ class TestBackupSourceUDP:
             self.get_backup_source_channel_stats,
             self.channel_stop,
         ]
-
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
 

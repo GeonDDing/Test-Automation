@@ -187,6 +187,7 @@ class TestOutputUDPClosedCaption:
     @allure.sub_suite("UDP/IP")
     @allure.title("Closed Caption")
     def test_output_udp_closed_caption(self):
+        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

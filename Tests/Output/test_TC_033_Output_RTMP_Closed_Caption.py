@@ -188,6 +188,7 @@ class TestOutputRTMPDvbSubtitle:
     @allure.sub_suite("RTMP")
     @allure.title("Closed Caption")
     def test_output_rtmp(self):
+        print("\n")
         test_functions = [
             self.login,
             self.create_channel,

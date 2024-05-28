@@ -13,6 +13,8 @@ class MonitorDevice(WebDriverSetup):
         self.monitor_device_elements = MonitorDeviceElements()
         self.chindex = chindex
         self.url = self.base_url_parser()
+        self.channel_start_btn = self.monitor_device_elements.monitor_device_channel_start.format(self.chindex)
+        self.channel_stop_btn = self.monitor_device_elements.monitor_device_channel_stop.format(self.chindex)
 
     def find_channel_index(self, channel_name):
         try:
@@ -27,82 +29,80 @@ class MonitorDevice(WebDriverSetup):
             return False
 
     def channel_start(self, channel_name):
-        is_channel_start = bool()
+        channel_start_time = time.time()
+
         self.click(By.XPATH, MainMenuElements().monitor)
-        time.sleep(0.5)
+        time.sleep(1)
         self.find_channel_index(channel_name)
         self.click(By.XPATH, self.monitor_device_elements.monitor_table)
-        self.channel_start_element = self.monitor_device_elements.monitor_device_channel_start.format(self.chindex)
-        self.channel_stop_element = self.monitor_device_elements.monitor_device_channel_stop.format(self.chindex)
         try:
-            self.clickable_click(By.CSS_SELECTOR, self.channel_start_element)
+            starting_status = self.find_element(
+                By.CSS_SELECTOR, self.monitor_device_elements.channel_starting_content_block
+            ).value_of_css_property("display")
+            stoping_status = self.find_element(
+                By.CSS_SELECTOR, self.monitor_device_elements.channel_stoping_content_block
+            ).value_of_css_property("display")
+            if starting_status == "block" or stoping_status == "block":
+                self.warning_log("The channel is ending so please wait for a moment.")
+                time.sleep(30)
             self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Starting")
-            channel_start_time = time.time()
-            while True:
-                try:
-                    channel_response = requests.get(f"{self.url}:900{self.chindex}/stats")
-                    if channel_response.status_code == 200 and elementTree.fromstring(channel_response.text):
-                        is_channel_start = True
-                        break
-                except requests.exceptions.ConnectionError as e:
-                    if time.time() - channel_start_time > 70:
-                        self.warning_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure")
-                        is_channel_start = False, None
-                        break
-                else:
-                    pass
-                time.sleep(2)
-            if not is_channel_start:
-                try:
-                    self.click(By.CSS_SELECTOR, self.channel_start_element)
-                    self.info_log(f"#00{int(self.chindex+1)} {channel_name} Channel Restarting")
-                    channel_restart_time = time.time()
-                    while True:
-                        try:
-                            channel_response = requests.get(f"{self.url}:900{self.chindex}/stats")
-                            if channel_response.status_code == 200 and elementTree.fromstring(channel_response.text):
-                                # and elementTree.fromstring(channel_response.text)
-                                break
-
-                        except requests.exceptions.ConnectionError as e:
-                            if time.time() - channel_restart_time > 70:
-                                self.warning_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure")
-                                return False, None
-                        else:
-                            pass
-                        time.sleep(2)
-                except Exception as e:
-                    self.error_log(f"The channel failed to restart because an error occurred | {repr(e)}")
-                    return False, None
-            return True, self.chindex
+            self.clickable_click(By.CSS_SELECTOR, self.channel_start_btn)
+            time.sleep(10)
         except Exception as e:
-            self.error_log(f"The channel failed to start because an error occurred | {repr(e)}")
+            self.warning_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure | {e}")
             return False, None
+        else:
+            while True:
+                stop_status = self.find_element(
+                    By.CSS_SELECTOR, self.monitor_device_elements.channel_stop_content_block
+                ).value_of_css_property("display")
+                if stop_status == "block":
+                    self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start success")
+                    return True, self.chindex
+                else:
+                    if time.time() - channel_start_time > 70:
+                        self.warning_log(f"#00{int(self.chindex+1)} Timeout, {channel_name} Channel Start Failure")
+                        return False, None
+                time.sleep(2)
 
     def channel_stop(self, chindex, channel_name):
-        self.channel_start_element = self.monitor_device_elements.monitor_device_channel_start.format(chindex)
-        self.channel_stop_element = self.monitor_device_elements.monitor_device_channel_stop.format(chindex)
         try:
-            self.clickable_click(By.CSS_SELECTOR, self.channel_stop_element)
             self.step_log(f"#00{int(chindex+1)} {channel_name} Channel Stoping")
-            self.click(By.CSS_SELECTOR, self.channel_stop_element)
+            self.click(By.CSS_SELECTOR, self.channel_stop_btn)
+
             self.accept_alert()
-            channel_stop_time = time.time()
+        except Exception as e:
+            self.warning_log(f"#00{int(chindex+1)} {channel_name} Channel Stop Failure | {e}")
+            return False
+        else:
             while True:
-                try:
-                    channel_response = requests.get(f"{self.url}:900{chindex}/stats")
-                    if channel_response.status_code == 200 and elementTree.fromstring(channel_response.text):
-                        if time.time() - channel_stop_time > 70:
-                            self.warning_log(f"#00{int(chindex+1)} {channel_name} Channel Stop Failure")
-                            return False
-                except requests.exceptions.ConnectionError as e:
+                if self.find_element(By.CSS_SELECTOR, "#ChannelBoxStopped0").value_of_css_property("display"):
+                    self.step_log(f"#00{int(chindex+1)} {channel_name} Channel Stop success")
                     return True
                 else:
-                    pass
-                time.sleep(2)
-        except Exception as e:
-            self.error_log(f"The channel failed to stop because an error occurred | {repr(e)}")
-            return False
+                    self.warning_log(f"#00{int(chindex+1)} Timeout, {channel_name} Channel Stop Failure")
+                    return False
+
+    # def channel_stop(self, chindex, channel_name):
+    #     try:
+    #         self.clickable_click(By.CSS_SELECTOR, self.channel_stop_btn)
+    #         self.step_log(f"#00{int(chindex+1)} {channel_name} Channel Stoping")
+    #         self.click(By.CSS_SELECTOR, self.channel_stop_btn)
+    #         self.accept_alert()
+    #         while True:
+    #             try:
+    #                 channel_response = requests.get(f"{self.url}:900{chindex}/stats")
+    #                 if channel_response.status_code == 200:
+    #                     self.warning_log(f"#00{int(chindex+1)} {channel_name} Channel Stop Failure")
+    #                     return False
+    #             except requests.exceptions.ConnectionError as e:
+    #                 return True
+    #             else:
+    #                 pass
+    #             time.sleep(2)
+    #     except Exception as e:
+    #         self.error_log(f"The channel failed to stop because an error occurred | {repr(e)}")
+    #         return False
 
     def channel_stop_all(self):
         try:
@@ -117,5 +117,6 @@ class MonitorDevice(WebDriverSetup):
                 return True
             except:
                 return False
+
         except:
             return False

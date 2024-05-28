@@ -645,6 +645,10 @@ class MonitorDeviceElements:
     monitor_device_preview_all = 'input[type="button"][id="previewAll"][name="previewAll"][value=" Preview All"]'
 
     ### In Channel Box ###
+    channel_start_content_block = "#ChannelBoxStopped0"
+    channel_stop_content_block = "#ChannelBox0"
+    channel_starting_content_block = "#ChannelBoxStarting0"
+    channel_stoping_content_block = "#ChannelBoxStopping0"
     channel_start = "div#ChannelBoxStopped{} > input.start"
     channel_stop = "div#ChannelBoxStopped{} > input.stop"
     monitor_device_channel_start = (
