@@ -3,7 +3,7 @@ import allure
 from Pages.Configure.page_channels import ConfigureChannel
 from Pages.Configure.page_roles import ConfigureRole
 from Pages.Configure.page_videopresets import ConfigureVideopreset
-from Pages.Monitor.page_mdevice import MonitorDevice
+from Pages.Monitor.page_monitor_device import MonitorDevice
 from TestConfig.web_stats_receiver import StatsReceiver
 from Pages.Login.page_login import Login
 from Pages.Logout.page_logout import Logout
@@ -13,7 +13,7 @@ pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTMP Output"
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Output")
-class TestOutputRTMPDvbSubtitle:
+class TestOutputRTMPClosedCaption:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
@@ -21,7 +21,7 @@ class TestOutputRTMPDvbSubtitle:
             "Name": "UI Testing Role",
         },
         "Channel Name": "Output RTMP DVB Subtitle Testing",
-        "Input Type": "Playlist",
+        "Input Type": "UDP",
         "Output Type": "RTMP",
         "Backup Source Type": None,
         "Preset Name": {
@@ -46,7 +46,7 @@ class TestOutputRTMPDvbSubtitle:
         },
         "Input Options": {
             "Network URL": "224.30.30.10:17003",
-            "Interface": "NIC2",
+            "Interface": "Off",
         },
         "Output Options": {
             "Broadcast Address": "10.1.0.220",
@@ -108,7 +108,6 @@ class TestOutputRTMPDvbSubtitle:
         is_pre = channel_instance.pre_channel_configuration()
         with allure.step("Output Options Setup"):
             is_output = channel_instance.setup_output()
-            time.sleep(1)
         with allure.step("Input Options Setup"):
             is_input = channel_instance.setup_input()
         with allure.step("Channel Creation Finalization"):

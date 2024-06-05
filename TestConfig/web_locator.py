@@ -411,10 +411,12 @@ class ChannelsOutputElements:
     # Both ID and Name are the same, so it is used as full XPATH.
     output_udp_primary_output_address = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[5]/span/input"
     output_udp_primary_output_port = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[6]/span/input"
-    output_udp_primary_network_interface = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[8]/span/select"
+    # output_udp_primary_network_interface = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[8]/span/select"
+    output_udp_primary_network_interface = '#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(8) > span > select'
     output_udp_secondary_output_address = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[9]/span/input"
     output_udp_secondary_output_port = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[10]/span/input"
-    output_udp_secondary_network_interface = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[12]/span/select"
+    # output_udp_secondary_network_interface = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[12]/span/select"
+    output_udp_secondary_network_interface = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(12) > span > select"
     output_udp_multicast_ttl = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[13]/span/input"
     output_udp_tos = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[14]/span/input"
     output_udp_ts_id = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[16]/span/input"
@@ -425,43 +427,43 @@ class ChannelsOutputElements:
     output_udp_pcr_pid = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[21]/span/input"
     output_udp_psi_interval = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[22]/span/input"
     output_udp_mux_rate = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[23]/span/input"
-    output_udp_null_packet_padding = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[25]/span/select"
-    output_udp_on_input_loss = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[26]/span/select"
-    output_udp_dvb_subtitle_track_checkbox = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[28]/span/input"
+    output_udp_null_packet_padding = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(25) > span > select"
+    output_udp_on_input_loss = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(26) > span > select"
+    output_udp_dvb_subtitle_track_checkbox = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(28) > span > input[type=checkbox]"
     output_udp_dvb_subtitle_track = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[29]/span/input"
-    output_udp_dvb_teletext_track_checkbox = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[31]/span/input"
+    output_udp_dvb_teletext_track_checkbox = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(31) > span > input[type=checkbox]"
     output_udp_dvb_teletext_track = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[32]/span/input"
-    output_udp_enable_scte_35_passthru = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[35]/span/input"
-    output_udp_enable_id3_tden_tag = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[37]/span/input"
-    output_udp_enable_ts_over_rtp = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[38]/span/input"
-    output_udp_prompeg = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[39]/span/input"
+    output_udp_enable_scte_35_passthru = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(35) > span > input[type=checkbox]"
+    output_udp_enable_id3_tden_tag = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(37) > span > input[type=checkbox]"
+    output_udp_enable_ts_over_rtp = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(38) > span > input[type=checkbox]"
+    output_udp_prompeg = "/#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(39) > span > input[type=checkbox]"
     output_udp_column = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[40]/span/input"
     output_upd_row = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[41]/span/input"
-    output_udp_srt = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[42]/span/input"
+    output_udp_srt = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(42) > span > input[type=checkbox]"
     output_udp_latency = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[43]/span/input"
     output_udp_advanced_parameters = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[48]/span/input"
-    output_udp_ats_ebp_checkbox = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[49]/span/input"
-    output_udp_ats_ebp_fragment_duration = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[50]/span/input"
-    output_udp_ats_ebp_segment_duration = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[51]/span/input"
-    output_udp_vct_checkbox = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[52]/span/input"
-    output_udp_vct_table_id = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[2]/span/select"
-    output_udp_vct_short_name = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[3]/span/input"
-    output_udp_vct_major_channel_number = (
+    output_udp_ats_ebp = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(49) > span > input[type=checkbox]"
+    output_udp_fragment_duration = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[50]/span/input"
+    output_udp_segment_duration = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[51]/span/input"
+    output_udp_vct = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(52) > span > input[type=checkbox]"
+    output_udp_table_id = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(53) > span:nth-child(2) > span > select"
+    output_udp_short_name = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[3]/span/input"
+    output_udp_major_channel_number = (
         "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[4]/span/input"
     )
-    output_udp_vct_minor_channel_number = (
+    output_udp_minor_channel_number = (
         "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[5]/span/input"
     )
-    output_udp_vct_modulation_mode = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[6]/span/select"
-    output_udp_vct_service_type = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[7]/span/select"
-    output_udp_vct_source_id = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[8]/span/input"
+    output_udp_modulation_mode = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(53) > span:nth-child(6) > span > select"
+    output_udp_service_type = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(53) > span:nth-child(7) > span > select"
+    output_udp_source_id = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[8]/span/input"
     # CSS Selector : Radio button
-    output_udp_broadcasting_standard_atsc = 'input[type="radio"][name="Broadcasting standard:"][value="0"]'
-    output_udp_broadcasting_standard_dvb = 'input[type="radio"][name="Broadcasting standard:"][value="1"]'
+    output_udp_atsc = '#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(15) > span > input[type=radio]:nth-child(2)'
+    output_udp_dvb = '#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(15) > span > input[type=radio]:nth-child(3)'
 
     # HLS output options
     # Both ID and Name are the same, so it is used as full XPATH.
-    output_hls_segment_naming = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[3]/span/select"
+    output_hls_segment_naming = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(3) > span > select"
     output_hls_duration = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[6]/span/input"
     output_hls_segments_ring_size = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[7]/span/input"
     output_hls_keep_remote_segments = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[8]/span/input"
@@ -471,15 +473,17 @@ class ChannelsOutputElements:
     output_hls_backup_playback_url = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[12]/span/input"
     output_hls_master_playlist_name = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[13]/span/input"
     output_hls_subtitle_playlist_name = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[14]/span/input"
-    output_hls_subtitle_type = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[15]/span/select"
-    output_hls_dvb_subtitle = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[16]/span/input"
-    output_hls_dvb_teletext = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[19]/span/input"
+    output_hls_subtitle_type = '#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(15) > span > select'
+    # output_hls_dvb_subtitle_checkbox = '#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(16) > span > input[type=checkbox]'
+    output_hls_dvb_subtitle = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[17]/span/input"
+    # output_hls_dvb_teletext_checkbox = '#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(19) > span > input[type=checkbox]'
+    output_hls_dvb_teletext = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[20]/span/input"
     output_hls_create_subfolder = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[22]/span/input"
     output_hls_create_iframe_playlist = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[23]/span/input"
     output_hls_tagging_playlists_with_timestamp = (
         "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[24]/span/input"
     )
-    output_hls_scte_35_signaling = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[25]/span/select"
+    output_hls_scte_35_signaling = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(25) > span > select"
     output_hls_enable_id3_tden_tag = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[26]/span/input"
     output_hls_enable_encryption = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[27]/span/input"
     output_hls_append_endlist_at_stop = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[38]/span/input"
@@ -496,25 +500,27 @@ class ChannelsOutputElements:
     output_rtmp_stream_name = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[7]/span/input"
     output_rtmp_connection_timeout = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[8]/span/input"
     output_rtmp_send_timeout = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[9]/span/input"
-    output_rtmp_subtitle_language = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[10]/span/select"
-    output_rtmp_cdn_authentication = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[11]/span/select"
+    output_rtmp_subtitle_language = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(10) > span > select"
+    output_rtmp_cdn_authentication = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(11) > span > select"
     output_rtmp_username = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[12]/span/input"
     output_rtmp_password = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[13]/span/input"
 
     # Live Smooth Streaming output options
     output_lss_fragment_duration = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[3]/span/input"
-    otuput_lss_publishing_server_type = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[4]/span/select"
-    output_lss_time_scale = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[5]/span/select"
-    output_lss_hevc_codec_tag = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[6]/span/select"
+    otuput_lss_publishing_server_type = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(4) > span > select"
+    output_lss_time_scale = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(5) > span > select"
+    output_lss_hevc_codec_tag = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(6) > span > select"
     output_lss_publishing_point_url = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[7]/span/input"
     output_lss_secondary_point_url = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[8]/span/input"
     output_lss_ismt_properties = 'input[type="radio"][name="ISMT Properties"]'
-    output_lss_dvb_subtitle = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[10]/span/input"
-    output_lss_dvb_teletext = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[13]/span/input"
+    output_lss_dvb_subtitle_checkbox = '#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(10) > span > input[type=checkbox]'
+    output_lss_dvb_subtitle = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[11]/span/input"
+    output_lss_dvb_teletext_checkbox = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(13) > span > input[type=checkbox]"
+    output_lss_dvb_teletext = '/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[14]/span/input'
     output_lss_enable_secte35 = 'input[type="radio"][name="Enable SCTE35"]'
-    output_lss_stream_naing = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[17]/span/select"
-    output_lss_playready_drm = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[18]/span/select"
-    output_lss_on_input_loss = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[30]/span/select"
+    output_lss_stream_naing = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(17) > span > select"
+    output_lss_playready_drm = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(18) > span > select"
+    output_lss_on_input_loss = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(30) > span > select"
     output_lss_send_mfra_at_stop = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[31]/span/input"
 
     # DASH output options
@@ -524,42 +530,44 @@ class ChannelsOutputElements:
     output_dash_primary_path = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[6]/span/input"
     output_dash_secondary_base_url = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[7]/span/input"
     output_dash_secondary_path = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[8]/span/input"
-    output_dash_segment_naming = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[9]/span/select"
+    output_dash_segment_naming = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(9) > span > select"
     output_dash_segments_ring_size = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[10]/span/input"
     output_dash_segment_duration = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[11]/span/input"
     output_dash_min_buffer_time = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[13]/span/input"
-    output_dash_mode = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[14]/span/select"
-    output_dash_segment_template_mode = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[15]/span/select"
-    output_dash_hevc_codec_tag = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[16]/span/select"
-    output_dash_subtitle_type = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[17]/span/select"
+    output_dash_mode = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(14) > span > select"
+    output_dash_segment_template_mode = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(15) > span > select"
+    output_dash_hevc_codec_tag = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(16) > span > select"
+    output_dash_subtitle_type = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(17) > span > select"
     output_dash_scte_35_signalling = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[18]/span/input"
-    output_dash_drm_type = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[20]/span/select"
+    output_dash_drm_type = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(20) > span > select"
 
     # CMAF output options
-    output_cmaf_ingest_protocol = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[4]/span/select"
+    output_cmaf_ingest_protocol = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(4) > span > select"
     output_cmaf_base_publishing_point = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[5]/span/input"
-    output_cmaf_enable_low_latency_transfer = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[6]/span/input"
-    output_cmaf_http_method = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[7]/span/select"
-    output_cmaf_create_subfolder = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[8]/span/input"
-    output_cmaf_segment_naming = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[9]/span/select"
+    output_cmaf_enable_low_latency_transfer = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(6) > span > input[type=checkbox]"
+    output_cmaf_http_method = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(7) > span > select"
+    output_cmaf_create_subfolder = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(8) > span > input[type=checkbox]"
+    output_cmaf_segment_naming = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(9) > span > select"
     output_cmaf_dvr_window_length = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[10]/span/input"
     output_cmaf_min_buffer_time = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[11]/span/input"
     output_cmaf_segment_duration = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[12]/span/input"
     output_cmaf_chunk_duration = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[13]/span/input"
-    output_cmaf_hevc_codec_tag = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[14]/span/select"
-    output_cmaf_dvb_sutitle_track = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[17]/span/input"
-    output_cmaf_dvb_teletext_track = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[20]/span/input"
-    output_cmaf_scte_35_signalling = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[23]/span/input"
-    output_cmaf_enable_id3 = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[26]/span/input"
-    output_cmaf_use_utc_in_tfdt = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[27]/span/input"
+    output_cmaf_hevc_codec_tag = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(14) > span > select"
+    output_cmaf_dvb_sutitle_track_checkbox = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(17) > span > input[type=checkbox]"
+    output_cmaf_dvb_sutitle_track = '/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[18]/span/input'
+    output_cmaf_dvb_teletext_track_checkbox = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(20) > span > input[type=checkbox]"
+    output_cmaf_dvb_teletext_track = '/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[21]/span/input'
+    output_cmaf_scte_35_signalling = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(23) > span > input[type=checkbox]"
+    output_cmaf_enable_id3 = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(26) > span > input[type=checkbox]"
+    output_cmaf_use_utc_in_tfdt = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(27) > span > input[type=checkbox]"
     output_cmaf_use_negative_time_offset_in_trun = (
-        "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[28]/span/input"
+        "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(28) > span > input[type=checkbox]"
     )
-    output_cmaf_drm_type = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[29]/span/select"
-    output_cmaf_dash_segment_template_mode = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span/select"
+    output_cmaf_drm_type = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(29) > span > select"
+    output_cmaf_dash_segment_template_mode = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(53) > span > select"
     output_cmaf_dash_mpd_name = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[54]/span/input"
     output_cmaf_hls_master_playlist_name = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[55]/span/input"
-    otuput_cmaf_append_endlist_at_stop = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[57]/span/input"
+    otuput_cmaf_append_endlist_at_stop = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(57) > span > input[type=checkbox]"
 
 
 class ConfigureVideopresetElements:
@@ -645,10 +653,10 @@ class MonitorDeviceElements:
     monitor_device_preview_all = 'input[type="button"][id="previewAll"][name="previewAll"][value=" Preview All"]'
 
     ### In Channel Box ###
-    channel_start_content_block = "#ChannelBoxStopped0"
-    channel_stop_content_block = "#ChannelBox0"
-    channel_starting_content_block = "#ChannelBoxStarting0"
-    channel_stoping_content_block = "#ChannelBoxStopping0"
+    channel_start_content_block = "#ChannelBoxStopped{}"
+    channel_stop_content_block = "#ChannelBox{}"
+    channel_starting_content_block = "#ChannelBoxStarting{}"
+    channel_stoping_content_block = "#ChannelBoxStopping{}"
     channel_start = "div#ChannelBoxStopped{} > input.start"
     channel_stop = "div#ChannelBoxStopped{} > input.stop"
     monitor_device_channel_start = (

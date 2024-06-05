@@ -2,26 +2,26 @@ import time
 import allure
 from Pages.Configure.page_channels import ConfigureChannel
 from Pages.Configure.page_roles import ConfigureRole
-from Pages.Monitor.page_mdevice import MonitorDevice
+from Pages.Monitor.page_monitor_device import MonitorDevice
 from TestConfig.web_stats_receiver import StatsReceiver
 from Pages.Login.page_login import Login
 from Pages.Logout.page_logout import Logout
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTMP Output")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("HLS Output")]
 
 
 @allure.parent_suite("WebUI Test Automation")
 @allure.suite("Output")
-class TestOutputRTMP:
+class TestOutputHLSDVBTeletext:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
         "Role Options": {
             "Name": "UI Testing Role",
         },
-        "Channel Name": "Output RTMP Testing",
-        "Input Type": "Playlist",
-        "Output Type": "RTMP",
+        "Channel Name": "Output HLS DVB Teletext Testing",
+        "Input Type": "UDP",
+        "Output Type": "HLS",
         "Backup Source Type": None,
         "Preset Name": {
             "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
@@ -32,14 +32,17 @@ class TestOutputRTMP:
             "Analysis window": "4000",
         },
         "Input Options": {
-            "Type": "Local Static Playlist",
-            "Playlists name": "bbb",
+            "Network URL": "224.30.30.10:18003",
+            "Interface": "Off",
         },
         "Output Options": {
-            "Broadcast Address": "10.1.0.145",
-            "Broadcast Port": "1935",
-            "Broadcast Path": "live",
-            "Stream Name": "automation_testing",
+            "Duration": "2",
+            "Segments ring size": "15",
+            "Primary Master playlist path": "videos/test_automation_@@CHIDX@@/",
+            "Master playlist name": "master.m3u8",
+            "Subtitle Type": "WebVTT",
+            "DVB-Teletext": "nor",
+            'Append "ENDLIST" at Stop': True,
         },
         "Backup Source Options": None,
     }
@@ -82,7 +85,6 @@ class TestOutputRTMP:
         is_pre = channel_instance.pre_channel_configuration()
         with allure.step("Output Options Setup"):
             is_output = channel_instance.setup_output()
-            time.sleep(1)
         with allure.step("Input Options Setup"):
             is_input = channel_instance.setup_input()
         with allure.step("Channel Creation Finalization"):
@@ -159,9 +161,9 @@ class TestOutputRTMP:
             logout_instance = Logout()
             return logout_instance.logout()
 
-    @allure.sub_suite("RTMP")
-    @allure.title("RTMP")
-    def test_output_rtmp(self):
+    @allure.sub_suite("HLS")
+    @allure.title("DVB-Teletext")
+    def test_output_hls_dvb_teletext(self):
         print("\n")
         test_functions = [
             self.login,

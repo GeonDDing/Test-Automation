@@ -33,6 +33,7 @@ class TestPreSettings:
         "Backup Source Type": None,
         "Preset Name": {
             "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
+            "CC Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | CC Testing",
             "Audiopreset Name": "AAC | 128K | 48kHz | Testing",
         },
         "Videopreset Options": {
@@ -45,6 +46,18 @@ class TestPreSettings:
             "H.264 Profile": "Main",
             "I-Frame Interval": "60",
             "Buffering Time": "120",
+        },
+        "CC Videopreset Options": {
+            "Codec": "H.264/AVC",
+            "Encoding engine": "S/W codec",
+            "Resolution": "1280 x 720 (HD 720x)",
+            "Frame Rate": "29.97",
+            "# of B frames": "2",
+            "Bitrate": "4000",
+            "H.264 Profile": "Main",
+            "I-Frame Interval": "60",
+            "Buffering Time": "120",
+            "Closed caption": "Pass-through",
         },
         "Audiopreset Options": {
             "Codec": "AAC",
@@ -60,7 +73,7 @@ class TestPreSettings:
         },
         "Input Options": {
             "Network URL": "224.30.30.10:15008",
-            "Interface": "NIC2",
+            "Interface": "Off",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.220",
@@ -109,6 +122,19 @@ class TestPreSettings:
             # Required parameters: Videopreset Name, Videopreset Options
             return videopreset_instance.configure_videopreset(
                 kwargs["Preset Name"]["Videopreset Name"], kwargs["Videopreset Options"]
+            )
+
+    @attach_result(
+        "Closed Caption Video Preset Creation",
+        "Closed Caption Video Preset Creation Successful",
+        "Closed Caption Video Preset Creation Failed",
+    )
+    def create_videopreset_cc(self, **kwargs):
+        with allure.step("Create video preset"):
+            videopreset_instance = ConfigureVideopreset()
+            # Required parameters: Videopreset Name, Videopreset Options
+            return videopreset_instance.configure_videopreset(
+                kwargs["Preset Name"]["CC Videopreset Name"], kwargs["CC Videopreset Options"]
             )
 
     @attach_result(
@@ -175,10 +201,11 @@ class TestPreSettings:
     @allure.sub_suite("Settings")
     @allure.title("Pre Settings")
     def test_pre_setting(self):
-        print('\n')
+        print("\n")
         test_functions = [
             self.login,
             self.create_videopreset,
+            self.create_videopreset_cc,
             self.create_audiopreset,
             self.create_role,
             self.create_group,

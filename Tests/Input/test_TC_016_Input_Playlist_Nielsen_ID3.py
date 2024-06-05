@@ -2,7 +2,7 @@ import time
 import allure
 from Pages.Configure.page_channels import ConfigureChannel
 from Pages.Configure.page_roles import ConfigureRole
-from Pages.Monitor.page_mdevice import MonitorDevice
+from Pages.Monitor.page_monitor_device import MonitorDevice
 from TestConfig.web_stats_receiver import StatsReceiver
 from Pages.Settings.page_networking import SettingsNetworking
 from Pages.Login.page_login import Login
@@ -95,7 +95,6 @@ class TestInputPlaylistNielsenID3:
         is_pre = channel_instance.pre_channel_configuration()
         with allure.step("Output Options Setup"):
             is_output = channel_instance.setup_output()
-            time.sleep(1)
         with allure.step("Input Options Setup"):
             is_input = channel_instance.setup_input()
         with allure.step("Channel Creation Finalization"):

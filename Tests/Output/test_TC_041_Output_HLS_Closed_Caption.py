@@ -4,28 +4,27 @@ from Pages.Configure.page_channels import ConfigureChannel
 from Pages.Configure.page_roles import ConfigureRole
 from Pages.Monitor.page_monitor_device import MonitorDevice
 from TestConfig.web_stats_receiver import StatsReceiver
-from Pages.Settings.page_networking import SettingsNetworking
 from Pages.Login.page_login import Login
 from Pages.Logout.page_logout import Logout
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Playlist Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("HLS Output")]
 
 
 @allure.parent_suite("WebUI Test Automation")
-@allure.suite("Input")
-class TestInputRemoteMediaAsset:
+@allure.suite("Output")
+class TestOutputHLSClosedCaption:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
         "Role Options": {
             "Name": "UI Testing Role",
         },
-        "Channel Name": "Input Playlist Remote Media Asset Testing",
-        "Input Type": "Playlist",
-        "Output Type": "UDP",
+        "Channel Name": "Output HLS Closed Caption Testing",
+        "Input Type": "UDP",
+        "Output Type": "HLS",
         "Backup Source Type": None,
         "Preset Name": {
-            "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
+            "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | CC Testing",
             "Audiopreset Name": "AAC | 128K | 48kHz | Testing",
         },
         "Common Options": {
@@ -33,20 +32,17 @@ class TestInputRemoteMediaAsset:
             "Analysis window": "4000",
         },
         "Input Options": {
-            "Type": "Remote Media Asset Directory",
-            "URI": "mnt/10.1.0.10/mek/Streams/tmp/tmp_jacob/in",
+            "Network URL": "224.30.30.10:17003",
+            "Interface": "Off",
         },
         "Output Options": {
-            "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "15015",
-            "Primary Network Interface": "NIC1",
+            "Duration": "2",
+            "Segments ring size": "15",
+            "Primary Master playlist path": "videos/test_automation_@@CHIDX@@/",
+            "Master playlist name": "master.m3u8",
+            'Append "ENDLIST" at Stop': True,
         },
         "Backup Source Options": None,
-        "Networking": {
-            "Services Options": {
-                "SMB path": "smb://mek:mediaExcel5@10.1.0.10/mek",
-            },
-        },
     }
 
     @staticmethod
@@ -76,12 +72,6 @@ class TestInputRemoteMediaAsset:
         with allure.step("Login"):
             login_instance = Login()
             return login_instance.login(kwargs["ID"], kwargs["PW"])
-
-    @attach_result("Network Setting", "Network Setting Successful", "Network Setting Failed")
-    def set_network(self, **kwargs):
-        with allure.step("SMB Setting"):
-            network_instance = SettingsNetworking()
-            return network_instance.networking_services(kwargs["Networking"]["Services Options"])
 
     @attach_result(
         "Channel Creation",
@@ -169,13 +159,12 @@ class TestInputRemoteMediaAsset:
             logout_instance = Logout()
             return logout_instance.logout()
 
-    @allure.sub_suite("Playlist")
-    @allure.title("Remote Media Asset")
-    def test_input_playlist_remote_media_asset(self):
+    @allure.sub_suite("HLS")
+    @allure.title("Closed Caption")
+    def test_output_hls_closed_caption(self):
         print("\n")
         test_functions = [
             self.login,
-            self.set_network,
             self.create_channel,
             self.create_role,
             self.channel_start,

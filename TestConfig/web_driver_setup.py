@@ -14,14 +14,17 @@ import time, platform, os, configparser
 class WebDriverInit:
     def __init__(self):
         self.base_url_parser()
-        webdriver_options = self.config.items("WebDriverOptions")
+        # webdriver_options = self.config.items("WebDriverOptions")
         self.options = Options()
 
-        for option_key, option_value in webdriver_options:
-            # Config.ini 퍼알 에 있는 옵션에서 '_' 를 '-' 로 변환
-            option_key = option_key.replace("_", "-")
-            option_argument = f"--{option_key}={option_value}"
-            self.options.add_argument(option_argument)
+        # for option_key, option_value in webdriver_options:
+        #     # Config.ini 퍼알 에 있는 옵션에서 '_' 를 '-' 로 변환
+        #     option_key = option_key.replace("_", "-")
+        #     option_argument = f"--{option_key}={option_value}"
+        #     self.options.add_argument(option_argument)
+        self.options.add_argument("disable-gpu")
+        self.options.add_argument("no_sandbox")
+        self.options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
         self.url = self.config.get("Webpage", "url")
 
@@ -37,74 +40,95 @@ class WebDriverInit:
 
 
 class WebDriverSetup(WebDriverInit, WebLog):
-    if platform.system() == "Darwin" and platform.system() == "Windows":
-        driver = webdriver.Chrome(options=WebDriverInit().options)
+    driver = webdriver.Chrome(options=WebDriverInit().options)
+    if platform.system() == "Darwin":
         driver.set_window_position(540, 0)
         driver.set_window_size(1280, 1920)
+    elif platform.system() == "Windows":
+        driver.set_window_position(1400, 0)
+        driver.set_window_size(1280, 1920)
     else:
-        driver = webdriver.Chrome(options=WebDriverInit().options)
         driver.set_window_size(1280, 2160)
 
     def find_element(self, by, locator):
-        try:
-            WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((by, locator)))
-            return self.driver.find_element(by, locator)
-        except Exception as e:
-            return None
+        return self.driver.find_element(by, locator)
 
     def click(self, by, locator):
         self.find_element(by, locator).click()
-        time.sleep(0.5)
 
     def input_box(self, by, locator, contents):
+        element = self.find_element(by, locator)
+        time.sleep(0.5)
         # MAC OS 환경
         if platform.system() == "Darwin":
-            element = self.find_element(by, locator)
             element.send_keys(Keys.COMMAND + "A")
-            time.sleep(0.3)
-            element.send_keys(Keys.DELETE)
-            time.sleep(0.3)
-            element.send_keys(contents)
         # Windows 또는 Linux 환경
         else:
-            element = self.find_element(by, locator)
-            element.send_keys(Keys.CONTROL + "A")
-            time.sleep(0.3)
-            element.send_keys(Keys.DELETE)
-            time.sleep(0.3)
-            element.send_keys(contents)
+            element.send_keys(Keys.CONTROL + "a")
+        time.sleep(0.5)
+        element.send_keys(Keys.DELETE)
+        time.sleep(0.5)
+        element.send_keys(contents)
+
+    def input_box_no_clear(self, by, locator, contents):
+        element = self.find_element(by, locator)
+        element.click()
+        time.sleep(0.5)
+        element.send_keys(contents)
 
     def select_box(self, by, locator, select_type, select_value):
         # select_box = Select(self.driver.find_element(by, locator))
-        select_box = Select(WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((by, locator))))
+        select_box = Select(self.driver.find_element(by, locator))
+        time.sleep(1)
         if select_type == "value":
             select_box.select_by_value(select_value)
         elif select_type == "text":
             select_box.select_by_visible_text(select_value)
+        elif select_type == "get_value":
+            select_box.first_selected_option.text
 
-    # def is_element_displayed(self, locator):
+    def is_element_displayed(self, by, locator):
+        return self.find_element(by, locator).value_of_css_property("display")
 
     def is_checked(self, by, locator):
-        return WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((by, locator))).is_selected()
+        return WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((by, locator))).is_selected()
 
     def is_displayed(self, by, locator):
-        return WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((by, locator))).is_displayed()
+        return WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((by, locator))).is_displayed()
 
     def wait_element(self, by, locator):
         try:
-            WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((by, locator)))
+            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((by, locator)))
             return True
         except Exception as e:
             self.warning_log("Element does not appear. %s" % repr(e))
             return False
 
+    def presence_click(self, by, locator):
+        try:
+            WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((by, locator))).click()
+            return True
+        except:
+            return False
+
     def clickable_click(self, by, locator):
-        WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable((by, locator))).click()
+        try:
+            WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((by, locator))).click()
+            return True
+        except:
+            return False
 
     def accept_alert(self):
-        WebDriverWait(self.driver, 10).until(EC.alert_is_present())
-        alert = Alert(self.driver)
-        alert.accept()
+        try:
+            WebDriverWait(self.driver, 5).until(EC.alert_is_present())
+            alert = Alert(self.driver)
+            alert.accept()
+            return True
+        except:
+            return False
+
+    def page_implicitly_wait(self):
+        self.driver.implicitly_wait(10)
 
     def quit_driver(self):
         self.driver.quit()

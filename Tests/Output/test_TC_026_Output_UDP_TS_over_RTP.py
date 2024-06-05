@@ -2,7 +2,7 @@ import time
 import allure
 from Pages.Configure.page_channels import ConfigureChannel
 from Pages.Configure.page_roles import ConfigureRole
-from Pages.Monitor.page_mdevice import MonitorDevice
+from Pages.Monitor.page_monitor_device import MonitorDevice
 from TestConfig.web_stats_receiver import StatsReceiver
 from Pages.Login.page_login import Login
 from Pages.Logout.page_logout import Logout
@@ -33,7 +33,7 @@ class TestOutputUDPTSoverRTP:
         },
         "Input Options": {
             "Network URL": "224.30.30.10:18007",
-            "Interface": "NIC2",
+            "Interface": "Off",
         },
         "Output Options": {
             "Primary Output Address": "10.1.0.145",
@@ -107,7 +107,6 @@ class TestOutputUDPTSoverRTP:
         is_pre = channel_instance.pre_channel_configuration()
         with allure.step("Output Options Setup"):
             is_output = channel_instance.setup_output()
-            time.sleep(1)
         with allure.step("Input Options Setup"):
             is_input = channel_instance.setup_input()
         with allure.step("Channel Creation Finalization"):
@@ -126,7 +125,6 @@ class TestOutputUDPTSoverRTP:
         is_pre = channel_instance.pre_channel_configuration()
         with allure.step("Output Options Setup"):
             is_output = channel_instance.setup_output()
-            time.sleep(1)
         with allure.step("Input Options Setup"):
             is_input = channel_instance.setup_input()
         with allure.step("Channel Creation Finalization"):

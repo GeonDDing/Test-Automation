@@ -4,25 +4,24 @@ from Pages.Configure.page_channels import ConfigureChannel
 from Pages.Configure.page_roles import ConfigureRole
 from Pages.Monitor.page_monitor_device import MonitorDevice
 from TestConfig.web_stats_receiver import StatsReceiver
-from Pages.Settings.page_networking import SettingsNetworking
 from Pages.Login.page_login import Login
 from Pages.Logout.page_logout import Logout
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Playlist Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("RTMP Output")]
 
 
 @allure.parent_suite("WebUI Test Automation")
-@allure.suite("Input")
-class TestInputRemoteMediaAsset:
+@allure.suite("Output")
+class TestOutputRTMP:
     test_configuration_data = {
         "ID": "admin",
         "PW": "admin",
         "Role Options": {
             "Name": "UI Testing Role",
         },
-        "Channel Name": "Input Playlist Remote Media Asset Testing",
+        "Channel Name": "Output RTMP Testing",
         "Input Type": "Playlist",
-        "Output Type": "UDP",
+        "Output Type": "RTMP",
         "Backup Source Type": None,
         "Preset Name": {
             "Videopreset Name": "1280x720 | H.264 | 29.97 | 4Mbps | Testing",
@@ -33,20 +32,16 @@ class TestInputRemoteMediaAsset:
             "Analysis window": "4000",
         },
         "Input Options": {
-            "Type": "Remote Media Asset Directory",
-            "URI": "mnt/10.1.0.10/mek/Streams/tmp/tmp_jacob/in",
+            "Type": "Local Static Playlist",
+            "Playlists name": "bbb",
         },
         "Output Options": {
-            "Primary Output Address": "10.1.0.220",
-            "Primary Output Port": "15015",
-            "Primary Network Interface": "NIC1",
+            "Broadcast Address": "10.1.0.145",
+            "Broadcast Port": "1935",
+            "Broadcast Path": "live",
+            "Stream Name": "automation_testing",
         },
         "Backup Source Options": None,
-        "Networking": {
-            "Services Options": {
-                "SMB path": "smb://mek:mediaExcel5@10.1.0.10/mek",
-            },
-        },
     }
 
     @staticmethod
@@ -76,12 +71,6 @@ class TestInputRemoteMediaAsset:
         with allure.step("Login"):
             login_instance = Login()
             return login_instance.login(kwargs["ID"], kwargs["PW"])
-
-    @attach_result("Network Setting", "Network Setting Successful", "Network Setting Failed")
-    def set_network(self, **kwargs):
-        with allure.step("SMB Setting"):
-            network_instance = SettingsNetworking()
-            return network_instance.networking_services(kwargs["Networking"]["Services Options"])
 
     @attach_result(
         "Channel Creation",
@@ -169,13 +158,12 @@ class TestInputRemoteMediaAsset:
             logout_instance = Logout()
             return logout_instance.logout()
 
-    @allure.sub_suite("Playlist")
-    @allure.title("Remote Media Asset")
-    def test_input_playlist_remote_media_asset(self):
+    @allure.sub_suite("RTMP")
+    @allure.title("RTMP")
+    def test_output_rtmp_local(self):
         print("\n")
         test_functions = [
             self.login,
-            self.set_network,
             self.create_channel,
             self.create_role,
             self.channel_start,

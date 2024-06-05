@@ -33,6 +33,7 @@ class ConfigureChannel(WebDriverSetup):
             return False
 
     def pre_channel_configuration(self):
+        self.page_implicitly_wait()
         try:
             self.access_configure_channels()
             if not self.find_exist_channel():
@@ -47,6 +48,7 @@ class ConfigureChannel(WebDriverSetup):
             return False
 
     def post_channel_configuration(self):
+        self.page_implicitly_wait()
         try:
             self.input_box(
                 By.CSS_SELECTOR, self.channel_elements.channel_name, self.channel_configure_data["Channel Name"]

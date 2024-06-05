@@ -2,7 +2,7 @@ import time
 import allure
 from Pages.Configure.page_channels import ConfigureChannel
 from Pages.Configure.page_roles import ConfigureRole
-from Pages.Monitor.page_mdevice import MonitorDevice
+from Pages.Monitor.page_monitor_device import MonitorDevice
 from TestConfig.web_stats_receiver import StatsReceiver
 from Pages.Login.page_login import Login
 from Pages.Logout.page_logout import Logout
@@ -20,7 +20,7 @@ class TestOutputRTMPDvbSubtitle:
             "Name": "UI Testing Role",
         },
         "Channel Name": "Output RTMP DVB Subtitle Testing",
-        "Input Type": "Playlist",
+        "Input Type": "UDP",
         "Output Type": "RTMP",
         "Backup Source Type": None,
         "Preset Name": {
@@ -32,14 +32,15 @@ class TestOutputRTMPDvbSubtitle:
             "Analysis window": "4000",
         },
         "Input Options": {
-            "Type": "Local Static Playlist",
-            "Playlists name": "bbb",
+            "Network URL": "224.30.30.10:18003",
+            "Interface": "Off",
         },
         "Output Options": {
             "Broadcast Address": "10.1.0.220",
             "Broadcast Port": "1935",
             "Broadcast Path": "live",
             "Stream Name": "jacob",
+            "Subtitle Language": "nor",
         },
         "Backup Source Options": None,
     }
@@ -82,7 +83,6 @@ class TestOutputRTMPDvbSubtitle:
         is_pre = channel_instance.pre_channel_configuration()
         with allure.step("Output Options Setup"):
             is_output = channel_instance.setup_output()
-            time.sleep(1)
         with allure.step("Input Options Setup"):
             is_input = channel_instance.setup_input()
         with allure.step("Channel Creation Finalization"):
@@ -161,7 +161,7 @@ class TestOutputRTMPDvbSubtitle:
 
     @allure.sub_suite("RTMP")
     @allure.title("DVB-Subtitle")
-    def test_output_rtmp(self):
+    def test_output_rtmp_dvb_subtitle(self):
         print("\n")
         test_functions = [
             self.login,

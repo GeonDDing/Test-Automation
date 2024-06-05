@@ -83,10 +83,65 @@ class ResotreConfiguration:
         if not exist_channel_flag:
             print("There are no more test channels left.", flush=True)
 
+    def delelte_videopreset(self):
+        videopreset_dict = dict()
+        exist_videopreset_flag = bool()
+        get_response = requests.get(f"{self.base_url}videopresets.php", headers=self.headers)
+        if get_response.status_code == 200:
+            videopreset_dict = get_response.json()
+            for i in range(0, len(videopreset_dict)):
+                if "Testing" in videopreset_dict[i]["name"]:
+                    exist_videopreset_flag = True
+                    delete_reponse = requests.delete(
+                        f"{self.base_url}videopresets.php?id={videopreset_dict[i]['id']}",
+                        headers=self.headers,
+                    )
+                    if delete_reponse.status_code == 200:
+                        print(f"Delete Videopreset : {videopreset_dict[i]['name']}", flush=True)
+                else:
+                    exist_videopreset_flag = False
+
+        if not exist_videopreset_flag:
+            print("There are no more test channels left.", flush=True)
+
+    def delelte_audiopreset(self):
+        audiopreset_dict = dict()
+        exist_audiopreset_flag = bool()
+        get_response = requests.get(f"{self.base_url}audiopresets.php", headers=self.headers)
+        if get_response.status_code == 200:
+            audiopreset_dict = get_response.json()
+            for i in range(0, len(audiopreset_dict)):
+                # Using 44.1 kHz case
+                # if (
+                #     not "44.1" in audiopreset_dict[i]["name"]
+                #     and not "Pass-through" in audiopreset_dict[i]["name"]
+                #     or (
+                #         "44.1" in audiopreset_dict[i]["name"]
+                #         and ("448 kbps" in audiopreset_dict[i]["name"] or "384 kbps" in audiopreset_dict[i]["name"])
+                #     )
+                # ):
+                if "Testing" in audiopreset_dict[i]["name"]:
+                    exist_audiopreset_flag = True
+                    # print(audiopreset_dict[i]["id"], audiopreset_dict[i]["name"])
+                    delete_reponse = requests.delete(
+                        f"{self.base_url}audiopresets.php?id={audiopreset_dict[i]['id']}",
+                        headers=self.headers,
+                    )
+                    if delete_reponse.status_code == 200:
+                        print(f"Delete Audiopreset : {audiopreset_dict[i]['name']}", flush=True)
+
+                else:
+                    exist_audiopreset_flag = False
+
+        if not exist_audiopreset_flag:
+            print("There are no more test channels left.", flush=True)
+
 
 if __name__ == "__main__":
     restore = ResotreConfiguration()
-    # restore.restore_device()
-    restore.delelte_channels()
+    restore.restore_device()
     restore.delete_groups()
     restore.delete_roles()
+    restore.delelte_channels()
+    restore.delelte_videopreset()
+    restore.delelte_audiopreset()

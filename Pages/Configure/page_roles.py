@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from Pages.Configure.page_devices import ConfigureDevice
-from Pages.Monitor.page_mdevice import MonitorDevice
+from Pages.Monitor.page_monitor_device import MonitorDevice
 from TestConfig.web_locator import ConfigureRoleElements, MainMenuElements
 import time
 
@@ -25,15 +25,16 @@ class ConfigureRole(ConfigureDevice):
             return False
 
     def configure_role(self, role_name, *channel_name):
-        try:
+        if MonitorDevice().channel_stop_all():
+            self.access_configure_roles()
+        else:
             MonitorDevice().channel_stop_all()
             self.access_configure_roles()
-
+        try:
             if not self.find_exist_role(role_name):
                 self.step_log(f"Role Creation")
                 self.click(By.CSS_SELECTOR, self.role_elements.role_add_button)
                 self.input_box(By.CSS_SELECTOR, self.role_elements.role_name, role_name)
-
                 if channel_name:
                     for index, channel_value in enumerate(channel_name):
                         self.select_box(
@@ -47,9 +48,6 @@ class ConfigureRole(ConfigureDevice):
                 self.step_log(f"Role Modification")
                 while True:
                     try:
-                        WebDriverWait(self.driver, 3).until(
-                            EC.presence_of_element_located((By.CSS_SELECTOR, self.role_elements.role_remove_button))
-                        )
                         self.click(By.CSS_SELECTOR, self.role_elements.role_remove_button)
                     except Exception as e:
                         self.info_log(f"Channel remove complete")
