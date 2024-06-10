@@ -17,7 +17,7 @@ class ChannelsInput(WebDriverSetup):
         elif input_type in "LSS":
             input_type = "Live Smooth Streaming"
         try:
-            self.select_box(
+            self.drop_down(
                 By.CSS_SELECTOR,
                 self.input_elements.input_type,
                 "text",
@@ -43,7 +43,7 @@ class ChannelsInput(WebDriverSetup):
         except Exception as e:
             self.error_log(f"Input common option setting error | {repr(e)}")
 
-    def input_page(self, input_type, input_options):
+    def input_setup_page(self, input_type, input_options):
         try:
             self.sub_step_log(f"{input_type} Input Configuration Setting")
             # Input option setting
@@ -58,7 +58,7 @@ class ChannelsInput(WebDriverSetup):
                     self.option_log(f"{key} : {value}")
                 # UDP 입력 Program Selection Mode 에서 Service Name을 선택 할 시 Analysis Window의 값이 4000ms 이상이어야 함
                 if "Program Selection Mode" in key:
-                    self.select_box(By.CSS_SELECTOR, input_element, "text", value)
+                    self.drop_down(By.CSS_SELECTOR, input_element, "text", value)
                     try:
                         self.accept_alert()
                         time.sleep(1)
@@ -67,10 +67,11 @@ class ChannelsInput(WebDriverSetup):
                             self.input_elements.input_common_analysis_window,
                             "6000",
                         )
-                        time.sleep(1)
                     except:
                         pass
-                elif "input" in input_element and "text" in input_element:
+                elif (
+                    "input" in input_element and "text" in input_element and "input[type=checkbox]" not in input_element
+                ):
                     # Audio ID 가 4개 이상 (0~32개 까지 가능)
                     if key == "Audio ID" and isinstance(input_options["Audio ID"], dict):
                         # Audio ID 가 #01 부터 순차적으로 입력 됨
@@ -83,19 +84,19 @@ class ChannelsInput(WebDriverSetup):
                                     self.input_elements.input_udp_audio_id_extend.format(index, index),
                                     sub_value,
                                 )
-                                # #01, #02 를 넘기고 #03 부터 입력되는 것을 방지하기 위해 5ms 딜레이 추가
+                                # #01, #02 를 넘기고 #03 부터 입력되는 것을 방지하기 위해 1초 딜레이 추가
                                 time.sleep(1)
                                 # Audio ID 가 #04 부터는 빈 공간을 클릭해야 다음 Audio ID 입력 칸이 나타남
                                 self.click(By.XPATH, '//*[@id="editform"]/div[1]/div[3]')
                     else:
                         self.input_box(By.CSS_SELECTOR, input_element, value)
-                elif "input" in input_element and "checkbox" in input_element:
+                elif 'input[type="checkbox"]' in input_element:
                     if isinstance(value, bool) and value:
                         if not self.is_checked(By.CSS_SELECTOR, input_element):
                             self.click(By.CSS_SELECTOR, input_element)
                 elif "select" in input_element:
-                    self.select_box(By.CSS_SELECTOR, input_element, "text", str(value))
-                # For Loop 속도가 빨라서 옵션 입력을 제대로 못하는 경우가 있어 5ms 딜레이 추가
+                    self.drop_down(By.CSS_SELECTOR, input_element, "text", str(value))
+                # For Loop 속도가 빨라서 옵션 입력을 제대로 못하는 경우가 있어 1s 딜레이 추가
                 time.sleep(1)
             return True
         except Exception as e:
@@ -104,35 +105,35 @@ class ChannelsInput(WebDriverSetup):
 
     def input_udp(self, input_options):
         input_type = "UDP"
-        return self.input_page(input_type, input_options)
+        return self.input_setup_page(input_type, input_options)
 
     def input_rtsp(self, input_options):
         input_type = "RTP"
-        return self.input_page(input_type, input_options)
+        return self.input_setup_page(input_type, input_options)
 
     def input_rtmp(self, input_options):
         input_type = "RTMP"
-        return self.input_page(input_type, input_options)
+        return self.input_setup_page(input_type, input_options)
 
     def input_hls(self, input_options):
         input_type = "HLS"
-        return self.input_page(input_type, input_options)
+        return self.input_setup_page(input_type, input_options)
 
     def input_sdi(self, input_options):
         input_type = "SDI"
-        return self.input_page(input_type, input_options)
+        return self.input_setup_page(input_type, input_options)
 
     def input_playlist(self, input_options):
         input_type = "Playlist"
-        return self.input_page(input_type, input_options)
+        return self.input_setup_page(input_type, input_options)
 
     def input_smpte_st_2110(self, input_options):
         input_type = "SMPTE ST 2110"
-        return self.input_page(input_type, input_options)
+        return self.input_setup_page(input_type, input_options)
 
     def input_ndi(self, input_options):
         input_type = "NDI"
-        return self.input_page(input_type, input_options)
+        return self.input_setup_page(input_type, input_options)
 
     def get_input_elements(self, input_type, key):
         element = getattr(

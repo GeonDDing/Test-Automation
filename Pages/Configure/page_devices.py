@@ -30,14 +30,14 @@ class ConfigureDevice(WebDriverSetup):
             # IP Address
             self.input_box(By.CSS_SELECTOR, self.device_elements.device_ip_address, ip_address)
             # Select Group
-            self.select_box(
+            self.drop_down(
                 By.CSS_SELECTOR,
                 self.device_elements.device_include_group,
                 "text",
                 group_name,
             )
             # Select Role
-            self.select_box(
+            self.drop_down(
                 By.CSS_SELECTOR,
                 self.device_elements.device_include_role,
                 "text",

@@ -1,13 +1,9 @@
 # configure_role.py
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from Pages.Configure.page_devices import ConfigureDevice
 from Pages.Monitor.page_monitor_device import MonitorDevice
 from TestConfig.web_locator import ConfigureRoleElements, MainMenuElements
 import time
-
-from Pages.Login.page_login import Login
 
 
 class ConfigureRole(ConfigureDevice):
@@ -37,7 +33,7 @@ class ConfigureRole(ConfigureDevice):
                 self.input_box(By.CSS_SELECTOR, self.role_elements.role_name, role_name)
                 if channel_name:
                     for index, channel_value in enumerate(channel_name):
-                        self.select_box(
+                        self.drop_down(
                             By.XPATH,
                             self.role_elements.add_channel_list,
                             "text",
@@ -54,7 +50,7 @@ class ConfigureRole(ConfigureDevice):
                         break
                 if channel_name:
                     for index, channel_value in enumerate(channel_name):
-                        self.select_box(By.XPATH, self.role_elements.add_channel_list, "text", channel_value)
+                        self.drop_down(By.XPATH, self.role_elements.add_channel_list, "text", channel_value)
                         self.option_log(f"Channel : {channel_name[index]}")
 
             self.click(By.CSS_SELECTOR, self.role_elements.role_save_button)

@@ -9,4 +9,5 @@ TestConfig\__pycache__
 Tests\__pycache__
 .gitignore
 test_command.txt
-
+*.ts
+Capture

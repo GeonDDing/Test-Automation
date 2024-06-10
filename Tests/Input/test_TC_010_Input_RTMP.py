@@ -181,7 +181,7 @@ class TestInputTRMP:
             channel_info = monitor_device_instance.channel_start(kwargs["Channel Name"])
             self.output_chidx = channel_info[1]
 
-            if StatsReceiver().exec_multiprocessing(self.output_chidx, kwargs["Channel Name"]):
+            if StatsReceiver().exec_multiprocessing(self.output_chidx, kwargs["Channel Name"], None, None):
                 return channel_info[0]
             else:
                 return False
@@ -194,6 +194,14 @@ class TestInputTRMP:
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
             stats_result = stats_instance.exec_multiprocessing(self.input_chidx, kwargs["Channel Name"])
+            output_url = f"udp://{self.rtmp_receiver_configuration_data['Output Options']['Primary Output Address']}:{self.rtmp_receiver_configuration_data['Output Options']['Primary Output Port']}"
+            output_name = (
+                self.rtmp_receiver_configuration_data["Channel Name"].replace(" ", "_").replace(" Testing", "").lower()
+            )
+            stats_result = stats_instance.exec_multiprocessing(
+                self.input_chidx, kwargs["Channel Name"], output_url, output_name
+            )
+            self.cpautre_image_name = stats_result[2][0]
             if type(stats_result[0]) == bool:
                 allure.attach(
                     "\n".join(stats_result[1]),
@@ -230,6 +238,22 @@ class TestInputTRMP:
             return monitor_device_instance.channel_stop(self.output_chidx, kwargs["Channel Name"])
 
     @attach_result(
+        "Stream Cpature",
+        "Stream Cpature Successful",
+        "Stream Cpature Failed",
+    )
+    def add_cappture_stream(self):
+        if self.cpautre_image_name:
+            allure.attach.file(
+                "./Capture/" + self.cpautre_image_name,
+                name="Capture Images",
+                attachment_type=allure.attachment_type.PNG,
+            )
+            return True
+        else:
+            return False
+
+    @attach_result(
         "Logout",
         "Logout Successful",
         "Logout Failed",
@@ -258,4 +282,5 @@ class TestInputTRMP:
         for test_step_func in test_functions:
             test_step_func(**self.rtmp_receiver_configuration_data)
 
+        self.add_cappture_stream()
         self.logout()

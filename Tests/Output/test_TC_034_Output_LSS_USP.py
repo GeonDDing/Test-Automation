@@ -1,11 +1,11 @@
-import time
 import allure
+from Pages.Login.page_login import Login
+from Pages.Logout.page_logout import Logout
 from Pages.Configure.page_channels import ConfigureChannel
 from Pages.Configure.page_roles import ConfigureRole
 from Pages.Monitor.page_monitor_device import MonitorDevice
 from TestConfig.web_stats_receiver import StatsReceiver
-from Pages.Login.page_login import Login
-from Pages.Logout.page_logout import Logout
+from TestConfig.ssh import SSH
 
 pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("Live Smooth Streaming Output")]
 
@@ -110,6 +110,8 @@ class TestOutputLSSUSP:
         with allure.step("Channel Start"):
             monitor_device_instance = MonitorDevice()
             channel_info = list()
+            ssh = SSH()
+            ssh.MakePublishingPoint()
             # Required parameters: Channel Name
             channel_info = monitor_device_instance.channel_start(kwargs["Channel Name"])
             self.chidx = channel_info[1]
@@ -124,7 +126,12 @@ class TestOutputLSSUSP:
         with allure.step("Get Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
-            stats_result = stats_instance.exec_multiprocessing(self.chidx, kwargs["Channel Name"])
+            output_url = f"{self.test_configuration_data['Output Options']['Publishing Point URL']}"
+            output_name = self.test_configuration_data["Channel Name"].replace(" ", "_").replace(" Testing", "").lower()
+            stats_result = stats_instance.exec_multiprocessing(
+                self.chidx, kwargs["Channel Name"], output_url, output_name
+            )
+            self.cpautre_image_name = stats_result[2][0]
             if type(stats_result[0]) == bool:
                 allure.attach(
                     "\n".join(stats_result[1]),
@@ -146,6 +153,22 @@ class TestOutputLSSUSP:
             monitor_device_instance = MonitorDevice()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
+
+    @attach_result(
+        "Stream Cpature",
+        "Stream Cpature Successful",
+        "Stream Cpature Failed",
+    )
+    def add_cappture_stream(self):
+        if self.cpautre_image_name:
+            allure.attach.file(
+                "./Capture/" + self.cpautre_image_name,
+                name="Capture Images",
+                attachment_type=allure.attachment_type.PNG,
+            )
+            return True
+        else:
+            return False
 
     @attach_result(
         "Logout",
@@ -173,4 +196,5 @@ class TestOutputLSSUSP:
         for test_step_func in test_functions:
             test_step_func(**self.test_configuration_data)
 
+        self.add_cappture_stream()
         self.logout()

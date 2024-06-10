@@ -81,6 +81,7 @@ class TestOutputUDPMulticast:
         is_pre = channel_instance.pre_channel_configuration()
         with allure.step("Output Options Setup"):
             is_output = channel_instance.setup_output()
+            time.sleep(1)
         with allure.step("Input Options Setup"):
             is_input = channel_instance.setup_input()
         with allure.step("Channel Creation Finalization"):
@@ -124,7 +125,12 @@ class TestOutputUDPMulticast:
         with allure.step("Get Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
-            stats_result = stats_instance.exec_multiprocessing(self.chidx, kwargs["Channel Name"])
+            output_url = f"udp://{self.test_configuration_data['Output Options']['Primary Output Address']}:{self.test_configuration_data['Output Options']['Primary Output Port']}"
+            output_name = self.test_configuration_data["Channel Name"].replace(" ", "_").replace(" Testing", "").lower()
+            stats_result = stats_instance.exec_multiprocessing(
+                self.chidx, kwargs["Channel Name"], output_url, output_name
+            )
+            self.cpautre_image_name = stats_result[2][0]
             if type(stats_result[0]) == bool:
                 allure.attach(
                     "\n".join(stats_result[1]),
@@ -146,6 +152,22 @@ class TestOutputUDPMulticast:
             monitor_device_instance = MonitorDevice()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.chidx, kwargs["Channel Name"])
+
+    @attach_result(
+        "Stream Cpature",
+        "Stream Cpature Successful",
+        "Stream Cpature Failed",
+    )
+    def add_cappture_stream(self):
+        if self.cpautre_image_name:
+            allure.attach.file(
+                "./Capture/" + self.cpautre_image_name,
+                name="Capture Images",
+                attachment_type=allure.attachment_type.PNG,
+            )
+            return True
+        else:
+            return True
 
     @attach_result(
         "Logout",

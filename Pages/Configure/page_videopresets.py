@@ -50,7 +50,7 @@ class ConfigureVideopreset(WebDriverSetup):
                 self.option_log(f"{key} : {value}")
 
                 if any(keyword in key for keyword in select_relevant_keys):
-                    self.select_box(By.CSS_SELECTOR, element_selector, "text", value)
+                    self.drop_down(By.CSS_SELECTOR, element_selector, "text", value)
                 elif any(keyword in key for keyword in input_relevant_keys):
                     self.input_box(By.CSS_SELECTOR, element_selector, value)
 

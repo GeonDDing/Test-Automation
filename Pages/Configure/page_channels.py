@@ -135,6 +135,7 @@ class ConfigureChannel(WebDriverSetup):
                 "RTSP": configure_output.output_rtsp,
                 "RTMP": configure_output.output_rtmp,
                 "HLS": configure_output.output_hls,
+                "LSS": configure_output.output_live_smooth_streaming,
             }
 
             if self.channel_configure_data["Output Type"] in output_functions:
@@ -171,7 +172,6 @@ class ConfigureChannel(WebDriverSetup):
                 column_value = tr.find_elements(By.TAG_NAME, "td")[0].get_attribute("innerText")
                 if column_value == self.channel_configure_data["Channel Name"]:
                     tr.find_elements(By.TAG_NAME, "td")[0].click()
-                    time.sleep(0.5)
                     return True
             return False
         except Exception as e:

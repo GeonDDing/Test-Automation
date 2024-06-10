@@ -18,41 +18,44 @@ class StatsSender(WebLog):
         except Exception as e:
             self.exec_log("An error occurred:", e)
 
-    def stats_sender(self, queue, chidx, channel_name, config_channel_name):
+    def stats_sender(self, queue, capture_queue, chidx, channel_name, config_channel_name):
         try:
             output_info = None
             max_retries = int(3)
             start_time = time.time()
             mchidx = f"0{chidx+1:02}"
+            is_cpature = True
             while max_retries > 0:
                 try:
                     stat_response = requests.get(f"{self.url}:900{chidx}/stats")
-
                 except requests.exceptions.ConnectionError as e:
                     max_retries = max_retries - 1
                     self.warning_log(f"#{mchidx} Retrying in 10 seconds...")
                     if max_retries == 0:
                         self.error_log(f"#{mchidx} A connection error occurred and terminated.")
+                        capture_queue.put("quit")
                         queue.put("quit")
                         break
                     time.sleep(10)
                     pass
-
                 else:
                     try:
                         root = elementTree.fromstring(stat_response.text)
-
                     except elementTree.ParseError as e:
                         max_retries = max_retries - 1
                         self.warning_log(f"#{mchidx} XML could not be parsed. Retrying in 10 seconds...")
                         if max_retries == 0:
                             self.error_log(f"#{mchidx} Terminated because xml could not be parsed.")
+                            capture_queue.put("quit")
                             queue.put("quit")
                             break
                         time.sleep(10)
                         pass
 
                     else:
+                        if is_cpature:
+                            capture_queue.put("start")
+                            is_cpature = False
                         max_retries = 3
                         config_name = root.find("configName").text
                         source_layer = root.find("sourceLayer").text
@@ -79,10 +82,12 @@ class StatsSender(WebLog):
                             config_channel_name.append(config_name)
                             queue.put("Channel names do not match")
                             break
-                        if time.time() - start_time > 10:
+                        if time.time() - start_time > 30:
+                            capture_queue.put("quit")
                             queue.put("quit")
                             break
                         time.sleep(2)
         except Exception as e:
             self.error_log(f"Stats sender error | {repr(e)}")
+            capture_queue.put("quit")
             queue.put("quit")

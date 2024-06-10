@@ -21,7 +21,7 @@ class ChannelsBackupSource(WebDriverSetup):
                     By.XPATH,
                     self.backup_source_elements.backup_soruce_settings_button,
                 )
-            self.select_box(
+            self.drop_down(
                 By.CSS_SELECTOR,
                 self.backup_source_elements.backup_source_type,
                 "text",
@@ -50,7 +50,7 @@ class ChannelsBackupSource(WebDriverSetup):
                 if any(keyword in key for keyword in select_options_key):
                     # UDP 입력 Program Selection Mode 에서 Service Name을 선택 할 시 Analysis Window의 값이 4000ms 이상이어야 함
                     if "Program Selection Mode" in key:
-                        self.select_box(By.CSS_SELECTOR, backup_source_element, "text", value)
+                        self.drop_down(By.CSS_SELECTOR, backup_source_element, "text", value)
                         try:
                             self.accept_alert()
                             time.sleep(1)
@@ -59,11 +59,10 @@ class ChannelsBackupSource(WebDriverSetup):
                                 self.input_elements.input_common_analysis_window,
                                 "6000",
                             )
-                            time.sleep(1)
                         except:
                             pass
                     else:
-                        self.select_box(By.CSS_SELECTOR, backup_source_element, "text", value)
+                        self.drop_down(By.CSS_SELECTOR, backup_source_element, "text", value)
                 elif any(keyword in key for keyword in backup_source_options_key):
                     # Audio ID 가 4개 이상 (0~32개 까지 가능)
                     if key == "Audio ID" and isinstance(backup_source_options["Audio ID"], dict):

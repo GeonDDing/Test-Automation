@@ -6,7 +6,6 @@ from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support import expected_conditions as EC
-
 from TestConfig.web_log import WebLog
 import time, platform, os, configparser
 
@@ -76,16 +75,16 @@ class WebDriverSetup(WebDriverInit, WebLog):
         time.sleep(0.5)
         element.send_keys(contents)
 
-    def select_box(self, by, locator, select_type, select_value):
-        # select_box = Select(self.driver.find_element(by, locator))
-        select_box = Select(self.driver.find_element(by, locator))
+    def drop_down(self, by, locator, select_type, select_value):
+        # drop_down = Select(self.driver.find_element(by, locator))
+        drop_down = Select(self.driver.find_element(by, locator))
         time.sleep(1)
         if select_type == "value":
-            select_box.select_by_value(select_value)
+            drop_down.select_by_value(select_value)
         elif select_type == "text":
-            select_box.select_by_visible_text(select_value)
+            drop_down.select_by_visible_text(select_value)
         elif select_type == "get_value":
-            select_box.first_selected_option.text
+            drop_down.first_selected_option.text
 
     def is_element_displayed(self, by, locator):
         return self.find_element(by, locator).value_of_css_property("display")

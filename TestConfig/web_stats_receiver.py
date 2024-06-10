@@ -1,6 +1,7 @@
 from multiprocessing import Process, Queue, Manager
 from TestConfig.web_stats_sender import StatsSender
 from TestConfig.web_log import WebLog
+from TestConfig.web_stream_capture import StreamCapture
 import time
 
 
@@ -73,36 +74,80 @@ class StatsReceiver(WebLog):
                 self.error_log(f"stats receiver error | {repr(e)}")
                 formatted_messages.append(f"stats receiver error | {repr(e)}")
 
-    def exec_multiprocessing(self, chidx, channel_name):
+    def exec_multiprocessing(self, chidx, channel_name, url, output_name):
         stats_queue = Queue()
+        capture_queue = Queue()
         sender = StatsSender()
+        stream_capture = StreamCapture()
         manager = Manager()
         formatted_messages = manager.list()
         config_channel_name = manager.list()
+        capture_image = manager.list()
         time.sleep(10)
-        sender_process = Process(
-            target=sender.stats_sender,
-            args=(
-                stats_queue,
-                chidx,
-                channel_name,
-                config_channel_name,
-            ),
-        )
-        receiver_process = Process(
-            target=self.stats_receiver,
-            args=(
-                stats_queue,
-                formatted_messages,
-            ),
-        )
 
-        sender_process.start()
-        receiver_process.start()
-        sender_process.join()
-        receiver_process.join()
+        if url != None and output_name != None:
+            sender_process = Process(
+                target=sender.stats_sender,
+                args=(
+                    stats_queue,
+                    capture_queue,
+                    chidx,
+                    channel_name,
+                    config_channel_name,
+                ),
+            )
+            receiver_process = Process(
+                target=self.stats_receiver,
+                args=(
+                    stats_queue,
+                    formatted_messages,
+                ),
+            )
+            stream_capture_process = Process(
+                target=stream_capture.stream_capture,
+                args=(
+                    capture_queue,
+                    url,
+                    output_name,
+                    capture_image,
+                ),
+            )
 
-        if formatted_messages:
-            return True, formatted_messages
+            sender_process.start()
+            receiver_process.start()
+            stream_capture_process.start()
+            sender_process.join()
+            receiver_process.join()
+            stream_capture_process.join()
+
+            if formatted_messages and capture_image:
+                return True, formatted_messages, capture_image
+            else:
+                return str(config_channel_name)[2:-2]
         else:
-            return str(config_channel_name)[2:-2]
+            sender_process = Process(
+                target=sender.stats_sender,
+                args=(
+                    stats_queue,
+                    capture_queue,
+                    chidx,
+                    channel_name,
+                    config_channel_name,
+                ),
+            )
+            receiver_process = Process(
+                target=self.stats_receiver,
+                args=(
+                    stats_queue,
+                    formatted_messages,
+                ),
+            )
+            sender_process.start()
+            receiver_process.start()
+            sender_process.join()
+            receiver_process.join()
+
+            if formatted_messages:
+                return True, formatted_messages, None
+            else:
+                return str(config_channel_name)[2:-2]

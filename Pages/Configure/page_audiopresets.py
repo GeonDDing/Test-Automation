@@ -52,7 +52,7 @@ class ConfigureAudiopreset(WebDriverSetup):
                     None,
                 )
                 if any(keyword in key for keyword in select_relevant_keys):
-                    self.select_box(By.CSS_SELECTOR, element_selector, "text", value)
+                    self.drop_down(By.CSS_SELECTOR, element_selector, "text", value)
                 elif "Evolution Framework" == key:
                     self.click(By.CSS_SELECTOR, element_selector)
                 else:

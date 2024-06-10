@@ -507,7 +507,7 @@ class ChannelsOutputElements:
 
     # Live Smooth Streaming output options
     output_lss_fragment_duration = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[3]/span/input"
-    otuput_lss_publishing_server_type = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(4) > span > select"
+    output_lss_publishing_server_type = "#editor-form > div.content-block > div:nth-child(3) > div:nth-child(4) > span:nth-child(4) > span > select"    
     output_lss_time_scale = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(5) > span > select"
     output_lss_hevc_codec_tag = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(6) > span > select"
     output_lss_publishing_point_url = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[7]/span/input"
@@ -567,7 +567,7 @@ class ChannelsOutputElements:
     output_cmaf_dash_segment_template_mode = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(53) > span > select"
     output_cmaf_dash_mpd_name = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[54]/span/input"
     output_cmaf_hls_master_playlist_name = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[55]/span/input"
-    otuput_cmaf_append_endlist_at_stop = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(57) > span > input[type=checkbox]"
+    outpu_cmaf_append_endlist_at_stop = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(57) > span > input[type=checkbox]"
 
 
 class ConfigureVideopresetElements:

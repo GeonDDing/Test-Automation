@@ -31,7 +31,7 @@ class SettingsNetworking(WebDriverSetup):
             self.sub_step_log(f"Networking {netconfig} Settings")
             if self.wait_element(By.CSS_SELECTOR, self.networking_elements.networking_netconfig_selector):
                 # Enter the service options.
-                self.select_box(
+                self.drop_down(
                     By.CSS_SELECTOR,
                     self.networking_elements.networking_netconfig_selector,
                     "text",

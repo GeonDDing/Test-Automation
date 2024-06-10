@@ -33,6 +33,7 @@ class MonitorDevice(WebDriverSetup):
         self.find_channel_index(channel_name)
         self.channel_start_btn = self.monitor_device_elements.monitor_device_channel_start.format(self.chindex)
         self.click(By.XPATH, self.monitor_device_elements.monitor_table)
+        time.sleep(3)
         # 채널 상태 변화 체크를 위한 Locator
         start_content = (By.CSS_SELECTOR, self.monitor_device_elements.channel_start_content_block.format(self.chindex))
         stop_content = (By.CSS_SELECTOR, self.monitor_device_elements.channel_stop_content_block.format(self.chindex))
@@ -96,13 +97,17 @@ class MonitorDevice(WebDriverSetup):
                     By.CSS_SELECTOR,
                     self.monitor_device_elements.channel_start_content_block.format(chindex),
                 )
-                if time.time() - channel_stop_time > 20:
+                if time.time() - channel_stop_time > 30:
                     if self.is_element_displayed(*start_content) == "block":
                         self.step_log(f"#00{int(chindex+1)} {channel_name} Channel Stop Success")
                         return True
                     else:
                         self.error_log(f"#00{int(chindex+1)} Timeout, {channel_name} Channel Stop Failure")
                         return False
+                else:
+                    if self.is_element_displayed(*start_content) == "block":
+                        self.step_log(f"#00{int(chindex+1)} {channel_name} Channel Stop Success")
+                        return True
 
     def channel_stop_all(self):
         try:
