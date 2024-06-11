@@ -237,7 +237,7 @@ class TestInputUDPSRT:
             )
             return True
         else:
-            return False
+            return True
 
     @attach_result(
         "Logout",

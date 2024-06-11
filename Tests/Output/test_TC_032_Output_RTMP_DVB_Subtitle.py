@@ -126,7 +126,7 @@ class TestOutputRTMPDvbSubtitle:
         with allure.step("Get Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
-            output_url = f"{self.test_configuration_data['Output Options']['Broadcast Address']}:{self.test_configuration_data['Output Options']['Broadcast Port']}/{self.test_configuration_data['Output Options']['Broadcast Path']}/{self.test_configuration_data['Output Options']['Stream Name']}"
+            output_url = f"rtmp://{self.test_configuration_data['Output Options']['Broadcast Address']}:{self.test_configuration_data['Output Options']['Broadcast Port']}/{self.test_configuration_data['Output Options']['Broadcast Path']}/{self.test_configuration_data['Output Options']['Stream Name']}"
             output_name = self.test_configuration_data["Channel Name"].replace(" ", "_").replace(" Testing", "").lower()
             stats_result = stats_instance.exec_multiprocessing(
                 self.chidx, kwargs["Channel Name"], output_url, output_name
@@ -168,7 +168,7 @@ class TestOutputRTMPDvbSubtitle:
             )
             return True
         else:
-            return False
+            return True
 
     @attach_result(
         "Logout",

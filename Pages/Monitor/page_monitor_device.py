@@ -53,32 +53,37 @@ class MonitorDevice(WebDriverSetup):
                 self.warning_log("The channel is stoping... so please wait for a moment.")
                 time.sleep(30)
             self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Starting")
-            self.click(By.CSS_SELECTOR, self.channel_start_btn)
+            self.clickable_click(By.CSS_SELECTOR, self.channel_start_btn)
             time.sleep(10)
         except Exception as e:
             self.warning_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure | {e}")
             return False, None
         else:
-            while True:
-                if self.is_element_displayed(*stop_content) == "block":
-                    self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Success")
-                    return True, self.chindex
-                else:
-                    if time.time() - channel_start_time > 70:
-                        self.error_log(f"#00{int(self.chindex+1)} Timeout, {channel_name} Channel Start Failure")
-                        return False, None
+            try:
+                while True:
+                    if self.is_element_displayed(*stop_content) == "block":
+                        self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Success")
+                        return True, self.chindex
                     else:
-                        if self.is_element_displayed(*start_content):
-                            self.click(By.CSS_SELECTOR, self.channel_start_btn)
-                            time.sleep(10)
-                            if self.is_element_displayed(*stop_content) == "block":
-                                self.step_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Retry Success")
-                                return True, self.chindex
-                            else:
-                                self.error_log(
-                                    f"#00{int(self.chindex+1)} Timeout, {channel_name} Channel Start Retry Failure"
-                                )
-                                return False, None
+                        if time.time() - channel_start_time > 70:
+                            self.error_log(f"#00{int(self.chindex+1)} Timeout, {channel_name} Channel Start Failure")
+                            return False, None
+                        else:
+                            if self.is_element_displayed(*start_content):
+                                self.click(By.CSS_SELECTOR, self.channel_start_btn)
+                                time.sleep(10)
+                                if self.is_element_displayed(*stop_content) == "block":
+                                    self.step_log(
+                                        f"#00{int(self.chindex+1)} {channel_name} Channel Start Retry Success"
+                                    )
+                                    return True, self.chindex
+                                else:
+                                    self.error_log(
+                                        f"#00{int(self.chindex+1)} Timeout, {channel_name} Channel Start Retry Failure"
+                                    )
+                                    return False, None
+            except Exception as e:
+                self.error_log(e)
                 time.sleep(2)
 
     def channel_stop(self, chindex, channel_name):

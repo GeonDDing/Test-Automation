@@ -10,8 +10,8 @@ class StreamCapture(WebLog):
         while True:
             if capture_queue.get() == "start":
                 self.exec_log("Start output stream dump and image capture.")
-                outputStream = "{0}_{1}.ts".format(self.convert_date()[2], outputName)
-                outputImage = "{0}_{1}.png".format(self.convert_date()[2], outputName)
+                outputStream = "{0}_{1}.ts".format(self.convert_date()[3], outputName)
+                outputImage = "{0}_{1}.png".format(self.convert_date()[3], outputName)
                 ffmpegStreamDumpCommand = [
                     "ffmpeg",
                     "-loglevel",
@@ -28,10 +28,10 @@ class StreamCapture(WebLog):
                     outputStream,
                 ]
                 try:
-                    subprocess.run(ffmpegStreamDumpCommand, timeout=60, check=True)
+                    subprocess.run(ffmpegStreamDumpCommand, timeout=30, check=True)
                 except subprocess.TimeoutExpired:
                     self.error_log("Termination of stream dump process due to timeout.")
-                    break
+                    return None
                 except subprocess.CalledProcessError as e:
                     pass
                 else:
@@ -55,7 +55,7 @@ class StreamCapture(WebLog):
                         capture_image.append(outputImage)
                     except subprocess.TimeoutExpired:
                         self.error_log("Termination of image capture process due to timeout.")
-                        break
+                        return None
                     except subprocess.CalledProcessError as e:
                         pass
                     else:

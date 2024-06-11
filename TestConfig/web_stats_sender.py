@@ -73,7 +73,7 @@ class StatsSender(WebLog):
 
                                 if not video_rate == 0.0:
                                     mux_rate = float(stats.find("muxRate").text) / 1000000
-                                    output_info = f"{video_codec_type} {video_width}x{video_height} {video_rate:.3f} Mbps {frame_rate} fps | Mux Rate: {mux_rate:.3f} Mbps | Frames : {frame_count}"
+                                    output_info = f"{video_codec_type} {video_width}x{video_height} | {video_rate:.3f} Mbps | {frame_rate} fps | Mux Rate: {mux_rate:.3f} Mbps | Frames : {frame_count}"
 
                             if output_info != None:
                                 queue.put((chidx, channel_name, source_layer, source_stat, output_info))

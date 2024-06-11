@@ -1,6 +1,7 @@
 # page_channels_output.py
 from selenium.webdriver.common.by import By
 from TestConfig.web_locator import ChannelsOutputElements
+from TestConfig.web_locator import ChannelsInputElements
 from Pages.Configure.page_stream import OutputAddStream
 import time
 
@@ -8,6 +9,7 @@ import time
 class ChannelsOutput(OutputAddStream):
     def __init__(self, output_type, videopreset_name, audiopreset_name):
         self.output_elements = ChannelsOutputElements()
+        self.input_elements = ChannelsInputElements()
         try:
             if not self.find_exist_output(output_type):
                 self.add_output(output_type)
@@ -80,7 +82,8 @@ class ChannelsOutput(OutputAddStream):
                                 self.click(By.CSS_SELECTOR, output_element)
             time.sleep(1)
             self.click(By.CSS_SELECTOR, self.output_elements.output_save_button)
-            return True
+            if self.is_displayed(By.CSS_SELECTOR, self.input_elements.input_type):
+                return True
         except Exception as e:
             self.error_log(f"{output_type} output setting error : {key} | {output_element} | {(e)}")
             return False

@@ -69,7 +69,7 @@ class ResotreConfiguration:
             channel_dict = get_response.json()
 
             for i in range(0, len(channel_dict)):
-                if "Testing" in channel_dict[i]["name"] or "New" in channel_dict[i]["name"]:
+                if "LSS" in channel_dict[i]["name"] or "New" in channel_dict[i]["name"]:
                     exist_channel_flag = True
                     delete_reponse = requests.delete(
                         f"{self.base_url}channels.php?id={channel_dict[i]['id']}",

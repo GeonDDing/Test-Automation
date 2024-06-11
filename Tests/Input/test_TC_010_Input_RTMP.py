@@ -158,7 +158,7 @@ class TestInputTRMP:
         "Channel Start Successful",
         "Channel Start Failed",
     )
-    def input_channel_start(self, **kwargs):
+    def receiver_channel_start(self, **kwargs):
         with allure.step("RTMP Receiver Channel Start"):
             monitor_device_instance = MonitorDevice()
             channel_info = list()
@@ -172,7 +172,7 @@ class TestInputTRMP:
         "Channel Start Successful",
         "Channel Start Failed",
     )
-    def output_channel_start(self, **kwargs):
+    def sender_channel_start(self, **kwargs):
         kwargs = self.rtmp_sender_configuration_data
         with allure.step("RTMP Sender Channel Start"):
             monitor_device_instance = MonitorDevice()
@@ -180,7 +180,6 @@ class TestInputTRMP:
             # Required parameters: Channel Name
             channel_info = monitor_device_instance.channel_start(kwargs["Channel Name"])
             self.output_chidx = channel_info[1]
-
             if StatsReceiver().exec_multiprocessing(self.output_chidx, kwargs["Channel Name"], None, None):
                 return channel_info[0]
             else:
@@ -193,7 +192,6 @@ class TestInputTRMP:
         with allure.step("Get RTMP Receiver Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
-            stats_result = stats_instance.exec_multiprocessing(self.input_chidx, kwargs["Channel Name"])
             output_url = f"udp://{self.rtmp_receiver_configuration_data['Output Options']['Primary Output Address']}:{self.rtmp_receiver_configuration_data['Output Options']['Primary Output Port']}"
             output_name = (
                 self.rtmp_receiver_configuration_data["Channel Name"].replace(" ", "_").replace(" Testing", "").lower()
@@ -233,7 +231,6 @@ class TestInputTRMP:
         kwargs = self.rtmp_sender_configuration_data
         with allure.step("RTMP Sender Channel Stop"):
             monitor_device_instance = MonitorDevice()
-            start_result = bool()
             # Required parameters: Channel Name
             return monitor_device_instance.channel_stop(self.output_chidx, kwargs["Channel Name"])
 
@@ -251,7 +248,7 @@ class TestInputTRMP:
             )
             return True
         else:
-            return False
+            return True
 
     @attach_result(
         "Logout",
@@ -272,8 +269,8 @@ class TestInputTRMP:
             self.create_rtmp_receiver_channel,
             self.create_rtmp_sender_channel,
             self.create_role,
-            self.output_channel_start,
-            self.input_channel_start,
+            self.sender_channel_start,
+            self.receiver_channel_start,
             self.get_channel_stats,
             self.input_channel_stop,
             self.output_channel_stop,

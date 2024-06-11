@@ -120,8 +120,11 @@ class StatsReceiver(WebLog):
             receiver_process.join()
             stream_capture_process.join()
 
-            if formatted_messages and capture_image:
-                return True, formatted_messages, capture_image
+            if formatted_messages:
+                if capture_image:
+                    return True, formatted_messages, capture_image
+                else:
+                    return True, formatted_messages, None
             else:
                 return str(config_channel_name)[2:-2]
         else:
