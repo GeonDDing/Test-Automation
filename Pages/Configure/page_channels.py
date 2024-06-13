@@ -144,7 +144,7 @@ class ConfigureChannel(WebDriverSetup):
                 )
 
         except Exception as e:
-            self.error_log(f"Output configuration setting error | {repr(e)}")
+            self.error_log(f"Output configuration setting error | {(e)}")
             return False
 
     def switch_backup_source(self, chidx):

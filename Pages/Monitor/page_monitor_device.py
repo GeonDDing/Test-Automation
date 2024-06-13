@@ -83,7 +83,7 @@ class MonitorDevice(WebDriverSetup):
                                     )
                                     return False, None
             except Exception as e:
-                self.error_log(e)
+                self.error_log(f"#00{int(self.chindex+1)} {channel_name} Channel Start Failure | {e}")
                 time.sleep(2)
 
     def channel_stop(self, chindex, channel_name):

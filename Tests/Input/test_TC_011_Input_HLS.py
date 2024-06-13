@@ -7,7 +7,7 @@ from TestConfig.web_stats_receiver import StatsReceiver
 from Pages.Login.page_login import Login
 from Pages.Logout.page_logout import Logout
 
-pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("HTTP/HLS Input")]
+pytestmark = [allure.epic("WebUI Test Automation"), allure.feature("HLS Input")]
 
 
 @allure.parent_suite("WebUI Test Automation")
@@ -177,7 +177,7 @@ class TestInputHLS:
             logout_instance = Logout()
             return logout_instance.logout()
 
-    @allure.sub_suite("HTTP/HLS")
+    @allure.sub_suite("HLS")
     @allure.title("HLS")
     def test_input_hls(self):
         print("\n")

@@ -159,7 +159,7 @@ class TestPreSettings:
         with allure.step("Role Configuration"):
             role_instance = ConfigureRole()
             # Required parameters: Role Name, Channel Name
-            return role_instance.configure_role(kwargs["Role Options"]["Name"], kwargs["Channel Name"])
+            return role_instance.configure_role(kwargs["Role Options"]["Name"], None)
 
     @attach_result(
         "Group Creation",

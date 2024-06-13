@@ -127,7 +127,7 @@ class TestOutputLSSClosedCaption:
         with allure.step("Get Channel Stats"):
             stats_instance = StatsReceiver()
             # Required parameters: Channel Index
-            output_url = f"{self.test_configuration_data['Output Options']['Publishing Point URL']}/.m3u8"
+            output_url = f"http://{self.test_configuration_data['Output Options']['Publishing Point URL']}/.m3u8"
             output_name = self.test_configuration_data["Channel Name"].replace(" ", "_").replace(" Testing", "").lower()
             stats_result = stats_instance.exec_multiprocessing(
                 self.chidx, kwargs["Channel Name"], output_url, output_name

@@ -10,23 +10,28 @@ class ChannelsOutput(OutputAddStream):
     def __init__(self, output_type, videopreset_name, audiopreset_name):
         self.output_elements = ChannelsOutputElements()
         self.input_elements = ChannelsInputElements()
+        self.output_type = output_type
         try:
-            if not self.find_exist_output(output_type):
-                self.add_output(output_type)
+            if "UDP" in self.output_type:
+                self.output_type = "TS"
+            elif "LSS" in self.output_type:
+                self.output_type = "Live Smooth Streaming"
+            # if not self.find_exist_output(self.output_type):
+            #     self.add_output(self.output_type)
+            if not self.find_exist_output():
+                self.add_output()
             time.sleep(1)
             # Output edit 페이지 진입 시, Video, Audio preset 설정 부터 진행
             self.select_stream_preset(videopreset_name, audiopreset_name)
         except Exception as e:
             self.error_log(f"Output initialize error | {repr(e)}")
 
-    def find_exist_output(self, output_type):
+    def find_exist_output(self):
         try:
-            if "UDP" in output_type:
-                output_type = "TS"
             output_table = self.find_element(By.XPATH, self.output_elements.output_table)
             for tr in output_table.find_elements(By.XPATH, ".//tbody/tr"):
                 column_value = tr.find_elements(By.TAG_NAME, "td")[3].get_attribute("innerText")
-                if f"{output_type}:" in column_value:
+                if f"{self.output_type}:" in column_value:
                     tr.find_elements(By.TAG_NAME, "td")[3].click()
                     return True
             return False
@@ -34,36 +39,32 @@ class ChannelsOutput(OutputAddStream):
             # 새로 만든 채널의 경우 Output이 없는게 맞기 때문에 해당 Exception 은 예외 메시지를 처리하지 않음
             return False
 
-    def add_output(self, output_type):
+    def add_output(self):
         try:
-            self.step_log(f"Add {output_type} Output")
+            self.step_log(f"Add {self.output_type} Output")
             self.click(By.CSS_SELECTOR, self.output_elements.output_add_output_button)
-            if "UDP" in output_type:
-                output_type = "TS UDP/IP"
-            elif "LSS" in output_type:
-                output_type = "Live Smooth Streaming"
             # Output Type 선택
             self.drop_down(
                 By.CSS_SELECTOR,
                 self.output_elements.output_type,
                 "text",
-                output_type,
+                self.output_type,
             )
             # 선택한 output type 으로 Output 생성
             self.click(By.CSS_SELECTOR, self.output_elements.output_create_button)
         except Exception as e:
             self.error_log(f"Add output button error | {repr(e)}")
 
-    def output_setup_page(self, output_type, output_options):
+    def output_setup_page(self, output_options):
         output_subtitle_element = str()
         try:
-            self.sub_step_log(f"{output_type} Output Configuration Setting")
+            self.sub_step_log(f"{self.output_type} Output Configuration Setting")
             time.sleep(3)
             for key, value in output_options.items():
                 self.option_log(f"{key} : {value}")
-                output_element = self.get_element_selector(output_type, key)
+                output_element = self.get_element_selector(key)
                 if ("Subtitle" in key or "Teletext" in key) and "Type" not in key:
-                    output_subtitle_element = self.get_element_selector(output_type, key + ("_checkbox"))
+                    output_subtitle_element = self.get_element_selector(key + ("_checkbox"))
                     if output_subtitle_element != None:
                         self.click(By.CSS_SELECTOR, output_subtitle_element)
                     else:
@@ -85,42 +86,42 @@ class ChannelsOutput(OutputAddStream):
             if self.is_displayed(By.CSS_SELECTOR, self.input_elements.input_type):
                 return True
         except Exception as e:
-            self.error_log(f"{output_type} output setting error : {key} | {output_element} | {(e)}")
+            self.error_log(f"{self.output_type} output setting error : {key} | {(e)}")
             return False
 
     def output_udp(self, output_options):
-        output_type = "UDP"
-        return self.output_setup_page(output_type, output_options)
+        # self.output_type = "UDP"
+        return self.output_setup_page(output_options)
 
     def output_hls(self, output_options):
-        output_type = "HLS"
-        return self.output_setup_page(output_type, output_options)
+        # self.output_type = "HLS"
+        return self.output_setup_page(output_options)
 
     def output_rtsp(self, output_options):
-        output_type = "RTSP"
-        return self.output_setup_page(output_type, output_options)
+        # self.output_type = "RTSP"
+        return self.output_setup_page(output_options)
 
     def output_rtmp(self, output_options):
-        output_type = "RTMP"
-        return self.output_setup_page(output_type, output_options)
+        # self.output_type = "RTMP"
+        return self.output_setup_page(output_options)
 
     def output_live_smooth_streaming(self, output_options):
-        output_type = "LSS"
-        return self.output_setup_page(output_type, output_options)
+        # self.output_type = "LSS"
+        return self.output_setup_page(output_options)
 
     def output_dash(self, output_options):
-        output_type = "DASH"
-        return self.output_setup_page(output_type, output_options)
+        # self.output_type = "DASH"
+        return self.output_setup_page(output_options)
 
     def output_cmaf(self, output_options):
-        output_type = "CMAF"
-        return self.output_setup_page(output_type, output_options)
+        # self.output_type = "CMAF"
+        return self.output_setup_page(output_options)
 
-    def get_element_selector(self, output_type, key):
+    def get_element_selector(self, key):
         element_selector = getattr(
             self.output_elements,
             (
-                f"output_{output_type.lower()}_{'_'.join(key.replace(' ', '_').replace('-', '_').lower().split())}".replace(
+                f"output_{self.output_type.lower().replace(' ', '_')}_{'_'.join(key.replace(' ', '_').replace('-', '_').lower().split())}".replace(
                     '"', ""
                 )
             ),

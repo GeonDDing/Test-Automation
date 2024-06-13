@@ -8,20 +8,21 @@ import time
 class ChannelsInput(WebDriverSetup):
     def __init__(self, input_type):
         self.input_elements = ChannelsInputElements()
+        self.input_type = input_type
         if input_type == "UDP":
-            input_type = "UDP/IP"
+            self.input_type = "UDP/IP"
         elif input_type in ["RTP", "RTSP"]:
-            input_type = "RTP/RTSP"
+            self.input_type = "RTP/RTSP"
         elif input_type in ["HTTP", "HLS"]:
-            input_type = "HTTP/HLS"
+            self.input_type = "HTTP/HLS"
         elif input_type in "LSS":
-            input_type = "Live Smooth Streaming"
+            self.input_type = "Live Smooth Streaming"
         try:
             self.drop_down(
                 By.CSS_SELECTOR,
                 self.input_elements.input_type,
                 "text",
-                input_type,
+                self.input_type,
             )
         except Exception as e:
             self.error_log(f"Input initialize error | {repr(e)}")
@@ -43,13 +44,13 @@ class ChannelsInput(WebDriverSetup):
         except Exception as e:
             self.error_log(f"Input common option setting error | {repr(e)}")
 
-    def input_setup_page(self, input_type, input_options):
+    def input_setup_page(self, input_options):
         try:
-            self.sub_step_log(f"{input_type} Input Configuration Setting")
+            self.sub_step_log(f"{self.input_type} Input Configuration Setting")
             # Input option setting
             for key, value in input_options.items():
                 # 각 옵션 별 Element 를 만들어 주기 위한 함수
-                input_element = self.get_input_elements(input_type, key)
+                input_element = self.get_input_elements(key)
                 # Audio ID 가 여러개의 Value를 딕셔너리 형태로 가질 수 있어서 '{}' 를 제거하고 Value 만 보여주기 위해 value[1:-1]로 출력
                 if isinstance(value, dict):
                     self.option_log(f"{key} : {str(value)[1:-1]}")
@@ -100,45 +101,40 @@ class ChannelsInput(WebDriverSetup):
                 time.sleep(1)
             return True
         except Exception as e:
-            self.error_log(f"{input_type} input setting error : {key} | {repr(e)}")
+            self.error_log(f"{self.input_type} input setting error : {key} | {repr(e)}")
             return False
 
     def input_udp(self, input_options):
-        input_type = "UDP"
-        return self.input_setup_page(input_type, input_options)
+        return self.input_setup_page(input_options)
 
     def input_rtsp(self, input_options):
-        input_type = "RTP"
-        return self.input_setup_page(input_type, input_options)
+        return self.input_setup_page(input_options)
 
     def input_rtmp(self, input_options):
-        input_type = "RTMP"
-        return self.input_setup_page(input_type, input_options)
+        return self.input_setup_page(input_options)
 
     def input_hls(self, input_options):
-        input_type = "HLS"
-        return self.input_setup_page(input_type, input_options)
+        return self.input_setup_page(input_options)
 
     def input_sdi(self, input_options):
-        input_type = "SDI"
-        return self.input_setup_page(input_type, input_options)
+        return self.input_setup_page(input_options)
 
     def input_playlist(self, input_options):
-        input_type = "Playlist"
-        return self.input_setup_page(input_type, input_options)
+        return self.input_setup_page(input_options)
 
     def input_smpte_st_2110(self, input_options):
-        input_type = "SMPTE ST 2110"
-        return self.input_setup_page(input_type, input_options)
+        return self.input_setup_page(input_options)
 
     def input_ndi(self, input_options):
-        input_type = "NDI"
-        return self.input_setup_page(input_type, input_options)
+        return self.input_setup_page(input_options)
 
-    def get_input_elements(self, input_type, key):
+    def get_input_elements(self, key):
         element = getattr(
             self.input_elements,
-            f"input_{input_type.lower()}_{key.replace(' ', '_').replace('-', '_').lower()}",
+            f"input_{self.input_type.lower().replace(' ','_').replace('/ip', '')}_{key.replace(' ', '_').replace('-', '_').lower()}",
             None,
+        )
+        print(
+            f"input_{self.input_type.lower().replace(' ','_').replace('/ip', '')}_{key.replace(' ', '_').replace('-', '_').lower()}"
         )
         return element

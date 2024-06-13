@@ -61,10 +61,12 @@ class StreamCapture(WebLog):
                     else:
                         if os.path.isfile(outputImage):
                             if platform.system() == "Windows":
+                                shutil.move(f"{outputStream}", "Capture/Stream/")
                                 shutil.move(f"{outputImage}", "Capture/")
                                 self.exec_log("End output stream dump and image capture.")
                                 return capture_image
                             else:
+                                shutil.move(f"{outputStream}", "Capture/Stream/")
                                 shutil.move(f"{outputImage}", "Capture/")
                                 self.exec_log("End output stream dump and image capture.")
                                 return capture_image

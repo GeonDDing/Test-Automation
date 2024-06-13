@@ -30,6 +30,7 @@ class OutputAddStream(WebDriverSetup):
                 # 선택한 Video preset 을 저장
                 self.clickable_click(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
                 # TS UDP/IP, RTSP, RTMP ... Add Stream button이 없는 경우 Edit Icon을 클릭해서 Video, Audio 를 같은 스트림에서 선택해야
+            if not self.find_exist_audio_stream():
                 try:
                     WebDriverWait(self.driver, 5).until(
                         EC.presence_of_element_located((By.CSS_SELECTOR, self.output_elements.output_add_stream_button))
@@ -37,17 +38,17 @@ class OutputAddStream(WebDriverSetup):
                     self.click(By.CSS_SELECTOR, self.output_elements.output_add_stream_button)
                 except:
                     self.click(By.CSS_SELECTOR, self.output_elements.output_edit_stream)
-            if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_audio_profile):
-                # Audio preset 선택
-                self.drop_down(
-                    By.CSS_SELECTOR,
-                    self.output_elements.output_audio_profile,
-                    "text",
-                    audiopreset_name,
-                )
-                self.option_log(f"Audiopreset : {audiopreset_name}")
-            # 선택한 Audio preset 저장
-            self.clickable_click(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
+                if self.wait_element(By.CSS_SELECTOR, self.output_elements.output_audio_profile):
+                    # Audio preset 선택
+                    self.drop_down(
+                        By.CSS_SELECTOR,
+                        self.output_elements.output_audio_profile,
+                        "text",
+                        audiopreset_name,
+                    )
+                    self.option_log(f"Audiopreset : {audiopreset_name}")
+                    # 선택한 Audio preset 저장
+                    self.clickable_click(By.CSS_SELECTOR, self.output_elements.output_edit_stream_save_button)
             """
             Stream edit icon이 나타날 때 (Output 설정 페이지가 보여짐) 까지 기다림
             기다리지 않으면 페이지가 열리지 않은 상태에서 Output option 을 입력하려고 시도하기 때문에
@@ -57,4 +58,16 @@ class OutputAddStream(WebDriverSetup):
             return True
         except Exception as e:
             self.error_log(f"Select stream error | {repr(e)}")
+            return False
+
+    def find_exist_audio_stream(self):
+        try:
+            stream_table = self.find_element(By.CSS_SELECTOR, self.output_elements.output_stream_table)
+            for tr in stream_table.find_elements(By.XPATH, ".//tbody/tr"):
+                column_value = tr.find_elements(By.TAG_NAME, "td")[4].get_attribute("innerText")
+                if "AAC | 128K | 48kHz | Testing" in column_value:
+                    self.option_log(f"Audiopreset : {column_value}")
+                    return True
+            return False
+        except Exception as e:
             return False

@@ -129,52 +129,38 @@ class ChannelsInputElements:
     ### CSS Selector ###
     input_type = 'select[id="/source/sourceType"][name="/source/sourceType"]'
     input_common_modulated_audio_track = 'select[id="/source/modulatedAudioTrack"][name="/source/modulatedAudioTrack"]'
-    input_common_start_with_evergreen = (
-        'input[type="checkbox"][id="/source/enableIdleStart"][name="/source/enableIdleStart"]'
-    )
-    input_common_evergreen_timeout = (
-        'input[type="text"][id="/source/inputBufferingTimeMSeconds"][name="/source/inputBufferingTimeMSeconds"]'
-    )
-    input_common_analysis_window = (
-        'input[type="text"][id="/source/analysisWindowLength"][name="/source/analysisWindowLength"]'
-    )
+    input_common_start_with_evergreen = 'input[type="checkbox"][id="/source/enableIdleStart"][name="/source/enableIdleStart"]'
+    input_common_evergreen_timeout = 'input[type="text"][id="/source/inputBufferingTimeMSeconds"][name="/source/inputBufferingTimeMSeconds"]'
+    input_common_analysis_window = 'input[type="text"][id="/source/analysisWindowLength"][name="/source/analysisWindowLength"]'
     input_common_nielsen_id3 = 'input[type="checkbox"][id="/source/enableNielsenID3"][name="/source/enableNielsenID3"]'
-    input_common_distributor_id = (
-        'input[type="text"][id="/source/nielsenDistributorID"][name="/source/nielsenDistributorID"]'
-    )
+    input_common_distributor_id = 'input[type="text"][id="/source/nielsenDistributorID"][name="/source/nielsenDistributorID"]'
     input_common_error_message = "#errorMessage"
 
     # UDP Options CSS Selector
-    input_udp_network_url = ('input[type="text"][id="/source/mpeg2/netConfig/networkUrl"][name="/source/mpeg2/netConfig/networkUrl"]')
+    input_udp_network_url = 'input[type="text"][id="/source/mpeg2/netConfig/networkUrl"][name="/source/mpeg2/netConfig/networkUrl"]'
     input_udp_interface = 'select[id="/source/mpeg2/netConfig/interfaceId"][name="/source/mpeg2/netConfig/interfaceId"]'
-    input_udp_enable_ts_over_rtp = ('input[type="checkbox"][id="/source/mpeg2/enableTsOverRtp"][name="/source/mpeg2/enableTsOverRtp"]')
+    input_udp_enable_ts_over_rtp = 'input[type="checkbox"][id="/source/mpeg2/enableTsOverRtp"][name="/source/mpeg2/enableTsOverRtp"]'
     input_udp_max_input_mbps = 'input[type="text"][id="/source/mpeg2/netConfig/maxInputBitrateMbps"][name="/source/mpeg2/netConfig/maxInputBitrateMbps"]'
-    input_udp_enable_ha_mode = (
-        'select[id="/source/mpeg2/enableHighAvailabilityMode"][name="/source/mpeg2/enableHighAvailabilityMode"]'
-    )
+    input_udp_enable_ha_mode = 'select[id="/source/mpeg2/enableHighAvailabilityMode"][name="/source/mpeg2/enableHighAvailabilityMode"]'
+    
 
     # SRT sub options CSS Selector
     input_udp_enable_srt = 'input[type="checkbox"][id="/source/mpeg2/enableSrt"][name="/source/mpeg2/enableSrt"]'
     input_udp_latency = 'input[type="text"][id="/source/mpeg2/srtLatency"][name="/source/mpeg2/srtLatency"]'
     input_udp_password = 'input[type="text"][id="/source/mpeg2/srtPassphrase"][name="/source/mpeg2/srtPassphrase"]'
     input_udp_crypto_key_length = 'select[id="/source/mpeg2/srtPbkeylen"][name="/source/mpeg2/srtPbkeylen"]'
-    input_udp_advanced_parameters = (
-        'input[type="text"][id="/source/mpeg2/srtAdvancedParameters"][name="/source/mpeg2/srtAdvancedParameters"]'
-    )
+    input_udp_advanced_parameters = 'input[type="text"][id="/source/mpeg2/srtAdvancedParameters"][name="/source/mpeg2/srtAdvancedParameters"]'
 
     # Program Selection Mode sub options CSS Selector
-    input_udp_program_selection_mode = (
-        'select[id="/source/mpeg2/programSelectionMode"][name="/source/mpeg2/programSelectionMode"]'
-    )
+    input_udp_program_selection_mode = 'select[id="/source/mpeg2/programSelectionMode"][name="/source/mpeg2/programSelectionMode"]'
+
     index = int()
 
     input_udp_video_id = 'input[type="text"][id="/source/videoId"][name="/source/videoId"]'
     input_udp_audio_id = 'input[type="text"][id="/source/audioId"][name="/source/audioId"]'
     input_udp_audio_id_extend = 'input[type="text"][id="/source/audioId{}"][name="/source/audioId{}"]'
 
-    input_udp_program_number = (
-        'input[type="text"][id="/source/mpeg2/programNumber"][name="/source/mpeg2/programNumber"]'
-    )
+    input_udp_program_number = 'input[type="text"][id="/source/mpeg2/programNumber"][name="/source/mpeg2/programNumber"]'
     input_udp_service_name = 'input[type="text"][id="/source/mpeg2/serviceName"][name="/source/mpeg2/serviceName"]'
 
     # RTP Options CSS Selector
@@ -190,39 +176,19 @@ class ChannelsInputElements:
     input_playlist_type = 'select[id="/source/fileList/type"][name="/source/fileList/type"]'
     input_playlist_playlists_name = 'select[id="/source/fileList/fileName"][name="/source/fileList/fileName"]'
     input_playlist_uri = 'input[type="text"][id="/source/fileList/url"][name="/source/fileList/url"]'
-    input_playlist_recurring_the_last_n_files = (
-        'input[type="text"][id="/source/fileList/recurring"][name="/source/fileList/recurring"]'
-    )
+    input_playlist_recurring_the_last_n_files = 'input[type="text"][id="/source/fileList/recurring"][name="/source/fileList/recurring"]'
     input_playlist_sort_by = 'select[id="/source/fileList/sortMode"][name="/source/fileList/sortMode"]'
 
     # SMPTE ST 2110 Options CSS Selector
-    input_smpte_st_2110_video_sdp_url = (
-        'input[type="text"][id="/source/st2110/video/sdpUrl"][name="/source/st2110/video/sdpUrl"]'
-    )
-    input_smpte_st_2110_video_first_nic = (
-        'select[id="/source/st2110/video/interfaceId"][name="/source/st2110/video/interfaceId"]'
-    )
-    input_smpte_st_2110_video_second_nic = (
-        'select[id="/source/st2110/video/secondInterfaceId"][name="/source/st2110/video/secondInterfaceId"]'
-    )
-    input_smpte_st_2110_audio_sdp_url = (
-        'input[type="text"][id="/source/st2110/audio/sdpUrl"][name="/source/st2110/audio/sdpUrl"]'
-    )
-    input_smpte_st_2110_audio_first_nic = (
-        'select[id="/source/st2110/audio/interfaceId"][name="/source/st2110/audio/interfaceId"]'
-    )
-    input_smpte_st_2110_audio_second_nic = (
-        'select[id="/source/st2110/audio/secondInterfaceId"][name="/source/st2110/audio/secondInterfaceId"]'
-    )
-    input_smpte_st_2110_ancillary_sdp_url = (
-        'input[type="text"][id="/source/st2110/anc/sdpUrl"][name="/source/st2110/anc/sdpUrl"]'
-    )
-    input_smpte_st_2110_ancillary_first_nic = (
-        'select[id="/source/st2110/anc/interfaceId"][name="/source/st2110/anc/interfaceId"]'
-    )
-    input_smpte_st_2110_ancillary_second_nic = (
-        'select[id="/source/st2110/anc/secondInterfaceId"][name="/source/st2110/anc/secondInterfaceId"]'
-    )
+    input_smpte_st_2110_video_sdp_url = 'input[type="text"][id="/source/st2110/video/sdpUrl"][name="/source/st2110/video/sdpUrl"]'
+    input_smpte_st_2110_video_first_nic = 'select[id="/source/st2110/video/interfaceId"][name="/source/st2110/video/interfaceId"]'
+    input_smpte_st_2110_video_second_nic = 'select[id="/source/st2110/video/secondInterfaceId"][name="/source/st2110/video/secondInterfaceId"]'
+    input_smpte_st_2110_audio_sdp_url = 'input[type="text"][id="/source/st2110/audio/sdpUrl"][name="/source/st2110/audio/sdpUrl"]'
+    input_smpte_st_2110_audio_first_nic = 'select[id="/source/st2110/audio/interfaceId"][name="/source/st2110/audio/interfaceId"]'
+    input_smpte_st_2110_audio_second_nic = 'select[id="/source/st2110/audio/secondInterfaceId"][name="/source/st2110/audio/secondInterfaceId"]'
+    input_smpte_st_2110_ancillary_sdp_url = 'input[type="text"][id="/source/st2110/anc/sdpUrl"][name="/source/st2110/anc/sdpUrl"]'
+    input_smpte_st_2110_ancillary_first_nic = 'select[id="/source/st2110/anc/interfaceId"][name="/source/st2110/anc/interfaceId"]'
+    input_smpte_st_2110_ancillary_second_nic = 'select[id="/source/st2110/anc/secondInterfaceId"][name="/source/st2110/anc/secondInterfaceId"]'
 
     # NDI Options CSS Selector
     input_ndi_name = 'input[type="text"][id="/source/ndi/sourceNameToConnect"][name="/source/ndi/sourceNameToConnect"]'
@@ -236,21 +202,14 @@ class ChannelsInputElements:
     input_sdi_1080p_60mode = 'select[id="/source/sdi/sdi1080p60Mode"][name="/source/sdi/sdi1080p60Mode"]'
     input_sdi_2160p_30mode = 'select[id="/source/sdi/sdi2160p30Mode"][name="/source/sdi/sdi2160p30Mode"]'
     input_sdi_2160p_60mode = 'select[id="/source/sdi/sdi2160p60Mode"][name="/source/sdi/sdi2160p60Mode"]'
-    input_sdi_enable_ha_mode = (
-        'select[id="/source/sdi/enableHighAvailabilityMode"][name="/source/sdi/enableHighAvailabilityMode"]'
-    )
+    input_sdi_enable_ha_mode = 'select[id="/source/sdi/enableHighAvailabilityMode"][name="/source/sdi/enableHighAvailabilityMode"]'
     input_sdi_time_code_type = 'select[id="/source/sdi/timeCodeType"][name="/source/sdi/timeCodeType"]'
     input_sdi_aspect_ratio = 'select[id="/source/sdi/aspectRatio"][name="/source/sdi/aspectRatio"]'
     input_sdi_timed_text_source = 'select[id="/source/sdi/timedTextSource"][name="/source/sdi/timedTextSource"]'
     input_sdi_teletext_page = 'input[type="text"][id="/source/sdi/wstPage"][name="/source/sdi/wstPage"]'
-    input_sdi_teletext_character_set = (
-        'select[id="/source/sdi/wstDefaultCharSet"][name="/source/sdi/wstDefaultCharSet"]'
-    )
+    input_sdi_teletext_character_set = 'select[id="/source/sdi/wstDefaultCharSet"][name="/source/sdi/wstDefaultCharSet"]'
     input_sdi_vbi_lines = 'input[type="text"][id="/source/sdi/timedTextVbiLines"][name="/source/sdi/timedTextVbiLines"]'
-    input_sdi_teletext_language_tag = (
-        'select[id="/source/sdi/timedTextLanguageTag"][name="/source/sdi/timedTextLanguageTag"]'
-    )
-
+    input_sdi_teletext_language_tag = 'select[id="/source/sdi/timedTextLanguageTag"][name="/source/sdi/timedTextLanguageTag"]'
 
 class ChannelsBackupSourceElements:
     ### CSS Selector ###
@@ -261,108 +220,60 @@ class ChannelsBackupSourceElements:
     # chidx = int()
     # backup_source_switch_source_button = 'input.SwitchSourceBtn{}[type="image"][value="Switch"]'
     backup_source_switch_source_button = '#SwitchSourceBtn{}'
-    backup_source_common_modulate_audio_track = (
-        'select[id="/source/secondSource/modulatedAudioTrack"][name="/source/secondSource/modulatedAudioTrack"]'
-    )
+    backup_source_common_modulate_audio_track = 'select[id="/source/secondSource/modulatedAudioTrack"][name="/source/secondSource/modulatedAudioTrack"]'
 
     # Backup Soruce UDP options CSS Selector
     backup_source_udp_network_url = 'input[type="text"][id="/source/secondSource/mpeg2/netConfig/networkUrl"][name="/source/secondSource/mpeg2/netConfig/networkUrl"]'
     backup_source_udp_interface = 'select[id="/source/secondSource/mpeg2/netConfig/interfaceId"][name="/source/secondSource/mpeg2/netConfig/interfaceId"]'
     backup_source_udp_enable_ts_over_rtp = 'input[type="checkbox"][id="/source/secondSource/mpeg2/enableTsOverRtp"][name="/source/secondSource/mpeg2/enableTsOverRtp"]'
-    backup_soruce_udp_enable_srt = (
-        'input[type="checkbox"][id="/source/secondSource/mpeg2/enableSrt"][name="/source/secondSource/mpeg2/enableSrt"]'
-    )
-    backup_source_udp_latency = (
-        'input[type="text"][id="/source/secondSource/mpeg2/srtLatency"][name="/source/secondSource/mpeg2/srtLatency"]'
-    )
+    backup_soruce_udp_enable_srt = 'input[type="checkbox"][id="/source/secondSource/mpeg2/enableSrt"][name="/source/secondSource/mpeg2/enableSrt"]'
+    backup_source_udp_latency = 'input[type="text"][id="/source/secondSource/mpeg2/srtLatency"][name="/source/secondSource/mpeg2/srtLatency"]'
     backup_source_udp_password = 'input[type="text"][id="/source/secondSource/mpeg2/srtPassphrase"][name="/source/secondSource/mpeg2/srtPassphrase"]'
-    backup_source_udp_crypto_key_length = (
-        'select[id="/source/secondSource/mpeg2/srtPbkeylen"][name="/source/secondSource/mpeg2/srtPbkeylen"]'
-    )
+    backup_source_udp_crypto_key_length = 'select[id="/source/secondSource/mpeg2/srtPbkeylen"][name="/source/secondSource/mpeg2/srtPbkeylen"]'
     backup_source_udp_advanced_parmaneters = 'input[type="text"][id="/source/secondSource/mpeg2/srtAdvancedParameters"][name="/source/secondSource/mpeg2/srtAdvancedParameters"]'
     backup_source_udp_max_input_mbps = 'input[type="text"][id="/source/secondSource/mpeg2/netConfig/maxInputBitrateMbps"][name="/source/secondSource/mpeg2/netConfig/maxInputBitrateMbps"]'
     backup_source_udp_enable_ha_mode = 'select[id="/source/secondSource/mpeg2/enableHighAvailabilityMode"][name="/source/secondSource/mpeg2/enableHighAvailabilityMode"]'
     backup_source_udp_program_selection_mode = 'select[id="/source/secondSource/mpeg2/programSelectionMode"][name="/source/secondSource/mpeg2/programSelectionMode"]'
-    backup_source_udp_video_id = (
-        'input[type="text"][id="/source/secondSource/videoId"][name="/source/secondSource/videoId"]'
-    )
-    backup_source_udp_audio_id = (
-        'input[type="text"][id="/source/secondSource/audioId"][name="/source/secondSource/audioId"]'
-    )
+    backup_source_udp_video_id = 'input[type="text"][id="/source/secondSource/videoId"][name="/source/secondSource/videoId"]'
+    backup_source_udp_audio_id = 'input[type="text"][id="/source/secondSource/audioId"][name="/source/secondSource/audioId"]'
     index = int()
     backup_source_udp_video_id = 'input[type="text"][id="/source/videoId"][name="/source/videoId"]'
     backup_source_udp_audio_id = 'input[type="text"][id="/source/audioId"][name="/source/audioId"]'
     backup_source_udp_audio_id_extend = 'input[type="text"][id="/source/audioId{}"][name="/source/audioId{}"]'
     backup_source_udp_program_number = 'input[type="text"][id="/source/secondSource/mpeg2/programNumber"][name="/source/secondSource/mpeg2/programNumber"]'
-    backup_source_udp_service_name = (
-        'input[type="text"][id="/source/secondSource/mpeg2/serviceName"][name="/source/secondSource/mpeg2/serviceName"]'
-    )
+    backup_source_udp_service_name = 'input[type="text"][id="/source/secondSource/mpeg2/serviceName"][name="/source/secondSource/mpeg2/serviceName"]'
 
     # Backup Source RTP/RTSP options CSS Selector
-    backup_source_rtp_sdp_file = (
-        'input[type="text"][id="/source/secondSource/rtp/sdpFile"][name="/source/secondSource/rtp/sdpFile"]'
-    )
+    backup_source_rtp_sdp_file = 'input[type="text"][id="/source/secondSource/rtp/sdpFile"][name="/source/secondSource/rtp/sdpFile"]'
 
     # Backup Source RTMP options CSS Selector
-    backup_source_rtmp_url = (
-        'input[type="text"][id="/source/secondSource/rtmp/url"][name="/source/secondSource/rtmp/url"]'
-    )
+    backup_source_rtmp_url = 'input[type="text"][id="/source/secondSource/rtmp/url"][name="/source/secondSource/rtmp/url"]'
 
     # Backup Source HLS options CSS Selector
     backup_source_hls_url = 'input[type="text"][id="/source/secondSource/hls/url"][name="/source/secondSource/hls/url"]'
 
     # Backup Source SDI options CSS Selector
-    backup_source_sdi_input_port = (
-        'select[id="/source/secondSource/sdi/channelId"][name="/source/secondSource/sdi/channelId"]'
-    )
-    backup_source_sdi_signal_type = (
-        'select[id="/source/secondSource/sdi/signalType"][name="/source/secondSource/sdi/signalType"]'
-    )
-    backup_source_sdi_video_format = (
-        'select[id="/source/secondSource/sdi/videoStandard"][name="/source/secondSource/sdi/videoStandard"]'
-    )
-    backup_source_sdi_1080p_30mode = (
-        'select[id="/source/secondSource/sdi/sdi1080p30Mode"][name="/source/secondSource/sdi/sdi1080p30Mode"]'
-    )
-    backup_source_sdi_1080p_60mode = (
-        'select[id="/source/secondSource/sdi/sdi1080p60Mode"][name="/source/secondSource/sdi/sdi1080p60Mode"]'
-    )
+    backup_source_sdi_input_port = 'select[id="/source/secondSource/sdi/channelId"][name="/source/secondSource/sdi/channelId"]'
+    backup_source_sdi_signal_type = 'select[id="/source/secondSource/sdi/signalType"][name="/source/secondSource/sdi/signalType"]'
+    backup_source_sdi_video_format = 'select[id="/source/secondSource/sdi/videoStandard"][name="/source/secondSource/sdi/videoStandard"]'
+    backup_source_sdi_1080p_30mode = 'select[id="/source/secondSource/sdi/sdi1080p30Mode"][name="/source/secondSource/sdi/sdi1080p30Mode"]'
+    backup_source_sdi_1080p_60mode = 'select[id="/source/secondSource/sdi/sdi1080p60Mode"][name="/source/secondSource/sdi/sdi1080p60Mode"]'
     backup_source_sdi_enable_ha_mode = 'select[id="/source/secondSource/sdi/enableHighAvailabilityMode"][name="/source/secondSource/sdi/enableHighAvailabilityMode"]'
-    backup_source_sdi_time_code_type = (
-        'select[id="/source/secondSource/sdi/timeCodeType"][name="/source/secondSource/sdi/timeCodeType"]'
-    )
-    backup_source_sdi_aspect_ratio = (
-        'select[id="/source/secondSource/sdi/aspectRatio"][name="/source/secondSource/sdi/aspectRatio"]'
-    )
-    backup_source_sdi_timed_text_source = (
-        'select[id="/source/secondSource/sdi/timedTextSource"][name="/source/secondSource/sdi/timedTextSource"]'
-    )
-    backup_source_sdi_teletext_page = (
-        'input[type="text"][id="/source/secondSource/sdi/wstPage"][name="/source/secondSource/sdi/wstPage"]'
-    )
-    backup_source_sdi_teletext_character_set = (
-        'select[id="/source/secondSource/sdi/wstDefaultCharSet"][name="/source/secondSource/sdi/wstDefaultCharSet"]'
-    )
+    backup_source_sdi_time_code_type = 'select[id="/source/secondSource/sdi/timeCodeType"][name="/source/secondSource/sdi/timeCodeType"]'
+    backup_source_sdi_aspect_ratio = 'select[id="/source/secondSource/sdi/aspectRatio"][name="/source/secondSource/sdi/aspectRatio"]'
+    backup_source_sdi_timed_text_source = 'select[id="/source/secondSource/sdi/timedTextSource"][name="/source/secondSource/sdi/timedTextSource"]'
+    backup_source_sdi_teletext_page = 'input[type="text"][id="/source/secondSource/sdi/wstPage"][name="/source/secondSource/sdi/wstPage"]'
+    backup_source_sdi_teletext_character_set = 'select[id="/source/secondSource/sdi/wstDefaultCharSet"][name="/source/secondSource/sdi/wstDefaultCharSet"]'
     backup_source_sdi_vbi_lines = 'input[type="text"][id="/source/secondSource/sdi/timedTextVbiLines"][name="/source/secondSource/sdi/timedTextVbiLines"]'
     backup_source_sdi_teletext_language_tag = 'select[id="/source/secondSource/sdi/timedTextLanguageTag"][name="/source/secondSource/sdi/timedTextLanguageTag"]'
 
     # Backup Source Playlist options CSS Selector
-    backup_source_playlist_type = (
-        'select[id="/source/secondSource/fileList/type"][name="/source/secondSource/fileList/type"]'
-    )
-    backup_source_playlist_playlists_name = (
-        'select[id="/source/secondSource/fileList/fileName"][name="/source/secondSource/fileList/fileName"]'
-    )
-    backup_source_playlist_clipcasting_uri = (
-        'input[type="text"][id="/source/secondSource/fileList/url"][name="/source/secondSource/fileList/url"]'
-    )
-    backup_source_playlist_remote_media_asset_uri = (
-        'input[type="text"][id="/source/secondSource/fileList/url"][name="/source/secondSource/fileList/url"]'
-    )
+    backup_source_playlist_type = 'select[id="/source/secondSource/fileList/type"][name="/source/secondSource/fileList/type"]'
+    backup_source_playlist_playlists_name = 'select[id="/source/secondSource/fileList/fileName"][name="/source/secondSource/fileList/fileName"]'
+    backup_source_playlist_clipcasting_uri = 'input[type="text"][id="/source/secondSource/fileList/url"][name="/source/secondSource/fileList/url"]'
+    backup_source_playlist_remote_media_asset_uri = 'input[type="text"][id="/source/secondSource/fileList/url"][name="/source/secondSource/fileList/url"]'
     backup_source_playlist_recurring_the_last_n_files = 'input[type="text"][id="/source/secondSource/fileList/recurring"][name="/source/secondSource/fileList/recurring"]'
-    backup_soruce_playlist_sort_by = (
-        'select[id="/source/secondSource/fileList/sortMode"][name="/source/secondSource/fileList/sortMode"]'
-    )
+    backup_soruce_playlist_sort_by = 'select[id="/source/secondSource/fileList/sortMode"][name="/source/secondSource/fileList/sortMode"]'
 
     # Backup Source SMPTE ST 2110 options CSS Selector
     backup_soruce_smpte_st_2110_video_sdp_url = 'input[type="text"][id="/source/secondSource/st2110/video/sdpUrl"][name="/source/secondSource/st2110/video/sdpUrl"]'
@@ -371,19 +282,13 @@ class ChannelsBackupSourceElements:
     backup_soruce_smpte_st_2110_audio_sdp_url = 'input[type="text"][id="/source/secondSource/st2110/audio/sdpUrl"][name="/source/secondSource/st2110/audio/sdpUrl"]'
     backup_soruce_smpte_st_2110_audio_first_nic = 'select[id="/source/secondSource/st2110/audio/interfaceId"][name="/source/secondSource/st2110/audio/interfaceId"]'
     backup_soruce_smpte_st_2110_audio_second_nic = 'select[id="/source/secondSource/st2110/audio/secondInterfaceId"][name="/source/secondSource/st2110/audio/secondInterfaceId"]'
-    backup_soruce_smpte_st_2110_ancillary_sdp_url = (
-        'input[type="text"][id="/source/secondSource/st2110/anc/sdpUrl"][name="/source/secondSource/st2110/anc/sdpUrl"]'
-    )
-    backup_soruce_smpte_st_2110_ancillary_first_nic = (
-        'select[id="/source/secondSource/st2110/anc/interfaceId"][name="/source/secondSource/st2110/anc/interfaceId"]'
-    )
+    backup_soruce_smpte_st_2110_ancillary_sdp_url = 'input[type="text"][id="/source/secondSource/st2110/anc/sdpUrl"][name="/source/secondSource/st2110/anc/sdpUrl"]'
+    backup_soruce_smpte_st_2110_ancillary_first_nic = 'select[id="/source/secondSource/st2110/anc/interfaceId"][name="/source/secondSource/st2110/anc/interfaceId"]'
     backup_soruce_smpte_st_2110_ancillary_second_nic = 'select[id="/source/secondSource/st2110/anc/secondInterfaceId"][name="/source/secondSource/st2110/anc/secondInterfaceId"]'
 
     # Backup Source NDI options CSS Selector
     backup_source_ndi_name = 'input[type="text"][id="/source/secondSource/ndi/sourceNameToConnect"][name="/source/secondSource/ndi/sourceNameToConnect"]'
-    backup_source_ndi_group = (
-        'input[type="text"][id="/source/secondSource/ndi/groupName"][name="/source/secondSource/ndi/groupName"]'
-    )
+    backup_source_ndi_group = 'input[type="text"][id="/source/secondSource/ndi/groupName"][name="/source/secondSource/ndi/groupName"]'
     backup_source_ndi_url = 'input[type="text"][id="/source/secondSource/ndi/url"][name="/source/secondSource/ndi/url"]'
 
 
@@ -405,6 +310,7 @@ class ChannelsOutputElements:
     output_audio_profile = 'select[name="audioProfiles"]'
     output_edit_stream_save_button = "button#save-btn.black-button"
     output_edit_stream_delete_button = "button#delete-btn.black-button"
+    output_stream_table = '#editor-form > div > div:nth-child(4) > table'
 
     ### XPATH ###
     # UDP/IP output options
@@ -448,12 +354,8 @@ class ChannelsOutputElements:
     output_udp_vct = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(52) > span > input[type=checkbox]"
     output_udp_table_id = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(53) > span:nth-child(2) > span > select"
     output_udp_short_name = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[3]/span/input"
-    output_udp_major_channel_number = (
-        "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[4]/span/input"
-    )
-    output_udp_minor_channel_number = (
-        "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[5]/span/input"
-    )
+    output_udp_major_channel_number = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[4]/span/input"
+    output_udp_minor_channel_number = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[5]/span/input"
     output_udp_modulation_mode = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(53) > span:nth-child(6) > span > select"
     output_udp_service_type = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(53) > span:nth-child(7) > span > select"
     output_udp_source_id = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[53]/span[8]/span/input"
@@ -480,9 +382,7 @@ class ChannelsOutputElements:
     output_hls_dvb_teletext = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[20]/span/input"
     output_hls_create_subfolder = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[22]/span/input"
     output_hls_create_iframe_playlist = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[23]/span/input"
-    output_hls_tagging_playlists_with_timestamp = (
-        "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[24]/span/input"
-    )
+    output_hls_tagging_playlists_with_timestamp = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[24]/span/input"
     output_hls_scte_35_signaling = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(25) > span > select"
     output_hls_enable_id3_tden_tag = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[26]/span/input"
     output_hls_enable_encryption = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[27]/span/input"
@@ -506,22 +406,22 @@ class ChannelsOutputElements:
     output_rtmp_password = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[13]/span/input"
 
     # Live Smooth Streaming output options
-    output_lss_fragment_duration = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[3]/span/input"
-    output_lss_publishing_server_type = "#editor-form > div.content-block > div:nth-child(3) > div:nth-child(4) > span:nth-child(4) > span > select"    
-    output_lss_time_scale = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(5) > span > select"
-    output_lss_hevc_codec_tag = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(6) > span > select"
-    output_lss_publishing_point_url = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[7]/span/input"
-    output_lss_secondary_point_url = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[8]/span/input"
-    output_lss_ismt_properties = 'input[type="radio"][name="ISMT Properties"]'
-    output_lss_dvb_subtitle_checkbox = '#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(10) > span > input[type=checkbox]'
-    output_lss_dvb_subtitle = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[11]/span/input"
-    output_lss_dvb_teletext_checkbox = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(13) > span > input[type=checkbox]"
-    output_lss_dvb_teletext = '/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[14]/span/input'
-    output_lss_enable_secte35 = 'input[type="radio"][name="Enable SCTE35"]'
-    output_lss_stream_naing = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(17) > span > select"
-    output_lss_playready_drm = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(18) > span > select"
-    output_lss_on_input_loss = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(30) > span > select"
-    output_lss_send_mfra_at_stop = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[31]/span/input"
+    output_live_smooth_streaming_fragment_duration = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[3]/span/input"
+    output_live_smooth_streaming_publishing_server_type = "#editor-form > div.content-block > div:nth-child(3) > div:nth-child(4) > span:nth-child(4) > span > select"    
+    output_live_smooth_streaming_time_scale = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(5) > span > select"
+    output_live_smooth_streaming_hevc_codec_tag = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(6) > span > select"
+    output_live_smooth_streaming_publishing_point_url = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[7]/span/input"
+    output_live_smooth_streaming_secondary_point_url = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[8]/span/input"
+    output_live_smooth_streaming_ismt_properties = 'input[type="radio"][name="ISMT Properties"]'
+    output_live_smooth_streaming_dvb_subtitle_checkbox = '#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(10) > span > input[type=checkbox]'
+    output_live_smooth_streaming_dvb_subtitle = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[11]/span/input"
+    output_live_smooth_streaming_dvb_teletext_checkbox = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(13) > span > input[type=checkbox]"
+    output_live_smooth_streaming_dvb_teletext = '/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[14]/span/input'
+    output_live_smooth_streaming_enable_secte35 = 'input[type="radio"][name="Enable SCTE35"]'
+    output_live_smooth_streaming_stream_naing = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(17) > span > select"
+    output_live_smooth_streaming_playready_drm = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(18) > span > select"
+    output_live_smooth_streaming_on_input_loss = "#editor-form > div > div:nth-child(3) > div:nth-child(4) > span:nth-child(30) > span > select"
+    output_live_smooth_streaming_send_mfra_at_stop = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[31]/span/input"
 
     # DASH output options
     output_dash_mpd_name = "/html/body/div/div[4]/div/div[1]/div/div[2]/div[3]/span[3]/span/input"
@@ -659,12 +559,8 @@ class MonitorDeviceElements:
     channel_stoping_content_block = "#ChannelBoxStopping{}"
     channel_start = "div#ChannelBoxStopped{} > input.start"
     channel_stop = "div#ChannelBoxStopped{} > input.stop"
-    monitor_device_channel_start = (
-        'input[type="button"][id="StartChannel{}"][title="Click to start this channel"][value="Start"]'
-    )
-    monitor_device_channel_stop = (
-        'input[type="button"][id="StopChannel{}"][title="Click to stop this channel"][value="Stop"]'
-    )
+    monitor_device_channel_start = 'input[type="button"][id="StartChannel{}"][title="Click to start this channel"][value="Start"]'
+    monitor_device_channel_stop = 'input[type="button"][id="StopChannel{}"][title="Click to stop this channel"][value="Stop"]'
     monitor_device_switch_source = 'input[type="button"][id="SwitchSourceBtn{}"][title="Click to toggle switch between primary and backup source"][value="Switch"]'
     moniotr_device_replace_source = 'a[id="open-source-replacement-menu"][title="Show replace input source menu"]'
 

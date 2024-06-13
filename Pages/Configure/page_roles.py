@@ -40,6 +40,8 @@ class ConfigureRole(ConfigureDevice):
                             channel_value,
                         )
                         self.option_log(f"Channel : {channel_name[index]}")
+                else:
+                    pass
             else:
                 self.step_log(f"Role Modification")
                 while True:
