@@ -11,3 +11,4 @@ Tests\__pycache__
 test_command.txt
 *.ts
 Capture
+testlink_api.py

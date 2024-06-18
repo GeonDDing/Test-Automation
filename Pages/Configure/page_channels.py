@@ -130,18 +130,19 @@ class ConfigureChannel(WebDriverSetup):
                 self.channel_configure_data["Preset Name"]["Videopreset Name"],
                 self.channel_configure_data["Preset Name"]["Audiopreset Name"],
             )
-            output_functions = {
-                "UDP": configure_output.output_udp,
-                "RTSP": configure_output.output_rtsp,
-                "RTMP": configure_output.output_rtmp,
-                "HLS": configure_output.output_hls,
-                "LSS": configure_output.output_live_smooth_streaming,
-            }
+            # output_functions = {
+            #     "UDP": configure_output.output_udp,
+            #     "RTSP": configure_output.output_rtsp,
+            #     "RTMP": configure_output.output_rtmp,
+            #     "HLS": configure_output.output_hls,
+            #     "LSS": configure_output.output_live_smooth_streaming,
+            # }
 
-            if self.channel_configure_data["Output Type"] in output_functions:
-                return output_functions[self.channel_configure_data["Output Type"]](
-                    self.channel_configure_data["Output Options"]
-                )
+            # if self.channel_configure_data["Output Type"] in output_functions:
+            #     return output_functions[self.channel_configure_data["Output Type"]](
+            #         self.channel_configure_data["Output Options"]
+            return configure_output.output_setup_page(self.channel_configure_data["Output Options"])
+            # )
 
         except Exception as e:
             self.error_log(f"Output configuration setting error | {(e)}")

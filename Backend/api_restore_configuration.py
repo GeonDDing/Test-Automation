@@ -139,9 +139,9 @@ class ResotreConfiguration:
 
 if __name__ == "__main__":
     restore = ResotreConfiguration()
-    # restore.restore_device()
-    # restore.delete_groups()
-    # restore.delete_roles()
+    restore.restore_device()
+    restore.delete_groups()
+    restore.delete_roles()
     restore.delelte_channels()
-    # restore.delelte_videopreset()
-    # restore.delelte_audiopreset()
+    restore.delelte_videopreset()
+    restore.delelte_audiopreset()
